@@ -1,0 +1,9 @@
+<%= form_for @ticket do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title, required: true %>
+  <%= f.label :url %>
+  <%= f.text_field :url, required: true %>
+  <%= f.label :estimated_effort %>
+  <%= f.text_field :estimated_effort, required: true, type: :number %>
+  <%= f.submit %>
+<% end %>

@@ -1,0 +1,24 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Estimated Effort</th>
+      <th>Actual Effort</th>
+      <th>Date Merged</th>
+      <th>Assigned to</th>
+      <th>Sprint</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% object.each do |ticket| %>
+      <tr>
+        <td><%= link_to ticket.title, ticket.url %></td>
+        <td><%= ticket.estimated_effort %></td>
+        <td><%= ticket.actual_effort %></td>
+        <td><%= ticket.date_merged %></td>
+        <td><%= link_to ticket.user.name, user_path(ticket.user) if ticket.user %></td>
+        <td><%= link_to ticket.sprint.name, sprint_path(ticket.sprint) if ticket.sprint %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

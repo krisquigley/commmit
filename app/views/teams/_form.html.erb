@@ -1,0 +1,8 @@
+<%= form_for @team do |f| %>
+  <%= render 'shared/errors', object: @team %>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, required: true, class: "form-control" %>
+  </div>
+  <%= f.submit class: "btn btn-success" %>
+<% end %>

@@ -1,0 +1,31 @@
+<%= form_for @sprint do |f| %>
+  <%= render 'shared/errors', object: @sprint %>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, required: true, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :team %>
+    <%= f.collection_select(:team_id, Team.all, :id, :name, {prompt: true, required: true}, class: "form-control") %>
+  </div>
+  <div class="form-group">
+    <%= f.label :available_effort %>
+    <%= f.text_field :available_effort, required: true, type: :number, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :start_date %>
+    <%= f.text_field :start_date, required: true, class: "form-control", type: :date %>
+  </div>
+  <div class="form-group">
+    <%= f.label :end_date %>
+    <%= f.text_field :end_date, required: true, class: "form-control", type: :date %>
+  </div>
+  <%= f.submit class: 'btn btn-success' %>
+<% end %>
+
+<%# Change this process to:
+1. Name, team, start_date, end_date
+2. available_effort calculated from number in team - weekends * 0.8 for reviewing code
+3. In created sprint they are first asked to add in holidays 
+4. They are asked to assign tickets to sprint
+5.  %>

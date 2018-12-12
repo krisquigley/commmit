@@ -1,0 +1,16 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Team</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% object.each do |user| %>
+      <tr>
+        <td><%= link_to user.name, user_path(user) %></td>
+        <td><%= link_to user.team.name, team_path(user.team) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

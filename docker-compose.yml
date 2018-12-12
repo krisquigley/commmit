@@ -1,0 +1,24 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:10.5-alpine
+    ports:
+      - "5432"
+
+  web:
+    build: .
+    command: bash -c "bundle install && bundle exec rails s -p 3000 -b 0.0.0.0"
+    environment: &default_environment
+      DATABASE_URL: 'postgres://postgres:@postgres:5432'
+      BUNDLE_PATH: '/gems'
+      BUNDLE_APP_CONFIG: /gems/.bundle
+    volumes:
+      - .:/myapp
+      - gem-cache:/gems
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+
+volumes:
+  gem-cache:
