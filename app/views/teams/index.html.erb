@@ -1,4 +1,10 @@
-<h1>Teams</h1>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
+    <li class="breadcrumb-item active" aria-current="page">Teams</li>
+  </ol>
+</nav>
+
 <%= link_to 'New Team', new_team_path, class: 'btn btn-success' %>
 <table class="table table-hover">
   <thead>

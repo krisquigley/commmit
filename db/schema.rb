@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_13_143039) do
+ActiveRecord::Schema.define(version: 2018_12_13_201714) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2018_12_13_143039) do
     t.integer "user_id"
     t.integer "estimated_effort", null: false
     t.integer "actual_effort"
-    t.datetime "date_merged"
+    t.datetime "merged_at"
     t.integer "sprint_id"
     t.string "url", null: false
     t.datetime "created_at", null: false

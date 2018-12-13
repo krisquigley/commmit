@@ -7,6 +7,7 @@
       <th>Date Merged</th>
       <th>Assigned to</th>
       <th>Sprint</th>
+      <th>Manage</th>
     </tr>
   </thead>
   <tbody>
@@ -15,9 +16,13 @@
         <td><%= link_to ticket.title, ticket.url %></td>
         <td><%= ticket.estimated_effort %></td>
         <td><%= ticket.actual_effort %></td>
-        <td><%= ticket.date_merged %></td>
-        <td><%= link_to ticket.user.name, user_path(ticket.user) if ticket.user %></td>
+        <td><%= ticket.merged_at.to_date %></td>
+        <td><%= ticket.user ? link_to(ticket.user.name, user_path(ticket.user)) : "Unassigned" %></td>
         <td><%= link_to ticket.sprint.name, sprint_path(ticket.sprint) if ticket.sprint %></td>
+        <td>
+          <%= link_to 'Edit', edit_ticket_path(ticket), class: "btn btn-warning btn-sm" %>
+          <%= link_to 'Manage', manage_ticket_path(ticket), class: "btn btn-success btn-sm" %>
+        </td>
       </tr>
     <% end %>
   </tbody>

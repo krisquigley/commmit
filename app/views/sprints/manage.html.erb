@@ -1,4 +1,11 @@
-<h1>Manage <%= @sprint.name %> Sprint</h1>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
+    <li class="breadcrumb-item"><%= link_to "Sprints", sprints_path %></li>
+    <li class="breadcrumb-item"><%= link_to @sprint.name, sprint_path(@sprint) %></li>
+    <li class="breadcrumb-item active" aria-current="page">Manage</li>
+  </ol>
+</nav>
 
 <%= form_for @sprint do |f| %>
   <h2>Holidays</h2>
@@ -10,8 +17,9 @@
     </div>
   <% end %>
 
+  <h2>Tickets</h2>
+
   <div class="form-group">
-    <%= f.label :tickets %>
     <%= f.collection_select :tickets, Ticket.where(sprint_id: nil), :id, :title, { include_hidden: false }, 
                                            { multiple: true, size: 20, class: "form-control" } %>
   </div>

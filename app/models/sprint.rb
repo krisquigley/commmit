@@ -5,8 +5,7 @@ class Sprint < ApplicationRecord
   has_many :sprint_holidays
   belongs_to :team
 
-  accepts_nested_attributes_for :sprint_holidays, :tickets
-
+  accepts_nested_attributes_for :sprint_holidays
 
   before_create :calculate_available_effort
   after_create :create_sprint_holidays
@@ -15,12 +14,36 @@ class Sprint < ApplicationRecord
     ((available_effort - self.sprint_holidays.pluck(:days).reduce(:+))* 0.8).round
   end
 
-  def effort_accounted_for
-    available_effort_after_review_time - total_estimated_effort
-  end
-
   def total_estimated_effort
     tickets.pluck(:estimated_effort).reduce(:+) || 0
+  end
+
+  def effort_used
+    tickets.where(merged_at: nil).pluck(:actual_effort).reduce(:+) || 0
+  end
+
+  def effort_remaining
+    available_effort_after_review_time - effort_used
+  end
+
+  def effort_to_date
+    merged_tickets = tickets.where.not(merged_at: nil).order(merged_at: :asc)
+    effort = []
+    day = start_date.to_date
+    current_effort = available_effort_after_review_time
+
+    while day <= Date.today && day <= end_date do
+      ticket = merged_tickets.find do |merged_ticket|
+        day == merged_ticket.merged_at.to_date
+      end
+
+      current_effort = current_effort - ticket.estimated_effort if ticket
+
+      effort.push(current_effort)
+      day = day + 1.day
+    end
+
+    return effort.to_json
   end
 
   private

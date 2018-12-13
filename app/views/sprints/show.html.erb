@@ -1,5 +1,22 @@
-<h1><%= @sprint.name %></h1>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
+    <li class="breadcrumb-item"><%= link_to "Sprints", sprints_path %></li>
+    <li class="breadcrumb-item active" aria-current="page"><%= @sprint.name %></li>
+  </ol>
+</nav>
 
-<h2>Available Effort: <%= @sprint.available_effort_after_review_time %> <%= link_to 'Manage', manage_sprint_path(@sprint), class: "btn btn-warning" %></h2>
-<h2>Effort Account for: <%= @sprint.effort_accounted_for %></h2>
+<h3>Available Effort: <span data-behavior="totalEffort"><%= @sprint.available_effort_after_review_time %></span> <%= link_to 'Manage', manage_sprint_path(@sprint), class: "btn btn-warning" %></h3>
+<h3>Effort Accounted for: <%= @sprint.total_estimated_effort %></h3>
+<input type="hidden" value="<%= @sprint.effort_used %>" data-behavior="effortUsed" />
+<input type="hidden" value="<%= @sprint.start_date.to_date %>" data-behavior="startDate" />
+<input type="hidden" value="<%= @sprint.end_date.to_date %>" data-behavior="endDate" />
+<input type="hidden" value="<%= @sprint.effort_to_date %>" data-behavior="effortToDate" />
+
+<div style="position: relative; height:40vh; width:100%">
+  <canvas id="myChart"></canvas>
+</div>
+<h4>Tickets</h4>
 <%= render 'tickets/table', object: @sprint.tickets %>
+
+<%= javascript_include_tag 'custom', 'data-turbolinks-track': 'reload' %>
