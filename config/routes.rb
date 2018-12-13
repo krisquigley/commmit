@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
   root 'sprints#index'
 
-  resources :sprints, :users, :teams, :tickets
+  resources :users, :teams, :tickets
+  
+  resources :sprints do
+    member do
+      get 'manage'
+    end
+  end
 end
