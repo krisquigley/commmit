@@ -19,7 +19,7 @@ class Sprint < ApplicationRecord
   end
 
   def effort_used
-    tickets.where(merged_at: nil).pluck(:actual_effort).reduce(:+) || 0
+    tickets.where.not(merged_at: nil).pluck(:actual_effort).reduce(:+) || 0
   end
 
   def effort_remaining
