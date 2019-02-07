@@ -1,16 +1,9 @@
 class TicketsController < ApplicationController
-  def new
-    @ticket = Ticket.new
-  end
+  protect_from_forgery except: :create
 
   def create
-    @ticket = Ticket.new(ticket_params)
-
-    if @ticket.save
-      redirect_to tickets_path, notice: "Ticket succesfully created!"
-    else
-      render :new
-    end
+    GithubIssueJob.perform_async(request.body.read)
+    head :accepted
   end
 
   def index
@@ -40,6 +33,10 @@ class TicketsController < ApplicationController
   private
 
   def ticket_params
-    params.require(:ticket).permit(:title, :estimated_effort, :url, :actual_effort, :merged_at, :user_id)
+    params.require(:ticket).permit(:actual_effort)
+  end
+
+  def webhook_params
+    params.permit!
   end
 end

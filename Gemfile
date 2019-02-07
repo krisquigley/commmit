@@ -33,6 +33,8 @@ gem 'bootstrap', '~> 4.1', '>= 4.1.3'
 gem 'jquery-rails'
 gem 'chart-js-rails'
 gem 'momentjs-rails'
+gem 'oj', '~> 3.7', '>= 3.7.8'
+gem 'sidekiq', '~> 4.1', '>= 4.1.2'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -43,6 +45,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'rspec-rails', '~> 3.8', '>= 3.8.2'
+  gem 'rspec-sidekiq', '~> 3.0', '>= 3.0.3'
 end
 
 group :development do
@@ -52,6 +56,11 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+end
+
+group :test do
+  gem 'database_cleaner', '~> 1.7'
+  gem 'capybara', '~> 3.13', '>= 3.13.2'
 end
 
 
