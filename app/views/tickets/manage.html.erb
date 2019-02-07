@@ -13,10 +13,6 @@
     <%= f.collection_select(:user_id, @ticket.sprint.team.users.all, :id, :name, {prompt: true, required: true}, {class: "form-control"}) %>
   </div>
   <div class="form-group">
-    <%= f.label :merged_at %>
-    <%= f.text_field :merged_at, type: :date, required: true, class: "form-control" %>
-  </div>
-  <div class="form-group">
     <%= f.label :actual_effort %>
     <%= f.text_field :actual_effort, type: :number, required: true, class: "form-control" %>
   </div>

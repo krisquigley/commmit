@@ -19,7 +19,7 @@ class Sprint < ApplicationRecord
   end
 
   def effort_used
-    tickets.where.not(merged_at: nil).pluck(:actual_effort).reduce(:+) || 0
+    tickets.where.not(closed_at: nil).pluck(:actual_effort).reduce(:+) || 0
   end
 
   def effort_remaining
@@ -27,14 +27,14 @@ class Sprint < ApplicationRecord
   end
 
   def effort_to_date
-    merged_tickets = tickets.where.not(merged_at: nil).order(merged_at: :asc)
+    merged_tickets = tickets.where.not(closed_at: nil).order(closed_at: :asc)
     effort = []
     day = start_date.to_date
     current_effort = available_effort_after_review_time
 
     while day <= Date.today && day <= end_date do
       ticket = merged_tickets.find do |merged_ticket|
-        day == merged_ticket.merged_at.to_date
+        day == merged_ticket.closed_at.to_date
       end
 
       current_effort = current_effort - ticket.estimated_effort if ticket

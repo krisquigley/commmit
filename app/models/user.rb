@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-  validates :name, presence: true
+  validates :name, :github_user_id, presence: true
   
-  belongs_to :team
-  has_many :tickets
+  belongs_to :team, optional: true
+  has_and_belongs_to_many :tickets
 end

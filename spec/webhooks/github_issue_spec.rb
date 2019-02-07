@@ -14,6 +14,7 @@ RSpec.describe GithubIssue do
         title: "new issue",
         state: "open",
         estimated_effort: nil,
+        github_user_ids: [],
         issue_id: 406911947,
         closed_at: nil
       }
@@ -37,6 +38,7 @@ RSpec.describe GithubIssue do
         title: "[2] new issue",
         state: "open",
         estimated_effort: 2,
+        github_user_ids: [],
         issue_id: 406911947,
         closed_at: nil
       }
@@ -60,6 +62,7 @@ RSpec.describe GithubIssue do
         title: "[2] new issue",
         state: "open",
         estimated_effort: 2,
+        github_user_ids: [],
         issue_id: 406911947,
         closed_at: nil
       }
@@ -83,6 +86,7 @@ RSpec.describe GithubIssue do
         title: "[2] new issue",
         state: "closed",
         estimated_effort: 2,
+        github_user_ids: [],
         issue_id: 406911947,
         closed_at: "2019-02-05T18:26:06Z"
       }
@@ -106,6 +110,7 @@ RSpec.describe GithubIssue do
         title: "[2] new issue",
         state: "open",
         estimated_effort: 2,
+        github_user_ids: [],
         issue_id: 406911947,
         closed_at: nil
       }

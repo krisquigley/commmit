@@ -1,16 +1,9 @@
 class UsersController < ApplicationController
-  def new
-    @user = User.new
-  end
+  protect_from_forgery except: :create
 
   def create
-    @user = User.new(user_params)
-
-    if @user.save 
-      redirect_to users_path, notice: "User succesfully created!"
-    else
-      render :new
-    end
+    GithubUserJob.perform_async(request.body.read)
+    head :accepted
   end
 
   def index

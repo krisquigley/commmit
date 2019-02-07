@@ -3,6 +3,8 @@ class GithubIssue
   # TODO: Update table to allow for null estimated_effort
   # Remove option to update estimated effort in app
   # Add HTTP basic auth
+  # Add webhook for adding new members
+  # Add assigned to
 
   ACTIONS = [
     "opened",
@@ -34,7 +36,8 @@ class GithubIssue
       title: parsed_payload.fetch(:issue).fetch(:title),
       state: parsed_payload.fetch(:issue).fetch(:state),
       estimated_effort: estimated_effort ? Integer(estimated_effort) : nil,
-      closed_at: parsed_payload.fetch(:issue).fetch(:closed_at)
+      closed_at: parsed_payload.fetch(:issue).fetch(:closed_at),
+      github_user_ids: parsed_payload.fetch(:issue).fetch(:assignees)
     }
   end
 

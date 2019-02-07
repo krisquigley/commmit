@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_06_194713) do
+ActiveRecord::Schema.define(version: 2019_02_07_120827) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,25 +40,33 @@ ActiveRecord::Schema.define(version: 2019_02_06_194713) do
 
   create_table "tickets", force: :cascade do |t|
     t.string "title", null: false
-    t.integer "user_id"
     t.integer "estimated_effort", null: false
     t.integer "actual_effort"
     t.datetime "closed_at"
     t.integer "sprint_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "issue_id", null: false
+    t.bigint "issue_id", null: false
     t.string "repository_name", null: false
     t.integer "number", null: false
     t.string "state", null: false
+    t.bigint "github_user_ids"
+    t.index ["github_user_ids"], name: "index_tickets_on_github_user_ids"
     t.index ["issue_id"], name: "index_tickets_on_issue_id"
     t.index ["sprint_id"], name: "index_tickets_on_sprint_id"
-    t.index ["user_id"], name: "index_tickets_on_user_id"
+  end
+
+  create_table "tickets_users", id: false, force: :cascade do |t|
+    t.bigint "ticket_id"
+    t.bigint "user_id"
+    t.index ["ticket_id"], name: "index_tickets_users_on_ticket_id"
+    t.index ["user_id"], name: "index_tickets_users_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
-    t.integer "team_id", null: false
+    t.integer "team_id"
+    t.bigint "github_user_id", null: false
     t.index ["team_id"], name: "index_users_on_team_id"
   end
 
