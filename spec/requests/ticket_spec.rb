@@ -39,6 +39,7 @@ RSpec.describe "Tickets", sidekiq: :inline, type: :request do
     end
 
     it "should belong to both users" do
+      expect(Ticket.first.users.count).to eq(2)
       expect(user1.reload.tickets.count).to eq(1)
       expect(user2.reload.tickets.count).to eq(1)
     end

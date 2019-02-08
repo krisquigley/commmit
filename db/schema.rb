@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_07_120827) do
+ActiveRecord::Schema.define(version: 2019_02_08_005814) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,17 +50,9 @@ ActiveRecord::Schema.define(version: 2019_02_07_120827) do
     t.string "repository_name", null: false
     t.integer "number", null: false
     t.string "state", null: false
-    t.bigint "github_user_ids"
-    t.index ["github_user_ids"], name: "index_tickets_on_github_user_ids"
+    t.bigint "github_user_ids", default: [], array: true
     t.index ["issue_id"], name: "index_tickets_on_issue_id"
     t.index ["sprint_id"], name: "index_tickets_on_sprint_id"
-  end
-
-  create_table "tickets_users", id: false, force: :cascade do |t|
-    t.bigint "ticket_id"
-    t.bigint "user_id"
-    t.index ["ticket_id"], name: "index_tickets_users_on_ticket_id"
-    t.index ["user_id"], name: "index_tickets_users_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

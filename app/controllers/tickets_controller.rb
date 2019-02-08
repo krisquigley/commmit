@@ -7,7 +7,7 @@ class TicketsController < ApplicationController
   end
 
   def index
-    @tickets = Ticket.all
+    @tickets = Ticket.order(created_at: :desc)
   end
 
   def edit
