@@ -13,11 +13,11 @@
   <tbody>
     <% object.each do |ticket| %>
       <tr>
-        <td><%= link_to ticket.title, ticket.url %></td>
+        <td><%= ticket.title %></td>
         <td><%= ticket.estimated_effort %></td>
         <td><%= ticket.actual_effort %></td>
-        <td><%= ticket.closed_at.to_date.to_formatted_s(:long) %></td>
-        <td><%= ticket.user ? link_to(ticket.user.name, user_path(ticket.user)) : "Unassigned" %></td>
+        <%# <td><%= ticket.closed_at.to_date.to_formatted_s(:long) %></td> %>
+        <%# <td><%= ticket.user ? link_to(ticket.user.name, user_path(ticket.user)) : "Unassigned" %></td> %>
         <td><%= link_to ticket.sprint.name, sprint_path(ticket.sprint) if ticket.sprint %></td>
         <td>
           <%= link_to 'Edit', edit_ticket_path(ticket), class: "btn btn-warning btn-sm" %>

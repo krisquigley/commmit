@@ -35,6 +35,7 @@ gem 'chart-js-rails'
 gem 'momentjs-rails'
 gem 'oj', '~> 3.7', '>= 3.7.8'
 gem 'sidekiq', '~> 4.1', '>= 4.1.2'
+gem 'octokit', '~> 4.13'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -47,6 +48,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails', '~> 3.8', '>= 3.8.2'
   gem 'factory_bot_rails', '~> 5.0'
+  gem 'dotenv-rails', '~> 2.6'
 end
 
 group :development do

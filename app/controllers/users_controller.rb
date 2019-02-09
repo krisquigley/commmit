@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.all.includes(:team).order(name: :asc)
+    @users = User.order('LOWER(name)').includes(:team)
   end
 
   def show

@@ -1,2 +1,2 @@
 #!/bin/bash
-RAILS_ENV=${RAILS_ENV:-development} docker-compose run web $@ 
+RAILS_ENV=${RAILS_ENV:-development} docker-compose exec web $@ 

@@ -23,8 +23,8 @@ class GithubUser
 
   def attributes
     {
-      name: parsed_payload.fetch(:member).fetch(:login),
-      github_user_id: parsed_payload.fetch(:member).fetch(:id)
+      name: parsed_payload[:member][:login] || parsed_payload.fetch(:login),
+      github_user_id: parsed_payload[:member][:id] || parsed_payload.fetch(:id)
     }
   end
 end

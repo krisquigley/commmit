@@ -10,7 +10,7 @@
     <% object.each do |user| %>
       <tr>
         <td><%= link_to user.name, user_path(user) %></td>
-        <td><%= link_to user.team.name, team_path(user.team) %></td>
+        <td><%= link_to user.team.name, team_path(user.team) if user.team %></td>
         <td>
           <%= link_to 'Edit', edit_user_path(user), class: "btn btn-warning btn-sm" %>
           <%= link_to 'Delete', user_path(user), class: "btn btn-danger btn-sm", method: :delete %>
