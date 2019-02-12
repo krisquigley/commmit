@@ -48,6 +48,7 @@ group :development, :test do
   gem 'factory_bot_rails', '~> 5.0'
   gem 'dotenv-rails', '~> 2.6'
   gem 'docker-sync', '~> 0.0.11'
+  gem 'pry', '~> 0.12.2'
 end
 
 group :development do
