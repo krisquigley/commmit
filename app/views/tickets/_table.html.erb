@@ -6,24 +6,23 @@
       <th>Actual Effort</th>
       <th>Date Merged</th>
       <th>Assigned to</th>
+      <th>Repo</th>
       <th>Sprint</th>
-      <th>Manage</th>
     </tr>
   </thead>
   <tbody>
-    <% object.each do |ticket| %>
-      <tr>
-        <td><%= ticket.title %></td>
-        <td><%= ticket.estimated_effort %></td>
-        <td><%= ticket.actual_effort %></td>
-        <%# <td><%= ticket.closed_at.to_date.to_formatted_s(:long) %></td> %>
-        <%# <td><%= ticket.user ? link_to(ticket.user.name, user_path(ticket.user)) : "Unassigned" %></td> %>
-        <td><%= link_to ticket.sprint.name, sprint_path(ticket.sprint) if ticket.sprint %></td>
-        <td>
-          <%= link_to 'Edit', edit_ticket_path(ticket), class: "btn btn-warning btn-sm" %>
-          <%= link_to 'Manage', manage_ticket_path(ticket), class: "btn btn-success btn-sm" %>
-        </td>
-      </tr>
+    <%= form_for :ticket do |f| %>
+      <% object.each do |ticket| %>
+        <tr>
+          <td><%= link_to ticket.title, ticket.url %></td>
+          <td><%= ticket.estimated_effort %></td>
+          <td><%= f.text_field :actual_effort, value: ticket.actual_effort, class: 'form-control', type: :number %></td>
+          <td><%= ticket.closed_at %></td>
+          <td><%= !ticket.users.empty? ? ticket.users.map { |user| link_to user.name, user_path(user) } : "Unassigned" %></td>
+          <td><%= ticket.repository_name %></td>
+          <td><%= link_to ticket.sprint.name, sprint_path(ticket.sprint) if ticket.sprint %></td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

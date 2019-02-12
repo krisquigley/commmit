@@ -4,11 +4,13 @@ Rails.application.routes.draw do
 
   root 'sprints#index'
 
-  resources :users, :teams
-  resources :tickets, except: [:new] do
-    member do
-      get 'manage'
-    end
+  resources :users, only: [:index, :show, :edit, :update]
+  resources :tickets, except: [:new, :create] 
+  resources :teams, except: [:destroy]
+
+  namespace :webhooks do
+    resources :members, only: :create
+    resources :issues, only: :create
   end
   
   resources :sprints do

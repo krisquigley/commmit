@@ -4,5 +4,11 @@
     <%= f.label :name %>
     <%= f.text_field :name, required: true, class: "form-control" %>
   </div>
+   <div class="form-group">
+    <%= f.label :users %>
+    <%= f.collection_select :user_ids, User.order('LOWER(name)'), :id, :name, { include_hidden: false }, 
+                                        { multiple: true, size: 20, class: "form-control" } %>
+  </div>
+  
   <%= f.submit class: "btn btn-success" %>
 <% end %>

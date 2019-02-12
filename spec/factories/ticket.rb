@@ -6,6 +6,7 @@ FactoryBot.define do
     number { Integer(Faker::Number.number(1)) }
     state { ['open', 'closed'].sample }
     github_user_ids { [] }
+    url { Faker::Internet.url }
     issue_id { Integer(Faker::Number.number(10)) }
   end
 end

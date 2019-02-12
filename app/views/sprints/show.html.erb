@@ -17,6 +17,6 @@
   <canvas id="myChart"></canvas>
 </div>
 <h4>Tickets</h4>
-<%= render 'tickets/table', object: @sprint.tickets %>
+<%= render 'tickets/table', object: @sprint.sprint_tickets %>
 
-<%= javascript_include_tag 'custom', 'data-turbolinks-track': 'reload' %>
+<%= javascript_include_tag 'burndown' %>

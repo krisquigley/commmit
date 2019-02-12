@@ -1,7 +1,7 @@
 class Sprint < ApplicationRecord
   validates :name, :start_date, :end_date, :team_id, presence: true
 
-  has_many :tickets
+  has_many :sprint_tickets
   has_many :sprint_holidays
   belongs_to :team
 
@@ -15,11 +15,11 @@ class Sprint < ApplicationRecord
   end
 
   def total_estimated_effort
-    tickets.pluck(:estimated_effort).reduce(:+) || 0
+    sprint_tickets.pluck(:estimated_effort).reduce(:+) || 0
   end
 
   def effort_used
-    tickets.where.not(closed_at: nil).pluck(:actual_effort).reduce(:+) || 0
+    sprint_tickets.where.not(closed_at: nil).pluck(:actual_effort).reduce(:+) || 0
   end
 
   def effort_remaining
@@ -27,7 +27,7 @@ class Sprint < ApplicationRecord
   end
 
   def effort_to_date
-    merged_tickets = tickets.where.not(closed_at: nil).order(closed_at: :asc)
+    merged_tickets = sprint_tickets.where.not(closed_at: nil).order(closed_at: :asc)
     effort = []
     day = start_date.to_date
     current_effort = available_effort_after_review_time

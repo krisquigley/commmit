@@ -1,30 +1,29 @@
 namespace 'github' do
   desc "retrieve all users from github for a given team"
   task import_users: :environment do
-    client = Octokit::Client.new(access_token: "0109a955f493d84670d51904297507406e57e5e8")
+    client = Octokit::Client.new(access_token: "36d0f0a84daeb1cfe17a392015dbabb3ead05de2")
     client.auto_paginate = true
 
     org_members = client.organization_members('shiftcommerce')
 
     org_members.each do |member|
       json_member = Oj.dump(member.to_h.merge({action: "added"}).stringify_keys)
-      puts json_member.inspect
-      # GithubUserJob.perform_async(json_member)
+      GithubUserJob.perform_async(json_member)
       print '#'
     end
     print 'Done'
   end
 
   task import_issues: :environment do
-    client = Octokit::Client.new(access_token: "0109a955f493d84670d51904297507406e57e5e8")
+    client = Octokit::Client.new(access_token: "36d0f0a84daeb1cfe17a392015dbabb3ead05de2")
     client.auto_paginate = true
 
-    org_members = client.issues('shiftcommerce/shift-front-end-react')
+    issues = client.issues('shiftcommerce/shift-front-end-react', query: { state: "open"})
 
-    org_members.each do |member|
-      json_member = "{\"action\":\"opened\",\"issue\":#{Oj.dump(member.to_h.deep_stringify_keys)}}"
-      puts json_member.inspect
-      # GithubIssueJob.perform_async(json_member)
+    issues.each do |issue|
+      # Update issue to take URL instead.  determine the repo from the url.
+      json_issue = Oj.dump(issue.to_h.merge({action: "opened"}).stringify_keys)
+      GithubIssueJob.perform_async(json_issue)
       print '#'
     end
     print 'Done'

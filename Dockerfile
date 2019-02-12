@@ -4,6 +4,7 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 RUN apt-get install -y nodejs
 RUN mkdir /myapp
 WORKDIR /myapp
+ENV RAILS_ROOT /myapp
 ENV BUNDLE_PATH /gems
 
 ADD . /myapp

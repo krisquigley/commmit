@@ -18,10 +18,11 @@
   <% end %>
 
   <h2>Tickets</h2>
+  <%= select_tag :repositories, options_from_collection_for_select(Ticket.repositories, :repository_name, :repository_name), { class: "form-control", data: { behavior: 'repo-filter' } } %>
+  <%= f.hidden_field :repository, value: 'shiftcommerce/shift-front-end-react' %>
 
   <div class="form-group">
-    <%= f.collection_select :tickets, Ticket.where(sprint_id: nil), :id, :title, { include_hidden: false }, 
-                                           { multiple: true, size: 20, class: "form-control" } %>
+    <%= f.select :ticket_ids, options_for_select(['one']), {}, { multiple: true, size: 20, class: "form-control", data: { behavior: 'available-tickets' } } %>
   </div>
 
   <%= f.submit class: "btn btn-success" %>  

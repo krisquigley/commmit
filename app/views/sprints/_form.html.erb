@@ -16,12 +16,6 @@
     <%= f.label :end_date %>
     <%= f.text_field :end_date, required: true, class: "form-control", type: :date %>
   </div>
+
   <%= f.submit class: 'btn btn-success' %>
 <% end %>
-
-<%# Change this process to:
-1. Name, team, start_date, end_date
-2. available_effort calculated from number in team - weekends * 0.8 for reviewing code
-3. In created sprint they are first asked to add in holidays 
-4. They are asked to assign tickets to sprint
-5.  %>

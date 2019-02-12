@@ -21,9 +21,23 @@ class TeamsController < ApplicationController
     @team = Team.includes(:users).find(params[:id])
   end
 
+  def edit
+    @team = Team.find(params[:id])
+  end
+
+  def update
+    @team = Team.find(params[:id])
+
+    if @team.update(team_params)
+      redirect_to teams_path, notice: "Team succesfully updated!"
+    else
+      render :new
+    end
+  end
+
   private
 
   def team_params
-    params.require(:team).permit(:name)
+    params.require(:team).permit(:name, users: [])
   end
 end

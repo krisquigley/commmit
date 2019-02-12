@@ -4,6 +4,6 @@ class User < ApplicationRecord
   belongs_to :team, optional: true
   
   def tickets
-    Ticket.where("'?' = ANY (tickets.github_user_ids)", github_user_id)
+    SprintTicket.where("'?' = ANY (tickets.github_user_ids)", github_user_id)
   end
 end

@@ -14,11 +14,11 @@ class SprintsController < ApplicationController
   end
 
   def index
-    @sprints = Sprint.all
+    @sprints = Sprint.order(created_at: :desc)
   end
 
   def show
-    @sprint = Sprint.includes(:tickets).find(params[:id])
+    @sprint = Sprint.includes(:sprint_tickets).find(params[:id])
   end
 
   def manage
@@ -29,7 +29,7 @@ class SprintsController < ApplicationController
     @sprint = Sprint.find(params[:id])
     
     @sprint.update_attributes(sprint_params)
-    @sprint.ticket_ids = ticket_params[:tickets]
+    @sprint.sprint_ticket_ids = ticket_params[:sprint_tickets]
 
     if @sprint.save
       redirect_to @sprint, notice: "Sprint successfully updated!"
@@ -45,6 +45,6 @@ class SprintsController < ApplicationController
   end
 
   def ticket_params
-    params.require(:sprint).permit(tickets: [])
+    params.require(:sprint).permit(sprint_tickets: [])
   end
 end

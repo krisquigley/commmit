@@ -29,8 +29,6 @@ const idealEffort = () => {
   return values.reverse()
 }
 
-console.log(totalEffort, effortUsed, startDate, endDate, effortToDate)
-
 const myChart = new Chart(ctx, {
   type: 'line',
   data: {

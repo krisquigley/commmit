@@ -24,7 +24,7 @@
         <td><%= link_to sprint.name, sprint_path(sprint) %></td>
         <td><%= link_to sprint.team.name, team_path(sprint.team) %></td>
         <td><%= sprint.start_date.to_date.to_formatted_s(:long)  %></td>
-        <td><%= sprint.end_date.to_date.to_formatted_s(:long)  %></td>
+        <td><<%= sprint.end_date.to_date.to_formatted_s(:long)  %></td>
         <td><%= sprint.available_effort_after_review_time %></td>
         <td><%= sprint.effort_used %></td>
         <td><%= sprint.effort_remaining %></td>

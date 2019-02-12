@@ -5,7 +5,7 @@ RSpec.describe "Users", sidekiq: :inline, type: :request do
     let(:new_user_payload) { file_fixture("new_user_payload.json").read }
     
     before do
-      post '/users', params: new_user_payload, headers: { "Content-Type"  => "application/json" }
+      post '/webhooks/members', params: new_user_payload, headers: { "Content-Type"  => "application/json" }
     end
 
     it "should add a user to the db" do
@@ -20,7 +20,7 @@ RSpec.describe "Users", sidekiq: :inline, type: :request do
 
     
     before do
-      post '/users', params: edited_user_payload, headers: { "Content-Type"  => "application/json" }
+      post '/webhooks/members', params: edited_user_payload, headers: { "Content-Type"  => "application/json" }
     end
 
     it "should add a user to the db" do

@@ -1,11 +1,4 @@
 class UsersController < ApplicationController
-  protect_from_forgery except: :create
-
-  def create
-    GithubUserJob.perform_async(request.body.read)
-    head :accepted
-  end
-
   def index
     @users = User.order('LOWER(name)').includes(:team)
   end
@@ -27,13 +20,6 @@ class UsersController < ApplicationController
     else
       render :edit
     end
-  end
-
-  def destroy
-    @user = User.find(params[:id])
-
-    @user.destroy
-    redirect_to users_path, notice: "User succesfully deleted!"
   end
 
   private
