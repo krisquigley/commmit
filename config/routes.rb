@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   root 'sprints#index'
 
   resources :users, only: [:index, :show, :edit, :update]
-  resources :tickets, except: [:new, :create] 
   resources :teams, except: [:destroy]
 
   namespace :webhooks do

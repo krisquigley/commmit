@@ -1,7 +1,7 @@
 namespace 'github' do
   desc "retrieve all users from github for a given team"
   task import_users: :environment do
-    client = Octokit::Client.new(access_token: "36d0f0a84daeb1cfe17a392015dbabb3ead05de2")
+    client = Octokit::Client.new(access_token: ENV.fetch('GITHUB_ACCESS_TOKEN'))
     client.auto_paginate = true
 
     org_members = client.organization_members('shiftcommerce')
@@ -15,7 +15,7 @@ namespace 'github' do
   end
 
   task import_issues: :environment do
-    client = Octokit::Client.new(access_token: "36d0f0a84daeb1cfe17a392015dbabb3ead05de2")
+    client = Octokit::Client.new(access_token: ENV.fetch('GITHUB_ACCESS_TOKEN'))
     client.auto_paginate = true
 
     issues = client.issues('shiftcommerce/shift-front-end-react', query: { state: "open"})
