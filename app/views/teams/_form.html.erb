@@ -4,10 +4,22 @@
     <%= f.label :name %>
     <%= f.text_field :name, required: true, class: "form-control" %>
   </div>
-   <div class="form-group">
+  <div class="form-group">
     <%= f.label :users %>
-    <%= f.collection_select :user_ids, User.order('LOWER(name)'), :id, :name, { include_hidden: false }, 
-                                        { multiple: true, size: 20, class: "form-control" } %>
+    <table class="table">
+      <tbody>
+      <% User.order('LOWER(name)').each do |user| %>
+        <tr>
+          <td>
+            <div class="form-check">
+              <%= f.check_box :user_ids, { multiple: true, class: "form-check-input" }, user.id, false %>
+              <%= f.label "user_ids_#{user.id}", user.name, class: "form-check-label" %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
   </div>
   
   <%= f.submit class: "btn btn-success" %>

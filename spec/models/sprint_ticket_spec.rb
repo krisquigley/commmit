@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe SprintTicket, type: :model do
-
   context "determining closed_at" do
     describe "when closed_at is nil" do
       let(:sprint_ticket) { build(:sprint_ticket) }

@@ -22,14 +22,17 @@ class SprintsController < ApplicationController
   end
 
   def manage
-    @sprint = Sprint.includes(:sprint_holidays).find(params[:id])
+    @sprint = Sprint.includes(:sprint_holidays, :sprint_tickets).find(params[:id])
+    @sprint_tickets = @sprint.sprint_tickets.order(created_at: :desc)
+    @tickets = Ticket.where.not(issue_id: @sprint_tickets.pluck(:issue_id)).order(updated_at: :desc).page(params[:page])
   end
 
   def update
     @sprint = Sprint.find(params[:id])
     
     @sprint.update_attributes(sprint_params)
-    @sprint.sprint_ticket_ids = ticket_params[:sprint_tickets]
+    tickets = Ticket.find(ticket_params[:sprint_tickets])
+    @sprint.sprint_tickets.create(tickets.first.attributes.except("source"))
 
     if @sprint.save
       redirect_to @sprint, notice: "Sprint successfully updated!"

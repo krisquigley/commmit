@@ -62,7 +62,6 @@ class Sprint < ApplicationRecord
       number_of_work_days += 1
       day = day.next_weekday
     end
-
     self.available_effort = number_of_work_days * users
   end
 

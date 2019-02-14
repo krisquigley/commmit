@@ -2,8 +2,8 @@ require "rails_helper"
 
 RSpec.describe Github::Issue do
   describe "when new issues are created with no estimations" do
-    let!(:subject) do
-      new_issue_payload = file_fixture("opened_issue_payload.json").read
+    let(:new_issue_payload) { file_fixture("opened_issue_payload.json").read }
+    subject do
       Github::Issue.call(new_issue_payload)
     end
 
@@ -17,7 +17,8 @@ RSpec.describe Github::Issue do
         github_user_ids: [],
         issue_id: 406911947,
         closed_at: nil,
-        url: "https://github.com/krisquigley/sprintable"
+        url: "https://github.com/krisquigley/sprintable",
+        source: new_issue_payload
       }
     end
 
@@ -27,8 +28,8 @@ RSpec.describe Github::Issue do
   end
 
   describe "when new issues are created with an estimations" do
-    let!(:subject) do
-      new_issue_payload = file_fixture("opened_issue_with_estimation_payload.json").read
+    let(:new_issue_payload) { file_fixture("opened_issue_with_estimation_payload.json").read }
+    subject do
       Github::Issue.call(new_issue_payload)
     end
 
@@ -42,7 +43,8 @@ RSpec.describe Github::Issue do
         github_user_ids: [],
         issue_id: 406911947,
         closed_at: nil,
-        url: "https://github.com/krisquigley/sprintable"
+        url: "https://github.com/krisquigley/sprintable",
+        source: new_issue_payload
       }
     end
 
@@ -52,8 +54,8 @@ RSpec.describe Github::Issue do
   end
 
   describe "when issues are edited" do
-    let!(:subject) do
-      edited_issue_payload = file_fixture("edited_issue_payload.json").read
+    let(:edited_issue_payload) { file_fixture("edited_issue_payload.json").read }
+    subject do
       Github::Issue.call(edited_issue_payload)
     end
 
@@ -67,7 +69,8 @@ RSpec.describe Github::Issue do
         github_user_ids: [],
         issue_id: 406911947,
         closed_at: nil,
-        url: "https://github.com/krisquigley/sprintable"
+        url: "https://github.com/krisquigley/sprintable",
+        source: edited_issue_payload
       }
     end
 
@@ -77,8 +80,8 @@ RSpec.describe Github::Issue do
   end
 
   describe "when issues are closed" do
-    let!(:subject) do
-      closed_issue_payload = file_fixture("closed_issue_payload.json").read
+    let(:closed_issue_payload) { file_fixture("closed_issue_payload.json").read } 
+    subject do
       Github::Issue.call(closed_issue_payload)
     end
 
@@ -92,7 +95,8 @@ RSpec.describe Github::Issue do
         github_user_ids: [],
         issue_id: 406911947,
         closed_at: "2019-02-05T18:26:06Z",
-        url: "https://github.com/krisquigley/sprintable"
+        url: "https://github.com/krisquigley/sprintable",
+        source: closed_issue_payload
       }
     end
 
@@ -102,8 +106,8 @@ RSpec.describe Github::Issue do
   end
 
   describe "when issues are reopened" do
-    let!(:subject) do
-      reopened_issue_payload = file_fixture("reopened_issue_payload.json").read
+    let(:reopened_issue_payload) { file_fixture("reopened_issue_payload.json").read }
+    subject do
       Github::Issue.call(reopened_issue_payload)
     end
 
@@ -117,7 +121,8 @@ RSpec.describe Github::Issue do
         github_user_ids: [],
         issue_id: 406911947,
         closed_at: nil,
-        url: "https://github.com/krisquigley/sprintable"
+        url: "https://github.com/krisquigley/sprintable",
+        source: reopened_issue_payload
       }
     end
 
@@ -127,8 +132,8 @@ RSpec.describe Github::Issue do
   end
 
   describe "when issues are labelled" do
-    let!(:subject) do
-      labelled_issue_payload = file_fixture("labelled_issue_payload.json").read
+    let(:labelled_issue_payload) { file_fixture("labelled_issue_payload.json").read }
+    subject do
       Github::Issue.call(labelled_issue_payload)
     end
 

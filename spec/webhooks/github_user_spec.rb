@@ -2,15 +2,16 @@ require 'rails_helper'
 
 RSpec.describe Github::User do
   describe "adding a new user" do
+    let(:new_user_payload) { file_fixture("new_user_payload.json").read }
     subject do 
-      new_user_payload = file_fixture("new_user_payload.json").read
       Github::User.call(new_user_payload)
     end
 
     let(:parsed_payload) do
       {
         name: "octocat",
-        github_user_id: 583231
+        github_user_id: 583231,
+        source: new_user_payload
       }
     end
 
@@ -20,15 +21,16 @@ RSpec.describe Github::User do
   end
 
   describe "updating a user" do
+    let(:edited_user_payload) { file_fixture("edited_user_payload.json").read }
     subject do 
-      edited_user_payload = file_fixture("edited_user_payload.json").read
       Github::User.call(edited_user_payload)
     end
 
     let(:parsed_payload) do
       {
         name: "octodog",
-        github_user_id: 583231
+        github_user_id: 583231,
+        source: edited_user_payload
       }
     end
 
@@ -38,8 +40,8 @@ RSpec.describe Github::User do
   end
 
   describe "receiving a delete payload" do
+    let(:deleted_user_payload) { file_fixture("deleted_user_payload.json").read }
     subject do 
-      deleted_user_payload = file_fixture("deleted_user_payload.json").read
       Github::User.call(deleted_user_payload)
     end
 

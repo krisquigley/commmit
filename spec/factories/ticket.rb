@@ -8,5 +8,6 @@ FactoryBot.define do
     github_user_ids { [] }
     url { Faker::Internet.url }
     issue_id { Integer(Faker::Number.number(10)) }
+    source { "{}" }
   end
 end

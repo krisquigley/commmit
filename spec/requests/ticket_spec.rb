@@ -45,4 +45,10 @@ RSpec.describe "Tickets", sidekiq: :inline, type: :request do
       expect(user2.reload.tickets.count).to eq(1)
     end
   end
+
+  context "active sprints" do
+    describe "when a ticket is updated" do
+      it "should only update the active sprint"
+    end
+  end
 end

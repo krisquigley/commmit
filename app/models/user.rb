@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   validates :name, :github_user_id, presence: true
+  validates :github_user_id, uniqueness: true
   
   belongs_to :team, optional: true
   

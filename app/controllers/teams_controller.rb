@@ -38,6 +38,6 @@ class TeamsController < ApplicationController
   private
 
   def team_params
-    params.require(:team).permit(:name, users: [])
+    params.require(:team).permit(:name, user_ids: [])
   end
 end

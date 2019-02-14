@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   end
   
   resources :sprints do
+    resources :sprint_tickets
     member do
       get 'manage'
     end

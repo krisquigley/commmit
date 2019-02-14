@@ -49,6 +49,7 @@ group :development, :test do
   gem 'dotenv-rails', '~> 2.6'
   gem 'docker-sync', '~> 0.0.11'
   gem 'pry', '~> 0.12.2'
+  gem 'selenium-webdriver', '~> 3.141'
 end
 
 group :development do

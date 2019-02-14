@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_11_040442) do
+ActiveRecord::Schema.define(version: 2019_02_14_145325) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 2019_02_11_040442) do
     t.string "url", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "notes"
     t.index ["github_user_ids"], name: "index_sprint_tickets_on_github_user_ids"
     t.index ["sprint_id"], name: "index_sprint_tickets_on_sprint_id"
   end
@@ -70,7 +71,8 @@ ActiveRecord::Schema.define(version: 2019_02_11_040442) do
     t.string "state", null: false
     t.bigint "github_user_ids", default: [], array: true
     t.string "url", null: false
-    t.index ["issue_id"], name: "index_tickets_on_issue_id"
+    t.jsonb "source", null: false
+    t.index ["issue_id"], name: "index_tickets_on_issue_id", unique: true
     t.index ["sprint_id"], name: "index_tickets_on_sprint_id"
   end
 
@@ -78,6 +80,8 @@ ActiveRecord::Schema.define(version: 2019_02_11_040442) do
     t.string "name", null: false
     t.integer "team_id"
     t.bigint "github_user_id", null: false
+    t.jsonb "source", null: false
+    t.index ["github_user_id"], name: "index_users_on_github_user_id", unique: true
     t.index ["team_id"], name: "index_users_on_team_id"
   end
 

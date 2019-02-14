@@ -7,4 +7,4 @@ class SprintTicket < ApplicationRecord
   def closed_at_formatted
     closed_at&.to_date&.to_formatted_s(:long) || 'Unmerged'
   end
-end
+end 

@@ -1,27 +1,18 @@
 class SprintTicketsController < ApplicationController
-  def index
-    @tickets = SprintTicket.order(updated_at: :desc).page(params[:page])
+  skip_before_action :verify_authenticity_token
+
+  def create
+    ticket = Ticket.find_by(issue_id: params[:issue_id])
+    sprint = Sprint.find(params[:sprint_id])
+    sprint.sprint_tickets.create(ticket.attributes.except("source"))
+
+    render json: ticket
   end
 
-  def edit
-    @ticket = SprintTicket.find(params[:id])
-  end
+  def destroy
+    ticket = SprintTicket.find_by(sprint_id: params[:sprint_id], issue_id: params[:id])
+    ticket.destroy
 
-  def update
-    @ticket = SprintTicket.find(params[:id])
-
-    @ticket.update_attributes(sprint_ticket_params)
-
-    if @ticket.save
-      redirect_to sprint_tickets_path, notice: "Ticket successfully updated!"
-    else
-      render :edit
-    end
-  end
-
-  private
-
-  def sprint_ticket_params
-    params.require(:sprint_ticket).permit(:actual_effort)
+    render json: ticket
   end
 end
