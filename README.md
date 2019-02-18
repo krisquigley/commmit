@@ -1,24 +1,11 @@
-# README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# Todo
+ - Update sprint tickets from github webhook where sprints are currently open
+ - Lock down tickets once sprint has been closed (done)
+ - Add option to close sprint early, which updates end_date to Time.now
+ - Add filter to tickets in manage
+ - Add search to tickets in manage
+ - Closing an issue on the same start_date of the sprint does not update the chart (done)
+ - Error is raised when updating holiday (done)
+ - Use decimals for estimated effort and actual effort 
+ - If a ticket is closed without actual_effort being set it raises an error (done)
+ - Update chart to use effort account for rather than available effort for the burndown (done)

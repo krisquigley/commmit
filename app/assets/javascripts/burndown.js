@@ -1,10 +1,11 @@
 let ctx = document.getElementById('myChart').getContext('2d')
 
-const totalEffort = document.querySelector("[data-behavior='totalEffort']").innerHTML
-const effortUsed = document.querySelector("[data-behavior='effortUsed']").value
+const effortAccountedFor = document.querySelector("[data-behavior='effortAccountedFor']").innerHTML
 const startDate = document.querySelector("[data-behavior='startDate']").value
 const endDate = document.querySelector("[data-behavior='endDate']").value
 const effortToDate = document.querySelector("[data-behavior='effortToDate']").value
+const updateEffortRows = document.querySelectorAll("input[data-behavior='updateEffort']")
+const updateNoteRows = document.querySelectorAll("textarea[data-behavior='updateNote']")
 
 const dates = () => {
   const days = []
@@ -23,7 +24,7 @@ const idealEffort = () => {
   const numberOfDays = days.length
 
   const values = days.map((_, index) => {
-    return (totalEffort / (numberOfDays - 1)) * index
+    return (effortAccountedFor / (numberOfDays - 1)) * index
   })
 
   return values.reverse()
@@ -42,7 +43,13 @@ const myChart = new Chart(ctx, {
     },{
       label: 'Effort Remaining',
       data: JSON.parse(effortToDate),
-      lineTension: 0
+      lineTension: 0,
+      backgroundColor: [
+        'rgba(210, 14, 171, 0.2)'
+      ],
+      borderColor: [
+        'rgba(210, 14, 171, 1)'
+      ]
     }]
   },
   options: {
@@ -51,9 +58,61 @@ const myChart = new Chart(ctx, {
     scales: {
       yAxes: [{
         ticks: {
-          beginAtZero:true
+          beginAtZero: true
         }
       }]
     }
   }
 })
+
+const updateEffort = (event) => {
+  const options = {
+    body: {
+      sprint_ticket: {
+        actual_effort: event.target.value
+      }
+    },
+    issueId: event.target.attributes['data-issueId'].value,
+    sprintId: event.target.attributes['data-sprintId'].value
+  }
+
+  updateSprintTicket(options)
+}
+
+updateEffortRows.forEach(row => {
+  row.addEventListener('change', updateEffort)
+})
+
+const updateNote = (event) => {
+  const options = {
+    body: {
+      sprint_ticket: {
+        notes: event.target.value
+      }
+    },
+    issueId: event.target.attributes['data-issueId'].value,
+    sprintId: event.target.attributes['data-sprintId'].value
+  }
+  updateSprintTicket(options)
+}
+
+updateNoteRows.forEach(row => {
+  row.addEventListener('change', updateNote)
+})
+
+const updateSprintTicket = async (options) => {
+  const { sprintId, issueId, body } = options
+
+  try {
+    await fetch(`/sprints/${sprintId}/sprint_tickets/${issueId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(body)
+    })
+  } catch (error) {
+    console.error(error)
+  }
+}

@@ -1,4 +1,19 @@
 <%= form_for @sprint do |f| %>
+  <div class="row mt-4">
+    <div class="col-10">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
+          <li class="breadcrumb-item"><%= link_to "Sprints", sprints_path %></li>
+          <li class="breadcrumb-item active" aria-current="page">New Sprint</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col-2">
+      <%= f.submit class: 'btn btn-success btn-block btn-lg' %>
+    </div>
+  </div>
+
   <%= render 'shared/errors', object: @sprint %>
   <div class="form-group">
     <%= f.label :name %>
@@ -17,5 +32,4 @@
     <%= f.text_field :end_date, required: true, class: "form-control", type: :date %>
   </div>
 
-  <%= f.submit class: 'btn btn-success' %>
 <% end %>

@@ -1,14 +1,13 @@
-const addTickets = document.querySelectorAll("span[data-behavior='addTicket']")
-const removeTickets = document.querySelectorAll("span[data-behavior='removeTicket']")
-const assignedTickets = document.querySelector("tbody[data-behavior='assignedTickets']")
+const addTickets = document.querySelectorAll("button[data-behavior='addTicket']")
+const removeTickets = document.querySelectorAll("button[data-behavior='removeTicket']")
+const sprintId = document.querySelector("input[data-behavior='sprintId']").value
 
 const addTicketToSprint = async (event) => {
   event.preventDefault()
 
   const { target } = event
-  const sprintId = target.attributes['data-sprint-id'].value
   const ticketId = target.attributes['data-ticket-id'].value
-  
+
   try {
     const response = await fetch(`/sprints/${sprintId}/sprint_tickets`, {
       method: 'POST',
@@ -33,7 +32,6 @@ const removeTicketFromSprint = async (event) => {
   event.preventDefault()
 
   const { target } = event
-  const sprintId = target.attributes['data-sprint-id'].value
   const ticketId = target.attributes['data-ticket-id'].value
 
   try {
@@ -47,7 +45,6 @@ const removeTicketFromSprint = async (event) => {
     response.json().then(response => {
       addNewRowAndRemoveOldRecord(target, response, 'availableTickets')
     })
-
   } catch (error) {
     console.error(error)
   }
@@ -65,28 +62,28 @@ const addNewRowAndRemoveOldRecord = (target, response, table) => {
   let callback
 
   if (table === 'assignedTickets') {
-    button = `<span class="btn btn-danger" data-ticket-id="${response.issue_id}" data-sprint-id="${response.sprint_id}" data-behavior="removeTicket">Remove</span>`
+    button = `<button class="btn btn-danger btn-sm" data-ticket-id="${response.issue_id}" data-behavior="removeTicket">Remove</button>`
     callback = removeTicketFromSprint
   } else {
-    button = `<span class="btn btn-success" data-ticket-id="${response.issue_id}" data-sprint-id="${response.sprint_id}" data-behavior="addTicket">Add</span>`
+    button = `<button class="btn btn-success btn-sm btn-block" data-ticket-id="${response.issue_id}" data-behavior="addTicket">Add</button>`
     callback = addTicketToSprint
-  } 
-  
+  }
+
   const tbody = document.querySelector(`tbody[data-behavior='${table}']`)
   tbody.insertAdjacentHTML('beforeend', `<tr>
     <td>
-    ${response.title}
+      <a href='${response.url}'>${response.title}</a>
     </td>
     <td>
       ${response.repository_name}
-      </td>
+    </td>
     <td>
       ${button}
     </td>
   </tr>`)
 
-  document.querySelector(`span[data-ticket-id='${response.issue_id}']`)
-    .addEventListener('click', callback)
-
   target.parentElement.parentElement.remove()
+
+  document.querySelector(`button[data-ticket-id='${response.issue_id}']`)
+    .addEventListener('click', callback)
 }

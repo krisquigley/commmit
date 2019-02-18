@@ -1,9 +1,18 @@
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
-    <li class="breadcrumb-item"><%= link_to "Teams", teams_path %></li>
-    <li class="breadcrumb-item active" aria-current="page"><%= @team.name %></li>
-  </ol>
-</nav>
+<div class="row mt-4 mb-4">
+  <div class="col-10">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
+        <li class="breadcrumb-item"><%= link_to "Teams", teams_path %></li>
+        <li class="breadcrumb-item active" aria-current="page"><%= @team.name %></li>
+      </ol>
+    </nav>
+  </div>
+  <div class="col-2">
+    <%= link_to "Edit Team", edit_team_path(@team), class: "btn btn-lg btn-warning btn-block" %>
+  </div>
+</div>
 
 <%= render 'users/table', object: @team.users %>
+
+<%= render 'sprints/table', object: @team.sprints %>

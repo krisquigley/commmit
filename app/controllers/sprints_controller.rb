@@ -14,7 +14,7 @@ class SprintsController < ApplicationController
   end
 
   def index
-    @sprints = Sprint.order(created_at: :desc)
+    @sprints = Sprint.order(end_date: :desc)
   end
 
   def show
@@ -31,8 +31,11 @@ class SprintsController < ApplicationController
     @sprint = Sprint.find(params[:id])
     
     @sprint.update_attributes(sprint_params)
-    tickets = Ticket.find(ticket_params[:sprint_tickets])
-    @sprint.sprint_tickets.create(tickets.first.attributes.except("source"))
+    
+    if !ticket_params.empty?
+      tickets = SprintTicket.find(ticket_params[:sprint_tickets])
+      @sprint.sprint_tickets.create(tickets.first.attributes.except("source"))
+    end
 
     if @sprint.save
       redirect_to @sprint, notice: "Sprint successfully updated!"

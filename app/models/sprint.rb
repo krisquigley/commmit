@@ -18,19 +18,15 @@ class Sprint < ApplicationRecord
     sprint_tickets.pluck(:estimated_effort).reduce(:+) || 0
   end
 
-  def effort_used
-    sprint_tickets.where.not(closed_at: nil).pluck(:actual_effort).reduce(:+) || 0
-  end
-
   def effort_remaining
-    available_effort_after_review_time - effort_used
+    available_effort_after_review_time - total_estimated_effort
   end
 
   def effort_to_date
     merged_tickets = sprint_tickets.where.not(closed_at: nil).order(closed_at: :asc)
     effort = []
     day = start_date.to_date
-    current_effort = available_effort_after_review_time
+    current_effort = total_estimated_effort
 
     while day <= Date.today && day <= end_date do
       ticket = merged_tickets.find do |merged_ticket|
@@ -44,6 +40,14 @@ class Sprint < ApplicationRecord
     end
 
     return effort.to_json
+  end
+
+  def in_progress?
+    Date.today <= end_date 
+  end
+
+  def status
+    in_progress? ? 'In Progress' : 'Finished'
   end
 
   private

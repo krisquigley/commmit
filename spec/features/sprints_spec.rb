@@ -41,7 +41,7 @@ RSpec.describe "Sprints", type: :feature do
   end
 
   context "managing a sprint" do
-    describe "adding a ticket" do
+    describe "adding a ticket", js: true do
       let(:user) { create(:user) }
       let!(:team) { create(:team, user_ids: user.id) }
       let!(:sprint) { create(:sprint, team: team) }
@@ -53,21 +53,79 @@ RSpec.describe "Sprints", type: :feature do
 
         click_on 'Manage'
 
-        
+        click_on 'Add'
 
+        within("[data-behavior='assignedTickets']") do
+          expect(page).to have_content(Ticket.first.title)
+        end
+        expect(sprint.sprint_tickets.count).to eq(1)
       end
     end
 
-    describe "removing a ticket" do
-      it "should be removed"
+    describe "removing a ticket", js: true do
+      let(:user) { create(:user) }
+      let!(:tickets) { create_list(:ticket, 5, state: 'open') }
+      let!(:team) { create(:team, user_ids: user.id) }
+      let!(:sprint) { create(:sprint, team: team) }
+      let!(:sprint_tickets) { tickets.each {|t| sprint.sprint_tickets.create(t.attributes.except("source")) } }
+
+      it "should be removed" do
+        visit sprint_path(sprint)
+
+        click_on 'Manage'
+
+        expect(sprint.sprint_tickets.count).to eq(5)
+        
+        within("tbody[data-behavior='assignedTickets']") do
+          find("button[data-behavior='removeTicket']", match: :first).click
+        end
+        sleep 1
+        expect(sprint.reload.sprint_tickets.count).to eq(4)
+      end
     end
 
     describe "updating holidays" do
-      it "should reduce the amount of available effort"
+      let(:user) { create(:user) }
+      let!(:team) { create(:team, user_ids: user.id) }
+      let!(:sprint) { create(:sprint, team: team) }
+
+      it "should reduce the amount of available effort" do
+        visit sprint_path(sprint)
+
+        expect(page).to have_content("Available Effort: 9")
+
+        click_on "Manage"
+
+        fill_in "sprint_sprint_holidays_attributes_0_days", with: 2
+        click_on "Update Sprint"
+
+        expect(page).to have_content("Available Effort: 7")
+      end
     end
 
     describe "updating associated tickets" do
-      it "should update accordingly"
+      let(:user) { create(:user) }
+      let!(:tickets) { create_list(:ticket, 5, state: 'open') }
+      let!(:team) { create(:team, user_ids: user.id) }
+      let!(:sprint) { create(:sprint, team: team) }
+      let!(:sprint_tickets) { tickets.each {|t| sprint.sprint_tickets.create(t.attributes.except("source")) } }
+
+      it "should show when it was closed" do
+        time = Time.now
+        sprint.sprint_tickets.first.update(closed_at: time)
+        
+        visit sprint_path(sprint)
+
+        expect(page).to have_content(time.to_date.to_formatted_s(:long))
+      end
+
+      it "should show who is assigned" do
+        sprint.sprint_tickets.last.update(github_user_ids: [user.github_user_id])
+
+        visit sprint_path(sprint)
+
+        expect(page).to have_content(user.name)
+      end
     end
   end
 

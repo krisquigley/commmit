@@ -6,7 +6,7 @@ FactoryBot.define do
 
     factory :sprint_with_tickets do
       transient do
-        tickets_count { 20 }
+        tickets_count { 5 }
       end
 
       after(:create) do |sprint, evaluator|

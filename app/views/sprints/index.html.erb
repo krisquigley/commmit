@@ -1,35 +1,14 @@
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
-    <li class="breadcrumb-item active" aria-current="page">Sprints</li>
-  </ol>
-</nav>
-
-<%= link_to 'New Sprint', new_sprint_path, class: 'btn btn-success' %>
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Team</th>
-      <th>Start Date</th>
-      <th>End Date</th>
-      <th>Available Effort</th>
-      <th>Effort Used</th>
-      <th>Effort Remaining</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @sprints.each do |sprint| %>
-      <tr>
-        <td><%= link_to sprint.name, sprint_path(sprint) %></td>
-        <td><%= link_to sprint.team.name, team_path(sprint.team) %></td>
-        <td><%= sprint.start_date.to_date.to_formatted_s(:long)  %></td>
-        <td><<%= sprint.end_date.to_date.to_formatted_s(:long)  %></td>
-        <td><%= sprint.available_effort_after_review_time %></td>
-        <td><%= sprint.effort_used %></td>
-        <td><%= sprint.effort_remaining %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
+<div class="row mt-4 mb-4">
+  <div class="col-10">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
+        <li class="breadcrumb-item active" aria-current="page">Sprints</li>
+      </ol>
+    </nav>
+  </div>
+  <div class="col-2 text-right">
+    <%= link_to 'New Sprint', new_sprint_path, class: 'btn btn-success btn-lg btn-block' %>
+  </div>
+</div>
+<%= render 'table', object: @sprints %>

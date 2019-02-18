@@ -1,14 +1,34 @@
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
-    <li class="breadcrumb-item"><%= link_to "Sprints", sprints_path %></li>
-    <li class="breadcrumb-item active" aria-current="page"><%= @sprint.name %></li>
-  </ol>
-</nav>
+<div class="row mt-4 mb-4">
+  <div class="col-10">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
+        <li class="breadcrumb-item"><%= link_to "Sprints", sprints_path %></li>
+        <li class="breadcrumb-item active" aria-current="page"><%= @sprint.name %></li>
+      </ol>
+    </nav>
+  </div>
+  <div class="col-2">
+    <%= link_to 'Manage', manage_sprint_path(@sprint), class: "btn btn-warning btn-lg btn-block" if @sprint.in_progress? %></h3>
+  </div>
+</div>
 
-<h3>Available Effort: <span data-behavior="totalEffort"><%= @sprint.available_effort_after_review_time %></span> <%= link_to 'Manage', manage_sprint_path(@sprint), class: "btn btn-warning" %></h3>
-<h3>Effort Accounted for: <%= @sprint.total_estimated_effort %></h3>
-<input type="hidden" value="<%= @sprint.effort_used %>" data-behavior="effortUsed" />
+<table>
+  <thead>
+    <tr>
+      <th>Available Effort</th>
+      <th>Effort Accounted for</th>
+      <th>Team</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+<h3>: <%= @sprint.available_effort_after_review_time %> 
+<h3>: <span data-behavior="effortAccountedFor"><%= @sprint.total_estimated_effort %></span></h3>
+<h3>Team: <%= @sprint.team.name %></h3>
+<h3>Status: <%= @sprint.status %></h3>
 <input type="hidden" value="<%= @sprint.start_date.to_date %>" data-behavior="startDate" />
 <input type="hidden" value="<%= @sprint.end_date.to_date %>" data-behavior="endDate" />
 <input type="hidden" value="<%= @sprint.effort_to_date %>" data-behavior="effortToDate" />
@@ -17,6 +37,6 @@
   <canvas id="myChart"></canvas>
 </div>
 <h4>Tickets</h4>
-<%= render 'tickets/table', object: @sprint.sprint_tickets %>
+<%= render 'tickets', object: @sprint.sprint_tickets %>
 
 <%= javascript_include_tag 'burndown' %>

@@ -20,8 +20,8 @@ services:
       BUNDLE_APP_CONFIG: /gems/.bundle
       REDIS_URL: 'redis://redis:6379'
       DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL: 'true'
-      USERNAME: ''
-      PASSWORD: ''
+      USERNAME: 'username'
+      PASSWORD: 'password'
     volumes:
       - ./:/myapp
       - gem-cache:/gems

@@ -1,13 +1,18 @@
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
-    <li class="breadcrumb-item active" aria-current="page">Teams</li>
-  </ol>
-</nav>
-
-<%= link_to 'New Team', new_team_path, class: 'btn btn-success' %>
+<div class="row mt-4">
+  <div class="col-10">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
+        <li class="breadcrumb-item active" aria-current="page">Teams</li>
+      </ol>
+    </nav>
+  </div>
+  <div class="col-2 text-right">
+    <%= link_to 'New Team', new_team_path, class: 'btn btn-success btn-lg btn-block' %>
+  </div>
+</div>
 <table class="table table-hover">
-  <thead>
+  <thead class="thead-light">
     <tr>
       <th>Name</th>
       <th>Devs</th>

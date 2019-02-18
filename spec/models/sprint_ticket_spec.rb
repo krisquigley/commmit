@@ -6,7 +6,7 @@ RSpec.describe SprintTicket, type: :model do
       let(:sprint_ticket) { build(:sprint_ticket) }
 
       it "should return Unmerged" do
-        expect(sprint_ticket.closed_at_formatted).to eq('Unmerged')
+        expect(sprint_ticket.closed_at_formatted).to eq('Open')
       end
     end
 

@@ -1,13 +1,20 @@
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
-    <li class="breadcrumb-item"><%= link_to "Sprints", sprints_path %></li>
-    <li class="breadcrumb-item"><%= link_to @sprint.name, sprint_path(@sprint) %></li>
-    <li class="breadcrumb-item active" aria-current="page">Manage</li>
-  </ol>
-</nav>
-
+<%= hidden_field_tag :sprint_id, @sprint.id, data: {behavior: 'sprintId'}%>
 <%= form_for @sprint do |f| %>
+  <div class="row mt-4 mb-4">
+    <div class="col-10">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
+          <li class="breadcrumb-item"><%= link_to "Sprints", sprints_path %></li>
+          <li class="breadcrumb-item"><%= link_to @sprint.name, sprint_path(@sprint) %></li>
+          <li class="breadcrumb-item active" aria-current="page">Manage</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col-2">
+      <%= f.submit class: "btn btn-success btn-block btn-lg" %>  
+    </div>
+  </div>
   <h2>Holidays</h2>
 
   <%= f.fields_for :sprint_holidays do |h| %>
@@ -16,13 +23,12 @@
       <%= h.text_field :days, class: "form-control" %>
     </div>
   <% end %>
-  <%= f.submit class: "btn btn-success" %>  
 <% end %>
-
-<h2>Assigned Tickets</h2>
+<hr class="mb-4" />
+<h4>Assigned Tickets</h4>
 <div class="form-group">
-  <table class="table">
-    <thead>
+  <table class="table table-sm">
+    <thead class="thead-light">
       <th>Title</th>
       <th>Repository</th>
       <th>Options</th>
@@ -31,25 +37,25 @@
     <% @sprint_tickets.each do |ticket| %>
       <tr>
         <td>
-          <%= ticket.title %>
+          <%= link_to ticket.title, ticket.url %>
         </td>
         <td>
           <%= ticket.repository_name %>
         </td>
         <td>
-          <span class="btn btn-danger" data-behavior="removeTicket" data-sprint-id="<%= @sprint.id %>" data-ticket-id="<%= ticket.issue_id %>">Remove</span>
+          <button class="btn btn-danger btn-sm" data-behavior="removeTicket" data-ticket-id="<%= ticket.issue_id %>">Remove</button>
         </td>
       </tr>
     <% end %>
     </tbody>
   </table>
 </div>
-
+<hr class="mb-4" />
 <%= paginate @tickets, theme: 'twitter-bootstrap-4' %>
-<h2>Available Tickets</h2>
+<h4 class="mt-4">Available Tickets</h4>
 <div class="form-group">
-  <table class="table">
-    <thead>
+  <table class="table table-sm">
+    <thead class="thead-light">
       <th>Title</th>
       <th>Repository</th>
       <th>Options</th>
@@ -58,13 +64,13 @@
     <% @tickets.each do |ticket| %>
       <tr>
         <td>
-          <%= ticket.title %>
+          <%= link_to ticket.title, ticket.url %>
         </td>
         <td>
           <%= ticket.repository_name %>
         </td>
         <td>
-          <span class="btn btn-success" data-behavior="addTicket" data-sprint-id="<%= @sprint.id %>" data-ticket-id="<%= ticket.issue_id %>">Add</span>
+          <button class="btn btn-success btn-sm btn-block" data-behavior="addTicket" data-ticket-id="<%= ticket.issue_id %>">Add</button>
         </td>
       </tr>
     <% end %>

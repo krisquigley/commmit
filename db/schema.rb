@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_14_145325) do
+ActiveRecord::Schema.define(version: 2019_02_18_165058) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 2019_02_14_145325) do
     t.string "title", null: false
     t.bigint "issue_id", null: false
     t.string "repository_name", null: false
-    t.integer "github_user_ids", default: [], array: true
+    t.bigint "github_user_ids", default: [], array: true
     t.integer "number", null: false
     t.string "state", null: false
     t.integer "estimated_effort", null: false
@@ -60,7 +60,6 @@ ActiveRecord::Schema.define(version: 2019_02_14_145325) do
   create_table "tickets", force: :cascade do |t|
     t.string "title", null: false
     t.integer "estimated_effort", null: false
-    t.integer "actual_effort"
     t.datetime "closed_at"
     t.integer "sprint_id"
     t.datetime "created_at", null: false

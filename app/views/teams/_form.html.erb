@@ -1,4 +1,18 @@
 <%= form_for @team do |f| %>
+  <div class="row mt-4">
+    <div class="col-10">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
+          <li class="breadcrumb-item"><%= link_to "Teams", teams_path %></li>
+          <li class="breadcrumb-item active" aria-current="page"><%= !@team.id ? "New Team" : "Edit Team" %></li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col-2">
+      <%= f.submit class: "btn btn-success btn-lg btn-block" %>
+    </div>
+  </div>
   <%= render 'shared/errors', object: @team %>
   <div class="form-group">
     <%= f.label :name %>
@@ -22,5 +36,4 @@
     </table>
   </div>
   
-  <%= f.submit class: "btn btn-success" %>
 <% end %>
