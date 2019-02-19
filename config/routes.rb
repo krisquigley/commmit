@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     resources :sprint_tickets
     member do
       get 'manage'
+      delete 'close'
     end
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_18_165058) do
+ActiveRecord::Schema.define(version: 2019_02_19_130905) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,8 @@ ActiveRecord::Schema.define(version: 2019_02_18_165058) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "available_effort", null: false
+    t.datetime "closed_at"
+    t.index ["closed_at"], name: "index_sprints_on_closed_at"
     t.index ["team_id"], name: "index_sprints_on_team_id"
   end
 

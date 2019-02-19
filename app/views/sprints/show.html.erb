@@ -1,5 +1,5 @@
 <div class="row mt-4 mb-4">
-  <div class="col-10">
+  <div class="col-9">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
@@ -8,12 +8,15 @@
       </ol>
     </nav>
   </div>
-  <div class="col-2">
-    <%= link_to 'Manage', manage_sprint_path(@sprint), class: "btn btn-warning btn-lg btn-block" if @sprint.in_progress? %></h3>
+  <div class="col-3">
+    <% if @sprint.in_progress? %>
+      <%= link_to 'Manage', manage_sprint_path(@sprint), class: "btn btn-warning btn-lg" %>
+      <%= link_to 'Close Sprint', close_sprint_path(@sprint), { class: "btn btn-danger btn-lg", method: :delete, data: { confirm: 'Are you sure?' } } %>
+    <% end %>
   </div>
 </div>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Available Effort</th>
@@ -23,12 +26,14 @@
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <td><%= @sprint.available_effort_after_review_time %></td>
+      <td><span data-behavior="effortAccountedFor"><%= @sprint.total_estimated_effort %></span></td>
+      <td><%= @sprint.team.name %></td>
+      <td><%= @sprint.status %></td>
+    </tr>
   </tbody>
 </table>
-<h3>: <%= @sprint.available_effort_after_review_time %> 
-<h3>: <span data-behavior="effortAccountedFor"><%= @sprint.total_estimated_effort %></span></h3>
-<h3>Team: <%= @sprint.team.name %></h3>
-<h3>Status: <%= @sprint.status %></h3>
 <input type="hidden" value="<%= @sprint.start_date.to_date %>" data-behavior="startDate" />
 <input type="hidden" value="<%= @sprint.end_date.to_date %>" data-behavior="endDate" />
 <input type="hidden" value="<%= @sprint.effort_to_date %>" data-behavior="effortToDate" />

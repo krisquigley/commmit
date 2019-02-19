@@ -15,4 +15,4 @@
 
 <%= render 'users/table', object: @team.users %>
 
-<%= render 'sprints/table', object: @team.sprints %>
+<%= render 'sprints/table', object: @team.sprints.order(end_date: :desc) %>

@@ -139,11 +139,42 @@ RSpec.describe "Sprints", type: :feature do
 
   context "finishing a sprint" do
     describe "when the end date is reached" do
-      it "should close the sprint"
+      let(:user) { create(:user) }
+      let!(:team) { create(:team, user_ids: user.id) }
+      let!(:sprint) { create(:sprint, team: team, end_date: Date.today) }
+
+      it "should close the sprint" do
+        visit sprints_path
+
+        expect(page).to have_content('In Progress')
+
+        sprint.update(end_date: Date.today - 1)
+
+        visit sprints_path
+
+        expect(page).to have_content('Finished')
+      end
     end
 
-    describe "when a sprint is closed early" do
-      it "should close the sprint"
+    describe "when a sprint is closed early", js: true do
+      let(:user) { create(:user) }
+      let!(:team) { create(:team, user_ids: user.id) }
+      let!(:sprint) { create(:sprint, team: team) }
+
+      it "should close the sprint" do
+        visit sprint_path(sprint)
+
+        click_on 'Close Sprint'
+        page.accept_alert
+
+        expect(page).to have_content('Finished')
+
+        visit sprint_path(sprint)
+
+        expect(page).to_not have_content('In Progress')
+        expect(page).to_not have_content('Manage')
+        expect(page).to_not have_content('Close Sprint')
+      end
     end
   end
 end

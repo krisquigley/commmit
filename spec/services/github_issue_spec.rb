@@ -137,7 +137,7 @@ RSpec.describe Github::Issue do
       Github::Issue.call(labelled_issue_payload)
     end
 
-    it "should parse the payload into a hash" do
+    it "should not parse the payload" do
       expect(subject).to eq(nil)
     end
   end

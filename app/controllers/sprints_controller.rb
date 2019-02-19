@@ -44,6 +44,14 @@ class SprintsController < ApplicationController
     end
   end
 
+  def close
+    if Sprint.find(params[:id]).update(closed_at: Time.now)
+      redirect_to sprints_path
+    else
+      render :show
+    end
+  end
+
   private
 
   def sprint_params
