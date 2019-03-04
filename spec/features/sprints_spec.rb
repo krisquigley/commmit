@@ -92,14 +92,14 @@ RSpec.describe "Sprints", type: :feature do
       it "should reduce the amount of available effort" do
         visit sprint_path(sprint)
 
-        expect(page).to have_content("Available Effort: 9")
+        expect(page).to have_content("8.8")
 
         click_on "Manage"
 
-        fill_in "sprint_sprint_holidays_attributes_0_days", with: 2
+        fill_in "sprint_sprint_holidays_attributes_0_days", with: 1.5
         click_on "Update Sprint"
 
-        expect(page).to have_content("Available Effort: 7")
+        expect(page).to have_content("8.0")
       end
     end
 

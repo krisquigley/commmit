@@ -11,7 +11,7 @@ class Sprint < ApplicationRecord
   after_create :create_sprint_holidays
 
   def available_effort_after_review_time
-    ((available_effort - self.sprint_holidays.pluck(:days).reduce(:+))* 0.8).round
+    (available_effort - sprint_holidays.pluck(:days).reduce(:+)) * 0.8
   end
 
   def total_estimated_effort
@@ -39,7 +39,7 @@ class Sprint < ApplicationRecord
       day = day + 1.day
     end
 
-    return effort.to_json
+    effort.to_json
   end
 
   def in_progress?

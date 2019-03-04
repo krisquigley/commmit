@@ -30,7 +30,23 @@ RSpec.describe "Tickets", sidekiq: :inline, type: :request do
 
   context "active sprints" do
     describe "when a ticket is updated" do
-      it "should only update the active sprint"
+      let!(:ticket) { create(:ticket, issue_id: 406911947) }
+      let(:edited_issue_payload) { file_fixture("edited_issue_payload.json").read }
+      let!(:user) { create(:user_with_team) }
+      let!(:active_sprint) { create(:sprint, team: user.team) }
+      let!(:inactive_sprint) { create(:sprint, team: user.team, start_date: 2.weeks.ago, end_date: 1.week.ago) }
+      let!(:sprint_ticket1) { create(:sprint_ticket, issue_id: 406911947, sprint: active_sprint) }
+      let!(:sprint_ticket2) { create(:sprint_ticket, issue_id: 406911947, sprint: inactive_sprint) }
+      
+      before do
+        post '/webhooks/issues', params: edited_issue_payload, headers: { "Content-Type"  => "application/json" }
+      end
+  
+      it "should only update the active sprint" do
+        expect(ticket.reload.title).to eq("[2] new issue")
+        expect(sprint_ticket1.reload.title).to eq("[2] new issue")
+        expect(sprint_ticket2.reload.title).to_not eq("[2] new issue")
+      end
     end
   end
 end

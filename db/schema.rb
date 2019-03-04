@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_19_130905) do
+ActiveRecord::Schema.define(version: 2019_03_01_095308) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2019_02_19_130905) do
   create_table "sprint_holidays", force: :cascade do |t|
     t.integer "sprint_id", null: false
     t.integer "user_id", null: false
-    t.integer "days", default: 0, null: false
+    t.decimal "days", default: "0.0", null: false
     t.index ["sprint_id"], name: "index_sprint_holidays_on_sprint_id"
     t.index ["user_id"], name: "index_sprint_holidays_on_user_id"
   end
@@ -30,8 +30,8 @@ ActiveRecord::Schema.define(version: 2019_02_19_130905) do
     t.bigint "github_user_ids", default: [], array: true
     t.integer "number", null: false
     t.string "state", null: false
-    t.integer "estimated_effort", null: false
-    t.integer "actual_effort"
+    t.decimal "estimated_effort", null: false
+    t.decimal "actual_effort"
     t.datetime "closed_at"
     t.integer "sprint_id"
     t.string "url", null: false
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 2019_02_19_130905) do
     t.datetime "end_date", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "available_effort", null: false
+    t.decimal "available_effort", null: false
     t.datetime "closed_at"
     t.index ["closed_at"], name: "index_sprints_on_closed_at"
     t.index ["team_id"], name: "index_sprints_on_team_id"
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 2019_02_19_130905) do
 
   create_table "tickets", force: :cascade do |t|
     t.string "title", null: false
-    t.integer "estimated_effort", null: false
+    t.decimal "estimated_effort", null: false
     t.datetime "closed_at"
     t.integer "sprint_id"
     t.datetime "created_at", null: false

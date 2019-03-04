@@ -31,24 +31,10 @@ RSpec.describe Sprint, type: :model do
     let!(:sprint) { create(:sprint_with_tickets, start_date: '2000-1-1', end_date: '2000-1-7', team: team) }
 
     it "should total all estimated effort for associated sprint tickets" do
-      # All users * 5 work days - 20% reviewing tickets
       total_estimated_effort = SprintTicket.all.pluck(:estimated_effort).reduce(:+) 
 
       expect(sprint.total_estimated_effort).to eq(total_estimated_effort)
     end 
-  end
-
-  describe "effort_used" do
-    let(:user) { create(:user) }
-    let!(:team) { create(:team, user_ids: user.id) }
-    let!(:sprint) { create(:sprint_with_tickets, team: team) }
-
-    it "should calculate actual effort used in total across the sprint" do
-      actual_effort = 6
-      sprint.sprint_tickets.first.update(closed_at: Time.now, actual_effort: actual_effort)
-  
-      expect(sprint.effort_used).to eq(actual_effort)
-    end
   end
 
   describe "effort_remaining" do
@@ -56,11 +42,8 @@ RSpec.describe Sprint, type: :model do
     let!(:team) { create(:team, user_ids: user.id) }
     let!(:sprint) { create(:sprint_with_tickets, team: team) }
 
-    it "should be available_effort_after_review_time - effort_used" do
-      actual_effort = 6
-      sprint.sprint_tickets.first.update(closed_at: Time.now, actual_effort: actual_effort)
-  
-      expect(sprint.effort_remaining).to eq(sprint.available_effort_after_review_time - actual_effort)
+    it "should be available_effort_after_review_time - total_estimated_effort" do
+      expect(sprint.effort_remaining).to eq(sprint.available_effort_after_review_time - sprint.total_estimated_effort)
     end
   end
 
@@ -73,18 +56,19 @@ RSpec.describe Sprint, type: :model do
       # 5 work days have passed since the start of the sprint
       ticket = sprint.sprint_tickets.first
       ticket.update(closed_at: Time.now)
+      total_estimated_effort = SprintTicket.all.pluck(:estimated_effort).reduce(:+)
 
-      effort_to_date = sprint.available_effort_after_review_time - ticket.estimated_effort
+      effort_to_date = total_estimated_effort - ticket.estimated_effort
 
       # Returns a JSON array of the 8 days that have passed since the start of the sprint
       expect(sprint.effort_to_date).to eq([
-        sprint.available_effort_after_review_time,
-        sprint.available_effort_after_review_time,
-        sprint.available_effort_after_review_time,
-        sprint.available_effort_after_review_time,
-        sprint.available_effort_after_review_time,
-        sprint.available_effort_after_review_time,
-        sprint.available_effort_after_review_time,
+        total_estimated_effort,
+        total_estimated_effort,
+        total_estimated_effort,
+        total_estimated_effort,
+        total_estimated_effort,
+        total_estimated_effort,
+        total_estimated_effort,
         effort_to_date
       ].to_json)
     end
