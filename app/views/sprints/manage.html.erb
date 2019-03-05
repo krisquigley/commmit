@@ -55,7 +55,7 @@
 <%= form_tag manage_sprint_path(@sprint), method: :get do |f| %>
   <div class="form-row">
     <div class="col">
-      <%= text_field_tag :title, '', class: "form-control mb-4", placeholder: "Search" %>
+      <%= text_field_tag :search, '', class: "form-control mb-4", placeholder: "Search" %>
     </div>
     <div class="col">
       <%= select_tag :repository_name, options_from_collection_for_select(Ticket.all.select(:repository_name).distinct, :repository_name, :repository_name), prompt: 'Filter by Repository', class: "form-control" %>

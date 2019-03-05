@@ -4,7 +4,7 @@ class SprintTicketsController < ApplicationController
   def create
     ticket = Ticket.find_by(issue_id: params[:issue_id])
     sprint = Sprint.find(params[:sprint_id])
-    sprint.sprint_tickets.create!(ticket.attributes.except("source"))
+    sprint.sprint_tickets.create!(ticket.attributes.except("source", "id"))
 
     render json: ticket
   end

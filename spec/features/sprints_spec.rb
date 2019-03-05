@@ -32,15 +32,51 @@ RSpec.describe "Sprints", type: :feature do
 
       it "should raise an error" do
         visit new_sprint_path
-
+        
         click_on 'Create Sprint'
 
         expect(page).to have_content("Name can't be blank Start date can't be blank End date can't be blank Team can't be blank")
       end
     end
   end
-
+  
   context "managing a sprint" do
+    describe "searching for a ticket" do
+      let(:user) { create(:user) }
+      let!(:team) { create(:team, user_ids: user.id) }
+      let!(:sprint) { create(:sprint, team: team) }
+      let!(:tickets) { create_list(:ticket, 5) }
+
+      it "should return the right results" do
+        visit manage_sprint_path(sprint)
+
+        fill_in "search", with: tickets.first.title.split(' ')[0]
+
+        click_on 'Filter'
+
+        expect(page).to have_content tickets.first.title
+        expect(page).to_not have_content tickets.last.title
+      end
+    end
+  
+    describe "filtering by repo" do
+      let(:user) { create(:user) }
+      let!(:team) { create(:team, user_ids: user.id) }
+      let!(:sprint) { create(:sprint, team: team) }
+      let!(:tickets) { create_list(:ticket, 5) }
+
+      it "should return the right tickets" do
+        visit manage_sprint_path(sprint)
+
+        select tickets.first.repository_name, from: 'repository_name'
+
+        click_on 'Filter'
+
+        expect(page).to have_content tickets.first.title
+        expect(page).to_not have_content tickets.last.title
+      end
+    end
+
     describe "adding a ticket", js: true do
       let(:user) { create(:user) }
       let!(:team) { create(:team, user_ids: user.id) }
@@ -87,19 +123,20 @@ RSpec.describe "Sprints", type: :feature do
     describe "updating holidays" do
       let(:user) { create(:user) }
       let!(:team) { create(:team, user_ids: user.id) }
-      let!(:sprint) { create(:sprint, team: team) }
+      let!(:sprint) { create(:sprint, team: team, start_date: '2019-03-04', end_date: '2019-03-08') }
 
       it "should reduce the amount of available effort" do
         visit sprint_path(sprint)
 
-        expect(page).to have_content("8.8")
+        # 1 user, 5 days of effort, 20% spent on reviewing
+        expect(page).to have_content("4")
 
         click_on "Manage"
 
         fill_in "sprint_sprint_holidays_attributes_0_days", with: 1.5
         click_on "Update Sprint"
 
-        expect(page).to have_content("7.6")
+        expect(page).to have_content("2")
       end
     end
 
@@ -180,13 +217,6 @@ RSpec.describe "Sprints", type: :feature do
     end
   end
 
-  describe "searching for a ticket" do
-    it "should return the right results"
-  end
-
-  describe "filtering by repo" do
-    it "should return the right tickets"
-  end
 
   context "finishing a sprint" do
     describe "when the end date is reached" do
