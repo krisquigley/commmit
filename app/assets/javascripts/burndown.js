@@ -5,6 +5,7 @@ const startDate = document.querySelector("[data-behavior='startDate']").value
 const endDate = document.querySelector("[data-behavior='endDate']").value
 const effortToDate = document.querySelector("[data-behavior='effortToDate']").value
 const updateEffortRows = document.querySelectorAll("input[data-behavior='updateEffort']")
+const updateEstimatedEffortRows = document.querySelectorAll("input[data-behavior='updateEstimatedEffort']")
 const updateNoteRows = document.querySelectorAll("textarea[data-behavior='updateNote']")
 
 const dates = () => {
@@ -63,6 +64,24 @@ const myChart = new Chart(ctx, {
       }]
     }
   }
+})
+
+const updateEstimatedEffort = (event) => {
+  const options = {
+    body: {
+      sprint_ticket: {
+        estimated_effort_override: event.target.value
+      }
+    },
+    issueId: event.target.attributes['data-issueId'].value,
+    sprintId: event.target.attributes['data-sprintId'].value
+  }
+
+  updateSprintTicket(options)
+}
+
+updateEstimatedEffortRows.forEach(row => {
+  row.addEventListener('change', updateEstimatedEffort)
 })
 
 const updateEffort = (event) => {

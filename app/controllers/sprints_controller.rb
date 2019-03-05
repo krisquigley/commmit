@@ -24,7 +24,15 @@ class SprintsController < ApplicationController
   def manage
     @sprint = Sprint.includes(:sprint_holidays, :sprint_tickets).find(params[:id])
     @sprint_tickets = @sprint.sprint_tickets.order(created_at: :desc)
-    @tickets = Ticket.where.not(issue_id: @sprint_tickets.pluck(:issue_id)).order(updated_at: :desc).page(params[:page])
+    tickets = Ticket.where.not(issue_id: @sprint_tickets.pluck(:issue_id)).order(updated_at: :desc).page(params[:page])
+    
+    if !params[:repository_name].empty?
+      tickets = tickets.where(repository_name: params[:repository_name])
+    elsif !params[:title].empty?
+      tickets = tickets.where('lower(title) LIKE ?', "%#{params[:title].downcase}%")
+    end
+
+    @tickets = tickets 
   end
 
   def update

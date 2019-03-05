@@ -99,7 +99,7 @@ RSpec.describe "Sprints", type: :feature do
         fill_in "sprint_sprint_holidays_attributes_0_days", with: 1.5
         click_on "Update Sprint"
 
-        expect(page).to have_content("8.0")
+        expect(page).to have_content("7.6")
       end
     end
 
@@ -129,12 +129,63 @@ RSpec.describe "Sprints", type: :feature do
     end
   end
 
-  describe "updating ticket effort" do
-    it "should update the record"
+  describe "updating estimated ticket effort", js: true do
+    let(:user) { create(:user) }
+    let!(:team) { create(:team, user_ids: user.id) }
+    let!(:sprint) { create(:sprint, team: team) }
+    let!(:sprint_tickets) { create_list(:sprint_ticket, 5, sprint: sprint) }
+
+    it "should update the record" do
+      visit sprint_path(sprint)
+
+      find("input[data-behavior='updateEstimatedEffort'][data-issueid='#{sprint_tickets.first.issue_id}']").set(3.2).send_keys(:tab)
+
+      sleep 1
+
+      expect(sprint_tickets.first.reload.estimated_effort).to eq 3.2
+    end
   end
 
-  describe "adding a note to a ticket" do
-    it "should update the record"
+  describe "updating ticket effort", js: true do
+    let(:user) { create(:user) }
+    let!(:team) { create(:team, user_ids: user.id) }
+    let!(:sprint) { create(:sprint, team: team) }
+    let!(:sprint_tickets) { create_list(:sprint_ticket, 5, sprint: sprint) }
+
+    it "should update the record" do
+      visit sprint_path(sprint)
+
+      find("input[data-behavior='updateEffort'][data-issueid='#{sprint_tickets.first.issue_id}']").set(4.5).send_keys(:tab)
+
+      sleep 1
+      
+      expect(sprint_tickets.first.reload.actual_effort).to eq 4.5
+    end
+  end
+
+  describe "adding a note to a ticket", js: true do
+    let(:user) { create(:user) }
+    let!(:team) { create(:team, user_ids: user.id) }
+    let!(:sprint) { create(:sprint, team: team) }
+    let!(:sprint_tickets) { create_list(:sprint_ticket, 5, sprint: sprint) }
+
+    it "should update the record" do
+      visit sprint_path(sprint)
+
+      find("textarea[data-behavior='updateNote'][data-issueid='#{sprint_tickets.first.issue_id}']").set('This is a note').send_keys(:tab) 
+
+      sleep 1
+      
+      expect(sprint_tickets.first.reload.notes).to eq 'This is a note'
+    end
+  end
+
+  describe "searching for a ticket" do
+    it "should return the right results"
+  end
+
+  describe "filtering by repo" do
+    it "should return the right tickets"
   end
 
   context "finishing a sprint" do

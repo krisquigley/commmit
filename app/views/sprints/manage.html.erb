@@ -51,8 +51,20 @@
   </table>
 </div>
 <hr class="mb-4" />
-<%= paginate @tickets, theme: 'twitter-bootstrap-4' %>
-<h4 class="mt-4">Available Tickets</h4>
+<h4 class="mt-4 mb-4">Available Tickets</h4>
+<%= form_tag manage_sprint_path(@sprint), method: :get do |f| %>
+  <div class="form-row">
+    <div class="col">
+      <%= text_field_tag :title, '', class: "form-control mb-4", placeholder: "Search" %>
+    </div>
+    <div class="col">
+      <%= select_tag :repository_name, options_from_collection_for_select(Ticket.all.select(:repository_name).distinct, :repository_name, :repository_name), prompt: 'Filter by Repository', class: "form-control" %>
+    </div>
+    <div class="col">
+      <%= submit_tag 'Filter', class: 'btn btn-success'%>
+    </div>
+  </div>
+<% end %>
 <div class="form-group">
   <table class="table table-sm">
     <thead class="thead-light">

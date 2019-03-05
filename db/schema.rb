@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_01_095308) do
+ActiveRecord::Schema.define(version: 2019_03_02_001152) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2019_03_01_095308) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "notes"
+    t.decimal "estimated_effort_override"
     t.index ["github_user_ids"], name: "index_sprint_tickets_on_github_user_ids"
     t.index ["sprint_id"], name: "index_sprint_tickets_on_sprint_id"
   end
@@ -74,7 +75,9 @@ ActiveRecord::Schema.define(version: 2019_03_01_095308) do
     t.string "url", null: false
     t.jsonb "source", null: false
     t.index ["issue_id"], name: "index_tickets_on_issue_id", unique: true
+    t.index ["repository_name"], name: "index_tickets_on_repository_name"
     t.index ["sprint_id"], name: "index_tickets_on_sprint_id"
+    t.index ["title"], name: "index_tickets_on_title"
   end
 
   create_table "users", force: :cascade do |t|
