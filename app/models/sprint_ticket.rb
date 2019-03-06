@@ -14,4 +14,4 @@ class SprintTicket < ApplicationRecord
   def users
     User.where("github_user_id IN (?)", github_user_ids)
   end
-end 
+end

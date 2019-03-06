@@ -20,6 +20,7 @@ services:
       BUNDLE_APP_CONFIG: /gems/.bundle
       REDIS_URL: 'redis://redis:6379'
       DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL: 'true'
+      WEBPACKER_DEV_SERVER_HOST: webpack
       USERNAME: 'username'
       PASSWORD: 'password'
     volumes:
@@ -28,6 +29,21 @@ services:
     ports:
       - "3000:3000"
     depends_on:
+      - postgres
+      - redis
+
+  webpack:
+    image: sprintable
+    command: bash -c "bin/webpack-dev-server"
+    environment: 
+      WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
+    volumes:
+      - ./:/myapp
+      - gem-cache:/gems
+    ports: 
+      - "3035:3035"
+    depends_on:
+      - web
       - postgres
       - redis
 

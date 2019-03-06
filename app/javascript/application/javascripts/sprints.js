@@ -1,3 +1,5 @@
+import { Sortable } from '@shopify/draggable'
+
 const addTickets = document.querySelectorAll("button[data-behavior='addTicket']")
 const removeTickets = document.querySelectorAll("button[data-behavior='removeTicket']")
 const sprintId = document.querySelector("input[data-behavior='sprintId']").value
@@ -87,3 +89,32 @@ const addNewRowAndRemoveOldRecord = (target, response, table) => {
   document.querySelector(`button[data-ticket-id='${response.issue_id}']`)
     .addEventListener('click', callback)
 }
+
+const sortable = new Sortable(document.querySelector('tbody[data-behavior=assignedTickets]'), {
+  draggable: 'tr',
+  handle: 'td[data-behavior=draggable]'
+})
+
+sortable.on('sortable:stop', async (event) => {
+  const { sprintId } = event.data.newContainer.dataset
+  const { children } = event.data.newContainer
+
+  for (let i = 0; i < children.length; i++) {
+    try {
+      await fetch(`/sprints/${sprintId}/sprint_tickets/${children[i].dataset.issueId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          sprint_ticket: {
+            position: i
+          }
+        })
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+})

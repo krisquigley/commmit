@@ -1,6 +1,9 @@
+import moment from 'moment'
+import Chart from 'chart.js'
+
 let ctx = document.getElementById('myChart').getContext('2d')
 
-const effortAccountedFor = document.querySelector("[data-behavior='effortAccountedFor']").innerHTML
+const effortAccountedFor = document.querySelector("input[data-behavior='effortAccountedFor']").value
 const startDate = document.querySelector("[data-behavior='startDate']").value
 const endDate = document.querySelector("[data-behavior='endDate']").value
 const effortToDate = document.querySelector("[data-behavior='effortToDate']").value

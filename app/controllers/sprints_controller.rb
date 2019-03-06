@@ -18,12 +18,12 @@ class SprintsController < ApplicationController
   end
 
   def show
-    @sprint = Sprint.includes(:sprint_tickets).find(params[:id])
+    @sprint = Sprint.includes(:sprint_tickets).order('sprint_tickets.position asc').find(params[:id])
   end
 
   def manage
     @sprint = Sprint.includes(:sprint_holidays, :sprint_tickets).find(params[:id])
-    @sprint_tickets = @sprint.sprint_tickets.order(created_at: :desc)
+    @sprint_tickets = @sprint.sprint_tickets.order(position: :asc)
     tickets = Ticket.where.not(issue_id: @sprint_tickets.pluck(:issue_id)).order(updated_at: :desc).page(params[:page])
     
     if params[:repository_name] && !params[:repository_name].empty?

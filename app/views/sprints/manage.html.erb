@@ -25,17 +25,20 @@
   <% end %>
 <% end %>
 <hr class="mb-4" />
-<h4>Assigned Tickets</h4>
+<h4 class="mb-4">Assigned Tickets</h4>
 <div class="form-group">
   <table class="table table-sm">
     <thead class="thead-light">
-      <th>Title</th>
+      <th colspan="2">Title</th>
       <th>Repository</th>
       <th>Options</th>
     </thead>
-    <tbody data-behavior="assignedTickets">
+    <tbody data-behavior="assignedTickets" data-sprint-id="<%= @sprint.id %>">
     <% @sprint_tickets.each do |ticket| %>
-      <tr>
+      <tr data-issue-id="<%= ticket.issue_id %>">
+        <td data-behavior="draggable" style="cursor: move;">
+          &#8230;
+        </td>
         <td>
           <%= link_to ticket.title, ticket.url %>
         </td>
@@ -92,4 +95,4 @@
 <%= paginate @tickets, theme: 'twitter-bootstrap-4' %>
 
 
-<%= javascript_include_tag 'sprints' %>
+<%= javascript_pack_tag 'sprints' %>

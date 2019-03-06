@@ -26,6 +26,6 @@ class SprintTicketsController < ApplicationController
   private
 
   def sprint_ticket_params
-    params.require(:sprint_ticket).permit(:sprint_id, :notes, :actual_effort, :issue_id, :estimated_effort_override)
+    params.require(:sprint_ticket).permit(:sprint_id, :notes, :position, :actual_effort, :issue_id, :estimated_effort_override)
   end
 end

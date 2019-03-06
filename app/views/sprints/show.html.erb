@@ -16,32 +16,16 @@
   </div>
 </div>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Available Effort</th>
-      <th>Effort Accounted for</th>
-      <th>Team</th>
-      <th>Status</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><%= @sprint.available_effort_after_review_time %></td>
-      <td><span data-behavior="effortAccountedFor"><%= @sprint.total_estimated_effort %></span></td>
-      <td><%= @sprint.team.name %></td>
-      <td><%= @sprint.status %></td>
-    </tr>
-  </tbody>
-</table>
+<input type="hidden" value="<%= @sprint.total_estimated_effort %>" data-behavior="effortAccountedFor" />
 <input type="hidden" value="<%= @sprint.start_date.to_date %>" data-behavior="startDate" />
 <input type="hidden" value="<%= @sprint.end_date.to_date %>" data-behavior="endDate" />
 <input type="hidden" value="<%= @sprint.effort_to_date %>" data-behavior="effortToDate" />
 
-<div style="position: relative; height:40vh; width:100%">
+<div style="position: relative; height:40vh; width:100%" class="mb-4">
   <canvas id="myChart"></canvas>
 </div>
+
 <h4>Tickets</h4>
 <%= render 'tickets', object: @sprint.sprint_tickets %>
 
-<%= javascript_include_tag 'burndown' %>
+<%= javascript_pack_tag 'burndown' %>

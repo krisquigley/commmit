@@ -1,7 +1,12 @@
 # Todo
- - Allow for ordering of sprint tickets inside a sprint
+ - Remove Available Effort	Effort Accounted for	Team	Status from show page
+ - Add available effort and effort remaining to manage sprint page
+ - Rename actual effort to effort spent
  - Add pagination to sprints index
  - Add slugs to sprints
+ - Add column to sprint to manage % of time reviewing etc
+ - Add settings table to manage % of time reviewing etc across the app, default to 20
+ - Allow for ordering of sprint tickets inside a sprint (done)
  - Add filter to tickets in manage (done)
  - Add search to tickets in manage (done)
  - Allow for manual override of estimated effort on a sprint ticket (done)

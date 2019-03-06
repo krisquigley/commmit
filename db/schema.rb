@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_02_001152) do
+ActiveRecord::Schema.define(version: 2019_03_06_192703) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,7 +39,9 @@ ActiveRecord::Schema.define(version: 2019_03_02_001152) do
     t.datetime "updated_at", null: false
     t.text "notes"
     t.decimal "estimated_effort_override"
+    t.integer "position"
     t.index ["github_user_ids"], name: "index_sprint_tickets_on_github_user_ids"
+    t.index ["position"], name: "index_sprint_tickets_on_position"
     t.index ["sprint_id"], name: "index_sprint_tickets_on_sprint_id"
   end
 
