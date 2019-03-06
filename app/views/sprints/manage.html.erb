@@ -1,4 +1,5 @@
 <%= hidden_field_tag :sprint_id, @sprint.id, data: {behavior: 'sprintId'}%>
+<%= hidden_field_tag :available_effort_after_review_time, @sprint.available_effort_after_review_time, data: {behavior: 'availableEffort'}%>
 <%= form_for @sprint do |f| %>
   <div class="row mt-4 mb-4">
     <div class="col-10">
@@ -43,6 +44,7 @@
           <%= link_to ticket.title, ticket.url %>
         </td>
         <td>
+          <%= hidden_field_tag :estimated_effort, ticket.estimated_effort, data: { behavior: 'estimatedEffort' } %>
           <%= ticket.repository_name %>
         </td>
         <td>
@@ -54,7 +56,8 @@
   </table>
 </div>
 <hr class="mb-4" />
-<h4 class="mt-4 mb-4">Available Tickets</h4>
+<h4 class="mt-4">Available Tickets</h4>
+<h5 class="mb-4">Effort Remaining <span class="badge badge-secondary" data-behavior="effortRemaining"><%= @sprint.effort_remaining %></span></h5>
 <%= form_tag manage_sprint_path(@sprint), method: :get do |f| %>
   <div class="form-row">
     <div class="col">

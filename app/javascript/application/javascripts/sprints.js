@@ -3,6 +3,19 @@ import { Sortable } from '@shopify/draggable'
 const addTickets = document.querySelectorAll("button[data-behavior='addTicket']")
 const removeTickets = document.querySelectorAll("button[data-behavior='removeTicket']")
 const sprintId = document.querySelector("input[data-behavior='sprintId']").value
+const effortRemaining = document.querySelector("span[data-behavior='effortRemaining']")
+
+const calculateEffortRemaining = () => {
+  const availableEffort = parseFloat(document.querySelector("input[data-behavior='availableEffort']").value)
+  const allEffort = document.querySelectorAll("input[data-behavior='estimatedEffort']")
+  let totalEffort = 0
+
+  allEffort.forEach(effort => {
+    totalEffort += parseFloat(effort.value)
+  })
+
+  effortRemaining.innerHTML = (availableEffort - totalEffort).toFixed(1)
+}
 
 const addTicketToSprint = async (event) => {
   event.preventDefault()
@@ -62,32 +75,51 @@ removeTickets.forEach(ticket => {
 const addNewRowAndRemoveOldRecord = (target, response, table) => {
   let button
   let callback
+  let row
 
   if (table === 'assignedTickets') {
     button = `<button class="btn btn-danger btn-sm" data-ticket-id="${response.issue_id}" data-behavior="removeTicket">Remove</button>`
     callback = removeTicketFromSprint
+    row = `<tr data-issue-id="${response.issue_id}">
+      <td data-behavior="draggable" style="cursor: move;">
+        &#8230;
+      </td>
+      <td>
+        <a href='${response.url}'>${response.title}</a>
+      </td>
+      <td>
+        <input type="hidden" value="${response.estimated_effort}" data-behavior="estimatedEffort" />
+        ${response.repository_name}
+      </td>
+      <td>
+        ${button}
+      </td>
+    </tr>`
   } else {
     button = `<button class="btn btn-success btn-sm btn-block" data-ticket-id="${response.issue_id}" data-behavior="addTicket">Add</button>`
     callback = addTicketToSprint
+    row = `<tr>
+      <td>
+        <a href='${response.url}'>${response.title}</a>
+      </td>
+      <td>
+        ${response.repository_name}
+      </td>
+      <td>
+        ${button}
+      </td>
+    </tr>`
   }
 
   const tbody = document.querySelector(`tbody[data-behavior='${table}']`)
-  tbody.insertAdjacentHTML('beforeend', `<tr>
-    <td>
-      <a href='${response.url}'>${response.title}</a>
-    </td>
-    <td>
-      ${response.repository_name}
-    </td>
-    <td>
-      ${button}
-    </td>
-  </tr>`)
+  tbody.insertAdjacentHTML('beforeend', row)
 
   target.parentElement.parentElement.remove()
 
   document.querySelector(`button[data-ticket-id='${response.issue_id}']`)
     .addEventListener('click', callback)
+
+  calculateEffortRemaining()
 }
 
 const sortable = new Sortable(document.querySelector('tbody[data-behavior=assignedTickets]'), {
@@ -118,3 +150,5 @@ sortable.on('sortable:stop', async (event) => {
     }
   }
 })
+
+
