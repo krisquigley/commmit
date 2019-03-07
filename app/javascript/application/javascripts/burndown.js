@@ -91,7 +91,7 @@ const updateEffort = (event) => {
   const options = {
     body: {
       sprint_ticket: {
-        actual_effort: event.target.value
+        effort_spent: event.target.value
       }
     },
     issueId: event.target.attributes['data-issueId'].value,

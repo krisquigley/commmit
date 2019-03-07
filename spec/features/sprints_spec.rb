@@ -127,16 +127,16 @@ RSpec.describe "Sprints", type: :feature do
 
       it "should reduce the amount of available effort" do
         visit sprint_path(sprint)
-
+        
         # 1 user, 5 days of effort, 20% spent on reviewing
-        expect(page).to have_content("4")
-
+        expect(sprint.available_effort_after_review_time).to have_content("4")
+        
         click_on "Manage"
 
         fill_in "sprint_sprint_holidays_attributes_0_days", with: 1.5
         click_on "Update Sprint"
 
-        expect(page).to have_content("2")
+        expect(sprint.reload.available_effort_after_review_time).to have_content("2")
       end
     end
 
@@ -196,7 +196,7 @@ RSpec.describe "Sprints", type: :feature do
 
       sleep 1
       
-      expect(sprint_tickets.first.reload.actual_effort).to eq 4.5
+      expect(sprint_tickets.first.reload.effort_spent).to eq 4.5
     end
   end
 
@@ -211,7 +211,7 @@ RSpec.describe "Sprints", type: :feature do
 
       find("textarea[data-behavior='updateNote'][data-issueid='#{sprint_tickets.first.issue_id}']").set('This is a note').send_keys(:tab) 
 
-      sleep 1
+      sleep 5
       
       expect(sprint_tickets.first.reload.notes).to eq 'This is a note'
     end

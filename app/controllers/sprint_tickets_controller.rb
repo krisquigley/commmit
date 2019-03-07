@@ -3,8 +3,9 @@ class SprintTicketsController < ApplicationController
 
   def create
     ticket = Ticket.find_by(issue_id: params[:issue_id])
-    sprint = Sprint.find(params[:sprint_id])
-    sprint.sprint_tickets.create!(ticket.attributes.except("source", "id"))
+    sprint = Sprint.includes(:sprint_tickets).find(params[:sprint_id])
+    position = sprint.sprint_tickets.count
+    sprint.sprint_tickets.create!(ticket.attributes.except("source", "id").merge(position: position))
 
     render json: ticket
   end
@@ -26,6 +27,6 @@ class SprintTicketsController < ApplicationController
   private
 
   def sprint_ticket_params
-    params.require(:sprint_ticket).permit(:sprint_id, :notes, :position, :actual_effort, :issue_id, :estimated_effort_override)
+    params.require(:sprint_ticket).permit(:sprint_id, :notes, :position, :effort_spent, :issue_id, :estimated_effort_override)
   end
 end

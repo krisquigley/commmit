@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_06_192703) do
+ActiveRecord::Schema.define(version: 2019_03_07_115435) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 2019_03_06_192703) do
     t.integer "number", null: false
     t.string "state", null: false
     t.decimal "estimated_effort", null: false
-    t.decimal "actual_effort"
+    t.decimal "effort_spent"
     t.datetime "closed_at"
     t.integer "sprint_id"
     t.string "url", null: false

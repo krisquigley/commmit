@@ -1,2 +1,2 @@
 #!/bin/bash
-RAILS_ENV=${RAILS_ENV:-development} docker-compose exec web bundle exec rspec $@
+RAILS_ENV=test docker-compose exec web bundle exec rspec $@

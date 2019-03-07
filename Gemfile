@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.1'
+ruby '2.6.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.2'
@@ -39,7 +39,6 @@ group :development, :test do
   gem 'dotenv-rails', '~> 2.6'
   gem 'docker-sync', '~> 0.0.11'
   gem 'pry', '~> 0.12.2'
-  gem 'selenium-webdriver', '~> 3.141'
 end
 
 group :development do
@@ -56,6 +55,7 @@ group :test do
   gem 'capybara', '~> 3.13', '>= 3.13.2'
   gem 'rspec-sidekiq', '~> 3.0', '>= 3.0.3'
   gem 'faker', '~> 1.9', '>= 1.9.1'
+  gem 'selenium-webdriver', '~> 3.141'
 end
 
 

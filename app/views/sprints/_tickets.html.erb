@@ -14,7 +14,7 @@
     <tr>
       <td><%= link_to ticket.title, ticket.url %></td>
       <td><%= text_field_tag :estimated_ticket_override, ticket.estimated_effort, {class: 'form-control', type: :number, step: '0.5', data: {behavior: 'updateEstimatedEffort', issueId: ticket.issue_id, sprintId: @sprint.id} } %></td>
-      <td><%= text_field_tag :actual_effort, ticket.actual_effort, {class: 'form-control', type: :number, step: '0.5', data: {behavior: 'updateEffort', issueId: ticket.issue_id, sprintId: @sprint.id}} %></td>
+      <td><%= text_field_tag :effort_spent, ticket.effort_spent, {class: 'form-control', type: :number, step: '0.5', data: {behavior: 'updateEffort', issueId: ticket.issue_id, sprintId: @sprint.id}} %></td>
       <td><%= ticket.closed_at_formatted %></td>
       <td><%= !ticket.users.empty? ? render(partial: 'users/link', collection: ticket.users, spacer_template: 'shared/comma') : "Unassigned" %></td>
       <td><%= text_area_tag :notes, ticket.notes, {class: 'form-control', data: {behavior: 'updateNote', issueId: ticket.issue_id, sprintId: @sprint.id}} %>

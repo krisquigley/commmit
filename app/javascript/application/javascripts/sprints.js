@@ -150,5 +150,3 @@ sortable.on('sortable:stop', async (event) => {
     }
   }
 })
-
-

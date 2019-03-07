@@ -25,7 +25,7 @@
     <tr>
       <td><%= link_to ticket.title, ticket.url %></td>
       <td><%= ticket.estimated_effort %></td>
-      <td><%= ticket.actual_effort %></td>
+      <td><%= ticket.effort_spent %></td>
       <td><%= ticket.closed_at_formatted %></td>
       <td><%= !ticket.users.empty? ? generate_user_links(ticket.users) : "Unassigned" %></td>
       <td><%= ticket.repository_name %></td>

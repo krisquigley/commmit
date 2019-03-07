@@ -23,11 +23,13 @@ services:
       WEBPACKER_DEV_SERVER_HOST: webpack
       USERNAME: 'username'
       PASSWORD: 'password'
+
     volumes:
       - ./:/myapp
       - gem-cache:/gems
     ports:
       - "3000:3000"
+      - "9222:9222"
     depends_on:
       - postgres
       - redis
