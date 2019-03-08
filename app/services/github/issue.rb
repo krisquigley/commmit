@@ -17,7 +17,7 @@ class Github::Issue < Github::Base
   def attributes
     {
       repository_name: repository_name,
-      url: parsed_payload[:repository].to_h[:html_url] || parsed_payload.fetch(:html_url),
+      url: parsed_payload[:issue].to_h[:html_url] || parsed_payload.fetch(:html_url),
       issue_id: parsed_payload[:issue].to_h[:id] || parsed_payload.fetch(:id),
       number: Integer((parsed_payload[:issue].to_h[:number] || parsed_payload.fetch(:number))),
       title: parsed_payload[:issue].to_h[:title] || parsed_payload.fetch(:title),
