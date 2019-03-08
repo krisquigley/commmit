@@ -103,7 +103,7 @@ RSpec.describe "Sprints", type: :feature do
       let!(:tickets) { create_list(:ticket, 5, state: 'open') }
       let!(:team) { create(:team, user_ids: user.id) }
       let!(:sprint) { create(:sprint, team: team) }
-      let!(:sprint_tickets) { tickets.each {|t| sprint.sprint_tickets.create(t.attributes.except("source")) } }
+      let!(:sprint_tickets) { tickets.each {|t| sprint.sprint_tickets.create(t.attributes.except("source", "id")) } }
 
       it "should be removed" do
         visit sprint_path(sprint)
@@ -134,7 +134,7 @@ RSpec.describe "Sprints", type: :feature do
         click_on "Manage"
 
         fill_in "sprint_sprint_holidays_attributes_0_days", with: 1.5
-        click_on "Update Sprint"
+        click_on "Update Holidays"
 
         expect(sprint.reload.available_effort_after_review_time).to have_content("2")
       end
@@ -211,7 +211,7 @@ RSpec.describe "Sprints", type: :feature do
 
       find("textarea[data-behavior='updateNote'][data-issueid='#{sprint_tickets.first.issue_id}']").set('This is a note').send_keys(:tab) 
 
-      sleep 5
+      sleep 1
       
       expect(sprint_tickets.first.reload.notes).to eq 'This is a note'
     end

@@ -14,15 +14,15 @@ class SprintsController < ApplicationController
   end
 
   def index
-    @sprints = Sprint.order(end_date: :desc)
+    @sprints = Sprint.order(end_date: :desc).page(params[:page])
   end
 
   def show
-    @sprint = Sprint.includes(:sprint_tickets).order('sprint_tickets.position asc').find(params[:id])
+    @sprint = Sprint.includes(:sprint_tickets).order('sprint_tickets.position asc').friendly.find(params[:id])
   end
 
   def manage
-    @sprint = Sprint.includes(:sprint_holidays, :sprint_tickets).find(params[:id])
+    @sprint = Sprint.includes(:sprint_holidays, :sprint_tickets).friendly.find(params[:id])
     @sprint_tickets = @sprint.sprint_tickets.order(position: :asc)
     tickets = Ticket.where.not(issue_id: @sprint_tickets.pluck(:issue_id)).order(updated_at: :desc).page(params[:page])
     
@@ -36,24 +36,19 @@ class SprintsController < ApplicationController
   end
 
   def update
-    @sprint = Sprint.find(params[:id])
+    @sprint = Sprint.friendly.find(params[:id])
     
     @sprint.update_attributes(sprint_params)
     
-    if !ticket_params.empty?
-      tickets = SprintTicket.find(ticket_params[:sprint_tickets])
-      @sprint.sprint_tickets.create(tickets.first.attributes.except("source"))
-    end
-
     if @sprint.save
-      redirect_to @sprint, notice: "Sprint successfully updated!"
+      redirect_to manage_sprint_path(@sprint), notice: "Sprint successfully updated!"
     else
       render :manage
     end
   end
 
   def close
-    if Sprint.find(params[:id]).update(closed_at: Time.now)
+    if Sprint.friendly.find(params[:id]).update(closed_at: Time.now)
       redirect_to sprints_path
     else
       render :show
@@ -63,10 +58,6 @@ class SprintsController < ApplicationController
   private
 
   def sprint_params
-    params.require(:sprint).permit(:name, :start_date, :end_date, :team_id, sprint_holidays_attributes: [:id, :days])
-  end
-
-  def ticket_params
-    params.require(:sprint).permit(sprint_tickets: [])
+    params.require(:sprint).permit(:name, :effort_adjustment, :start_date, :end_date, :team_id, sprint_holidays_attributes: [:id, :days])
   end
 end

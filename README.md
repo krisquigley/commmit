@@ -1,9 +1,12 @@
 # Todo
- - Rename actual effort to effort spent
- - Add pagination to sprints index
- - Add slugs to sprints
- - Add column to sprint to manage % of time reviewing etc
- - Add settings table to manage % of time reviewing etc across the app, default to 20
+ - Add specs for updating effort adjustment
+ - Add specs for updating position of tickets
+ - Add spec for overriding estimated effort?
+ - Add slugs to sprints (done)
+ - Add column to sprint to manage % of time reviewing etc (done)
+ - Add settings table to manage % of time reviewing etc across the app, default to 20 (done)
+ - Add pagination to sprints index (done)
+ - Rename actual effort to effort spent (done)
  - Make position of sprint ticket when adding it to a sprint to be sprint_tickets.count (done)
  - Add available effort and effort remaining to manage sprint page (done)
  - Remove Available Effort	Effort Accounted for	Team	Status from show page (done)

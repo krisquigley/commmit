@@ -1,4 +1,7 @@
 class Sprint < ApplicationRecord
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+  
   validates :name, :start_date, :end_date, :team_id, presence: true
 
   has_many :sprint_tickets
@@ -10,8 +13,12 @@ class Sprint < ApplicationRecord
   before_create :calculate_available_effort
   after_create :create_sprint_holidays
 
+  def effort_adjustment
+    read_attribute(:effort_adjustment) || ENV.fetch('SPRINT_EFFORT_ADJUSTMENT')
+  end
+
   def available_effort_after_review_time
-    (available_effort - sprint_holidays.pluck(:days).reduce(:+)) * 0.8
+    (available_effort - sprint_holidays.pluck(:days).reduce(:+)) * (1 - (BigDecimal(effort_adjustment) / 100.0))
   end
 
   def total_estimated_effort

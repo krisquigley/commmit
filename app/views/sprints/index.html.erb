@@ -11,4 +11,7 @@
     <%= link_to 'New Sprint', new_sprint_path, class: 'btn btn-success btn-lg btn-block' %>
   </div>
 </div>
+
 <%= render 'table', object: @sprints %>
+
+<%= paginate @sprints, theme: 'twitter-bootstrap-4' %>

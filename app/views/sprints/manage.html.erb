@@ -1,101 +1,134 @@
-<%= hidden_field_tag :sprint_id, @sprint.id, data: {behavior: 'sprintId'}%>
-<%= hidden_field_tag :available_effort_after_review_time, @sprint.available_effort_after_review_time, data: {behavior: 'availableEffort'}%>
-<%= form_for @sprint do |f| %>
-  <div class="row mt-4 mb-4">
-    <div class="col-10">
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
-          <li class="breadcrumb-item"><%= link_to "Sprints", sprints_path %></li>
-          <li class="breadcrumb-item"><%= link_to @sprint.name, sprint_path(@sprint) %></li>
-          <li class="breadcrumb-item active" aria-current="page">Manage</li>
-        </ol>
-      </nav>
-    </div>
-    <div class="col-2">
-      <%= f.submit class: "btn btn-success btn-block btn-lg" %>  
-    </div>
+<div class="row mt-4 mb-4">
+  <div class="col-12">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
+        <li class="breadcrumb-item"><%= link_to "Sprints", sprints_path %></li>
+        <li class="breadcrumb-item"><%= link_to @sprint.name, sprint_path(@sprint) %></li>
+        <li class="breadcrumb-item active" aria-current="page">Manage</li>
+      </ol>
+    </nav>
   </div>
-  <h2>Holidays</h2>
+</div>
 
-  <%= f.fields_for :sprint_holidays do |h| %>
-    <div class="form-group">
-      <%= h.label h.object.user.name %>
-      <%= h.text_field :days, class: "form-control" %>
-    </div>
-  <% end %>
-<% end %>
-<hr class="mb-4" />
-<h4 class="mb-4">Assigned Tickets</h4>
-<div class="form-group">
-  <table class="table table-sm">
-    <thead class="thead-light">
-      <th colspan="2">Title</th>
-      <th>Repository</th>
-      <th>Options</th>
-    </thead>
-    <tbody data-behavior="assignedTickets" data-sprint-id="<%= @sprint.id %>">
-    <% @sprint_tickets.each do |ticket| %>
-      <tr data-issue-id="<%= ticket.issue_id %>">
-        <td data-behavior="draggable" style="cursor: move;">
-          &#8230;
-        </td>
-        <td>
-          <%= link_to ticket.title, ticket.url %>
-        </td>
-        <td>
-          <%= hidden_field_tag :estimated_effort, ticket.estimated_effort, data: { behavior: 'estimatedEffort' } %>
-          <%= ticket.repository_name %>
-        </td>
-        <td>
-          <button class="btn btn-danger btn-sm" data-behavior="removeTicket" data-ticket-id="<%= ticket.issue_id %>">Remove</button>
-        </td>
-      </tr>
+<div class="card mb-4">
+  <div class="card-body">
+    <h5 class="card-title">Holidays</h5>
+    <%= form_for @sprint do |f| %>
+      <%= f.fields_for :sprint_holidays do |h| %>
+        <div class="form-group">
+          <%= h.label h.object.user.name %>
+          <div class="input-group mb-3">
+            <%= h.text_field :days, class: "form-control" %>
+            <div class="input-group-append">
+              <span class="input-group-text" id="basic-addon2">days</span>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <%= f.submit 'Update Holidays', class: "btn btn-success" %> 
     <% end %>
-    </tbody>
-  </table>
+  </div>
 </div>
-<hr class="mb-4" />
-<h4 class="mt-4">Available Tickets</h4>
-<h5 class="mb-4">Effort Remaining <span class="badge badge-secondary" data-behavior="effortRemaining"><%= @sprint.effort_remaining %></span></h5>
-<%= form_tag manage_sprint_path(@sprint), method: :get do |f| %>
-  <div class="form-row">
-    <div class="col">
-      <%= text_field_tag :search, '', class: "form-control mb-4", placeholder: "Search" %>
-    </div>
-    <div class="col">
-      <%= select_tag :repository_name, options_from_collection_for_select(Ticket.all.select(:repository_name).distinct, :repository_name, :repository_name), prompt: 'Filter by Repository', class: "form-control" %>
-    </div>
-    <div class="col">
-      <%= submit_tag 'Filter', class: 'btn btn-success'%>
+<div class="card mb-4">
+  <div class="card-body">
+    <h5 class="card-title">Effort Adjustment</h5>
+    <%= form_for @sprint do |f| %>
+      <div class="form-group">
+        <div class="input-group mb-3">
+          <%= f.text_field :effort_adjustment, class: "form-control" %>
+          <div class="input-group-append">
+            <span class="input-group-text" id="basic-addon2">%</span>
+          </div>
+        </div>
+      </div>
+      <%= f.submit 'Update Effort', class: "btn btn-success" %> 
+    <% end %>
+  </div>
+</div>
+
+<%= hidden_field_tag :sprint_id, @sprint.id, data: {behavior: 'sprintId'} %>
+<%= hidden_field_tag :available_effort_after_review_time, @sprint.available_effort_after_review_time, data: {behavior: 'availableEffort'} %>
+
+<div class="card mb-4">
+  <div class="card-body">
+    <h5 class="card-title">Assigned Tickets</h5>
+    <div class="form-group">
+      <table class="table table-sm">
+        <thead class="thead-light">
+          <th colspan="2">Title</th>
+          <th>Repository</th>
+          <th>Options</th>
+        </thead>
+        <tbody data-behavior="assignedTickets" data-sprint-id="<%= @sprint.id %>">
+        <% @sprint_tickets.each do |ticket| %>
+          <tr data-issue-id="<%= ticket.issue_id %>">
+            <td data-behavior="draggable" style="cursor: move;">
+              &#8230;
+            </td>
+            <td>
+              <%= link_to ticket.title, ticket.url %>
+            </td>
+            <td>
+              <%= hidden_field_tag :estimated_effort, ticket.estimated_effort, data: { behavior: 'estimatedEffort' } %>
+              <%= ticket.repository_name %>
+            </td>
+            <td>
+              <button class="btn btn-danger btn-sm" data-behavior="removeTicket" data-ticket-id="<%= ticket.issue_id %>">Remove</button>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
-<% end %>
-<div class="form-group">
-  <table class="table table-sm">
-    <thead class="thead-light">
-      <th>Title</th>
-      <th>Repository</th>
-      <th>Options</th>
-    </thead>
-    <tbody data-behavior="availableTickets">
-    <% @tickets.each do |ticket| %>
-      <tr>
-        <td>
-          <%= link_to ticket.title, ticket.url %>
-        </td>
-        <td>
-          <%= ticket.repository_name %>
-        </td>
-        <td>
-          <button class="btn btn-success btn-sm btn-block" data-behavior="addTicket" data-ticket-id="<%= ticket.issue_id %>">Add</button>
-        </td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
 </div>
-<%= paginate @tickets, theme: 'twitter-bootstrap-4' %>
+
+<div class="card mb-4">
+  <div class="card-body">
+    <h5 class="card-title">Available Tickets</h5>
+    <h6 class="mb-4">Effort Remaining <span class="badge badge-secondary" data-behavior="effortRemaining"><%= @sprint.effort_remaining %></span></h6>
+    <%= form_tag manage_sprint_path(@sprint), method: :get do |f| %>
+      <div class="form-row">
+        <div class="col-7">
+          <%= text_field_tag :search, '', class: "form-control mb-4", placeholder: "Search" %>
+        </div>
+        <div class="col-4">
+          <%= select_tag :repository_name, options_from_collection_for_select(Ticket.all.select(:repository_name).distinct, :repository_name, :repository_name), prompt: 'Filter by Repository', class: "form-control" %>
+        </div>
+        <div class="col-1">
+          <%= submit_tag 'Filter', class: 'btn btn-success btn-block' %>
+        </div>
+      </div>
+    <% end %>
+    <table class="table table-sm">
+      <thead class="thead-light">
+        <th>Title</th>
+        <th>Repository</th>
+        <th>Options</th>
+      </thead>
+      <tbody data-behavior="availableTickets">
+      <% @tickets.each do |ticket| %>
+        <tr>
+          <td>
+            <%= link_to ticket.title, ticket.url %>
+          </td>
+          <td>
+            <%= ticket.repository_name %>
+          </td>
+          <td>
+            <button class="btn btn-success btn-sm btn-block" data-behavior="addTicket" data-ticket-id="<%= ticket.issue_id %>">Add</button>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <%= paginate @tickets, theme: 'twitter-bootstrap-4' %>
+  </div>
+</div>
 
 
 <%= javascript_pack_tag 'sprints' %>
+
+
+
