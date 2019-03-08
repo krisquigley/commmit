@@ -28,7 +28,9 @@
       <div class="form-group">
         <table class="table table-sm">
           <thead class="thead-light">
-            <th colspan="2">Title</th>
+            <th></th>
+            <th>#</th>
+            <th>Title</th>
             <th>Repository</th>
             <th>Options</th>
           </thead>
@@ -37,6 +39,9 @@
             <tr data-issue-id="<%= ticket.issue_id %>">
               <td data-behavior="draggable" style="cursor: move;">
                 &#8230;
+              </td>
+              <td>
+                <%= ticket.number %>
               </td>
               <td>
                 <%= link_to ticket.title, ticket.url %>
@@ -70,7 +75,7 @@
       <%= form_tag manage_sprint_path(@sprint), method: :get do |f| %>
         <div class="form-row">
           <div class="col-7">
-            <%= text_field_tag :search, '', class: "form-control mb-4", placeholder: "Search" %>
+            <%= text_field_tag :search, params[:search], class: "form-control mb-4", placeholder: "Search" %>
           </div>
           <div class="col-4">
             <%= select_tag :repository_name, options_from_collection_for_select(Ticket.all.select(:repository_name).distinct, :repository_name, :repository_name), prompt: 'Filter by Repository', class: "form-control" %>
@@ -82,6 +87,7 @@
       <% end %>
       <table class="table table-sm">
         <thead class="thead-light">
+          <th>#</th>
           <th>Title</th>
           <th>Repository</th>
           <th>Options</th>
@@ -89,6 +95,9 @@
         <tbody data-behavior="availableTickets">
         <% @tickets.each do |ticket| %>
           <tr>
+            <td>
+              <%= ticket.number %>
+            </td>
             <td>
               <%= link_to ticket.title, ticket.url %>
             </td>

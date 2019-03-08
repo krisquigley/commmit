@@ -13,7 +13,7 @@ services:
   web:
     build: .
     image: sprintable
-    command: bash -c "rm -f /myapp/tmp/pids/server.pid && bundle install && bundle exec rails s -p 3000 -b 0.0.0.0"
+    command: bash -c "rm -f /myapp/tmp/pids/server.pid && bundle install && bundle exec puma -t 5:5 -p 3000 -e development"
     environment: &default_environment
       DATABASE_URL: 'postgres://postgres:@postgres:5432'
       BUNDLE_PATH: '/gems'

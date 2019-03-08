@@ -29,7 +29,7 @@ class SprintsController < ApplicationController
     if params[:repository_name] && !params[:repository_name].empty?
       tickets = tickets.where(repository_name: params[:repository_name])
     elsif params[:search] && !params[:search].empty?
-      tickets = tickets.where('lower(title) LIKE ?', "%#{params[:search].downcase}%")
+      tickets = tickets.where('lower(title) || number LIKE ?', "%#{params[:search].downcase}%")
     end
 
     @tickets = tickets 

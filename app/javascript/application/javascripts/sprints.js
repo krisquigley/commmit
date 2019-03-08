@@ -5,6 +5,12 @@ const removeTickets = document.querySelectorAll("button[data-behavior='removeTic
 const sprintId = document.querySelector("input[data-behavior='sprintId']").value
 const openTabButtons = document.querySelectorAll("button[data-behavior='openTab']")
 
+const urlParams = new URLSearchParams(window.location.search)
+const myParam = urlParams.get('search')
+
+if (myParam) {
+  window.scrollTo(0, document.body.scrollHeight)
+}
 
 const calculateEffortRemaining = () => {
   const availableEffort = parseFloat(document.querySelector("input[data-behavior='availableEffort']").value)
@@ -80,6 +86,9 @@ const addNewRowAndRemoveOldRecord = (target, response, table) => {
         &#8230;
       </td>
       <td>
+        ${response.number}
+      </td>
+      <td>
         <a href='${response.url}'>${response.title}</a>
       </td>
       <td>
@@ -94,6 +103,9 @@ const addNewRowAndRemoveOldRecord = (target, response, table) => {
     button = `<button class="btn btn-success btn-sm btn-block" data-ticket-id="${response.issue_id}" data-behavior="addTicket">Add</button>`
     callback = addTicketToSprint
     row = `<tr>
+      <td>
+        ${response.number}
+      </td>
       <td>
         <a href='${response.url}'>${response.title}</a>
       </td>
