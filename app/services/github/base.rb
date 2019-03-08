@@ -2,7 +2,8 @@ class Github::Base
   attr_accessor :parsed_payload, :payload
 
   def initialize(payload)
-    self.payload = payload
+    # Ensure UTF8 characters are encoded properly
+    self.payload = payload.encode!("UTF-8", invalid: :replace, undef: :replace).force_encoding("utf-8")
     self.parsed_payload = Oj.load(payload, symbol_keys: true)
   end
 
