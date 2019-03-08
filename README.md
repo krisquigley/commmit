@@ -1,4 +1,5 @@
 # Todo
+ - Write up readme for how to use the app
  - Add specs for updating effort adjustment
  - Add specs for updating position of tickets
  - Add spec for overriding estimated effort?
