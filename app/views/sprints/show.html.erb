@@ -1,5 +1,5 @@
 <div class="row mt-4 mb-4">
-  <div class="col-9">
+  <div class="col-md-8">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
@@ -8,12 +8,14 @@
       </ol>
     </nav>
   </div>
-  <div class="col-3">
-    <% if @sprint.in_progress? %>
-      <%= link_to 'Manage', manage_sprint_path(@sprint), class: "btn btn-warning btn-lg" %>
-      <%= link_to 'Close Sprint', close_sprint_path(@sprint), { class: "btn btn-danger btn-lg", method: :delete, data: { confirm: 'Are you sure?' } } %>
-    <% end %>
-  </div>
+  <% if @sprint.in_progress? %>
+    <div class="col-sm-12 col-md-2">
+      <%= link_to 'Manage', manage_sprint_path(@sprint), class: "btn btn-warning btn-block btn-lg" %>
+    </div>
+    <div class="col-sm-12 col-md-2">
+      <%= link_to 'Close Sprint', close_sprint_path(@sprint), { class: "btn btn-danger btn-block btn-lg", method: :delete, data: { confirm: 'Are you sure?' } } %>
+    </div>
+  <% end %>
 </div>
 
 <input type="hidden" value="<%= @sprint.total_estimated_effort %>" data-behavior="effortAccountedFor" />

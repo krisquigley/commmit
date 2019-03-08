@@ -1,6 +1,6 @@
 <%= form_for @team do |f| %>
   <div class="row mt-4">
-    <div class="col-10">
+    <div class="col-sm-10">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
@@ -9,12 +9,14 @@
         </ol>
       </nav>
     </div>
-    <div class="col-2">
+    <div class="col-sm-2">
       <%= f.submit class: "btn btn-success btn-lg btn-block" %>
     </div>
   </div>
+  
   <%= render 'shared/errors', object: @team %>
-  <div class="form-group">
+
+  <div class="form-group mt-4">
     <%= f.label :name %>
     <%= f.text_field :name, required: true, class: "form-control" %>
   </div>
