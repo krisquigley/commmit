@@ -14,11 +14,11 @@ namespace 'github' do
     print 'Done'
   end
 
-  task import_issues: :environment do
+  task import_issues: :environment, [:repo] do |task, args|
     client = Octokit::Client.new(access_token: ENV.fetch('GITHUB_ACCESS_TOKEN'))
     client.auto_paginate = true
 
-    issues = client.issues('shiftcommerce/shift-front-end-react', query: { state: "open"})
+    issues = client.issues(args[:repo], query: { state: "open"})
 
     issues.each do |issue|
       # Update issue to take URL instead.  determine the repo from the url.
