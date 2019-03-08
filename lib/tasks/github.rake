@@ -14,7 +14,7 @@ namespace 'github' do
     print 'Done'
   end
 
-  task :import_issues, [:repo] :environment do |task, args|
+  task :import_issues, [:repo] => :environment do |task, args|
     client = Octokit::Client.new(access_token: ENV.fetch('GITHUB_ACCESS_TOKEN'))
     client.auto_paginate = true
 
