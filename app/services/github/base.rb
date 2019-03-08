@@ -11,7 +11,7 @@ class Github::Base
   end
 
   def call
-    return if !actions.include?(parsed_payload.fetch(:action)) || validations
+    return if !actions.include?(parsed_payload[:action]) || validations
     attributes
   end
 
