@@ -24,9 +24,16 @@ class Github::Issue < Github::Base
       state: parsed_payload[:issue].to_h[:state] || parsed_payload.fetch(:state),
       estimated_effort: estimated_effort,
       closed_at: parsed_payload[:issue].to_h[:closed_at] || parsed_payload[:closed_at],
-      github_user_ids: parsed_payload[:issue].to_h[:assignees] || parsed_payload.fetch(:assignees),
+      github_user_ids: github_user_ids,
       source: payload
     }
+  end
+
+  def github_user_ids
+    assignees = parsed_payload[:issue].to_h[:assignees] || parsed_payload.fetch(:assignees)
+    assignees.map do |assignee|
+      assignee.fetch[:id]
+    end
   end
 
   def repository_name

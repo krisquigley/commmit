@@ -17,7 +17,7 @@ RSpec.describe Github::Issue do
         github_user_ids: [],
         issue_id: 406911947,
         closed_at: nil,
-        url: "https://github.com/krisquigley/sprintable",
+        url: "https://github.com/krisquigley/sprintable/issues/2",
         source: new_issue_payload
       }
     end
@@ -43,7 +43,7 @@ RSpec.describe Github::Issue do
         github_user_ids: [],
         issue_id: 406911947,
         closed_at: nil,
-        url: "https://github.com/krisquigley/sprintable",
+        url: "https://github.com/krisquigley/sprintable/issues/2",
         source: new_issue_payload
       }
     end
@@ -69,7 +69,7 @@ RSpec.describe Github::Issue do
         github_user_ids: [],
         issue_id: 406911947,
         closed_at: nil,
-        url: "https://github.com/krisquigley/sprintable",
+        url: "https://github.com/krisquigley/sprintable/issues/2",
         source: edited_issue_payload
       }
     end
@@ -95,7 +95,7 @@ RSpec.describe Github::Issue do
         github_user_ids: [],
         issue_id: 406911947,
         closed_at: "2019-02-05T18:26:06Z",
-        url: "https://github.com/krisquigley/sprintable",
+        url: "https://github.com/krisquigley/sprintable/issues/2",
         source: closed_issue_payload
       }
     end
@@ -121,7 +121,7 @@ RSpec.describe Github::Issue do
         github_user_ids: [],
         issue_id: 406911947,
         closed_at: nil,
-        url: "https://github.com/krisquigley/sprintable",
+        url: "https://github.com/krisquigley/sprintable/issues/2",
         source: reopened_issue_payload
       }
     end

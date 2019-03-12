@@ -123,18 +123,18 @@ RSpec.describe "Sprints", type: :feature do
     describe "updating holidays" do
       let(:user) { create(:user) }
       let!(:team) { create(:team, user_ids: user.id) }
-      let!(:sprint) { create(:sprint, team: team, start_date: '2019-03-04', end_date: '2019-03-08') }
+      let!(:sprint) { create(:sprint, team: team, start_date: Date.today, end_date: Date.today + 7.days) }
 
       it "should reduce the amount of available effort" do
         visit sprint_path(sprint)
         
         # 1 user, 5 days of effort, 20% spent on reviewing
         expect(sprint.available_effort_after_review_time).to have_content("4")
-        
+
         click_on "Manage"
 
         fill_in "sprint_sprint_holidays_attributes_0_days", with: 1.5
-        click_on "Update Holidays"
+        click_on "Update Sprint"
 
         expect(sprint.reload.available_effort_after_review_time).to have_content("2")
       end
