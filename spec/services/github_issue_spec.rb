@@ -28,7 +28,7 @@ RSpec.describe Github::Issue do
   end
 
   describe "when new issues are created with an estimations" do
-    let(:new_issue_payload) { file_fixture("opened_issue_with_estimation_payload.json").read }
+    let(:new_issue_payload) { file_fixture("opened_issue_with_assignees_payload.json").read }
     subject do
       Github::Issue.call(new_issue_payload)
     end
@@ -40,7 +40,7 @@ RSpec.describe Github::Issue do
         title: "[2] new issue",
         state: "open",
         estimated_effort: 2,
-        github_user_ids: [],
+        github_user_ids: [4486874],
         issue_id: 406911947,
         closed_at: nil,
         url: "https://github.com/krisquigley/sprintable/issues/2",

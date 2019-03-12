@@ -32,7 +32,7 @@ class Github::Issue < Github::Base
   def github_user_ids
     assignees = parsed_payload[:issue].to_h[:assignees] || parsed_payload.fetch(:assignees)
     assignees.map do |assignee|
-      assignee.fetch[:id]
+      assignee.fetch(:id)
     end
   end
 
