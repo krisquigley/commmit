@@ -22,7 +22,7 @@ class Sprint < ApplicationRecord
   end
 
   def total_estimated_effort
-    sprint_tickets.pluck(:estimated_effort).reduce(:+) || 0
+    sprint_tickets.map{ |s| s.estimated_effort }.reduce(:+) || 0
   end
 
   def effort_remaining
