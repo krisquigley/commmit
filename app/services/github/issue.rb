@@ -3,6 +3,8 @@ class Github::Issue < Github::Base
 
   def actions
     [
+      "assigned",
+      "unassigned",
       "opened",
       "edited",
       "closed",
