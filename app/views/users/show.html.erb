@@ -7,12 +7,13 @@
 </nav>
 
 <div class="card mb-4 mt-4">
-  <h5 class="card-header"><%= link_to @user.team.name, team_path(@user.team) %></h5>
+  <h5 class="card-header"><%= link_to @user.team.name, team_path(@user.team) if @user.team %></h5>
   <div class="card-body">
     <div class="table-responsive">
       <table class="table table-hover">
         <thead class="thead-light">
           <tr>
+            <th>#</th>
             <th>Title</th>
             <th>Estimated Effort</th>
             <th>Effort Spent</th>
@@ -25,11 +26,12 @@
         <tbody>
         <% @user.sprint_tickets.each do |ticket| %>
           <tr>
+            <td><%= ticket.number %></td>
             <td><%= link_to ticket.title, ticket.url %></td>
             <td><%= ticket.estimated_effort %></td>
             <td><%= ticket.effort_spent %></td>
             <td><%= ticket.closed_at_formatted %></td>
-            <td><%= !ticket.users.empty? ? generate_user_links(ticket.users) : "Unassigned" %></td>
+            <td><%= !ticket.users.empty? ? render(partial: 'users/link', collection: ticket.users, spacer_template: 'shared/comma') : "Unassigned" %></td>
             <td><%= ticket.repository_name %></td>
             <td><%= ticket.notes %>
           </tr>
