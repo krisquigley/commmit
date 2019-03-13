@@ -43,6 +43,6 @@ class Github::Issue < Github::Base
   end
 
   def estimated_effort
-    @estimated_effort ||= Integer((parsed_payload[:issue].to_h[:title] || parsed_payload.fetch(:title))[/\[(.*)\]/, 1]) rescue nil
+    @estimated_effort ||= Float((parsed_payload[:issue].to_h[:title] || parsed_payload.fetch(:title))[/\[(.*)\]/, 1]) rescue nil
   end
 end
