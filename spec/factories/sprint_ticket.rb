@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :sprint_ticket do
     title { Faker::Hipster.sentence }
-    estimated_effort { Integer(Faker::Number.number(1)) }
+    estimated_effort { Float(Faker::Number.number(1)) }
     repository_name { Faker::Hipster.word }
     number { Integer(Faker::Number.number(1)) }
     state { 'open' }
