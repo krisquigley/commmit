@@ -35,7 +35,7 @@ class Sprint < ApplicationRecord
     day = start_date.to_date
     current_effort = total_estimated_effort
 
-    while day <= end_date do
+    while day <= Date.today && day <= end_date do
       tickets = merged_tickets.find_all do |merged_ticket|
         day == merged_ticket.closed_at.to_date
       end
