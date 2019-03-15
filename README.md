@@ -1,8 +1,9 @@
 # Todo
  - Write up readme for how to use the app
- - Add specs for updating effort adjustment
+ - Add specs for updating effort adjustment 
  - Add specs for updating position of tickets
- - Add spec for overriding estimated effort?
+ - Add spec for overriding estimated effort? 
+ - Account for weekends in burndown chart (done)
  - Add slugs to sprints (done)
  - Add column to sprint to manage % of time reviewing etc (done)
  - Add settings table to manage % of time reviewing etc across the app, default to 20 (done)
