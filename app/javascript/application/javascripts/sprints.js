@@ -13,16 +13,15 @@ if (myParam) {
 }
 
 const calculateEffortRemaining = () => {
-  const availableEffort = parseFloat(document.querySelector("input[data-behavior='availableEffort']").value)
   const allEffort = document.querySelectorAll("input[data-behavior='estimatedEffort']")
-  const effortRemaining = document.querySelector("span[data-behavior='effortRemaining']")
+  const effortAccountedFor = document.querySelector("span[data-behavior='effortAccountedFor']")
   let totalEffort = 0
 
   allEffort.forEach(effort => {
     totalEffort += parseFloat(effort.value)
   })
 
-  effortRemaining.innerHTML = (availableEffort - totalEffort).toFixed(1)
+  effortAccountedFor.innerHTML = totalEffort
 }
 
 const addTicketToSprint = async (event) => {

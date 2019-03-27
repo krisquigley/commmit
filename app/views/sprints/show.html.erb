@@ -18,6 +18,8 @@
   <% end %>
 </div>
 
+<h2>Goal: <%= @sprint.name %></h2>
+
 <input type="hidden" value="<%= @sprint.total_estimated_effort %>" data-behavior="effortAccountedFor" />
 <input type="hidden" value="<%= @sprint.start_date.to_date %>" data-behavior="startDate" />
 <input type="hidden" value="<%= @sprint.end_date.to_date %>" data-behavior="endDate" />

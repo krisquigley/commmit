@@ -51,7 +51,7 @@
                   <%= hidden_field_tag :estimated_effort, ticket.estimated_effort, data: { behavior: 'estimatedEffort' } %>
                   <%= ticket.repository_name %>
                 </td>
-                <td>
+                <td width="5%">
                   <button class="btn btn-danger btn-sm btn-block" data-behavior="removeTicket" data-ticket-id="<%= ticket.issue_id %>">Remove</button>
                 </td>
               </tr>
@@ -68,10 +68,7 @@
     <div class="card-body">
       <div class="row">
         <div class="col-md-3">
-          <h6 class="mb-4">Effort Available <span class="badge badge-secondary"><%= @sprint.available_effort_after_review_time %></span></h6>
-        </div>
-        <div class="col-md-3">
-          <h6 class="mb-4">Effort Remaining <span class="badge badge-secondary" data-behavior="effortRemaining"><%= @sprint.effort_remaining %></span></h6>
+          <h6 class="mb-4">Effort Accounted for <span class="badge badge-secondary" data-behavior="effortAccountedFor"><%= @sprint.total_estimated_effort %></span></h6>
         </div>
       </div>
       <%= form_tag manage_sprint_path(@sprint), method: :get do |f| %>
@@ -129,39 +126,10 @@
           <%= f.label :name %>
           <%= f.text_field :name, class: "form-control" %>
         </div>
-        <h5 class="card-title pt-4">Holidays</h5>
-          <%= f.fields_for :sprint_holidays do |h| %>
-            <div class="form-group">
-              <%= h.label h.object.user.name %>
-              <div class="input-group mb-3">
-                <%= h.text_field :days, class: "form-control" %>
-                <div class="input-group-append">
-                  <span class="input-group-text" id="basic-addon2">days</span>
-                </div>
-              </div>
-            </div>
-          <% end %>
-          <%= f.submit 'Update Sprint', class: "btn btn-success" %> 
+        <%= f.submit 'Update Sprint', class: "btn btn-success" %> 
       </div>
     </div>
   <% end %>
-
-  <div class="card mb-4">
-    <h5 class="card-header">Effort Adjustment</h5>
-    <div class="card-body">
-      <%= form_for @sprint do |f| %>
-        <div class="form-group">
-          <div class="input-group mb-3">
-            <%= f.text_field :effort_adjustment, class: "form-control" %>
-            <div class="input-group-append">
-              <span class="input-group-text" id="basic-addon2">%</span>
-            </div>
-          </div>
-        </div>
-        <%= f.submit 'Update Effort', class: "btn btn-success" %> 
-      <% end %>
-    </div>
-  </div>
 </div>
 
 <%= javascript_pack_tag 'sprints' %>

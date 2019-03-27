@@ -29,6 +29,10 @@ class Sprint < ApplicationRecord
     available_effort_after_review_time - total_estimated_effort
   end
 
+  def velocity
+    sprint_tickets.where.not(closed_at: nil).map{ |s| s.estimated_effort }.reduce(:+) || 0
+  end
+
   def effort_to_date
     merged_tickets = sprint_tickets.where.not(closed_at: nil).order(closed_at: :asc)
     effort = []
