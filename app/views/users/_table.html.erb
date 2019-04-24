@@ -3,14 +3,12 @@
     <thead class="thead-light">
       <tr>
         <th>Name</th>
-        <th>Team</th>
       </tr>
     </thead>
     <tbody>
       <% object.each do |user| %>
         <tr>
           <td><%= link_to user.name, user_path(user) %></td>
-          <td><%= link_to user.team.name, team_path(user.team) if user.team %></td>
         </tr>
       <% end %>
     </tbody>

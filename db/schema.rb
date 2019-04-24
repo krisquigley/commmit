@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_08_052300) do
+ActiveRecord::Schema.define(version: 2019_03_27_190822) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,19 +57,26 @@ ActiveRecord::Schema.define(version: 2019_03_08_052300) do
   end
 
   create_table "sprints", force: :cascade do |t|
-    t.integer "team_id", null: false
+    t.integer "team_id"
     t.string "name", null: false
     t.datetime "start_date", null: false
     t.datetime "end_date", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.decimal "available_effort", null: false
+    t.decimal "available_effort"
     t.datetime "closed_at"
     t.integer "effort_adjustment"
     t.string "slug"
     t.index ["closed_at"], name: "index_sprints_on_closed_at"
     t.index ["slug"], name: "index_sprints_on_slug", unique: true
     t.index ["team_id"], name: "index_sprints_on_team_id"
+  end
+
+  create_table "sprints_users", id: false, force: :cascade do |t|
+    t.bigint "sprint_id"
+    t.bigint "user_id"
+    t.index ["sprint_id"], name: "index_sprints_users_on_sprint_id"
+    t.index ["user_id"], name: "index_sprints_users_on_user_id"
   end
 
   create_table "teams", force: :cascade do |t|
@@ -101,6 +108,7 @@ ActiveRecord::Schema.define(version: 2019_03_08_052300) do
     t.integer "team_id"
     t.bigint "github_user_id", null: false
     t.jsonb "source", null: false
+    t.string "slug"
     t.index ["github_user_id"], name: "index_users_on_github_user_id", unique: true
     t.index ["team_id"], name: "index_users_on_team_id"
   end

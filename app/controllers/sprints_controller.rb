@@ -22,7 +22,7 @@ class SprintsController < ApplicationController
   end
 
   def manage
-    @sprint = Sprint.includes(:sprint_holidays, :sprint_tickets).friendly.find(params[:id])
+    @sprint = Sprint.includes(:sprint_tickets).friendly.find(params[:id])
     @sprint_tickets = @sprint.sprint_tickets.order(position: :asc)
     tickets = Ticket.where.not(issue_id: @sprint_tickets.pluck(:issue_id)).order(updated_at: :desc).page(params[:page])
     
@@ -58,6 +58,6 @@ class SprintsController < ApplicationController
   private
 
   def sprint_params
-    params.require(:sprint).permit(:name, :effort_adjustment, :start_date, :end_date, :team_id, sprint_holidays_attributes: [:id, :days])
+    params.require(:sprint).permit(:name, :start_date, :end_date, user_ids: [])
   end
 end

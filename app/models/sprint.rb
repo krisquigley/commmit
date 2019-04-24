@@ -2,31 +2,14 @@ class Sprint < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: :slugged
   
-  validates :name, :start_date, :end_date, :team_id, presence: true
+  validates :name, :start_date, :end_date, :users, presence: true
 
   has_many :sprint_tickets
-  has_many :sprint_holidays
-  belongs_to :team
-
-  accepts_nested_attributes_for :sprint_holidays
-
-  before_create :calculate_available_effort
-  after_create :create_sprint_holidays
-
-  def effort_adjustment
-    read_attribute(:effort_adjustment) || ENV.fetch('SPRINT_EFFORT_ADJUSTMENT')
-  end
-
-  def available_effort_after_review_time
-    (available_effort - sprint_holidays.pluck(:days).reduce(:+)) * (1 - (BigDecimal(effort_adjustment) / 100.0))
-  end
+  belongs_to :team, optional: true
+  has_and_belongs_to_many :users
 
   def total_estimated_effort
     sprint_tickets.map{ |s| s.estimated_effort }.reduce(:+) || 0
-  end
-
-  def effort_remaining
-    available_effort_after_review_time - total_estimated_effort
   end
 
   def velocity
@@ -59,30 +42,5 @@ class Sprint < ApplicationRecord
 
   def status
     in_progress? ? 'In Progress' : 'Finished'
-  end
-
-  private
-
-  def calculate_available_effort
-    users = self.team.users.count
-
-    number_of_work_days = 0
-    day = self.start_date
-
-    while day <= self.end_date do
-      if day.on_weekend?
-        day = day.next_weekday
-        next
-      end
-      number_of_work_days += 1
-      day = day.next_weekday
-    end
-    self.available_effort = number_of_work_days * users
-  end
-
-  def create_sprint_holidays
-    self.team.users.each do |user|
-      self.sprint_holidays.create(user: user)
-    end
   end
 end
