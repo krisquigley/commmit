@@ -4,8 +4,7 @@ class Sprint < ApplicationRecord
   
   validates :name, :start_date, :end_date, :users, presence: true
 
-  has_many :sprint_tickets
-  belongs_to :team, optional: true
+  has_many :sprint_tickets, dependent: :destroy
   has_and_belongs_to_many :users
 
   def total_estimated_effort
