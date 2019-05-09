@@ -19,7 +19,8 @@
 </div>
 
 <h2>Goal: <%= @sprint.name %></h2>
-
+<span class="badge badge-secondary">Considered Effort: <%= @sprint.total_estimated_effort %></span>
+<span class="badge badge-success">Current Velocity: <%= @sprint.velocity %></span>
 <input type="hidden" value="<%= @sprint.total_estimated_effort %>" data-behavior="effortAccountedFor" />
 <input type="hidden" value="<%= @sprint.start_date.to_date %>" data-behavior="startDate" />
 <input type="hidden" value="<%= @sprint.end_date.to_date %>" data-behavior="endDate" />
