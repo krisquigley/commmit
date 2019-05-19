@@ -14,7 +14,7 @@
     <tbody>
       <% object.each do |sprint| %>
         <tr>
-          <td><%= link_to sprint.name, sprint_path(sprint) %></td>
+          <td><b><%= link_to sprint.name, sprint_path(sprint) %></b></td>
           <td><%= render(partial: 'users/link', collection: sprint.users, spacer_template: 'shared/comma') if !sprint.users.empty? %></td>
           <td><%= sprint.start_date.to_date.to_formatted_s(:long)  %></td>
           <td><%= sprint.end_date.to_date.to_formatted_s(:long)  %></td>
