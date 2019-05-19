@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
 
-  root 'sprints#index'
+  root 'dashboard#show'
 
   resources :users, only: [:index, :show, :edit, :update]
 
@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     resources :members, only: :create
     resources :issues, only: :create
   end
+
+  resource :dashboard, only: :show
   
   resources :sprints do
     resources :sprint_tickets
