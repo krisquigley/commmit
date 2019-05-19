@@ -11,7 +11,7 @@ RSpec.describe "Dashboard ", type: :feature do
     it "should render the page" do
       visit dashboard_path
 
-      expect(page).to have_content "dashboard"
+      expect(page).to have_content "Dashboard"
     end
   end
 end

@@ -35,11 +35,21 @@ class Sprint < ApplicationRecord
     effort.to_json
   end
 
+  def complete?
+    !in_progress?
+  end
+
   def in_progress?
     (Date.today <= end_date && !closed_at)
   end
 
   def status
-    in_progress? ? 'In Progress' : 'Finished'
+    complete? ? 'Finished' : 'In Progress'
+  end
+
+  def goal_achieved?
+    if complete?
+      velocity == total_estimated_effort
+    end
   end
 end

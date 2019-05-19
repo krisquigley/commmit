@@ -1,5 +1,5 @@
 <div class="table-responsive mt-4">
-  <table class="table table-hover">
+  <table class="table">
     <thead class="thead-light">
       <tr>
         <th>Goal</th>
@@ -22,10 +22,17 @@
           <td><%= sprint.velocity %></td>
           <td>
             <% if sprint.in_progress? %> 
-              <b><%= sprint.status %></b>
+              <span class="badge badge-<%= goal_achieved?(sprint) %>"><%= sprint.status %></span>
             <% else %>
-              <%= sprint.status %>
+              <span class="badge badge-<%= goal_achieved?(sprint) %>"><%= sprint.status %></span>
             <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="7" style="border-top: none">
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped bg-<%= goal_achieved?(sprint) %>" style="width: <%= sprint.velocity.to_f / sprint.total_estimated_effort.to_f * 100.0 if sprint.total_estimated_effort != 0 %>%" role="progressbar" aria-valuenow="<%= sprint.velocity %>" aria-valuemin="0" aria-valuemax="<%= sprint.total_estimated_effort %>"></div>
+            </div>
           </td>
         </tr>
       <% end %>
