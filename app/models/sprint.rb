@@ -11,7 +11,7 @@ class Sprint < ApplicationRecord
     sprint_tickets.map{ |s| s.estimated_effort }.reduce(:+) || 0
   end
 
-  def velocit
+  def velocity
     sprint_tickets.where.not(closed_at: nil).map{ |s| s.estimated_effort }.reduce(:+) || 0
   end
 
