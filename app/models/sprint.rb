@@ -11,7 +11,7 @@ class Sprint < ApplicationRecord
     sprint_tickets.map{ |s| s.estimated_effort }.reduce(:+) || 0
   end
 
-  def velocity
+  def velocit
     sprint_tickets.where.not(closed_at: nil).map{ |s| s.estimated_effort }.reduce(:+) || 0
   end
 
@@ -44,7 +44,13 @@ class Sprint < ApplicationRecord
   end
 
   def status
-    complete? ? 'Finished' : 'In Progress'
+    if in_progress?
+      'In Progress'
+    elsif goal_achieved? 
+      'Completed'
+    elsif !goal_achieved?
+      'Sprint Ended'
+    end
   end
 
   def goal_achieved?

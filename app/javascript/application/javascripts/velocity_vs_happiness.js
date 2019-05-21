@@ -37,10 +37,7 @@ new Chart(ctx, {
         type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
         display: true,
         position: 'left',
-        id: 'happiness',
-        ticks: {
-          beginAtZero: true
-        },
+        id: 'happiness'
       }, {
         type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
         display: true,
