@@ -1,0 +1,29 @@
+<%= form_for @sprint do |f| %>
+  <div class="row mt-4 mb-4">
+    <div class="col-md-10">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
+          <li class="breadcrumb-item"><%= link_to "Sprints", sprints_path %></li>
+          <li class="breadcrumb-item"><%= link_to @sprint.name, sprint_path(@sprint) %></li>
+          <li class="breadcrumb-item active" aria-current="page">Retrospective</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col-sm-12 col-md-2">
+      <%= f.submit class: 'btn btn-success btn-block btn-lg' %>
+    </div>
+  </div>
+  <%= render 'shared/errors', object: @sprint %>
+  <h4>Sprint Retrospective</h4>
+<% end %>
+
+<h4>Team Member Happiness</h4>
+
+<% @sprint.retrospectives.each do |retro| %>
+  <%= form_for [@sprint, retro], url: sprint_retrospective_path do |f| %>
+    <%= render 'form', f: f, retro: retro %>
+  <% end %>
+<% end %>
+
+

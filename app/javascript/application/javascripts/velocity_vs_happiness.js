@@ -7,10 +7,12 @@ const ctx = document.getElementById('velocityVsHappiness').getContext('2d')
 new Chart(ctx, {
   type: 'line',
   data: {
-    labels: ['05/04/2019', '12/04/2019', '18/04/2019', '26/04/2019', '02/05/2019', '10/05/2019', '17/05/2019'],
+    labels: ['05/04/2019', '12/04/2019', '18/04/2019', '26/04/2019', 
+             '02/05/2019', '10/05/2019', '17/05/2019', '24/05/2019', 
+             '31/05/2019'],
     datasets: [{
       label: 'Velocity',
-      data: [32.1, 55.2, 36.5, 67.3, 73.1, 115.5, 155],
+      data: [32.1, 55.2, 36.5, 67.3, 73.1, 115.5, 155, 201.5, 117.5],
       fill: false,
       lineTension: 0,
       pointRadius: 0,
@@ -20,7 +22,7 @@ new Chart(ctx, {
     },
     {
       label: 'Happiness',
-      data: [3.8, 3.8, 3.8, 4.1, 4.1, 4.2, 4.4],
+      data: [3.8, 3.8, 3.8, 4.1, 4.1, 4.2, 4.4, 4.1, 4.3],
       lineTension: 0,
       fill: false,
       backgroundColor: ['rgba(0,0,0,0)'],

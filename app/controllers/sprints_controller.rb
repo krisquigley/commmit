@@ -37,7 +37,6 @@ class SprintsController < ApplicationController
 
   def update
     @sprint = Sprint.friendly.find(params[:id])
-    
     @sprint.update_attributes(sprint_params)
     
     if @sprint.save
@@ -49,7 +48,7 @@ class SprintsController < ApplicationController
 
   def close
     if Sprint.friendly.find(params[:id]).update(closed_at: Time.now)
-      redirect_to sprints_path
+      redirect_to sprint_path(params[:id])
     else
       render :show
     end

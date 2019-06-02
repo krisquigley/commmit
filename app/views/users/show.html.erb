@@ -5,10 +5,7 @@
     <li class="breadcrumb-item active" aria-current="page"><%= @user.name %></li>
   </ol>
 </nav>
+<h4>Happiness</h4>
 
-<div class="card mb-4 mt-4">
-  <h5 class="card-header">Sprints</h5>
-  <div class="card-body">
-    <%= render 'sprints/table', object: @user.sprints %>
-  </div>
-</div>
+<h4>Sprints</h4>
+<%= render 'sprints/table', object: @user.sprints %>

@@ -118,33 +118,8 @@
 
 <div data-behavior="Settings" class="tabcontent">
   <%= form_for @sprint do |f| %>
-    <div class="card mb-4">
-      <h5 class="card-header">General</h5>
-      <div class="card-body">
-        <div class="form-group">
-          <%= f.label :name %>
-          <%= f.text_field :name, class: "form-control" %>
-        </div>
-        <div class="form-group">
-          <%= f.label :users %>
-          <table class="table">
-            <tbody>
-            <% User.order('LOWER(name)').each do |user| %>
-              <tr>
-                <td>
-                  <div class="form-check">
-                    <%= f.check_box :users, { multiple: true, class: "form-check-input" }, user.id, false %>
-                    <%= f.label "users_#{user.id}", user.name, class: "form-check-label" %>
-                  </div>
-                </td>
-              </tr>
-            <% end %>
-            </tbody>
-          </table>
-        </div>
-        <%= f.submit 'Update Sprint', class: "btn btn-success" %> 
-      </div>
-    </div>
+    <%= render 'form', f: f %>  
+    <%= f.submit 'Update Sprint', class: "btn btn-success" %> 
   <% end %>
 </div>
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_17_215149) do
+ActiveRecord::Schema.define(version: 2019_06_02_130704) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 2019_05_17_215149) do
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
-  create_table "retro_feedback", force: :cascade do |t|
+  create_table "retrospectives", force: :cascade do |t|
     t.bigint "sprint_id", null: false
     t.bigint "user_id"
     t.float "role_happiness", null: false
@@ -36,8 +36,8 @@ ActiveRecord::Schema.define(version: 2019_05_17_215149) do
     t.string "happiness_goal", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["sprint_id"], name: "index_retro_feedback_on_sprint_id"
-    t.index ["user_id"], name: "index_retro_feedback_on_user_id"
+    t.index ["sprint_id"], name: "index_retrospectives_on_sprint_id"
+    t.index ["user_id"], name: "index_retrospectives_on_user_id"
   end
 
   create_table "sprint_tickets", force: :cascade do |t|

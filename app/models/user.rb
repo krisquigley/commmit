@@ -6,6 +6,7 @@ class User < ApplicationRecord
   validates :github_user_id, uniqueness: true
   
   belongs_to :team, optional: true
+  has_many :retrospectives
   has_and_belongs_to_many :sprints
   
   def sprint_tickets

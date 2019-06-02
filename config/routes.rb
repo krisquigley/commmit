@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   
   resources :sprints do
     resources :sprint_tickets
+    resource :retrospective, only: [:new, :create, :show]
     member do
       get 'manage'
       delete 'close'
