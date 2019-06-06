@@ -40,7 +40,11 @@ class SprintsController < ApplicationController
     @sprint.update_attributes(sprint_params)
     
     if @sprint.save
-      redirect_to manage_sprint_path(@sprint), notice: "Sprint successfully updated!"
+      if params["sprint"]["return_to"] == 'retrospective'
+        redirect_to sprint_retrospective_path(@sprint), notice: "Sprint successfully updated!"
+      else
+        redirect_to manage_sprint_path(@sprint), notice: "Sprint successfully updated!"
+      end
     else
       render :manage
     end
@@ -57,6 +61,8 @@ class SprintsController < ApplicationController
   private
 
   def sprint_params
-    params.require(:sprint).permit(:name, :start_date, :end_date, user_ids: [])
+    params.require(:sprint).permit(:name, :start_date, :end_date,
+                                   :what_went_well, :what_could_be_better, :what_one_thing_to_work_on,
+                                   user_ids: [])
   end
 end

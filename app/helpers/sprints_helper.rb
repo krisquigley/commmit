@@ -10,4 +10,14 @@ module SprintsHelper
       "primary"
     end
   end
+
+  def ticket_status(ticket)
+    if !!ticket.closed_at 
+      "success"
+    elsif !ticket.users.empty?
+      "warning"
+    else
+      "danger"
+    end
+  end
 end

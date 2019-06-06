@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_02_130704) do
+ActiveRecord::Schema.define(version: 2019_06_06_015841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,9 @@ ActiveRecord::Schema.define(version: 2019_06_02_130704) do
     t.datetime "closed_at"
     t.integer "effort_adjustment"
     t.string "slug"
+    t.text "what_went_well"
+    t.text "what_could_be_better"
+    t.text "what_one_thing_to_work_on"
     t.index ["closed_at"], name: "index_sprints_on_closed_at"
     t.index ["slug"], name: "index_sprints_on_slug", unique: true
   end

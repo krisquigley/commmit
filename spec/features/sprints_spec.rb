@@ -30,6 +30,9 @@ RSpec.describe "Sprints", type: :feature do
 
       it "should raise an error" do
         visit new_sprint_path
+
+        fill_in 'Start date', with: ''
+        fill_in 'End date', with: ''
         
         click_on 'Create Sprint'
 
@@ -139,22 +142,6 @@ RSpec.describe "Sprints", type: :feature do
     end
   end
 
-  describe "updating estimated ticket effort", js: true do
-    let(:users) { create_list(:user, 2) }
-    let!(:sprint) { create(:sprint, users: users) }
-    let!(:sprint_tickets) { create_list(:sprint_ticket, 5, sprint: sprint) }
-
-    it "should update the record" do
-      visit sprint_path(sprint)
-
-      find("input[data-behavior='updateEstimatedEffort'][data-issueid='#{sprint_tickets.first.issue_id}']").set(3.2).send_keys(:tab)
-
-      sleep 1
-
-      expect(sprint_tickets.first.reload.estimated_effort).to eq 3.2
-    end
-  end
-
   describe "adding a note to a ticket", js: true do
     let(:users) { create_list(:user, 2) }
     let!(:sprint) { create(:sprint, users: users) }
@@ -186,7 +173,7 @@ RSpec.describe "Sprints", type: :feature do
 
         visit sprints_path
 
-        expect(page).to have_content('Finished')
+        expect(page).to have_content('Completed')
       end
     end
 
@@ -200,13 +187,34 @@ RSpec.describe "Sprints", type: :feature do
         click_on 'Close Sprint'
         page.accept_alert
 
-        expect(page).to have_content('Finished')
+        visit sprints_path
+
+        expect(page).to have_content('Completed')
 
         visit sprint_path(sprint)
 
         expect(page).to_not have_content('In Progress')
         expect(page).to_not have_content('Manage')
         expect(page).to_not have_content('Close Sprint')
+      end
+    end
+
+    describe "leaving feedback on sprint retro" do
+      let(:users) { create_list(:user, 2) }
+      let!(:sprint) { create(:sprint, users: users) }
+
+      it "should be valid" do
+        visit sprint_retrospective_path(sprint)
+
+        fill_in 'What went well?', with: "some things"
+        fill_in 'What could be better?', with: "some other things"
+        fill_in 'What one thing do you want to work on next sprint?', with: "this thing"
+
+        click_on 'Submit Feedback'
+
+        expect(page).to have_content "some things"
+        expect(page).to have_content "this thing"
+        expect(page).to have_content "some other things"
       end
     end
   end

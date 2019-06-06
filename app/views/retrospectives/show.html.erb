@@ -1,6 +1,6 @@
 <%= form_for @sprint do |f| %>
   <div class="row mt-4 mb-4">
-    <div class="col-md-10">
+    <div class="col-md-12">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
@@ -10,12 +10,28 @@
         </ol>
       </nav>
     </div>
-    <div class="col-sm-12 col-md-2">
-      <%= f.submit class: 'btn btn-success btn-block btn-lg' %>
-    </div>
   </div>
   <%= render 'shared/errors', object: @sprint %>
   <h4>Sprint Retrospective</h4>
+
+  <div class="form-group">
+    <%= f.label :what_went_well, 'What went well?' %>
+    <%= f.text_area :what_went_well, class: 'form-control', required: :required, disabled: (:disabled if @sprint.what_went_well) %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :what_could_be_better, 'What could be better?' %>
+    <%= f.text_area :what_could_be_better, class: 'form-control', required: :required, disabled: (:disabled if @sprint.what_could_be_better) %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :what_one_thing_to_work_on, 'What one thing do you want to work on next sprint?' %>
+    <%= f.text_area :what_one_thing_to_work_on, class: 'form-control', required: :required, disabled: (:disabled if @sprint.what_one_thing_to_work_on) %>
+  </div>
+  <div class="form-group mb-4">
+    <%= f.hidden_field :return_to, value: 'retrospective' %>
+    <%= f.submit 'Submit Feedback', class: 'btn btn-success btn-block btn-lg' unless (@sprint.what_went_well && @sprint.what_could_be_better && @sprint.what_one_thing_to_work_on) %>
+  </div>
 <% end %>
 
 <h4>Team Member Happiness</h4>

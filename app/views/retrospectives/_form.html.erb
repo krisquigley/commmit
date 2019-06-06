@@ -4,7 +4,7 @@
     <div class="form-row">
       <div class="form-group col-md-4">
         <%= f.label :role_happiness %>
-        <%= f.text_field :role_happiness, { class: 'form-control', type: :number, step: '0.01', max: 5, min: 1, disabled: (:disabled if retro.id) } %>
+        <%= f.text_field :role_happiness, { class: 'form-control', type: :number, step: '0.01', max: 5, min: 1, disabled: (:disabled if retro.id), required: :required } %>
         <%= f.hidden_field :user_id, value: retro.user.id %>
       </div>
       <div class="form-group col-md-4">
@@ -13,7 +13,7 @@
       </div>
       <div class="form-group col-md-4">
         <%= f.label :company_happiness %>
-        <%= f.text_field :company_happiness, { class: 'form-control', type: :number, step: '0.01', max: 5, min: 1, disabled: (:disabled if retro.id) } %>
+        <%= f.text_field :company_happiness, { class: 'form-control', type: :number, step: '0.01', max: 5, min: 1, disabled: (:disabled if retro.id), required: :required } %>
       </div>
     </div>
     <div class="form-row">
