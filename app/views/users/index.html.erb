@@ -10,6 +10,19 @@
 </div>
 
 <div class="mt-4">
-  <%= render 'table', object: @users %>
+  <% @users.in_batches(of: 3) do |user_batch| %>
+    <div class="card-deck mb-4">
+      <% user_batch.each do |user| %>
+        <div class="card" style="width: 18rem;">
+          <%= link_to user_path(user) do %>
+            <%= image_tag JSON.parse(user.source).fetch("avatar_url"), class: "card-img-top" %>
+            <div class="card-body">
+              <p class="card-text"><%= user.name %></p>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 </div>
 

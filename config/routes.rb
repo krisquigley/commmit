@@ -13,12 +13,16 @@ Rails.application.routes.draw do
 
   resource :dashboard, only: :show
   
-  resources :sprints do
-    resources :sprint_tickets
-    resource :retrospective, only: [:new, :create, :show]
-    member do
-      get 'manage'
-      delete 'close'
+  resources :departments do
+    resources :teams, shallow: true do
+      resources :sprints, shallow: true do
+        resources :sprint_tickets
+        resource :retrospective, only: [:new, :create, :show]
+        member do
+          get 'manage'
+          delete 'close'
+        end
+      end
     end
   end
 end

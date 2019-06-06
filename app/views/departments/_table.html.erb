@@ -6,9 +6,9 @@
       </tr>
     </thead>
     <tbody>
-      <% object.each do |user| %>
+      <% object.each do |department| %>
         <tr>
-          <td><%= link_to user.name, user_path(user) %></td>
+          <td><%= link_to department.name, department_path(department) %></td>
         </tr>
       <% end %>
     </tbody>

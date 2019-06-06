@@ -61,8 +61,8 @@ class SprintsController < ApplicationController
   private
 
   def sprint_params
-    params.require(:sprint).permit(:name, :start_date, :end_date,
-                                   :what_went_well, :what_could_be_better, :what_one_thing_to_work_on,
+    params.require(:sprint).permit(:name, :start_date, :end_date, :what_went_well, 
+                                   :what_could_be_better, :what_one_thing_to_work_on,
                                    user_ids: [])
   end
 end
