@@ -39,8 +39,6 @@ RSpec.describe "Sprints", type: :feature do
   end
   
   context "managing a sprint" do
-    it "should show yesterdays weather"
-
     describe "searching for a ticket" do
       let!(:department) { create(:department_with_teams) }
       let!(:sprint) { create(:sprint, team: department.teams.first) }

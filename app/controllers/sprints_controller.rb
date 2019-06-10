@@ -22,7 +22,7 @@ class SprintsController < ApplicationController
   def manage
     @sprint = Sprint.includes(:sprint_tickets).friendly.find(params[:id])
     @sprint_tickets = @sprint.sprint_tickets.order(position: :asc)
-    @yesterdays_weather = Sprint.where.not(id: @sprint.id).order(created_at: :desc).limit(3).pluck(:final_velocity)
+    @yesterdays_weather = @sprint.team.yesterdays_weather
     @tickets = Ticket.where.not(issue_id: @sprint_tickets.pluck(:issue_id)).order(updated_at: :desc).page(params[:page])
     
     if params[:repository_name] && !params[:repository_name].empty?

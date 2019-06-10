@@ -7,4 +7,9 @@ class Team < ApplicationRecord
   belongs_to :department
   has_many :sprints
   has_many :users
+
+  def yesterdays_weather
+    previous_sprints = sprints.where.not(final_velocity: nil).order(created_at: :desc).limit(3).pluck(:final_velocity)
+    previous_sprints.inject(:+) / previous_sprints.count
+  end
 end
