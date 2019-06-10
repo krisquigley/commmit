@@ -4,21 +4,21 @@ class SprintTicketsController < ApplicationController
   def create
     ticket = Ticket.find_by(issue_id: params[:issue_id])
     sprint = Sprint.includes(:sprint_tickets).find(params[:sprint_id])
-    position = sprint.sprint_tickets.count
+    position = sprint.sprint_tickets.count + 1
     sprint.sprint_tickets.create!(ticket.attributes.except("source", "id").merge(position: position))
 
     render json: ticket
   end
 
   def update
-    ticket = SprintTicket.find_by(issue_id: params[:id], sprint_id: params[:sprint_id])
+    ticket = SprintTicket.find(params[:id])
     ticket.update!(sprint_ticket_params)
 
     render json: ticket
   end
 
   def destroy
-    ticket = SprintTicket.find_by(sprint_id: params[:sprint_id], issue_id: params[:id])
+    ticket = SprintTicket.find(params[:id])
     ticket.destroy!
 
     render json: ticket
@@ -27,6 +27,6 @@ class SprintTicketsController < ApplicationController
   private
 
   def sprint_ticket_params
-    params.require(:sprint_ticket).permit(:sprint_id, :notes, :position, :effort_spent, :issue_id, :estimated_effort_override)
+    params.require(:sprint_ticket).permit(:sprint_id, :notes, :position, :effort_spent, :issue_id)
   end
 end

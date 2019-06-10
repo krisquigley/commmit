@@ -10,8 +10,8 @@
 </div>
 
 <div class="mt-4">
-  <% @users.in_batches(of: 3) do |user_batch| %>
-    <div class="card-deck mb-4">
+  <% @users.in_batches(of: 4) do |user_batch| %>
+    <div class="card-deck mb-3">
       <% user_batch.each do |user| %>
         <div class="card" style="width: 18rem;">
           <%= link_to user_path(user) do %>

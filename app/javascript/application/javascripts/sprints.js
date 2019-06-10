@@ -41,7 +41,7 @@ const addTicketToSprint = async (event) => {
         issue_id: ticketId
       })
     })
-    
+
     response.json().then(response => {
       addNewRowAndRemoveOldRecord(target, response, 'assignedTickets')
     })
@@ -52,12 +52,12 @@ const addTicketToSprint = async (event) => {
 
 const removeTicketFromSprint = async (event) => {
   event.preventDefault()
-  
+
   const { target } = event
-  const ticketId = target.attributes['data-ticket-id'].value
-  
+  const ticketId = target.attributes['data-id'].value
+
   try {
-    const response = await fetch(`/sprints/${sprintId}/sprint_tickets/${ticketId}`, {
+    const response = await fetch(`/sprint_tickets/${ticketId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -134,12 +134,11 @@ const sortable = new Sortable(document.querySelector('tbody[data-behavior=assign
 })
 
 sortable.on('sortable:stop', async (event) => {
-  const { sprintId } = event.data.newContainer.dataset
   const { children } = event.data.newContainer
-  
+
   for (let i = 0; i < children.length; i++) {
     try {
-      await fetch(`/sprints/${sprintId}/sprint_tickets/${children[i].dataset.issueId}`, {
+      await fetch(`/sprint_tickets/${children[i].dataset.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

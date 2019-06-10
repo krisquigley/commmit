@@ -3,7 +3,6 @@
     <thead class="thead-light">
       <tr>
         <th>Goal</th>
-        <th>Members</th>
         <th>Start Date</th>
         <th>End Date</th>
         <th>Effort Considered</th>
@@ -15,7 +14,6 @@
       <% object.each do |sprint| %>
         <tr>
           <td><b><%= link_to sprint.name, sprint_path(sprint) %></b></td>
-          <td><%= render(partial: 'users/link', collection: sprint.users, spacer_template: 'shared/comma') if !sprint.users.empty? %></td>
           <td><%= sprint.start_date.to_date.to_formatted_s(:long)  %></td>
           <td><%= sprint.end_date.to_date.to_formatted_s(:long)  %></td>
           <td><%= sprint.total_estimated_effort %></td>

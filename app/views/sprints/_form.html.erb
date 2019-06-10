@@ -4,16 +4,6 @@
   <%= f.text_field :name, required: true, class: "form-control", placeholder: 'What is the goal of the sprint?' %>
 </div>
 <div class="form-group">
-  <%= f.label :users, 'Members' %>
-  <%= f.collection_check_boxes :user_ids, User.order('LOWER(name)'), :id, :name do |b| %>
-    <div class="form-check">
-      <%= b.label(class: "form-check-label") do %>
-        <%= b.check_box(multiple: true, class: "form-check-input") %> <%= b.text %>
-      <% end %>
-    </div>
-  <% end %>
-</div>
-<div class="form-group">
   <%= f.label :start_date %>
   <%= f.text_field :start_date, required: true, class: "form-control", type: :date, value: @sprint.start_date&.strftime('%Y-%m-%d') || Date.today  %>
 </div>

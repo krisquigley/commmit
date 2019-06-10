@@ -1,0 +1,27 @@
+<div class="row mt-4">
+  <div class="col-sm-10">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
+        <li class="breadcrumb-item"><%= link_to "Departments", departments_path %></li>
+        <li class="breadcrumb-item"><%= link_to @team.department.name, department_path(@team.department) %></li>
+        <li class="breadcrumb-item active" aria-current="page"><%= @team.name %></li>
+      </ol>
+    </nav>
+  </div>
+  <div class="col-sm-2 text-right">
+    <%= link_to 'New Sprint', new_team_sprint_path(@team), class: 'btn btn-success btn-lg btn-block' %>
+  </div>
+</div>
+
+<% @team.users.each do |user| %>
+  <%= link_to user_path(user) do %>
+    <%= image_tag JSON.parse(user.source).fetch("avatar_url"), class: "rounded", style: "width: 2rem" %>
+  <% end %>
+<% end %>
+
+<p>Show velocity of each sprint + multiplier from first sprint + happiness + velocity average</p>
+
+<%= render 'table', object: @sprints %>
+
+<%= paginate @sprints, theme: 'twitter-bootstrap-4' %>

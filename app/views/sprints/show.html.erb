@@ -3,7 +3,7 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
-        <li class="breadcrumb-item"><%= link_to "Sprints", sprints_path %></li>
+        <li class="breadcrumb-item"><%= link_to @sprint.team.name, team_path(@sprint.team) %></li>
         <li class="breadcrumb-item active" aria-current="page"><%= @sprint.name %></li>
       </ol>
     </nav>

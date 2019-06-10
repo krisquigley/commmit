@@ -2,11 +2,13 @@ class Sprint < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: :slugged
   
-  validates :name, :start_date, :end_date, :users, presence: true
+  validates :name, :start_date, :end_date, presence: true
 
+  belongs_to :team, optional: true
   has_many :sprint_tickets, dependent: :destroy
   has_many :retrospectives
-  has_and_belongs_to_many :users
+
+  after_update :save_velocity, if: -> { self.closed_at && !self.final_velocity }
 
   def total_estimated_effort
     sprint_tickets.map{ |s| s.estimated_effort }.reduce(:+) || 0
@@ -58,5 +60,11 @@ class Sprint < ApplicationRecord
     if complete?
       velocity == total_estimated_effort
     end
+  end
+
+  private
+
+  def save_velocity
+    self.update(final_velocity: self.velocity)
   end
 end

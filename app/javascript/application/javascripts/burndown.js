@@ -98,8 +98,7 @@ const updateNote = (event) => {
         notes: event.target.value
       }
     },
-    issueId: event.target.attributes['data-issueId'].value,
-    sprintId: event.target.attributes['data-sprintId'].value
+    id: event.target.attributes['data-id'].value
   }
   updateSprintTicket(options)
 }
@@ -109,10 +108,10 @@ updateNoteRows.forEach(row => {
 })
 
 const updateSprintTicket = async (options) => {
-  const { sprintId, issueId, body } = options
+  const { id, body } = options
 
   try {
-    await fetch(`/sprints/${sprintId}/sprint_tickets/${issueId}`, {
+    await fetch(`/sprint_tickets/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

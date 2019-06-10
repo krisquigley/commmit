@@ -16,7 +16,7 @@
         <td><b><%= link_to ticket.title, ticket.url %></b></td>
         <td><b><%= ticket.closed_at_formatted %></b></td>
         <td><%= !ticket.users.empty? ? render(partial: 'users/link', collection: ticket.users, spacer_template: 'shared/comma') : "Unassigned" %></td>
-        <td><%= text_area_tag :notes, ticket.notes, {class: 'form-control', data: {behavior: 'updateNote', issueId: ticket.issue_id, sprintId: @sprint.id}} %>
+        <td><%= text_area_tag :notes, ticket.notes, {class: 'form-control', data: {behavior: 'updateNote', id: ticket.id}} %>
       </tr>
     <% end %>
     </tbody>

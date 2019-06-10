@@ -8,14 +8,13 @@ RSpec.describe "Sprints", type: :feature do
   end
 
   context "creating a sprint" do
-    describe "with valid data" do
-      let!(:user) { create(:user) }
+    let!(:department) { create(:department_with_teams) }
 
+    describe "with valid data" do
       it "should create the sprint" do
-        visit new_sprint_path
+        visit new_team_sprint_path(department.teams.first)
 
         fill_in 'Goal', with: 'Test'
-        check user.name
         fill_in 'Start date', with: '01/01/2000'
         fill_in 'End date', with: '20/01/200'
 
@@ -26,25 +25,25 @@ RSpec.describe "Sprints", type: :feature do
     end
 
     describe "with invalid data" do
-      let(:user) { create(:user) }
-
       it "should raise an error" do
-        visit new_sprint_path
+        visit new_team_sprint_path(department.teams.first)
 
         fill_in 'Start date', with: ''
         fill_in 'End date', with: ''
         
         click_on 'Create Sprint'
 
-        expect(page).to have_content("Name can't be blank Start date can't be blank End date can't be blank Users can't be blank")
+        expect(page).to have_content("Name can't be blank Start date can't be blank End date can't be blank")
       end
     end
   end
   
   context "managing a sprint" do
+    it "should show yesterdays weather"
+
     describe "searching for a ticket" do
-      let(:users) { create_list(:user, 2) }
-      let!(:sprint) { create(:sprint, users: users) }
+      let!(:department) { create(:department_with_teams) }
+      let!(:sprint) { create(:sprint, team: department.teams.first) }
       let!(:tickets) { create_list(:ticket, 5) }
 
       it "should return the right results" do
@@ -60,8 +59,8 @@ RSpec.describe "Sprints", type: :feature do
     end
   
     describe "filtering by repo" do
-      let(:users) { create_list(:user, 2) }
-      let!(:sprint) { create(:sprint, users: users) }
+      let!(:department) { create(:department_with_teams) }
+      let!(:sprint) { create(:sprint, team: department.teams.first) }
       let!(:tickets) { create_list(:ticket, 5) }
 
       it "should return the right tickets" do
@@ -77,8 +76,8 @@ RSpec.describe "Sprints", type: :feature do
     end
 
     describe "adding a ticket", js: true do
-      let(:users) { create_list(:user, 2) }
-      let!(:sprint) { create(:sprint, users: users) }
+      let!(:department) { create(:department_with_teams) }
+      let!(:sprint) { create(:sprint, team: department.teams.first) }
 
       it "should be added" do
         create(:ticket)
@@ -97,9 +96,9 @@ RSpec.describe "Sprints", type: :feature do
     end
 
     describe "removing a ticket", js: true do
-      let(:users) { create_list(:user, 2) }
       let!(:tickets) { create_list(:ticket, 5, state: 'open') }
-      let!(:sprint) { create(:sprint, users: users) }
+      let!(:department) { create(:department_with_teams) }
+      let!(:sprint) { create(:sprint, team: department.teams.first) }
       let!(:sprint_tickets) { tickets.each {|t| sprint.sprint_tickets.create(t.attributes.except("source", "id")) } }
 
       it "should be removed" do
@@ -118,9 +117,10 @@ RSpec.describe "Sprints", type: :feature do
     end
 
     describe "updating associated tickets" do
-      let(:users) { create_list(:user, 2) }
+      let(:user) { create(:user) }
       let!(:tickets) { create_list(:ticket, 5, state: 'open') }
-      let!(:sprint) { create(:sprint, users: users) }
+      let!(:department) { create(:department_with_teams) }
+      let!(:sprint) { create(:sprint, team: department.teams.first) }
       let!(:sprint_tickets) { tickets.each {|t| sprint.sprint_tickets.create(t.attributes.except("source")) } }
 
       it "should show when it was closed" do
@@ -133,27 +133,25 @@ RSpec.describe "Sprints", type: :feature do
       end
 
       it "should show who is assigned" do
-        sprint.sprint_tickets.last.update(github_user_ids: [users.first.github_user_id])
+        sprint.sprint_tickets.last.update(github_user_ids: [user.github_user_id])
 
         visit sprint_path(sprint)
 
-        expect(page).to have_content(users.first.name)
+        expect(page).to have_content(user.name)
       end
     end
   end
 
   describe "adding a note to a ticket", js: true do
-    let(:users) { create_list(:user, 2) }
-    let!(:sprint) { create(:sprint, users: users) }
+    let!(:department) { create(:department_with_teams) }
+    let!(:sprint) { create(:sprint, team: department.teams.first) }
     let!(:sprint_tickets) { create_list(:sprint_ticket, 5, sprint: sprint) }
 
     it "should update the record" do
       visit sprint_path(sprint)
 
-      find("textarea[data-behavior='updateNote'][data-issueid='#{sprint_tickets.first.issue_id}']").set('This is a note').send_keys(:tab) 
-
+      find("textarea[data-id='#{sprint_tickets.first.id}']").set('This is a note').send_keys(:tab) 
       sleep 1
-      
       expect(sprint_tickets.first.reload.notes).to eq 'This is a note'
     end
   end
@@ -161,25 +159,25 @@ RSpec.describe "Sprints", type: :feature do
 
   context "finishing a sprint" do
     describe "when the end date is reached" do
-      let(:users) { create_list(:user, 2) }
-      let!(:sprint) { create(:sprint, users: users, end_date: Date.today) }
+      let!(:department) { create(:department_with_teams) }
+      let!(:sprint) { create(:sprint, team: department.teams.first, end_date: Date.today) }
 
       it "should close the sprint" do
-        visit sprints_path
+        visit team_path(department.teams.first)
 
         expect(page).to have_content('In Progress')
 
         sprint.update(end_date: Date.today - 1)
 
-        visit sprints_path
+        visit team_path(department.teams.first)
 
         expect(page).to have_content('Completed')
       end
     end
 
     describe "when a sprint is closed early", js: true do
-      let(:users) { create_list(:user, 2) }
-      let!(:sprint) { create(:sprint, users: users) }
+      let!(:department) { create(:department_with_teams) }
+      let!(:sprint) { create(:sprint, team: department.teams.first) }
 
       it "should close the sprint" do
         visit sprint_path(sprint)
@@ -187,7 +185,7 @@ RSpec.describe "Sprints", type: :feature do
         click_on 'Close Sprint'
         page.accept_alert
 
-        visit sprints_path
+        visit team_path(department.teams.first)
 
         expect(page).to have_content('Completed')
 
@@ -200,8 +198,8 @@ RSpec.describe "Sprints", type: :feature do
     end
 
     describe "leaving feedback on sprint retro" do
-      let(:users) { create_list(:user, 2) }
-      let!(:sprint) { create(:sprint, users: users) }
+      let!(:department) { create(:department_with_teams) }
+      let!(:sprint) { create(:sprint, team: department.teams.first) }
 
       it "should be valid" do
         visit sprint_retrospective_path(sprint)

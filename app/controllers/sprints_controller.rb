@@ -1,20 +1,18 @@
 class SprintsController < ApplicationController
   def new
-    @sprint = Sprint.new
+    @team = Team.friendly.find(params[:team_id])
+    @sprint = @team.sprints.build
   end
 
   def create
-    @sprint = Sprint.new(sprint_params)
+    @team = Team.friendly.find(params[:team_id])
+    @sprint = @team.sprints.build(sprint_params)
 
     if @sprint.save
       redirect_to @sprint, notice: "Sprint succesfully created!"
     else
       render :new
     end
-  end
-
-  def index
-    @sprints = Sprint.order(end_date: :desc).page(params[:page])
   end
 
   def show
@@ -24,15 +22,14 @@ class SprintsController < ApplicationController
   def manage
     @sprint = Sprint.includes(:sprint_tickets).friendly.find(params[:id])
     @sprint_tickets = @sprint.sprint_tickets.order(position: :asc)
-    tickets = Ticket.where.not(issue_id: @sprint_tickets.pluck(:issue_id)).order(updated_at: :desc).page(params[:page])
+    @yesterdays_weather = Sprint.where.not(id: @sprint.id).order(created_at: :desc).limit(3).pluck(:final_velocity)
+    @tickets = Ticket.where.not(issue_id: @sprint_tickets.pluck(:issue_id)).order(updated_at: :desc).page(params[:page])
     
     if params[:repository_name] && !params[:repository_name].empty?
-      tickets = tickets.where(repository_name: params[:repository_name])
+      @tickets = @tickets.where(repository_name: params[:repository_name])
     elsif params[:search] && !params[:search].empty?
-      tickets = tickets.where('lower(title) || number LIKE ?', "%#{params[:search].downcase}%")
+      @tickets = @tickets.where('lower(title) || number LIKE ?', "%#{params[:search].downcase}%")
     end
-
-    @tickets = tickets 
   end
 
   def update
@@ -62,7 +59,6 @@ class SprintsController < ApplicationController
 
   def sprint_params
     params.require(:sprint).permit(:name, :start_date, :end_date, :what_went_well, 
-                                   :what_could_be_better, :what_one_thing_to_work_on,
-                                   user_ids: [])
+                                   :what_could_be_better, :what_one_thing_to_work_on)
   end
 end

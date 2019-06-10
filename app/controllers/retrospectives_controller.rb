@@ -1,7 +1,7 @@
 class RetrospectivesController < ApplicationController
   def show
-    @sprint = Sprint.includes(:retrospectives).friendly.find(params[:sprint_id])
-    @sprint.users.each do |user|
+    @sprint = Sprint.includes(:retrospectives, :team).friendly.find(params[:sprint_id])
+    @sprint.team.users.each do |user|
       @sprint.retrospectives.find_or_initialize_by(user: user)
     end
   end

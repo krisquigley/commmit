@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   
   resources :departments do
     resources :teams, shallow: true do
-      resources :sprints, shallow: true do
+      resources :sprints, except: :index, shallow: true do
         resources :sprint_tickets
         resource :retrospective, only: [:new, :create, :show]
         member do

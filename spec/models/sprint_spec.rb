@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Sprint, type: :model do
   describe "total_estimated_effort" do
-    let(:users) { create_list(:user, 2) }
-    let!(:sprint) { create(:sprint_with_tickets, start_date: '2000-1-1', end_date: '2000-1-7', users: users) }
+    let!(:department) { create(:department_with_teams) }
+    let!(:sprint) { create(:sprint_with_tickets, start_date: '2000-1-1', end_date: '2000-1-7', team: department.teams.first) }
 
     it "should total all estimated effort for associated sprint tickets" do
       total_estimated_effort = SprintTicket.all.pluck(:estimated_effort).reduce(:+)
@@ -13,8 +13,8 @@ RSpec.describe Sprint, type: :model do
   end
 
   describe "velocity" do
-    let(:users) { create_list(:user, 2) }
-    let!(:sprint) { create(:sprint_with_tickets, users: users) }
+    let!(:department) { create(:department_with_teams) }
+    let!(:sprint) { create(:sprint_with_tickets, team: department.teams.first) }
 
     it "should be effort of all closed tickets" do
       ticket = sprint.sprint_tickets.first
@@ -24,8 +24,8 @@ RSpec.describe Sprint, type: :model do
   end
 
   describe "effort_to_date" do
-    let(:users) { create_list(:user, 2) }
-    let!(:sprint) { create(:sprint_with_tickets, users: users) }
+    let!(:department) { create(:department_with_teams) }
+    let!(:sprint) { create(:sprint_with_tickets, team: department.teams.first) }
 
     it "should calculate how much effort has been used up to today" do
       # 5 work days have passed since the start of the sprint
@@ -47,5 +47,9 @@ RSpec.describe Sprint, type: :model do
         effort_to_date
       ].to_json)
     end
+  end
+
+  describe "final velocity" do
+    it "should get set once a sprint is finished"
   end
 end
