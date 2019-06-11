@@ -2,21 +2,19 @@ Rails.application.routes.draw do
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
 
-  root 'dashboard#show'
+  root 'departments#index'
 
-  resources :users, only: [:index, :show, :edit, :update]
+  resources :users, only: [:index, :show]
 
   namespace :webhooks do
     resources :members, only: :create
     resources :issues, only: :create
   end
 
-  resource :dashboard, only: :show
-  
-  resources :departments do
-    resources :teams, shallow: true do
-      resources :sprints, except: :index, shallow: true do
-        resources :sprint_tickets
+  resources :departments, except: [:update, :edit, :destroy] do
+    resources :teams, only: [:new, :create, :show], shallow: true do
+      resources :sprints, only: [:new, :create, :show, :update], shallow: true do
+        resources :sprint_tickets, only: [:create, :update, :destroy]
         resource :retrospective, only: [:new, :create, :show]
         member do
           get 'manage'

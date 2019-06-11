@@ -50,6 +50,14 @@ RSpec.describe Sprint, type: :model do
   end
 
   describe "final velocity" do
-    it "should get set once a sprint is finished"
+    let!(:department) { create(:department_with_teams) }
+    let!(:sprint) { create(:sprint_with_tickets, team: department.teams.first) }
+
+    it "should get set once a sprint is finished" do
+      sprint.sprint_tickets.update_all(closed_at: DateTime.now)
+      sprint.update(closed_at: DateTime.now)
+
+      expect(sprint.final_velocity).to eq sprint.velocity
+    end
   end
 end

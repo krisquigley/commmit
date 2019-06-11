@@ -10,6 +10,10 @@ class Team < ApplicationRecord
 
   def yesterdays_weather
     previous_sprints = sprints.where.not(final_velocity: nil).order(created_at: :desc).limit(3).pluck(:final_velocity)
-    previous_sprints.inject(:+) / previous_sprints.count
+    if !previous_sprints.empty?
+      previous_sprints.inject(:+) / previous_sprints.count
+    else
+      0
+    end
   end
 end

@@ -4,7 +4,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.friendly.find(params[:id])
+    @user = User.includes(:retrospectives).friendly.find(params[:id])
+    @retrospectives = @user.retrospectives.order(created_at: :desc)
   end
 
   private
