@@ -17,7 +17,7 @@ class TeamsController < ApplicationController
 
   def show
     @team = Team.includes(:sprints).friendly.find(params[:id])
-    @sprints = @team.sprints.page(params[:page])
+    @sprints = @team.sprints.order(end_date: :desc).page(params[:page])
   end
 
   private
