@@ -6,6 +6,9 @@ class UsersController < ApplicationController
   def show
     @user = User.includes(:retrospectives).friendly.find(params[:id])
     @retrospectives = @user.retrospectives.order(created_at: :desc)
+
+    @happiness_values = @retrospectives.limit(10)
+                        .select(:created_at, :role_happiness, :team_happiness, :company_happiness).reverse.to_json
   end
 
   private

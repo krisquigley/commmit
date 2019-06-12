@@ -5,7 +5,10 @@
     <li class="breadcrumb-item active" aria-current="page"><%= @user.name %></li>
   </ol>
 </nav>
-<p>Show individual happiness levels + average</p>
+<div style="position: relative; height:40vh; width:100%" class="mb-4">
+  <canvas id="happiness"></canvas>
+</div>
+<%= hidden_field_tag :happiness_values, @happiness_values, data: { behavior: :happiness_values } %>
 <div class="table-responsive mt-4">
   <table class="table">
     <thead class="thead-light">
@@ -32,3 +35,5 @@
     </tbody>
   </table>
 </div>
+
+<%= javascript_pack_tag 'happiness_graph' %>

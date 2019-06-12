@@ -16,12 +16,12 @@
 
   <div class="form-group">
     <%= f.label :what_went_well, 'What went well?' %>
-    <%= f.text_area :what_went_well, class: 'form-control', required: :required, disabled: (:disabled if @sprint.what_went_well) %>
+    <%= f.text_area :what_went_well, rows: 5, class: 'form-control', required: :required, disabled: (:disabled if @sprint.what_went_well) %>
   </div>
 
   <div class="form-group">
     <%= f.label :what_could_be_better, 'What could be better?' %>
-    <%= f.text_area :what_could_be_better, class: 'form-control', required: :required, disabled: (:disabled if @sprint.what_could_be_better) %>
+    <%= f.text_area :what_could_be_better, rows: 5, class: 'form-control', required: :required, disabled: (:disabled if @sprint.what_could_be_better) %>
   </div>
 
   <div class="form-group">

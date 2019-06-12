@@ -67,7 +67,7 @@
     <div class="card-body">
       <div class="row">
         <div class="col-md-3">
-          <h6 class="mb-4">Yesterday's Weather <span class="badge badge-secondary" data-behavior="effortAccountedFor"><%= @yesterdays_weather %></span></h6>
+          <h6 class="mb-4">Yesterday's Weather <span class="badge badge-secondary" data-behavior="effortAccountedFor"><%= @yesterdays_weather.floor %></span></h6>
           <h6 class="mb-4">Effort Accounted for <span class="badge badge-secondary" data-behavior="effortAccountedFor"><%= @sprint.total_estimated_effort %></span></h6>
         </div>
       </div>
