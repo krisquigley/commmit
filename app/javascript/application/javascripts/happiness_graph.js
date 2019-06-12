@@ -12,51 +12,62 @@ const companyHappiness = happinessValues.map(happy => happy["company_happiness"]
 
 const averageHappiness = happinessValues.map(happy => {
   if (happy["team_happiness"]) {
-    return Math.floor((happy["role_happiness"] + happy["team_happiness"] + happy["company_happiness"]) / 3)
+    return ((happy["role_happiness"] + happy["team_happiness"] + happy["company_happiness"]) / 3).toFixed(1)
   } else {
-    return Math.floor((happy["role_happiness"]  + happy["company_happiness"]) / 2)
+    return ((happy["role_happiness"] + happy["company_happiness"]) / 2).toFixed(1)
   }
 })
 
 new Chart(ctx, {
-  type: 'line',
+  type: 'bar',
   data: {
     labels: dates,
     datasets: [{
-      label: 'Role Happiness',
-      data: roleHappiness,
-      lineTension: 0,
-      fill: false,
-      backgroundColor: ['#aef35A'],
-      borderColor: ['#aef35A'],
-    },
-    {
-      label: 'Team Happiness',
-      data: teamHappiness,
-      lineTension: 0,
-      fill: false,
-      backgroundColor: ['#98edc3'],
-      borderColor: ['#98edc3'],
-    },
-    {
-      label: 'Company Happiness',
-      data: companyHappiness,
-      lineTension: 0,
-      fill: false,
-      backgroundColor: ['#03c04a'],
-      borderColor: ['#03c04a'],
-    },
-    {
+      type: 'line',
       label: 'Average',
       data: averageHappiness,
       fill: false,
       borderDash: [5, 5],
       lineTension: 0,
       pointRadius: 0
+    },
+    {
+      type: 'bar',
+      label: 'Role Happiness',
+      data: roleHappiness,
+      fill: false,
+      backgroundColor: '#aef35A',
+      borderColor: 'white',
+    },
+    {
+      type: 'bar',
+      label: 'Team Happiness',
+      data: teamHappiness,
+      fill: false,
+      backgroundColor: '#98edc3',
+      borderColor: 'white',
+    },
+    {
+      type: 'bar',
+      label: 'Company Happiness',
+      data: companyHappiness,
+      fill: false,
+      backgroundColor: '#03c04a',
+      borderColor: 'white',
     }]
   },
   options: {
     responsive: true,
-    maintainAspectRatio: false
+    tooltips: {
+      mode: 'index',
+      intersect: true
+    },
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    }
   }
 })
