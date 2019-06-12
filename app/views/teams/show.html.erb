@@ -16,7 +16,7 @@
 
 <% @team.users.each do |user| %>
   <%= link_to user_path(user) do %>
-    <%= image_tag JSON.parse(user.source).fetch("avatar_url"), class: "rounded", style: "width: 2rem" %>
+    <%= image_tag JSON.parse(user.source)["avatar_url"], class: "rounded", style: "width: 2rem" %>
   <% end %>
 <% end %>
 

@@ -15,7 +15,7 @@
       <% user_batch.each do |user| %>
         <div class="card" style="width: 18rem;">
           <%= link_to user_path(user) do %>
-            <%= image_tag JSON.parse(user.source).fetch("avatar_url"), class: "card-img-top" %>
+            <%= image_tag JSON.parse(user.source)["avatar_url"], class: "card-img-top" %>
             <div class="card-body">
               <p class="card-text"><%= user.name %></p>
             </div>
