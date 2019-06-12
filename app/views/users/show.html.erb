@@ -28,8 +28,8 @@
           <td><%= retrospective.role_happiness  %></td>
           <td><%= retrospective.team_happiness  %></td>
           <td><%= retrospective.company_happiness %></td>
-          <td><%= retrospective.feedback %></td>
-          <td><%= retrospective.happiness_goal %></td>
+          <td><%= markdown(retrospective.feedback) %></td>
+          <td><%= markdown(retrospective.happiness_goal) %></td>
         </tr>
       <% end %>
     </tbody>
