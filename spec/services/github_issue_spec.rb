@@ -18,7 +18,7 @@ RSpec.describe Github::Issue do
         issue_id: 406911947,
         closed_at: nil,
         url: "https://github.com/krisquigley/sprintable/issues/2",
-        source: new_issue_payload
+        source: Oj.dump(Oj.load(new_issue_payload)["issue"])
       }
     end
 
@@ -39,12 +39,12 @@ RSpec.describe Github::Issue do
         number: 2,
         title: "[2] new issue",
         state: "open",
-        estimated_effort: 2,
+        estimated_effort: 2.0,
         github_user_ids: [4486874],
         issue_id: 406911947,
         closed_at: nil,
         url: "https://github.com/krisquigley/sprintable/issues/2",
-        source: new_issue_payload
+        source: Oj.dump(Oj.load(new_issue_payload)["issue"])
       }
     end
 
@@ -65,12 +65,12 @@ RSpec.describe Github::Issue do
         number: 2,
         title: "[2] new issue",
         state: "open",
-        estimated_effort: 2,
+        estimated_effort: 2.0,
         github_user_ids: [],
         issue_id: 406911947,
         closed_at: nil,
         url: "https://github.com/krisquigley/sprintable/issues/2",
-        source: edited_issue_payload
+        source: Oj.dump(Oj.load(edited_issue_payload)["issue"])
       }
     end
 
@@ -91,12 +91,12 @@ RSpec.describe Github::Issue do
         number: 2,
         title: "[2] new issue",
         state: "closed",
-        estimated_effort: 2,
+        estimated_effort: 2.0,
         github_user_ids: [],
         issue_id: 406911947,
         closed_at: "2019-02-05T18:26:06Z",
         url: "https://github.com/krisquigley/sprintable/issues/2",
-        source: closed_issue_payload
+        source: Oj.dump(Oj.load(closed_issue_payload)["issue"])
       }
     end
 
@@ -117,12 +117,12 @@ RSpec.describe Github::Issue do
         number: 2,
         title: "[2] new issue",
         state: "open",
-        estimated_effort: 2,
+        estimated_effort: 2.0,
         github_user_ids: [],
         issue_id: 406911947,
         closed_at: nil,
         url: "https://github.com/krisquigley/sprintable/issues/2",
-        source: reopened_issue_payload
+        source: Oj.dump(Oj.load(reopened_issue_payload)["issue"])
       }
     end
 

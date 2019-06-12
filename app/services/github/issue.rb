@@ -27,7 +27,7 @@ class Github::Issue < Github::Base
       estimated_effort: estimated_effort,
       closed_at: parsed_payload[:issue].to_h[:closed_at] || parsed_payload[:closed_at],
       github_user_ids: github_user_ids,
-      source: payload
+      source: Oj.dump(parsed_payload[:issue] || parsed_payload, mode: :compat)
     }
   end
 

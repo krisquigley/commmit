@@ -58,6 +58,7 @@ new Chart(ctx, {
   },
   options: {
     responsive: true,
+    maintainAspectRatio: false,
     tooltips: {
       mode: 'index',
       intersect: true
