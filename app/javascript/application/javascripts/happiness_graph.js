@@ -63,6 +63,10 @@ new Chart(ctx, {
       mode: 'index',
       intersect: true
     },
+    title: {
+      display: true,
+      text: 'Happiness'
+    },
     scales: {
       yAxes: [{
         ticks: {

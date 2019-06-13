@@ -3,53 +3,100 @@ import Chart from 'chart.js'
 moment.locale('en-GB')
 
 const ctx = document.getElementById('departmentVelocity').getContext('2d')
+const velocityValues = JSON.parse(document.querySelector('input[data-behavior=velocity_values]').value)
+const teamNames = JSON.parse(document.querySelector('input[data-behavior=teams]').value).map(team => team['name'])
+// Get the unique dates
+const dates = [...new Set(velocityValues.map(velocity => moment(velocity["end_date"]).format('L')))]
+const teamChartData = []
+
+teamNames.forEach(teamName => {
+  const teamData = velocityValues.filter(velocity => velocity['name'] === teamName)
+  const velocities = []
+
+  dates.forEach((date, index) => {
+    // If there is a sprint for this date then add the velocity
+    teamData.forEach(velocity => {
+      if (moment(velocity["end_date"]).format('L') === date) {
+        velocities.push(Math.floor(velocity["final_velocity"]))
+      } 
+    })
+
+    // If there is no sprint for this date then set velocity to 0
+    if (!velocities[index]) {
+      velocities.push(0)
+    }
+  })
+
+  // Add velocity for team to graph
+  teamChartData.push({ 
+    label: teamName, 
+    data: velocities, 
+    fill: false,
+    lineTension: 0,
+    pointRadius: 0,
+    backgroundColor: hashCode(teamName),
+    borderColor:  hashCode(teamName)
+  })
+})
+
+const averages = [] 
+const teamVelocities = teamChartData.map(team => team.data)
+const teamCount = teamVelocities.length
+const sprintCount = teamVelocities[0].length
+
+// Loop through each sprint
+for (let i = 0; i < sprintCount; i++) {
+  let values = []
+
+  // Loop through each team
+  for (let j = 0; j < teamCount; j++) {
+
+    // If the velocity is 0, then don't count it
+    if (teamVelocities[j][i] !== 0) {
+      values.push(teamVelocities[j][i])
+    } 
+  }
+
+  // Average out each teams velocity
+  let average = values.reduce((accumulator, currentValue) => accumulator + currentValue) / values.length
+  averages.push(Math.floor(average))
+}
+
+// Add the average data
+teamChartData.push({
+  label: 'Average', 
+  data: averages, 
+  fill: false,
+  borderDash: [5, 5],
+  lineTension: 0,
+  pointRadius: 0
+})
 
 new Chart(ctx, {
   type: 'line',
   data: {
-    labels: ['05/04/2019', '12/04/2019', '18/04/2019', '26/04/2019', 
-             '02/05/2019', '10/05/2019', '17/05/2019', '24/05/2019', 
-             '31/05/2019', '07/06/2019'],
-    datasets: [{
-      label: 'Velocity',
-      data: [32.1, 55.2, 36.5, 67.3, 73.1, 115.5, 155, 201.5, 117.5, 233],
-      fill: false,
-      lineTension: 0,
-      pointRadius: 0,
-      backgroundColor: ['rgba(0,0,0,0)'],
-      borderColor: ['red'],
-      yAxisID: 'velocity'
-    },
-    {
-      label: 'Happiness',
-      data: [3.8, 3.8, 3.8, 4.1, 4.1, 4.2, 4.4, 4.1, 4.3, 4.4],
-      lineTension: 0,
-      fill: false,
-      backgroundColor: ['rgba(0,0,0,0)'],
-      borderColor: ['pink'],
-      yAxisID: 'happiness'
-    }]
+    labels: dates,
+    datasets: teamChartData
   },
   options: {
+    title: {
+      display: true,
+      text: 'Velocity per Team'
+    },
     responsive: true,
     maintainAspectRatio: false,
-    stacked: false,
-    scales: {
-      yAxes: [{
-        type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
-        display: true,
-        position: 'left',
-        id: 'happiness'
-      }, {
-        type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
-        display: true,
-        position: 'right',
-        id: 'velocity',
-        // grid line settings
-        gridLines: {
-          drawOnChartArea: false, // only want the grid lines for one axis to show up
-        }
-      }]
-    }
   }
 })
+
+function hashCode(str) { // java String#hashCode
+  let hash = 0
+  for (let i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  let colour = '#';
+  for (var i = 0; i < 3; i++) {
+    let value = (hash >> (i * 8)) & 0xFF;
+    colour += ('00' + value.toString(16)).substr(-2);
+  }
+  return colour;
+}

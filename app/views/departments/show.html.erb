@@ -17,8 +17,7 @@
   <canvas id="departmentVelocity"></canvas>
 </div>
 <%= hidden_field_tag :velocity_values, @sprints, data: { behavior: :velocity_values } %>
-
-<p>Show velocity of each team and average</p>
+<%= hidden_field_tag :teams, @teams, data: { behavior: :teams } %>
 
 <div class="table-responsive">
   <table class="table table-hover">
