@@ -13,6 +13,11 @@
   </div>
 </div>
 
+<div style="position: relative; height:40vh; width:100%" class="mb-4">
+  <canvas id="departmentVelocity"></canvas>
+</div>
+<%= hidden_field_tag :velocity_values, @sprints, data: { behavior: :velocity_values } %>
+
 <p>Show velocity of each team and average</p>
 
 <div class="table-responsive">
@@ -33,3 +38,5 @@
     </tbody>
   </table>
 </div>
+
+<%= javascript_pack_tag 'department_velocity' %>
