@@ -63,7 +63,7 @@
   </div>
 
   <div class="card mb-4">
-    <h5 class="card-header">Available Tickets</h5>
+    <h5 class="card-header"><a id="available_tickets"></a>Available Tickets</h5>
     <div class="card-body">
       <div class="row">
         <div class="col-md-3">
@@ -71,7 +71,7 @@
           <h6 class="mb-4">Effort Accounted for <span class="badge badge-secondary" data-behavior="effortAccountedFor"><%= @sprint.total_estimated_effort %></span></h6>
         </div>
       </div>
-      <%= form_tag manage_sprint_path(@sprint), method: :get do |f| %>
+      <%= form_tag manage_sprint_path(@sprint, anchor: :available_tickets), method: :get do |f| %>
         <div class="form-row">
           <div class="col-md-7">
             <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search" %>
