@@ -25,10 +25,12 @@ class SprintsController < ApplicationController
     @yesterdays_weather = @sprint.team.yesterdays_weather
     @tickets = Ticket.where.not(issue_id: @sprint_tickets.pluck(:issue_id)).order(updated_at: :desc).page(params[:page])
     
-    if params[:repository_name] && !params[:repository_name].empty?
-      @tickets = @tickets.where(repository_name: params[:repository_name])
+    if (params[:search] && !params[:search].empty?) && (params[:repository_name] && !params[:repository_name].empty?)
+      @tickets = @tickets.search_by_title_or_issue_number_and_filter(params[:search], params[:repository_name])
+    elsif params[:repository_name] && !params[:repository_name].empty?
+      @tickets = @tickets.filter_by_repository_name(params[:repository_name])
     elsif params[:search] && !params[:search].empty?
-      @tickets = @tickets.where('lower(title) || number LIKE ?', "%#{params[:search].downcase}%")
+      @tickets = @tickets.search_by_title_or_issue_number(params[:search])
     end
   end
 
