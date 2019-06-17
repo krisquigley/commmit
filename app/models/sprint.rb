@@ -43,7 +43,7 @@ class Sprint < ApplicationRecord
   end
 
   def in_progress?
-    (Date.today <= end_date && !closed_at)
+    !closed_at
   end
 
   def status

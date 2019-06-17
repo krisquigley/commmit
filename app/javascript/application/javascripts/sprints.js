@@ -78,9 +78,10 @@ const addNewRowAndRemoveOldRecord = (target, response, table) => {
   let row
 
   if (table === 'assignedTickets') {
-    button = `<button class="btn btn-danger btn-sm btn-block" data-ticket-id="${response.issue_id}" data-behavior="removeTicket">Remove</button>`
+    button = `<button class="btn btn-danger btn-sm btn-block"
+              data-id="${response.id}" data-behavior="removeTicket">Remove</button>`
     callback = removeTicketFromSprint
-    row = `<tr data-issue-id="${response.issue_id}">
+    row = `<tr data-id="${response.id}" data-issue-id="${response.issue_id}">
     <td data-behavior="draggable" style="cursor: move;">
         &#8230;
       </td>
@@ -99,9 +100,10 @@ const addNewRowAndRemoveOldRecord = (target, response, table) => {
       </td>
       </tr>`
   } else {
-    button = `<button class="btn btn-success btn-sm btn-block" data-ticket-id="${response.issue_id}" data-behavior="addTicket">Add</button>`
+    button = `<button class="btn btn-success btn-sm btn-block"
+              data-id="${response.id}" data-behavior="addTicket">Add</button>`
     callback = addTicketToSprint
-    row = `<tr>
+    row = `<tr data-id="${response.id}" data-issue-id="${response.issue_id}">
       <td>
         ${response.number}
       </td>
@@ -109,7 +111,7 @@ const addNewRowAndRemoveOldRecord = (target, response, table) => {
         <a href='${response.url}'>${response.title}</a>
       </td>
       <td>
-      ${response.repository_name}
+        ${response.repository_name}
       </td>
       <td>
         ${button}
@@ -122,7 +124,7 @@ const addNewRowAndRemoveOldRecord = (target, response, table) => {
 
   target.parentElement.parentElement.remove()
   
-  document.querySelector(`button[data-ticket-id='${response.issue_id}']`)
+  document.querySelector(`button[data-id='${response.id}']`)
     .addEventListener('click', callback)
 
     calculateEffortRemaining()

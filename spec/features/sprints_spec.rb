@@ -47,7 +47,7 @@ RSpec.describe "Sprints", type: :feature do
       it "should return the right results" do
         visit manage_sprint_path(sprint)
 
-        fill_in "search", with: tickets.first.title.split(' ')[0]
+        fill_in "search", with: tickets.first.title
 
         click_on 'Filter'
 
@@ -156,23 +156,6 @@ RSpec.describe "Sprints", type: :feature do
 
 
   context "finishing a sprint" do
-    describe "when the end date is reached" do
-      let!(:department) { create(:department_with_teams) }
-      let!(:sprint) { create(:sprint, team: department.teams.first, end_date: Date.today) }
-
-      it "should close the sprint" do
-        visit team_path(department.teams.first)
-
-        expect(page).to have_content('In Progress')
-
-        sprint.update(end_date: Date.today - 1)
-
-        visit team_path(department.teams.first)
-
-        expect(page).to have_content('Completed')
-      end
-    end
-
     describe "when a sprint is closed early", js: true do
       let!(:department) { create(:department_with_teams) }
       let!(:sprint) { create(:sprint, team: department.teams.first) }

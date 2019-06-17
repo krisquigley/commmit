@@ -5,23 +5,23 @@ class SprintTicketsController < ApplicationController
     ticket = Ticket.find_by(issue_id: params[:issue_id])
     sprint = Sprint.includes(:sprint_tickets).find(params[:sprint_id])
     position = sprint.sprint_tickets.count + 1
-    sprint.sprint_tickets.create!(ticket.attributes.except("source", "id").merge(position: position))
+    sprint_ticket = sprint.sprint_tickets.create!(ticket.attributes.except("source", "id").merge(position: position))
 
-    render json: ticket
+    render json: sprint_ticket
   end
 
   def update
-    ticket = SprintTicket.find(params[:id])
-    ticket.update!(sprint_ticket_params)
+    sprint_ticket = SprintTicket.find(params[:id])
+    sprint_ticket.update!(sprint_ticket_params)
 
-    render json: ticket
+    render json: sprint_ticket
   end
 
   def destroy
-    ticket = SprintTicket.find(params[:id])
-    ticket.destroy!
+    sprint_ticket = SprintTicket.find(params[:id])
+    sprint_ticket.destroy!
 
-    render json: ticket
+    render json: sprint_ticket
   end
 
   private
