@@ -49,7 +49,7 @@ RSpec.describe Sprint, type: :model do
     end
   end
 
-  describe "final velocity" do
+  describe "final_velocity" do
     let!(:department) { create(:department_with_teams) }
     let!(:sprint) { create(:sprint_with_tickets, team: department.teams.first) }
 
@@ -58,6 +58,18 @@ RSpec.describe Sprint, type: :model do
       sprint.update(closed_at: DateTime.now)
 
       expect(sprint.final_velocity).to eq sprint.velocity
+    end
+  end
+
+  describe "no_of_members" do
+    let!(:department) { create(:department_with_teams) }
+    let!(:sprint) { create(:sprint_with_tickets, team: department.teams.first) }
+
+    it "should get set once a sprint is created" do
+      sprint.sprint_tickets.update_all(closed_at: DateTime.now)
+      sprint.update(closed_at: DateTime.now)
+
+      expect(sprint.no_of_members).to eq sprint.team.users.count
     end
   end
 end

@@ -9,6 +9,7 @@ class Sprint < ApplicationRecord
   has_many :retrospectives
 
   after_update :save_velocity, if: -> { self.closed_at && !self.final_velocity }
+  after_create :save_no_of_members
 
   def total_estimated_effort
     sprint_tickets.map{ |s| s.estimated_effort }.reduce(:+) || 0
@@ -66,5 +67,9 @@ class Sprint < ApplicationRecord
 
   def save_velocity
     self.update(final_velocity: self.velocity)
+  end
+
+  def save_no_of_members
+    self.update(no_of_members: self.team.users.count)
   end
 end
