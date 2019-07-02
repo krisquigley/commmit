@@ -5,3 +5,37 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+# Create some users
+
+ActiveRecord::Base.transaction do
+  users = User.create(name: Faker::Name.name, 
+  github_user_id: Integer(Faker::Number.number(10)), 
+                    source: JSON.parse(File.read("#{Rails.root.to_s}/spec/fixtures/files/new_user_payload.json"))["member"].to_json)
+
+  department = Department.create(name: Faker::Name.name)
+
+  team = Team.create(department_id: department.id, name: Faker::Name.name, users: [users])
+
+  10.times do 
+    Ticket.create(title: Faker::Hipster.sentence,
+                  estimated_effort: Integer(Faker::Number.number(1)),
+                  repository_name: Faker::Hipster.word,
+                  number: Integer(Faker::Number.number(1)),
+                  state: 'open',
+                  github_user_ids: [],
+                  url: Faker::Internet.url,
+                  issue_id: Integer(Faker::Number.number(10)),
+                  source: "{}")
+  end
+
+  [2, 3, 4, 5].each do |week_no|
+    sprint = Sprint.create(name: Faker::Hipster.word,
+                          start_date: Time.now.ago(week_no.week + 1),
+                          end_date: Time.now.ago(week_no.week),
+                          team: team)
+
+    tickets = Ticket.all
+    tickets.each {|t| sprint.sprint_tickets.create(t.attributes.except("source", "id").merge(closed_at: Time.now.ago(week_no.week + 1))) }
+  end
+end

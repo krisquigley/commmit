@@ -22,6 +22,15 @@
 
 <p>Show velocity of each sprint + multiplier from first sprint + happiness + velocity average + velocity per member per day</p>
 
+<div style="position: relative; height:40vh; width:100%" class="mb-4">
+  <canvas id="teamVelocity"></canvas>
+</div>
+
+<%= hidden_field_tag :velocity_values, @velocity, data: { behavior: :velocity_values } %>
+<%= hidden_field_tag :happiness_values, @happiness, data: { behavior: :happiness_values } %>
+
 <%= render 'table', object: @sprints %>
 
 <%= paginate @sprints, theme: 'twitter-bootstrap-4' %>
+
+<%= javascript_pack_tag 'team_velocity' %>

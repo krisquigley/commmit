@@ -33,6 +33,7 @@ gem 'redcarpet', '~> 3.4'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'friendly_id', '~> 5.2', '>= 5.2.5'
+gem 'faker', '~> 1.9', '>= 1.9.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -57,7 +58,6 @@ group :test do
   gem 'database_cleaner', '~> 1.7'
   gem 'capybara', '~> 3.13', '>= 3.13.2'
   gem 'rspec-sidekiq', '~> 3.0', '>= 3.0.3'
-  gem 'faker', '~> 1.9', '>= 1.9.1'
   gem 'selenium-webdriver', '~> 3.141'
 end
 
