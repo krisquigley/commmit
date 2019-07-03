@@ -13,7 +13,7 @@ const teamChartData = []
 teamNames.forEach(teamName => {
   const teamData = velocityValues.filter(velocity => velocity['name'] === teamName)
   const velocities = []
-
+  
   dates.forEach((date, index) => {
     // If there is a sprint for this date then add the velocity
     teamData.forEach(velocity => {
@@ -21,13 +21,13 @@ teamNames.forEach(teamName => {
         velocities.push(Math.floor(velocity["final_velocity"]))
       } 
     })
-
+    
     // If there is no sprint for this date then set velocity to 0
     if (!velocities[index]) {
       velocities.push(0)
     }
   })
-
+  
   // Add velocity for team to graph
   teamChartData.push({ 
     label: teamName, 
@@ -40,14 +40,21 @@ teamNames.forEach(teamName => {
   })
 })
 
-const teamVelocities = teamChartData.map(team => team.data).reduce((total, velocity) => total + velocity)
+const teamVelocities = teamChartData.map(team => team.data)
+const combinedVelocities = []
+for (let i = 0; i < teamVelocities[0].length; i++) {
+  let velocity = 0
+  for (let v = 0; v < teamVelocities.length; v++) {
+    velocity += teamVelocities[v][i]
+  }
+  combinedVelocities.push(velocity)
+}
 
-// Add the average data
+// Add the combined velocity data
 teamChartData.push({
   label: 'Combined Velocity', 
-  data: teamVelocities, 
+  data: combinedVelocities, 
   fill: false,
-  showLine: false,
   borderDash: [5, 5],
   lineTension: 0,
   pointRadius: 0,

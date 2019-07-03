@@ -21,7 +21,7 @@ class DepartmentsController < ApplicationController
     @department = Department.includes(:teams).friendly.find(params[:id])
     @teams = @department.teams.select(:name).to_json
     @sprints = @department.teams.joins(:sprints).select(:name, :end_date)
-                .merge(Sprint.where.not(final_velocity: nil).select(:final_velocity).order(created_at: :desc).limit(@department.teams.count * 10))
+                .merge(Sprint.where.not(final_velocity: nil).select(:final_velocity).order(end_date: :desc).limit(@department.teams.count * 10))
                 .reverse.to_json
   end
 
