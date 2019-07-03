@@ -1,5 +1,6 @@
 import moment from 'moment'
 import Chart from 'chart.js'
+import 'chartjs-plugin-trendline'
 moment.locale('en-GB')
 
 const ctx = document.getElementById('teamVelocity').getContext('2d')
@@ -20,7 +21,12 @@ new Chart(ctx, {
       lineTension: 0,
       pointRadius: 0,
       backgroundColor: ['rgba(0,0,0,0)'],
-      borderColor: ['red']
+      borderColor: ['red'],
+      trendlineLinear: {
+        style: "#3e95cd",
+        lineStyle: "line",
+        width: 1
+      }
     }]
   },
   options: {

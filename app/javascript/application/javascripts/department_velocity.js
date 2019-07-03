@@ -1,5 +1,6 @@
 import moment from 'moment'
 import Chart from 'chart.js'
+import 'chartjs-plugin-trendline'
 moment.locale('en-GB')
 
 const ctx = document.getElementById('departmentVelocity').getContext('2d')
@@ -39,37 +40,22 @@ teamNames.forEach(teamName => {
   })
 })
 
-const averages = [] 
-const teamVelocities = teamChartData.map(team => team.data)
-const teamCount = teamVelocities.length
-const sprintCount = teamVelocities[0].length
-
-// Loop through each sprint
-for (let i = 0; i < sprintCount; i++) {
-  let values = []
-
-  // Loop through each team
-  for (let j = 0; j < teamCount; j++) {
-
-    // If the velocity is 0, then don't count it
-    if (teamVelocities[j][i] !== 0) {
-      values.push(teamVelocities[j][i])
-    } 
-  }
-
-  // Average out each teams velocity
-  let average = values.reduce((accumulator, currentValue) => accumulator + currentValue) / values.length
-  averages.push(Math.floor(average))
-}
+const teamVelocities = teamChartData.map(team => team.data).reduce((total, velocity) => total + velocity)
 
 // Add the average data
 teamChartData.push({
-  label: 'Average', 
-  data: averages, 
+  label: 'Combined Velocity', 
+  data: teamVelocities, 
   fill: false,
+  showLine: false,
   borderDash: [5, 5],
   lineTension: 0,
-  pointRadius: 0
+  pointRadius: 0,
+  trendlineLinear: {
+    style: "#3e95cd",
+    lineStyle: "line",
+    width: 1
+  }
 })
 
 new Chart(ctx, {
