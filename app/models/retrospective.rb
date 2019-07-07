@@ -5,4 +5,12 @@ class Retrospective < ApplicationRecord
 
   belongs_to :sprint
   belongs_to :user
+
+  def average_happiness
+    if self.team_happiness
+      (role_happiness + team_happiness + company_happiness) / 3
+    else
+      (role_happiness + company_happiness) / 2
+    end
+  end
 end

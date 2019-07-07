@@ -71,6 +71,10 @@ new Chart(ctx, {
     labels: dates,
     datasets: teamChartData
   },
+  tooltips: {
+    mode: 'index',
+    intersect: true
+  },
   options: {
     title: {
       display: true,

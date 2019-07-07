@@ -9,13 +9,15 @@
 # Create some users
 
 ActiveRecord::Base.transaction do
-  users = User.create(name: Faker::Name.name, 
-  github_user_id: Integer(Faker::Number.number(10)), 
-                    source: JSON.parse(File.read("#{Rails.root.to_s}/spec/fixtures/files/new_user_payload.json"))["member"].to_json)
-
+  2.times do 
+    User.create(name: Faker::Name.name, 
+                github_user_id: Integer(Faker::Number.number(10)), 
+                source: JSON.parse(File.read("#{Rails.root.to_s}/spec/fixtures/files/new_user_payload.json"))["member"].to_json)
+  end
+  users = User.all
   department = Department.create(name: Faker::Name.name)
 
-  team = Team.create(department_id: department.id, name: Faker::Name.name, users: [users])
+  team = Team.create(department_id: department.id, name: Faker::Name.name, users: users)
 
   10.times do 
     Ticket.create(title: Faker::Hipster.sentence,
@@ -35,7 +37,19 @@ ActiveRecord::Base.transaction do
                           end_date: Time.now.ago(week_no.week),
                           team: team)
 
-    tickets = Ticket.all
-    tickets.each {|t| sprint.sprint_tickets.create(t.attributes.except("source", "id").merge(closed_at: Time.now.ago(week_no.week + 1))) }
+    tickets = Ticket.all.sample(5)
+    tickets.each do |t| 
+      sprint.sprint_tickets.create(t.attributes.except("source", "id")
+            .merge(closed_at: Time.now.ago(week_no.week + 1)))
+    end
+    sprint.update(closed_at: Time.now.ago(week_no.week))
+    sprint.team.users.each do |user|
+      sprint.retrospectives.create(user: user, 
+                                   role_happiness: rand(5) + 1, 
+                                   team_happiness: rand(5) + 1,
+                                   company_happiness: rand(5) + 1, 
+                                   feedback: Faker::Hipster.sentence,
+                                   happiness_goal: Faker::Hipster.sentence)
+    end
   end
 end
