@@ -10,7 +10,7 @@ console.log(happinessValues)
 const dates = velocityValues.map(velocity => moment(velocity["end_date"]).format('L'))
 const velocity = velocityValues.map(velocity => Math.floor(velocity["final_velocity"]))
 
-new Chart(ctx, {
+const instance = new Chart(ctx, {
   type: 'bar',
   data: {
     labels: dates,
@@ -23,8 +23,12 @@ new Chart(ctx, {
       pointRadius: 0,
       backgroundColor: 'rgba(0,0,0,0)',
       borderColor: 'red',
- 
-      yAxisID: 'velocity'
+      yAxisID: 'y-axis-0',
+      trendlineLinear: {
+        style: "#3e95cd",
+        lineStyle: "line",
+        width: 1
+      }
     },{
       type: 'bar',
       label: 'Average Happiness',
@@ -52,7 +56,7 @@ new Chart(ctx, {
         type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
         display: true,
         position: 'left',
-        id: 'velocity'
+        id: 'y-axis-0'
       }, {
         type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
         display: true,
@@ -66,3 +70,5 @@ new Chart(ctx, {
     }
   }
 })
+
+console.log(instance.scales)
