@@ -1,22 +1,20 @@
 module TeamsHelper
   def happiness_values(happiness)
-    happiness = happiness.map do |retro| 
-      { user_id: retro.user_id, average_happiness: retro.average_happiness }
-    end.group_by { |i| i[:user_id] }
-    
-    unless happiness.empty?
-      no_of_sprints = happiness.first[1].count
-      no_of_users = happiness.keys.count
-      happiness_values = []
+    happiness.map do |end_date, user_happiness|
+      total_user_happiness = user_happiness.count > 1 ? determine_user_happiness(user_happiness) : user_happiness.first[:average_happiness]
+      { end_date: end_date, average_happiness: (total_user_happiness / user_happiness.count).round(1) }
+    end.to_json
+  end
 
-      (0...no_of_sprints).each do |index|
-        average_retro_happiness = 0
-        happiness.each do |key, user_happiness|
-          average_retro_happiness += user_happiness[index][:average_happiness]
-        end
-        happiness_values << (average_retro_happiness / no_of_users).round(1)
+  private
+
+  def determine_user_happiness(user_happiness)
+    user_happiness.reduce do |sum, u|
+      if sum.is_a? Hash
+        sum[:average_happiness] + u[:average_happiness]
+      else
+        sum + u[:average_happiness]
       end
-      happiness_values.to_json
     end
   end
 end

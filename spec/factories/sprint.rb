@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :sprint do
     name { Faker::Hipster.word }
     start_date { Time.now.ago(1.week) }
-    end_date { Time.now.advance(weeks: 1) }
+    end_date { Time.now }
 
     factory :sprint_with_tickets do
       transient do

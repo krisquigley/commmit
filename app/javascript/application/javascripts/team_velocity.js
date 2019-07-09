@@ -5,7 +5,7 @@ moment.locale('en-GB')
 
 const ctx = document.getElementById('teamVelocity').getContext('2d')
 const velocityValues = JSON.parse(document.querySelector('input[data-behavior=velocity_values]').value)
-const happinessValues = JSON.parse(document.querySelector('input[data-behavior=happiness_values]').value)
+const happinessValues = JSON.parse(document.querySelector('input[data-behavior=happiness_values]').value).map(happiness => happiness.average_happiness)
 console.log(happinessValues)
 const dates = velocityValues.map(velocity => moment(velocity["end_date"]).format('L'))
 const velocity = velocityValues.map(velocity => Math.floor(velocity["final_velocity"]))
@@ -34,7 +34,7 @@ const instance = new Chart(ctx, {
       label: 'Average Happiness',
       data: happinessValues,
       fill: false,
-      backgroundColor: '#aef35A',
+      backgroundColor: 'rgba(0,150,0,0.5)',
       borderColor: 'white',
       yAxisID: 'happiness'
     }]
@@ -61,6 +61,9 @@ const instance = new Chart(ctx, {
         type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
         display: true,
         position: 'right',
+        ticks: {
+          beginAtZero: true
+        },
         id: 'happiness',
         // grid line settings
         gridLines: {

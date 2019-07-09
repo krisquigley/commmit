@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_20_005440) do
+ActiveRecord::Schema.define(version: 2019_07_08_110248) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 2019_06_20_005440) do
     t.string "happiness_goal", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "average_happiness"
     t.index ["sprint_id"], name: "index_retrospectives_on_sprint_id"
     t.index ["user_id"], name: "index_retrospectives_on_user_id"
   end
