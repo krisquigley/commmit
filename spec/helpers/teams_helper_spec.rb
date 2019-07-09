@@ -11,7 +11,7 @@ RSpec.describe TeamsHelper do
       sprint_with_tickets = create(:sprint_with_tickets, team: department_with_teams.teams.first, start_date: '2019-01-01', end_date: '2019-01-05')
       sprint_with_tickets.update(closed_at: '2019-01-05')
       sprint_with_tickets.team.users.each do |user|
-        sprint_with_tickets.retrospectives.create!(user: user, role_happiness: 1, team_happiness: 2, company_happiness: 4, feedback: 'test', happiness_goal: 'test')
+        sprint_with_tickets.retrospectives.create!(user: user, role_happiness: 1, company_happiness: 4, feedback: 'test', happiness_goal: 'test')
       end
       sprint_with_tickets
     end
@@ -33,7 +33,7 @@ RSpec.describe TeamsHelper do
     let!(:happiness) { Retrospective.retros_with_end_dates([sprint_with_tickets.id, sprint_with_tickets_2.id]) }
 
     it "should return json in the correct format" do
-      expect(helper.happiness_values(happiness)).to eq "[{\"end_date\":\"2019-01-05T00:00:00.000Z\",\"average_happiness\":2.3},{\"end_date\":\"2019-01-12T00:00:00.000Z\",\"average_happiness\":3.3}]" 
+      expect(helper.happiness_values(happiness)).to eq "[{\"end_date\":\"2019-01-05T00:00:00.000Z\",\"average_happiness\":2.5},{\"end_date\":\"2019-01-12T00:00:00.000Z\",\"average_happiness\":3.3}]" 
     end
   end
 end

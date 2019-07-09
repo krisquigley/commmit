@@ -55,12 +55,12 @@ const instance = new Chart(ctx, {
       yAxes: [{
         type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
         display: true,
-        position: 'left',
+        position: 'right',
         id: 'y-axis-0'
       }, {
         type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
         display: true,
-        position: 'right',
+        position: 'left',
         ticks: {
           beginAtZero: true
         },

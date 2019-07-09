@@ -53,7 +53,7 @@ RSpec.describe "Retrospectives", type: :feature do
 
         find('[value=Submit]', match: :first).click
 
-        expect(page).to have_content "Role happiness can't be blank Role happiness is not a number Team happiness can't be blank Team happiness is not a number Company happiness can't be blank Company happiness is not a number Feedback can't be blank Happiness goal can't be blank"
+        expect(page).to have_content "Role happiness can't be blank Role happiness is not a number Company happiness can't be blank Company happiness is not a number Feedback can't be blank Happiness goal can't be blank"
       end
     end
   end
