@@ -20,9 +20,9 @@
           <td><%= sprint.velocity %></td>
           <td>
             <% if sprint.in_progress? %> 
-              <span class="badge badge-<%= goal_achieved?(sprint) %>"><%= sprint.status %></span>
+              <span class="badge badge-<%= goal_achieved?(sprint) %>"><%= status(sprint) %></span>
             <% else %>
-              <span class="badge badge-<%= goal_achieved?(sprint) %>"><%= sprint.status %></span>
+              <span class="badge badge-<%= goal_achieved?(sprint) %>"><%= status(sprint) %></span>
             <% end %>
           </td>
         </tr>

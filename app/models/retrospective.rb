@@ -12,6 +12,8 @@ class Retrospective < ApplicationRecord
   # TODO: update user happiness graph to use average_column
   after_create :determine_average_happiness
 
+  private
+
   def determine_average_happiness
     if self.team_happiness
       average = (role_happiness + team_happiness + company_happiness) / 3

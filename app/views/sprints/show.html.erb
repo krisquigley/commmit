@@ -28,7 +28,7 @@
 <input type="hidden" value="<%= @sprint.total_estimated_effort %>" data-behavior="effortAccountedFor" />
 <input type="hidden" value="<%= @sprint.start_date.to_date %>" data-behavior="startDate" />
 <input type="hidden" value="<%= @sprint.end_date.to_date %>" data-behavior="endDate" />
-<input type="hidden" value="<%= @sprint.effort_to_date %>" data-behavior="effortToDate" />
+<input type="hidden" value="<%= effort_to_date(@sprint) %>" data-behavior="effortToDate" />
 
 <div style="position: relative; height:40vh; width:100%" class="mb-4">
   <canvas id="myChart"></canvas>

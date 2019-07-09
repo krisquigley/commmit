@@ -120,7 +120,10 @@
 <div data-behavior="Settings" class="tabcontent">
   <%= form_for @sprint do |f| %>
     <%= render 'form', f: f %>
-    <%= f.text_field :days_off %>
+    <div class="form-group">
+      <%= f.label :days_off %>
+      <%= f.text_field :days_off, class: "form-control" %>
+    </div>
     <%= f.submit 'Update Sprint', class: "btn btn-success" %> 
   <% end %>
 </div>

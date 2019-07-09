@@ -14,7 +14,7 @@
       <tr class="table-<%= ticket_status(ticket) %>">
         <td><b><%= ticket.number %></b></td>
         <td><b><%= link_to ticket.title, ticket.url %></b></td>
-        <td><b><%= ticket.closed_at_formatted %></b></td>
+        <td><b><%= closed_at_formatted(ticket) %></b></td>
         <td><%= !ticket.users.empty? ? render(partial: 'users/link', collection: ticket.users, spacer_template: 'shared/comma') : "Unassigned" %></td>
         <td><%= text_area_tag :notes, ticket.notes, {class: 'form-control', data: {behavior: 'updateNote', id: ticket.id}} %>
       </tr>

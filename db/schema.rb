@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_08_110248) do
+ActiveRecord::Schema.define(version: 2019_07_09_165222) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
 
   create_table "departments", force: :cascade do |t|
@@ -80,7 +81,6 @@ ActiveRecord::Schema.define(version: 2019_07_08_110248) do
     t.datetime "updated_at", null: false
     t.decimal "available_effort"
     t.datetime "closed_at"
-    t.integer "effort_adjustment"
     t.string "slug"
     t.text "what_went_well"
     t.text "what_could_be_better"

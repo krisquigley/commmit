@@ -6,7 +6,6 @@ moment.locale('en-GB')
 const ctx = document.getElementById('teamVelocity').getContext('2d')
 const velocityValues = JSON.parse(document.querySelector('input[data-behavior=velocity_values]').value)
 const happinessValues = JSON.parse(document.querySelector('input[data-behavior=happiness_values]').value).map(happiness => happiness.average_happiness)
-console.log(happinessValues)
 const dates = velocityValues.map(velocity => moment(velocity["end_date"]).format('L'))
 const velocity = velocityValues.map(velocity => Math.floor(velocity["final_velocity"]))
 
