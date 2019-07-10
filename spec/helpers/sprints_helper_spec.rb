@@ -13,11 +13,8 @@ RSpec.describe SprintsHelper do
 
       effort_to_date = total_estimated_effort - tickets.pluck(:estimated_effort).reduce(:+)
 
-      # Returns a JSON array of the 8 days that have passed since the start of the sprint
+      # Returns a JSON array of the 5 days that have passed since the start of the sprint
       expect(helper.effort_to_date(sprint)).to eq([
-        total_estimated_effort,
-        total_estimated_effort,
-        total_estimated_effort,
         total_estimated_effort,
         total_estimated_effort,
         total_estimated_effort,

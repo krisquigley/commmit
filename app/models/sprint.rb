@@ -29,8 +29,20 @@ class Sprint < ApplicationRecord
 
   def goal_achieved?
     if complete?
-      velocity == total_estimated_effort
+      final_velocity == total_estimated_effort
     end
+  end
+
+  def velocity_per_person_per_day
+    final_velocity / total_man_day_minus_days_off if final_velocity
+  end
+
+  def total_man_days
+    no_of_members * ((end_date + 1.day) - start_date) / (24 * 60 * 60)
+  end
+
+  def total_man_day_minus_days_off
+    total_man_days - days_off
   end
 
   private

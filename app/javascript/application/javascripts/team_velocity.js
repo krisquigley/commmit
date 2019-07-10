@@ -8,7 +8,9 @@ const velocityValues = JSON.parse(document.querySelector('input[data-behavior=ve
 const happinessValues = JSON.parse(document.querySelector('input[data-behavior=happiness_values]').value).map(happiness => happiness.average_happiness)
 const dates = velocityValues.map(velocity => moment(velocity["end_date"]).format('L'))
 const velocity = velocityValues.map(velocity => Math.floor(velocity["final_velocity"]))
-
+const noOfMembers = JSON.parse(document.querySelector('input[data-behavior=no_of_members_per_sprint]').value)
+const velocityPerPersonPerDay = JSON.parse(document.querySelector('input[data-behavior=velocity_per_person_per_day_per_sprint]').value)
+console.log(noOfMembers, velocityPerPersonPerDay)
 const instance = new Chart(ctx, {
   type: 'bar',
   data: {
@@ -33,10 +35,26 @@ const instance = new Chart(ctx, {
       label: 'Average Happiness',
       data: happinessValues,
       fill: false,
-      backgroundColor: 'rgba(0,150,0,0.5)',
+      backgroundColor: 'rgba(0,150,0,0.3)',
       borderColor: 'white',
       yAxisID: 'happiness'
-    }]
+    },{
+      type: 'bar',
+      label: 'Team Size',
+      data: noOfMembers,
+      fill: false,
+      backgroundColor: 'rgba(0,0,150,0.3)',
+      borderColor: 'white',
+      yAxisID: 'happiness'
+    },{
+      type: 'bar',
+      label: 'Velocity Per Person Per Day',
+      data: velocityPerPersonPerDay,
+      fill: false,
+      backgroundColor: 'rgba(150,0,0,0.3)',
+      borderColor: 'white',
+      yAxisID: 'happiness'
+    }],
   },
   options: {
     responsive: true,

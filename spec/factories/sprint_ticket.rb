@@ -9,5 +9,11 @@ FactoryBot.define do
     url { Faker::Internet.url }
     issue_id { Integer(Faker::Number.number(10)) }
     closed_at { nil }
+
+    trait :closed do
+      closed_at { Date.today }
+    end
+
+    factory :closed_sprint_ticket, traits: [:closed]
   end
 end
