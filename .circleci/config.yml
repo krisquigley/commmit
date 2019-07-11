@@ -57,6 +57,8 @@ jobs:
         paths:
           - ~/.yarn-cache
 
+      - run: bundle exec rails webpacker:compile
+
       # Database setup
       - run:
           name: Wait for DB
