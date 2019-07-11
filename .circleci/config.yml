@@ -9,8 +9,8 @@ jobs:
       # specify the version you desire here
       - image: circleci/ruby:2.6.3-node-browsers
         environment:
+          DATABASE_URL: "postgres://myapp@localhost/sprint_test"
           PGHOST: 127.0.0.1
-          PGUSER: myapp-test
           RAILS_ENV: test
 
       # Specify service dependencies here if necessary
@@ -19,7 +19,7 @@ jobs:
       - image: circleci/postgres:10.5-alpine
         environment:
           POSTGRES_USER: myapp
-          POSTGRES_DB: myapp-test
+          POSTGRES_DB: sprint_test
           POSTGRES_PASSWORD: ""
       - image: circleci/redis:5-alpine3.10
             
