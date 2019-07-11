@@ -24,6 +24,7 @@ class SprintsController < ApplicationController
     @sprint_tickets = @sprint.sprint_tickets.order(position: :asc)
     @yesterdays_weather = @sprint.team.yesterdays_weather
     @tickets = Ticket.where.not(issue_id: @sprint_tickets.pluck(:issue_id)).order(updated_at: :desc).page(params[:page])
+    @recent_velocity_per_person_per_day = @sprint.team.sprints.where.not(final_velocity: nil).order(end_date: :desc).limit(3)
     
     if (params[:search] && !params[:search].empty?) && (params[:repository_name] && !params[:repository_name].empty?)
       @tickets = @tickets.search_by_title_or_issue_number_and_filter(params[:search], params[:repository_name])

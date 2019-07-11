@@ -37,8 +37,12 @@ class Sprint < ApplicationRecord
     final_velocity / total_man_day_minus_days_off if final_velocity
   end
 
+  def sprint_length_in_days
+    ((end_date + 1.day) - start_date) / (24 * 60 * 60)
+  end
+
   def total_man_days
-    no_of_members * ((end_date + 1.day) - start_date) / (24 * 60 * 60)
+    no_of_members * sprint_length_in_days
   end
 
   def total_man_day_minus_days_off

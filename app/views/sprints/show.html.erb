@@ -9,7 +9,7 @@
     </nav>
   </div>
   <% if @sprint.in_progress? %>
-    <div class="col-sm-12 col-md-2">
+    <div class="col-sm-12 col-md-2 mb-3">
       <%= link_to 'Manage', manage_sprint_path(@sprint), class: "btn btn-warning btn-block btn-lg" %>
     </div>
     <div class="col-sm-12 col-md-2">

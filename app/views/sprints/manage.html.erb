@@ -68,6 +68,7 @@
       <div class="row">
         <div class="col-md-3">
           <h6 class="mb-4">Yesterday's Weather <span class="badge badge-secondary"><%= @yesterdays_weather.floor %></span></h6>
+          <h6 class="mb-4">Largest ticket size for sprint <span class="badge badge-secondary"><%= average_velocity_per_person_per_day_half_sprint(@sprint, @recent_velocity_per_person_per_day) %></span></h6>
           <h6 class="mb-4">Effort Accounted for <span class="badge badge-secondary" data-behavior="effortAccountedFor"><%= @sprint.total_estimated_effort %></span></h6>
         </div>
       </div>

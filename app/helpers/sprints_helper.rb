@@ -50,4 +50,15 @@ module SprintsHelper
 
     effort.to_json
   end
+
+  def average_velocity_per_person_per_day_half_sprint(current_sprint, recent_velocity_per_person_per_day)
+    half_a_sprint = current_sprint.sprint_length_in_days / 2
+    count = recent_velocity_per_person_per_day.count
+    if count > 0
+      total_velocity_per_person_per_day = recent_velocity_per_person_per_day.map(&:velocity_per_person_per_day).reduce(&:+)
+      ((total_velocity_per_person_per_day / count) * half_a_sprint).round(2)
+    else
+      0
+    end
+  end
 end
