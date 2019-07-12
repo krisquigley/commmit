@@ -55,6 +55,24 @@ RSpec.describe "Sprints", type: :feature do
         expect(page).to_not have_content tickets.last.title
       end
     end
+
+    describe "updating days off" do
+      let!(:department) { create(:department_with_teams) }
+      let!(:sprint) { create(:sprint, team: department.teams.first) }
+      let!(:tickets) { create_list(:ticket, 5) }
+
+      it "should return the right results" do
+        visit manage_sprint_path(sprint)
+
+        click_on 'Settings'
+
+        fill_in "Days off", with: 2.5
+
+        click_on "Update Sprint"
+
+        expect(sprint.reload.days_off).to eq 2.5
+      end
+    end
   
     describe "filtering by repo" do
       let!(:department) { create(:department_with_teams) }
