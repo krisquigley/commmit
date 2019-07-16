@@ -39,7 +39,7 @@ ActiveRecord::Base.transaction do
 
     tickets = Ticket.all.sample(5)
     tickets.each do |t| 
-      sprint.sprint_tickets.create(t.attributes.except("source", "id")
+      sprint.sprint_tickets.create(t.attributes.except("id")
             .merge(closed_at: Time.now.ago(week_no.week + 1)))
     end
     sprint.update(closed_at: Time.now.ago(week_no.week))
