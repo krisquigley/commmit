@@ -66,6 +66,6 @@ class SprintsController < ApplicationController
   def sprint_params
     params.require(:sprint).permit(:name, :start_date, :end_date, :what_went_well, 
                                    :what_could_be_better, :what_one_thing_to_work_on,
-                                   :days_off, :finish_by, :initial_ticket_ids)
+                                   :days_off, :finish_by)
   end
 end

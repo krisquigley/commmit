@@ -78,7 +78,10 @@ RSpec.describe "Sprints", type: :feature do
       let!(:department) { create(:department_with_teams) }
       let!(:sprint) { create(:sprint, team: department.teams.first) }
       let!(:tickets) { create_list(:ticket, 5) }
-      let!(:sprint_tickets) { tickets.each {|t| sprint.sprint_tickets.create(t.attributes.except("id")) } }
+      let!(:sprint_tickets) do 
+        tickets.each {|t| sprint.sprint_tickets.create(t.attributes.except("id")) }
+        sprint.sprint_tickets
+      end
 
       it "should return the right results" do
         visit manage_sprint_path(sprint)
@@ -88,12 +91,13 @@ RSpec.describe "Sprints", type: :feature do
         click_on "Lock & Load"
         page.accept_alert
 
+        initial_tickets = sprint.sprint_tickets.pluck(:id)
+
         additional_tickets = create_list(:ticket, 5)
         additional_tickets.each {|t| sprint.sprint_tickets.create(t.attributes.except("id")) }
 
-
         expect(sprint.reload.finish_by).to eq(sprint.end_date - 2.days)
-        expect(sprint.reload.initial_ticket_ids).to match_array(sprint_tickets.pluck(:id))
+        expect(sprint.reload.initial_ticket_ids).to match_array(initial_tickets)
       end
     end
   
