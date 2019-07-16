@@ -61,4 +61,12 @@ module SprintsHelper
       0
     end
   end
+
+  def labels(ticket)
+    if ticket.source?
+      labels = (JSON.parse(ticket.source)["labels"]  || JSON.parse(ticket.source)["issue"]["labels"])
+                .map { |l| "<span class=\"badge\" style=\"background-color: ##{l["color"]}\">#{l["name"]}</span>" }
+      labels.join(" ").html_safe
+    end
+  end
 end

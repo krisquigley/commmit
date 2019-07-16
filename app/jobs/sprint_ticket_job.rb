@@ -11,7 +11,7 @@ class SprintTicketJob
     
     SprintTicket.transaction do
       tickets.each do |ticket|
-        ticket.update!(parsed_response.except(:source))
+        ticket.update!(parsed_response)
       end
     end
   end
