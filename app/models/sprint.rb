@@ -20,11 +20,11 @@ class Sprint < ApplicationRecord
   end
 
   def complete?
-    sprint_tickets.merged_tickets(initial_ticket_ids).empty?
+    sprint_tickets.merged_tickets(initial_ticket_ids).count == initial_ticket_ids.count if !initial_ticket_ids.empty?
   end
 
   def finished_early?
-    complete? && sprint_tickets.merged_tickets(initial_ticket_ids).order(closed_at: :desc).first < (finish_by + 1.day) if finish_by
+    complete? && sprint_tickets.merged_tickets(initial_ticket_ids).order(closed_at: :desc).first.closed_at < (finish_by + 1.day) if finish_by
   end
 
   def sprint_surpassed?

@@ -6,6 +6,7 @@ RSpec.describe SprintsHelper do
     let!(:sprint) { create(:sprint_with_tickets, team: department.teams.first) }
 
     it "should calculate how much effort has been used up to today" do
+      sprint.update(initial_ticket_ids: sprint.sprint_tickets.pluck(:id))
       # 5 work days have passed since the start of the sprint
       tickets = sprint.sprint_tickets.all.limit(2)
       tickets.update_all(closed_at: Time.now)

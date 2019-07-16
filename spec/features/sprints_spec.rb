@@ -74,7 +74,7 @@ RSpec.describe "Sprints", type: :feature do
       end
     end
 
-    describe "setting finish by" do
+    describe "setting finish by", js: true do
       let!(:department) { create(:department_with_teams) }
       let!(:sprint) { create(:sprint, team: department.teams.first) }
       let!(:tickets) { create_list(:ticket, 5) }
@@ -86,6 +86,8 @@ RSpec.describe "Sprints", type: :feature do
         fill_in "Finish by", with: sprint.end_date - 2.days
 
         click_on "Lock & Load"
+        page.accept_alert
+
         additional_tickets = create_list(:ticket, 5)
         additional_tickets.each {|t| sprint.sprint_tickets.create(t.attributes.except("id")) }
 
@@ -151,6 +153,21 @@ RSpec.describe "Sprints", type: :feature do
         sleep 1
         expect(sprint.reload.sprint_tickets.count).to eq(4)
       end
+
+      context "when a sprint is locked and loaded" do
+        it "should not be able to remove tickets" do
+          visit sprint_path(sprint)
+
+          click_on 'Manage'
+
+          click_on 'Lock & Load'
+          page.accept_alert
+
+          click_on 'Manage'
+
+          expect(page).to have_button('Remove', disabled: true)
+        end
+      end
     end
 
     describe "updating associated tickets" do
@@ -205,13 +222,7 @@ RSpec.describe "Sprints", type: :feature do
         click_on 'Close Sprint'
         page.accept_alert
 
-        visit team_path(department.teams.first)
-
-        expect(page).to have_content('Completed')
-
-        visit sprint_path(sprint)
-
-        expect(page).to_not have_content('In Progress')
+        expect(page).to have_content('Retrospective Feedback')
         expect(page).to_not have_content('Manage')
         expect(page).to_not have_content('Close Sprint')
       end

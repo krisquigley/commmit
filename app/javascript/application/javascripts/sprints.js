@@ -1,5 +1,4 @@
 import { Sortable } from '@shopify/draggable'
-
 const addTickets = document.querySelectorAll("button[data-behavior='addTicket']")
 const removeTickets = document.querySelectorAll("button[data-behavior='removeTicket']")
 const sprintId = document.querySelector("input[data-behavior='sprintId']").value
@@ -12,7 +11,7 @@ if (myParam) {
   window.scrollTo(0, document.body.scrollHeight)
 }
 
-const calculateEffortRemaining = () => {
+const calculateEffortAccountedFor = () => {
   const allEffort = document.querySelectorAll("input[data-behavior='estimatedEffort']")
   const effortAccountedFor = document.querySelector("span[data-behavior='effortAccountedFor']")
   let totalEffort = 0
@@ -23,6 +22,8 @@ const calculateEffortRemaining = () => {
 
   effortAccountedFor.innerHTML = totalEffort
 }
+
+calculateEffortAccountedFor()
 
 const addTicketToSprint = async (event) => {
   event.preventDefault()
@@ -127,7 +128,7 @@ const addNewRowAndRemoveOldRecord = (target, response, table) => {
   document.querySelector(`button[data-id='${response.id}']`)
     .addEventListener('click', callback)
 
-    calculateEffortRemaining()
+    calculateEffortAccountedFor()
 }
 
 const sortable = new Sortable(document.querySelector('tbody[data-behavior=assignedTickets]'), {

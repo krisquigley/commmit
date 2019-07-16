@@ -16,12 +16,19 @@
   <button class="tablinks" data-behavior="openTab">Settings</button>
 </div>
 
-<%= form_for @sprint do |f| %>
-  <div class="form-group">
-    <%= f.label :finish_by %>
-    <%= f.text_field :finish_by, class: "form-control", type: :date, value: @sprint.end_date&.strftime('%Y-%m-%d') || Date.today + 4.days %>
+<% if @sprint.initial_ticket_ids.empty? %>
+  <div class="card mt-4">
+    <h5 class="card-header">Start Sprint?</h5>
+    <div class="card-body">
+      <%= form_for @sprint do |f| %>
+        <div class="form-group">
+          <%= f.label :finish_by %>
+          <%= f.text_field :finish_by, class: "form-control", type: :date, value: @sprint.end_date&.strftime('%Y-%m-%d') || Date.today + 4.days %>
+        </div>
+        <%= f.submit 'Lock & Load', class: "btn btn-success", data: { confirm: 'Are you sure? You will not be able to change your initial sprint afterwards' } %> 
+      <% end %>
+    </div>
   </div>
-  <%= f.submit 'Lock & Load', class: "btn btn-success" %> 
 <% end %>
 
 <!-- Tab content -->
@@ -45,7 +52,7 @@
             <tbody data-behavior="assignedTickets" data-sprint-id="<%= @sprint.id %>">
             <% @sprint_tickets.each do |ticket| %>
               <% if @sprint.initial_ticket_ids.include?(ticket.id) %>
-                <tr style="background-color: lightgrey">
+                <tr style="background-color: lightgrey" data-id="<%= ticket.id %>" data-issue-id="<%= ticket.issue_id %>">
                   <td>
                     &#8230;
                   </td>
@@ -98,7 +105,7 @@
         <div class="col-md-3">
           <h6 class="mb-4">Yesterday's Weather <span class="badge badge-secondary"><%= @yesterdays_weather.floor %></span></h6>
           <h6 class="mb-4">Largest ticket size for sprint <span class="badge badge-secondary"><%= average_velocity_per_person_per_day_half_sprint(@sprint, @recent_velocity_per_person_per_day) %></span></h6>
-          <h6 class="mb-4">Effort Accounted for <span class="badge badge-secondary" data-behavior="effortAccountedFor"><%= @sprint.total_estimated_effort %></span></h6>
+          <h6 class="mb-4">Effort Accounted for <span class="badge badge-secondary" data-behavior="effortAccountedFor" /></h6>
         </div>
       </div>
       <%= form_tag manage_sprint_path(@sprint, anchor: :available_tickets), method: :get do |f| %>

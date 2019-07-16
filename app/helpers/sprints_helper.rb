@@ -13,30 +13,6 @@ module SprintsHelper
     end
   end
 
-  def goal_status(sprint)
-    if !sprint.closed_at?
-      content_tag(:span, "In Progress", class: "badge badge-primary")
-    elsif sprint.finished_early? 
-      content_tag(:span, "Finished Early", class: "badge badge-success")
-    elsif sprint.complete?
-      content_tag(:span, "Finished", class: "badge badge-warning")
-    else
-      content_tag(:span, "Goal Not Met", class: "badge badge-danger")
-    end
-  end
-
-  def velocity_status(sprint)
-    if sprint.sprint_surpassed?
-      content_tag(:span, "Overdelivered", class: "badge badge-success")
-    elsif sprint.initial_effort_met?
-      content_tag(:span, "Met Initial Effort", class: "badge badge-warning")
-    elsif !sprint.closed_at?
-      content_tag(:span, "Initial Effort not Met", class: "badge badge-primary")
-    else
-      content_tag(:span, "Underdelivered", class: "badge badge-danger")
-    end
-  end
-
   def effort_to_date(sprint)
     merged_tickets = SprintTicket.merged_tickets(sprint.initial_ticket_ids)
     effort = []

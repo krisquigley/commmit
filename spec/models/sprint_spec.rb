@@ -1,15 +1,29 @@
 require 'rails_helper'
 
 RSpec.describe Sprint, type: :model do
-  describe "total_estimated_effort" do
-    let!(:department) { create(:department_with_teams) }
-    let!(:sprint) { create(:sprint_with_tickets, start_date: '2000-1-1', end_date: '2000-1-7', team: department.teams.first) }
+  context "total_estimated_effort" do
+    describe "sprint locked and loaded" do
+      let!(:department) { create(:department_with_teams) }
+      let!(:sprint) { create(:sprint_with_tickets, start_date: '2000-1-1', end_date: '2000-1-7', team: department.teams.first) }
 
-    it "should total all estimated effort for associated sprint tickets" do
-      total_estimated_effort = SprintTicket.all.pluck(:estimated_effort).reduce(:+)
+      it "should total all estimated effort for associated sprint tickets" do
+        sprint.update(initial_ticket_ids: sprint.sprint_tickets.pluck(:id))
+        total_estimated_effort = SprintTicket.all.pluck(:estimated_effort).reduce(:+)
 
-      expect(sprint.total_estimated_effort).to eq(total_estimated_effort)
-    end 
+        expect(sprint.total_estimated_effort).to eq(total_estimated_effort)
+      end 
+    end
+
+    describe "sprint not locked and loaded" do
+      let!(:department) { create(:department_with_teams) }
+      let!(:sprint) { create(:sprint_with_tickets, start_date: '2000-1-1', end_date: '2000-1-7', team: department.teams.first) }
+
+      it "should total all estimated effort for associated sprint tickets" do
+        total_estimated_effort = SprintTicket.all.pluck(:estimated_effort).reduce(:+)
+
+        expect(sprint.total_estimated_effort).to eq(0)
+      end 
+    end
   end
 
   describe "velocity" do

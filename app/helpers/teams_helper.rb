@@ -1,4 +1,38 @@
 module TeamsHelper
+  def goal_status(sprint)
+    if sprint.finished_early? 
+      content_tag(:span, "Goal Met Early", class: "badge badge-success")
+    elsif sprint.complete?
+      content_tag(:span, "Goal Met", class: "badge badge-warning")
+    elsif !sprint.closed_at?
+      content_tag(:span, "In Progress", class: "badge badge-primary")
+    else
+      content_tag(:span, "Goal Not Met", class: "badge badge-danger")
+    end
+  end
+
+  def velocity_status(sprint)
+    if sprint.sprint_surpassed?
+      content_tag(:span, "Overdelivered", class: "badge badge-success")
+    elsif sprint.initial_effort_met?
+      content_tag(:span, "Initial Effort Met", class: "badge badge-warning")
+    else
+      content_tag(:span, "Initial Effort Not Met", class: "badge badge-danger")
+    end
+  end
+
+  def progress_status(sprint)
+    if sprint.finished_early? 
+      "success"
+    elsif sprint.complete?
+      "warning"
+    elsif !sprint.closed_at?
+      "info"
+    else
+      "danger"
+    end
+  end
+
   def velocity(sprints)
     sprints.select(:final_velocity, :end_date).reverse.to_json
   end
