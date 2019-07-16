@@ -19,17 +19,21 @@
           <td><%= sprint.total_estimated_effort %></td>
           <td><%= sprint.velocity %></td>
           <td>
-            <% if sprint.in_progress? %> 
-              <span class="badge badge-<%= goal_achieved?(sprint) %>"><%= status(sprint) %></span>
-            <% else %>
-              <span class="badge badge-<%= goal_achieved?(sprint) %>"><%= status(sprint) %></span>
-            <% end %>
+            <span class="badge badge-"><%= goal_status(sprint) %></span>
+            <span class="badge badge-"><%= velocity_status(sprint) %></span>
           </td>
         </tr>
         <tr>
           <td colspan="7" style="border-top: none">
             <div class="progress">
-              <div class="progress-bar progress-bar-striped bg-<%= goal_achieved?(sprint) %>" style="width: <%= sprint.velocity.to_f / sprint.total_estimated_effort.to_f * 100.0 if sprint.total_estimated_effort != 0 %>%" role="progressbar" aria-valuenow="<%= sprint.velocity %>" aria-valuemin="0" aria-valuemax="<%= sprint.total_estimated_effort %>"></div>
+            <%# TODO: Finish progress bar color %>
+              <div class="progress-bar progress-bar-striped bg- " 
+                   style="width: <%= sprint.velocity.to_f / sprint.total_estimated_effort.to_f * 100.0 if sprint.total_estimated_effort != 0 %>%" 
+                   role="progressbar" 
+                   aria-valuenow="<%= sprint.velocity %>" 
+                   aria-valuemin="0" 
+                   aria-valuemax="<%= sprint.total_estimated_effort %>">
+              </div>
             </div>
           </td>
         </tr>

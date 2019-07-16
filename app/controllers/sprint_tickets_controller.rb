@@ -5,7 +5,7 @@ class SprintTicketsController < ApplicationController
     ticket = Ticket.find_by(issue_id: params[:issue_id])
     sprint = Sprint.includes(:sprint_tickets).find(params[:sprint_id])
     position = sprint.sprint_tickets.count + 1
-    sprint_ticket = sprint.sprint_tickets.create!(ticket.attributes.except("source", "id").merge(position: position))
+    sprint_ticket = sprint.sprint_tickets.create!(ticket.attributes.except("id").merge(position: position))
 
     render json: sprint_ticket
   end

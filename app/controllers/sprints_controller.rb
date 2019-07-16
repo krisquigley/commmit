@@ -23,7 +23,7 @@ class SprintsController < ApplicationController
     @sprint = Sprint.includes(:sprint_tickets).friendly.find(params[:id])
     @sprint_tickets = @sprint.sprint_tickets.order(position: :asc)
     @yesterdays_weather = @sprint.team.yesterdays_weather
-    @tickets = Ticket.where.not(issue_id: @sprint_tickets.pluck(:issue_id)).order(updated_at: :desc).page(params[:page])
+    @tickets = Ticket.where.not(issue_id: @sprint_tickets.pluck(:issue_id)).where(closed_at: nil).order(updated_at: :desc).page(params[:page])
     @recent_velocity_per_person_per_day = @sprint.team.sprints.where.not(final_velocity: nil).order(end_date: :desc).limit(3)
     
     if (params[:search] && !params[:search].empty?) && (params[:repository_name] && !params[:repository_name].empty?)
@@ -42,6 +42,9 @@ class SprintsController < ApplicationController
     if @sprint.save
       if params["sprint"]["return_to"] == 'retrospective'
         redirect_to sprint_retrospective_path(@sprint), notice: "Sprint successfully updated!"
+      elsif params["commit"] == "Lock & Load"
+        @sprint.update(initial_ticket_ids: @sprint.sprint_tickets.pluck(:id))
+        redirect_to sprint_path(@sprint), notice: "Sprint Locked and Loaded!"
       else
         redirect_to manage_sprint_path(@sprint), notice: "Sprint successfully updated!"
       end
@@ -63,6 +66,6 @@ class SprintsController < ApplicationController
   def sprint_params
     params.require(:sprint).permit(:name, :start_date, :end_date, :what_went_well, 
                                    :what_could_be_better, :what_one_thing_to_work_on,
-                                   :days_off)
+                                   :days_off, :finish_by, :initial_ticket_ids)
   end
 end

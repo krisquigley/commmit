@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_16_101056) do
+ActiveRecord::Schema.define(version: 2019_07_16_141842) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -90,7 +90,10 @@ ActiveRecord::Schema.define(version: 2019_07_16_101056) do
     t.decimal "final_velocity"
     t.integer "no_of_members"
     t.decimal "days_off", default: "0.0"
+    t.datetime "finish_by"
+    t.bigint "initial_ticket_ids", default: [], array: true
     t.index ["closed_at"], name: "index_sprints_on_closed_at"
+    t.index ["initial_ticket_ids"], name: "index_sprints_on_initial_ticket_ids"
     t.index ["slug"], name: "index_sprints_on_slug", unique: true
     t.index ["team_id"], name: "index_sprints_on_team_id"
   end
@@ -124,7 +127,9 @@ ActiveRecord::Schema.define(version: 2019_07_16_101056) do
     t.bigint "github_user_ids", default: [], array: true
     t.string "url", null: false
     t.jsonb "source", null: false
+    t.index ["closed_at"], name: "index_tickets_on_closed_at"
     t.index ["issue_id"], name: "index_tickets_on_issue_id", unique: true
+    t.index ["number"], name: "index_tickets_on_number"
     t.index ["repository_name"], name: "index_tickets_on_repository_name"
     t.index ["sprint_id"], name: "index_tickets_on_sprint_id"
     t.index ["title"], name: "index_tickets_on_title"

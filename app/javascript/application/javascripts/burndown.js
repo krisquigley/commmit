@@ -6,10 +6,30 @@ const effortAccountedFor = document.querySelector("input[data-behavior='effortAc
 const startDate = document.querySelector("[data-behavior='startDate']").value
 const endDate = document.querySelector("[data-behavior='endDate']").value
 const effortToDate = document.querySelector("[data-behavior='effortToDate']").value
+const finishBy = document.querySelector("[data-behavior='finishBy']").value
 const updateNoteRows = document.querySelectorAll("textarea[data-behavior='updateNote']")
 const weekends = [6, 7]
 
-const dates = () => {
+const datesToFinishBy = () => {
+  const days = []
+  let weekdays = 0
+  let day = moment(startDate)
+
+  while (day <= moment(finishBy)) {
+    // Caculate how many weekdays there are in this sprint
+    if (!weekends.includes(day.weekday())) {
+      weekdays++
+    }
+
+    // Create an array of all the dates in the sprint
+    days.push(day.format('D/M/Y'))
+    day = moment(day.add(1, 'days'))
+  }
+
+  return { days: days, weekdays: weekdays }
+}
+
+const datesToEndOfSprint = () => {
   const days = []
   let weekdays = 0
   let day = moment(startDate)
@@ -25,11 +45,17 @@ const dates = () => {
     day = moment(day.add(1, 'days'))
   }
 
-  return { days: days, weekdays: weekdays }
+  return {
+    days: days,
+    weekdays: weekdays
+  }
 }
 
 const idealEffort = () => {
-  const { days, weekdays } = dates()
+  const {
+    days,
+    weekdays
+  } = datesToFinishBy()
 
   let totalWeekendsPassed = 0
   let previousIdealEffortValue = 0
@@ -57,7 +83,7 @@ const idealEffort = () => {
 new Chart(ctx, {
   type: 'line',
   data: {
-    labels: dates().days,
+    labels: datesToEndOfSprint().days,
     datasets: [{
       label: 'Ideal Effort Remaining',
       data: idealEffort(),

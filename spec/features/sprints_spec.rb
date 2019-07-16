@@ -73,6 +73,27 @@ RSpec.describe "Sprints", type: :feature do
         expect(sprint.reload.days_off).to eq 2.5
       end
     end
+
+    describe "setting finish by" do
+      let!(:department) { create(:department_with_teams) }
+      let!(:sprint) { create(:sprint, team: department.teams.first) }
+      let!(:tickets) { create_list(:ticket, 5) }
+      let!(:sprint_tickets) { tickets.each {|t| sprint.sprint_tickets.create(t.attributes.except("id")) } }
+
+      it "should return the right results" do
+        visit manage_sprint_path(sprint)
+
+        fill_in "Finish by", with: sprint.end_date - 2.days
+
+        click_on "Lock & Load"
+        additional_tickets = create_list(:ticket, 5)
+        additional_tickets.each {|t| sprint.sprint_tickets.create(t.attributes.except("id")) }
+
+
+        expect(sprint.reload.finish_by).to eq(sprint.end_date - 2.days)
+        expect(sprint.reload.initial_ticket_ids).to match_array(sprint_tickets.pluck(:id))
+      end
+    end
   
     describe "filtering by repo" do
       let!(:department) { create(:department_with_teams) }

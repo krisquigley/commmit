@@ -12,7 +12,7 @@ class Sprint < ApplicationRecord
   after_create :save_no_of_members
 
   def total_estimated_effort
-    sprint_tickets.map{ |s| s.estimated_effort }.reduce(:+) || 0
+    sprint_tickets.where(id: initial_ticket_ids).map{ |s| s.estimated_effort }.reduce(:+) || 0
   end
 
   def velocity
@@ -20,17 +20,19 @@ class Sprint < ApplicationRecord
   end
 
   def complete?
-    !in_progress?
+    sprint_tickets.merged_tickets(initial_ticket_ids).empty?
   end
 
-  def in_progress?
-    !closed_at
+  def finished_early?
+    complete? && sprint_tickets.merged_tickets(initial_ticket_ids).order(closed_at: :desc).first < (finish_by + 1.day) if finish_by
   end
 
-  def goal_achieved?
-    if complete?
-      final_velocity == total_estimated_effort
-    end
+  def sprint_surpassed?
+    complete? && (final_velocity || velocity) > total_estimated_effort
+  end
+
+  def initial_effort_met?
+    (final_velocity || velocity) == total_estimated_effort
   end
 
   def velocity_per_person_per_day

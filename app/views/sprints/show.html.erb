@@ -8,7 +8,7 @@
       </ol>
     </nav>
   </div>
-  <% if @sprint.in_progress? %>
+  <% if !@sprint.closed_at %>
     <div class="col-sm-12 col-md-2 mb-3">
       <%= link_to 'Manage', manage_sprint_path(@sprint), class: "btn btn-warning btn-block btn-lg" %>
     </div>
@@ -29,6 +29,7 @@
 <input type="hidden" value="<%= @sprint.start_date.to_date %>" data-behavior="startDate" />
 <input type="hidden" value="<%= @sprint.end_date.to_date %>" data-behavior="endDate" />
 <input type="hidden" value="<%= effort_to_date(@sprint) %>" data-behavior="effortToDate" />
+<input type="hidden" value="<%= @sprint.finish_by %>" data-behavior="finishBy" />
 
 <div style="position: relative; height:40vh; width:100%" class="mb-4">
   <canvas id="myChart"></canvas>
