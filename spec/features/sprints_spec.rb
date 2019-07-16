@@ -136,7 +136,7 @@ RSpec.describe "Sprints", type: :feature do
       let!(:tickets) { create_list(:ticket, 5, state: 'open') }
       let!(:department) { create(:department_with_teams) }
       let!(:sprint) { create(:sprint, team: department.teams.first) }
-      let!(:sprint_tickets) { tickets.each {|t| sprint.sprint_tickets.create(t.attributes.except("source", "id")) } }
+      let!(:sprint_tickets) { tickets.each {|t| sprint.sprint_tickets.create(t.attributes.except("id")) } }
 
       it "should be removed" do
         visit sprint_path(sprint)
@@ -158,7 +158,7 @@ RSpec.describe "Sprints", type: :feature do
       let!(:tickets) { create_list(:ticket, 5, state: 'open') }
       let!(:department) { create(:department_with_teams) }
       let!(:sprint) { create(:sprint, team: department.teams.first) }
-      let!(:sprint_tickets) { tickets.each {|t| sprint.sprint_tickets.create(t.attributes.except("source")) } }
+      let!(:sprint_tickets) { tickets.each {|t| sprint.sprint_tickets.create(t.attributes) } }
 
       it "should show when it was closed" do
         time = Time.now
