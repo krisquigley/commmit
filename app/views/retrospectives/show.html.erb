@@ -15,13 +15,19 @@
   <h4>Sprint Retrospective</h4>
 
   <div class="form-group">
-    <%= f.label :what_went_well, 'What went well?' %>
-    <%= f.text_area :what_went_well, rows: 5, class: 'form-control', required: :required, disabled: (:disabled if @sprint.what_went_well) %>
+    <%= f.label :what_went_well, 'What went well and how did it go well?' %>
+    <%= f.text_area :what_went_well, rows: 5, class: 'form-control', required: :required, disabled: (:disabled if @sprint.what_went_well), placeholder:
+    "1. How specificially did it go well?
+2. What processes did we employ that made it go well?
+3. What was the positive impact of your kaizens?
+4. What positive impact did your ways of working have?
+5. What can we learn going forwards?" %>
   </div>
 
   <div class="form-group">
-    <%= f.label :what_could_be_better, 'What could be better?' %>
-    <%= f.text_area :what_could_be_better, rows: 5, class: 'form-control', required: :required, disabled: (:disabled if @sprint.what_could_be_better) %>
+    <%= f.label :what_could_be_better, 'What can be better?' %>
+    <%= f.text_area :what_could_be_better, rows: 5, class: 'form-control', required: :required, disabled: (:disabled if @sprint.what_could_be_better), placeholder:
+    "How specificially can it be better?" %>
   </div>
 
   <div class="form-group">
