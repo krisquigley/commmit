@@ -239,8 +239,8 @@ RSpec.describe "Sprints", type: :feature do
       it "should be valid" do
         visit sprint_retrospective_path(sprint)
 
-        fill_in 'What went well?', with: "some things"
-        fill_in 'What could be better?', with: "some other things"
+        fill_in 'What went well and how did it go well?', with: "some things"
+        fill_in 'What can be better?', with: "some other things"
         fill_in 'How can we go faster next sprint?', with: "this thing"
 
         click_on 'Submit Feedback'
