@@ -27,9 +27,9 @@
           <td colspan="7" style="border-top: none">
             <div class="progress">
               <div class="progress-bar progress-bar-striped bg-<%= progress_status(sprint) %>" 
-                   style="width: <%= sprint.velocity.to_f / sprint.total_estimated_effort.to_f * 100.0 if sprint.total_estimated_effort != 0 %>%" 
+                   style="width: <%= sprint.initial_effort_velocity.to_f / sprint.total_estimated_effort.to_f * 100.0 if sprint.total_estimated_effort != 0 %>%" 
                    role="progressbar" 
-                   aria-valuenow="<%= sprint.velocity %>" 
+                   aria-valuenow="<%= sprint.initial_effort_velocity %>" 
                    aria-valuemin="0" 
                    aria-valuemax="<%= sprint.total_estimated_effort %>">
               </div>
