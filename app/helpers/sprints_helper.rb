@@ -18,6 +18,10 @@ module SprintsHelper
     effort = []
     day = sprint.start_date.to_date
     current_effort = sprint.total_estimated_effort
+    
+    if remaining_effort = calculate_effort_done_before_start_date(merged_tickets, sprint.start_date.to_date)
+      current_effort = current_effort - remaining_effort
+    end
 
     while day <= Date.today && day <= sprint.end_date do
       tickets = merged_tickets.find_all do |merged_ticket|
@@ -50,5 +54,13 @@ module SprintsHelper
                 .map { |l| "<span class=\"badge\" style=\"background-color: ##{l["color"]}\">#{l["name"]}</span>" }
       labels.join(" ").html_safe
     end
+  end
+
+  private
+
+  def calculate_effort_done_before_start_date(merged_tickets, start_date)
+    remaining_tickets = merged_tickets.where('closed_at < ?', start_date)
+    
+    remaining_tickets ? remaining_tickets.map{ |s| s.estimated_effort }.reduce(:+) : nil
   end
 end
