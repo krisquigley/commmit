@@ -24,7 +24,7 @@ class Sprint < ApplicationRecord
   end
 
   def finished_early?
-    complete? && sprint_tickets.merged_tickets(initial_ticket_ids).order(closed_at: :desc).first.closed_at < (finish_by + 17.hours) if finish_by
+    complete? && sprint_tickets.merged_tickets(initial_ticket_ids).last.closed_at < (finish_by + 17.hours) if finish_by
   end
 
   def sprint_surpassed?
