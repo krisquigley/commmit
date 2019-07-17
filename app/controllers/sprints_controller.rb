@@ -53,6 +53,10 @@ class SprintsController < ApplicationController
     end
   end
 
+  def export_csv
+    ExportSprintToCsvJob.perform_async(params[:id])
+  end
+
   def close
     if Sprint.friendly.find(params[:id]).update(closed_at: Time.now)
       redirect_to sprint_path(params[:id])

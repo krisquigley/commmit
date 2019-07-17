@@ -19,6 +19,7 @@
     <div class="col-sm-12 col-md-4">
       <%= link_to 'Retrospective Feedback', sprint_retrospective_path(@sprint), class: "btn btn-success btn-block btn-lg" %>
     </div>
+      
   <% end %>
 </div>
 
@@ -35,7 +36,26 @@
   <canvas id="myChart"></canvas>
 </div>
 
-<h4>Tickets</h4>
+<h4>Tickets <%= link_to 'Export to CSV', '#', class: "btn btn-info btn-sm float-right", data: { toggle: "modal", target: "#exportToCSV" } %></h4>
 <%= render 'tickets', object: @sprint.sprint_tickets %>
 
-<%= javascript_pack_tag 'burndown' %>
+<%= javascript_pack_tag 'sprint' %>
+
+<div class="modal fade" id="exportToCSV" tabindex="-1" role="dialog" aria-labelledby="exportToCSVLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exportToCSVLabel">Export to CSV</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= link_to 'Generate CSV for current Sprint', '#', class: 'btn btn-lg btn-block btn-primary', data: { behavior: 'generateCSV' } %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
