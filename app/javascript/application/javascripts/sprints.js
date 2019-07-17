@@ -1,4 +1,5 @@
 import { Sortable } from '@shopify/draggable'
+import 'bootstrap'
 const addTickets = document.querySelectorAll("button[data-behavior='addTicket']")
 const removeTickets = document.querySelectorAll("button[data-behavior='removeTicket']")
 const sprintId = document.querySelector("input[data-behavior='sprintId']").value
@@ -187,4 +188,8 @@ removeTickets.forEach(ticket => {
 })
 openTabButtons.forEach(tabButton => {
   tabButton.addEventListener('click', openTab)
+})
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
 })
