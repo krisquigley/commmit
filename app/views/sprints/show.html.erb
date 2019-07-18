@@ -36,7 +36,7 @@
   <canvas id="myChart"></canvas>
 </div>
 
-<h4>Tickets <%= link_to 'Export to CSV', '#', class: "btn btn-info btn-sm float-right", data: { toggle: "modal", target: "#exportToCSV" } %></h4>
+<h4>Tickets <%#= link_to 'Export to CSV', '#', class: "btn btn-info btn-sm float-right", data: { toggle: "modal", target: "#exportToCSV" } %></h4>
 <%= render 'tickets', object: @sprint.sprint_tickets %>
 
 <%= javascript_pack_tag 'sprint' %>
