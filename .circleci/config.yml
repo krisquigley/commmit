@@ -10,8 +10,11 @@ jobs:
       - image: circleci/ruby:2.6.3-node-browsers
         environment:
           DATABASE_URL: "postgres://myapp@localhost/sprint_test"
+          REDIS_URL: 'redis://redis:6379'
           PGHOST: 127.0.0.1
           RAILS_ENV: test
+          USERNAME: 'username'
+          PASSWORD: 'password'
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -22,6 +25,7 @@ jobs:
           POSTGRES_DB: sprint_test
           POSTGRES_PASSWORD: ""
       - image: circleci/redis:5-alpine3.10
+        name: 'redis'
             
     working_directory: ~/repo
 
