@@ -17,6 +17,8 @@ Rails.application.routes.draw do
         resources :sprint_tickets, only: [:create, :update, :destroy]
         resource :retrospective, only: [:new, :create, :show]
         member do
+          post 'export_csv'
+          get 'download_csv'
           get 'manage'
           delete 'close'
         end

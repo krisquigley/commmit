@@ -12,7 +12,7 @@ class ExportSprintToCsv
   end
 
   def call
-    ::CSV.generate do |csv|
+    CSV.generate do |csv|
       csv << ["title", "repository", "issue number", "state", "estimated effort",
               "opened at", "closed at", "url", "notes", "labels"]
       

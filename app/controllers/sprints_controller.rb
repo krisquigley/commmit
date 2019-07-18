@@ -1,4 +1,6 @@
 class SprintsController < ApplicationController
+  protect_from_forgery except: [:export_csv, :download_csv]
+
   def new
     @team = Team.friendly.find(params[:team_id])
     @sprint = @team.sprints.build
@@ -54,7 +56,19 @@ class SprintsController < ApplicationController
   end
 
   def export_csv
-    ExportSprintToCsvJob.perform_async(params[:id])
+    if ExportSprintToCsvJob.perform_async(params[:id], params[:uuid])
+      render json: {}, status: :ok
+    else
+      render json: { errors: "failed" }, status: 500
+    end 
+  end
+
+  def download_csv
+    if DownloadCsvExport.call(params[:uuid])
+      send_data DownloadCsvExport.call(params[:uuid]), filename: "#{params[:uuid]}.csv"
+    else
+      render json: {}, status: :not_found
+    end
   end
 
   def close

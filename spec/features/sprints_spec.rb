@@ -214,6 +214,26 @@ RSpec.describe "Sprints", type: :feature do
     end
   end
 
+  describe "exporting sprint to CSV", js: true, sidekiq: :inline do
+    let(:user) { create(:user) }
+    let!(:tickets) { create_list(:ticket, 5, state: 'open') }
+    let!(:department) { create(:department_with_teams) }
+    let!(:sprint) { create(:sprint, team: department.teams.first) }
+    let!(:sprint_tickets) { tickets.each {|t| sprint.sprint_tickets.create(t.attributes) } }
+
+    it "should update the record" do
+      visit sprint_path(sprint)
+
+      click_on 'Export to CSV'
+
+      within "#exportToCSV" do
+        click_on "Generate CSV for current Sprint"
+        sleep 1
+        expect(page).to have_link "Download CSV for current Sprint"
+      end
+    end
+  end
+
 
   context "finishing a sprint" do
     describe "when a sprint is closed early", js: true do

@@ -102,7 +102,7 @@
     <h5 class="card-header"><a id="available_tickets"></a>Available Tickets</h5>
     <div class="card-body">
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-12">
           <h6 class="mb-4">Yesterday's Weather <span class="badge badge-secondary" data-toggle="tooltip" data-placement="top" title="Average velocity for the past 3 sprints"><%= @yesterdays_weather.floor %></span></h6>
           <h6 class="mb-4">Largest ticket size for sprint <span class="badge badge-secondary" data-toggle="tooltip" data-placement="top" title="Average velocity per person per day over the last three sprints for half a sprint"><%= average_velocity_per_person_per_day_half_sprint(@sprint, @recent_velocity_per_person_per_day) %></span></h6>
           <h6 class="mb-4">Effort Accounted for <span class="badge badge-secondary" data-behavior="effortAccountedFor" /></h6>
