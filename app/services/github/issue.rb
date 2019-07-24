@@ -8,7 +8,9 @@ class Github::Issue < Github::Base
       "opened",
       "edited",
       "closed",
-      "reopened"
+      "reopened",
+      "labeled",
+      "unlabeled"
     ]
   end
 
