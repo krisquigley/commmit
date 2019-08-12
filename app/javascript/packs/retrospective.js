@@ -1,0 +1,1 @@
+import '../application/javascripts/retrospective.js'
