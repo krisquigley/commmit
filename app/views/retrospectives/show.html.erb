@@ -1,4 +1,4 @@
-<%= form_for @sprint do |f| %>
+<%= form_for @sprint, data: { behavior: "retrospectiveFeedback" } do |f| %>
   <div class="row mt-4 mb-4">
     <div class="col-md-12">
       <nav aria-label="breadcrumb">
@@ -49,5 +49,6 @@
     <%= render 'form', f: f, retro: retro %>
   <% end %>
 <% end %>
+
 
 

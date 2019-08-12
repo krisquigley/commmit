@@ -47,6 +47,9 @@ class SprintsController < ApplicationController
       elsif params["commit"] == "Lock & Load"
         @sprint.update(initial_ticket_ids: @sprint.sprint_tickets.pluck(:id))
         redirect_to sprint_path(@sprint), notice: "Sprint Locked and Loaded!"
+      elsif params["commit"] == "Close Sprint"
+        @sprint.update(days_off: sprint_params[:days_off], closed_at: Time.now)
+        redirect_to sprint_path(@sprint), notice: "Sprint Closed!"
       else
         redirect_to manage_sprint_path(@sprint), notice: "Sprint successfully updated!"
       end
@@ -68,14 +71,6 @@ class SprintsController < ApplicationController
       send_data DownloadCsvExport.call(params[:uuid]), filename: "#{params[:uuid]}.csv"
     else
       render json: {}, status: :not_found
-    end
-  end
-
-  def close
-    if Sprint.friendly.find(params[:id]).update(closed_at: Time.now)
-      redirect_to sprint_path(params[:id])
-    else
-      render :show
     end
   end
 

@@ -16,6 +16,10 @@ RSpec.describe "Retrospectives", type: :feature do
       visit sprint_path(sprint)
 
       click_on 'Close Sprint'
+      sleep 1
+      within "form[action='#{sprint_path(sprint)}']" do
+        click_on 'Close Sprint'
+      end
       page.accept_alert
 
       expect(page).to have_link "Retrospective Feedback"
