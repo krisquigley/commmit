@@ -16,6 +16,10 @@ RSpec.describe "Retrospectives", type: :feature do
       visit sprint_path(sprint)
 
       click_on 'Close Sprint'
+      sleep 1
+      within "form[action='#{sprint_path(sprint)}']" do
+        click_on 'Close Sprint'
+      end
       page.accept_alert
 
       expect(page).to have_link "Retrospective Feedback"
@@ -23,7 +27,7 @@ RSpec.describe "Retrospectives", type: :feature do
   end
 
   context "adding user feedback to a sprint" do
-    describe "with valid data" do
+    describe "with valid data", js: true do
       let!(:department) { create(:department_with_teams) }
       let!(:sprint) { create(:sprint, team: department.teams.first) }
       let!(:tickets) { create_list(:ticket, 5) }
@@ -39,7 +43,11 @@ RSpec.describe "Retrospectives", type: :feature do
 
         find('[value=Submit]', match: :first).click
 
+        visit sprint_retrospective_path(sprint)
+
         expect(page).to have_content 'some other stuff'
+        expect(page).to have_content 'this and this'
+        expect(page).to have_content '2'
       end
     end
 

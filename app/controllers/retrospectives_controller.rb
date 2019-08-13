@@ -1,4 +1,6 @@
 class RetrospectivesController < ApplicationController
+  protect_from_forgery except: [:create]
+
   def show
     @sprint = Sprint.includes(:retrospectives, :team).friendly.find(params[:sprint_id])
     @sprint.team.users.each do |user|
@@ -11,7 +13,14 @@ class RetrospectivesController < ApplicationController
     @retrospective = @sprint.retrospectives.build(retrospective_params)
     
     if @retrospective.save
-      redirect_to sprint_retrospective_path(@sprint)
+      respond_to do |format|
+        format.html {
+          redirect_to sprint_retrospective_path(@sprint)
+        }
+        format.json {
+          render json: {}, status: :ok
+        }
+      end
     else
       render :new
     end

@@ -244,15 +244,21 @@ RSpec.describe "Sprints", type: :feature do
         visit sprint_path(sprint)
 
         click_on 'Close Sprint'
+        sleep 1
+        within "form[action='#{sprint_path(sprint)}']" do
+          fill_in "Days off", with: 5
+          click_on 'Close Sprint'
+        end
         page.accept_alert
 
         expect(page).to have_content('Retrospective Feedback')
         expect(page).to_not have_content('Manage')
         expect(page).to_not have_content('Close Sprint')
+        expect(sprint.reload.days_off).to eq 5
       end
     end
 
-    describe "leaving feedback on sprint retro" do
+    describe "leaving feedback on sprint retro", js: true do
       let!(:department) { create(:department_with_teams) }
       let!(:sprint) { create(:sprint, team: department.teams.first) }
 
@@ -264,6 +270,8 @@ RSpec.describe "Sprints", type: :feature do
         fill_in 'How can we go faster next sprint?', with: "this thing"
 
         click_on 'Submit Feedback'
+
+        visit sprint_retrospective_path(sprint)
 
         expect(page).to have_content "some things"
         expect(page).to have_content "this thing"

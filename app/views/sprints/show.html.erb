@@ -13,7 +13,7 @@
       <%= link_to 'Manage', manage_sprint_path(@sprint), class: "btn btn-warning btn-block btn-lg" %>
     </div>
     <div class="col-sm-12 col-md-2">
-      <%= link_to 'Close Sprint', close_sprint_path(@sprint), { class: "btn btn-danger btn-block btn-lg", method: :delete, data: { confirm: 'Are you sure?' } } %>
+      <%= link_to 'Close Sprint', '#', { class: "btn btn-danger btn-block btn-lg", data: { toggle: "modal", target: "#closeSprint" } } %>
     </div>
   <% else %>
     <div class="col-sm-12 col-md-4">
@@ -39,23 +39,34 @@
 <h4>Tickets <%= link_to 'Export to CSV', '#', class: "btn btn-info btn-sm float-right", data: { toggle: "modal", target: "#exportToCSV" } %></h4>
 <%= render 'tickets', object: @sprint.sprint_tickets %>
 
-<div class="modal fade" id="exportToCSV" tabindex="-1" role="dialog" aria-labelledby="exportToCSVLabel" aria-hidden="true">
+<%= render 'csv_modal' %>
+
+<div class="modal fade" id="closeSprint" tabindex="-1" role="dialog" aria-labelledby="closeSprintLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
+      <%= form_for @sprint do |f| %>
       <div class="modal-header">
-        <h5 class="modal-title" id="exportToCSVLabel">Export to CSV</h5>
+        <h5 class="modal-title" id="closeSprintLabel">Close Sprint</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body text-center">
-        <%= link_to 'Generate CSV for current Sprint', '#', class: 'btn btn-lg btn-block btn-primary', data: { behavior: 'generateCSV' } %>
-        <span style="display: none" data-behavior="generateCSVMessage">Please wait whilst we generate your CSV</span>
-        <%= link_to 'Download CSV for current Sprint', '#', class: 'btn btn-lg btn-block btn-success', style: "display: none", data: { behavior: 'downloadCSV' } %>
+        <div class="alert alert-danger" role="alert">
+          <span>Please ensure all tickets are added and up to date in the Sprint.</span>
+        </div>
+        <div class="form-group row">
+          <%= f.label :days_off, class: "col-form-label col-sm-3" %>
+          <div class="col-sm-9">
+            <%= f.text_field :days_off, class: "form-control" %>
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <%= f.submit 'Close Sprint', class: "btn btn-primary", data: { confirm: "Are you sure?" } %>
       </div>
+      <% end %>
     </div>
   </div>
 </div>

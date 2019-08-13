@@ -1,5 +1,9 @@
 @import '~bootstrap/dist/css/bootstrap';
 
+.tooltip-inner {
+  white-space:pre-wrap;
+}
+
 /* Style the tab */
 .tab {
   overflow: hidden;

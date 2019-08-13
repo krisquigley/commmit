@@ -15,29 +15,34 @@
   <h4>Sprint Retrospective</h4>
 
   <div class="form-group">
-    <%= f.label :what_went_well, 'What went well and how did it go well?' %>
+    <%= f.label :what_went_well, 'What went well and how did it go well?' %> <span class="badge badge-pill badge-primary"  data-toggle="tooltip" data-placement="top" title="1. How specificially did it go well?
+2. What processes did we employ that made it go well?
+3. What was the positive impact of our kaizens?
+4. What positive impact did our ways of working have?
+5. What can we learn going forwards?">?</span>
     <%= f.text_area :what_went_well, rows: 5, class: 'form-control', required: :required, disabled: (:disabled if @sprint.what_went_well), placeholder:
     "1. How specificially did it go well?
 2. What processes did we employ that made it go well?
-3. What was the positive impact of your kaizens?
-4. What positive impact did your ways of working have?
+3. What was the positive impact of our kaizens?
+4. What positive impact did our ways of working have?
 5. What can we learn going forwards?" %>
   </div>
 
   <div class="form-group">
-    <%= f.label :what_could_be_better, 'What can be better?' %>
+    <%= f.label :what_could_be_better, 'What can be better?' %> <span class="badge badge-pill badge-primary"  data-toggle="tooltip" data-placement="top" title="How specificially can it be better?">?</span>
     <%= f.text_area :what_could_be_better, rows: 5, class: 'form-control', required: :required, disabled: (:disabled if @sprint.what_could_be_better), placeholder:
     "How specificially can it be better?" %>
   </div>
 
   <div class="form-group">
-    <%= f.label :what_one_thing_to_work_on, 'How can we go faster next sprint?' %>
+    <%= f.label :what_one_thing_to_work_on, 'How can we go faster next sprint?' %> <span class="badge badge-pill badge-primary"  data-toggle="tooltip" data-placement="top" title="1. What kaizen(s) would you like to work on next sprint?
+2. What experiment or process improvement would you like to implement next sprint?
+3. What was the main impediment identified during the current sprint?">?</span>
     <%= f.text_area :what_one_thing_to_work_on, rows: 5, class: 'form-control', required: :required, disabled: (:disabled if @sprint.what_one_thing_to_work_on), placeholder: "1. What kaizen(s) would you like to work on next sprint?
 2. What experiment or process improvement would you like to implement next sprint?
 3. What was the main impediment identified during the current sprint?" %>
   </div>
   <div class="form-group mb-4">
-    <%= f.hidden_field :return_to, value: 'retrospective' %>
     <%= f.submit 'Submit Feedback', class: 'btn btn-success btn-block btn-lg' unless (@sprint.what_went_well && @sprint.what_could_be_better && @sprint.what_one_thing_to_work_on) %>
   </div>
 <% end %>
@@ -45,7 +50,7 @@
 <h4>Team Member Happiness</h4>
 
 <% @sprint.retrospectives.each do |retro| %>
-  <%= form_for [@sprint, retro], url: sprint_retrospective_path do |f| %>
+  <%= form_for [@sprint, retro], url: sprint_retrospective_path, data: { behavior: "userHappiness" } do |f| %>
     <%= render 'form', f: f, retro: retro %>
   <% end %>
 <% end %>
