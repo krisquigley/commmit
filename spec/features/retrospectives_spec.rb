@@ -47,7 +47,7 @@ RSpec.describe "Retrospectives", type: :feature do
 
         expect(page).to have_content 'some other stuff'
         expect(page).to have_content 'this and this'
-        expect(page).to have_content '2'
+        expect(find("[id=retrospective_role_happiness]", match: :first).value).to eq "2.0"
       end
     end
 
