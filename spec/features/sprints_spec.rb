@@ -86,7 +86,7 @@ RSpec.describe "Sprints", type: :feature do
       it "should return the right results" do
         visit manage_sprint_path(sprint)
 
-        fill_in "Finish by", with: sprint.end_date - 2.days
+        fill_in "Finish Sprint early by", with: sprint.end_date - 2.days
 
         click_on "Lock & Load"
         page.accept_alert

@@ -22,7 +22,7 @@
     <div class="card-body">
       <%= form_for @sprint do |f| %>
         <div class="form-group">
-          <%= f.label :finish_by %>
+          <%= f.label :finish_by, 'Finish Sprint early by?' %>
           <%= f.text_field :finish_by, class: "form-control", type: :date, value: @sprint.end_date&.strftime('%Y-%m-%d') || Date.today + 4.days %>
         </div>
         <%= f.submit 'Lock & Load', class: "btn btn-success", data: { confirm: 'Are you sure? You will not be able to change your initial sprint afterwards' } %> 
