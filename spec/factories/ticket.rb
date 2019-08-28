@@ -1,13 +1,19 @@
 FactoryBot.define do
   factory :ticket do
     title { Faker::Hipster.sentence }
-    estimated_effort { Integer(Faker::Number.number(1)) }
+    estimated_effort { Integer(Faker::Number.within(range: 1..250)) }
     repository_name { Faker::Hipster.word }
-    number { Integer(Faker::Number.number(1)) }
+    number { Integer(Faker::Number.number(digits: 1)) }
     state { ['open', 'closed'].sample }
     github_user_ids { [] }
     url { Faker::Internet.url }
-    issue_id { Integer(Faker::Number.number(10)) }
+    issue_id { Integer(Faker::Number.number(digits: 10)) }
     source { File.open("#{Rails.root}/spec/fixtures/files/opened_issue_payload.json").read }
+
+    trait :closed do
+      closed_at { Time.now + 10.minutes }
+    end
+
+    factory :closed_tickets, traits: [:closed]
   end
 end

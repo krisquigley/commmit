@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     resources :issues, only: :create
   end
 
+  resource :dashboard
+
   resources :departments, except: [:update, :edit, :destroy] do
     resources :teams, only: [:new, :create, :show], shallow: true do
       resources :sprints, only: [:new, :create, :show, :update], shallow: true do

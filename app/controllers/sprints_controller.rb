@@ -39,9 +39,8 @@ class SprintsController < ApplicationController
 
   def update
     @sprint = Sprint.friendly.find(params[:id])
-    @sprint.update_attributes(sprint_params)
     
-    if @sprint.save
+    if @sprint.update(sprint_params)
       if params["commit"] == "Lock & Load"
         @sprint.update(initial_ticket_ids: @sprint.sprint_tickets.pluck(:id))
         redirect_to sprint_path(@sprint), notice: "Sprint Locked and Loaded!"

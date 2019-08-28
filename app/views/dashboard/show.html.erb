@@ -1,0 +1,13 @@
+<h1>Average time to close once estimated - across all projects</h1>
+<% @all_tickets.each do |project| %>
+  <% project.each do |repo_name, repo_records| %>
+    Repository: <%= repo_name %> | 
+    No of tickets: <%= repo_records.fetch(:record_count) %><br/>
+    <% repo_records.fetch(:repo_records).each do |effort, effort_records| %>
+    
+      Ticket Size: <%= effort.to_i %> <br/>
+      <%= effort_records.fetch(:average_minutes).floor %> Minutes | 
+      No of tickets: <%= effort_records.fetch(:record_count) %> <br/>
+    <% end %>
+  <% end %>
+<% end %>
