@@ -1,12 +1,38 @@
 class DashboardController < ApplicationController
   def show
-    tickets = Ticket.where.not(closed_at: nil).select(:id, :created_at, :closed_at, :repository_name, 'round(estimated_effort) AS rounded_effort').group_by(&:repository_name)
-    @all_tickets = tickets.map do |repo, repo_records|
+    tickets = Ticket.where.not(closed_at: nil).where.not(github_user_ids: []).select(:id, :source, :closed_at, :repository_name, 'round(estimated_effort) AS rounded_effort').group_by(&:repository_name)
+    @all_tickets = group_tickets(tickets)
+  end
+
+  private
+  
+  def average_lead_time_in_seconds(records)
+    count = records.length
+
+    if count > 1
+      total_seconds = records.inject(0) do |memo, r| 
+        memo += r.closed_at - record_created_at(r)
+      end
+      average_seconds = total_seconds / count
+    else
+      average_seconds = records.first.closed_at - record_created_at(records.first)
+    end
+    { time: average_seconds, record_count: count }
+  end
+
+  def record_created_at(record)
+    (JSON.parse(record.source)["created_at"] || JSON.parse(record.source)["issue"]["created_at"]).to_time
+  end
+
+  def group_tickets(tickets)
+    tickets.map do |repo, repo_records|
       repo_tickets = repo_records.group_by(&:rounded_effort)
+
       average_lead_time = repo_tickets.inject({}) do |hash, (effort, records)|
-        hash[effort] = average_lead_time_in_minutes(records)
+        hash[effort] = average_lead_time_in_seconds(records)
         hash
       end.sort
+
       { 
         repo => { 
           repo_records: average_lead_time,
@@ -15,21 +41,14 @@ class DashboardController < ApplicationController
       }
     end
   end
-  
-  def average_lead_time_in_minutes(records)
-    if records.count > 1
-      total_seconds = records.reduce { |memo, r| r.closed_at - r.created_at }
-    else
-      total_seconds = records.first.closed_at - records.first.created_at
-    end
-    average_seconds = total_seconds / records.length
-    { average_minutes: average_seconds / 60, record_count: records.length }
-  end
 end
 
 # Project
 
-# ticket size | average time from open to estimated / project | average time from estimated to closed / project? | average time from being added to a sprint to being closed / team
+# Use timeline API to pull down assigned_to timestamps and update assigned_to column in Ticket table
+# Update github issue class to update assigned_to timestamp when someone is assigned to a ticket
+
+# ticket size | average time from open to estimated / project | average time from estimated to closed / project? | average time from being assigned a user to being closed / team
 # 
 # 
 # 
