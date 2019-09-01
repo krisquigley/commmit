@@ -29,6 +29,7 @@ class Github::Issue < Github::Base
       estimated_effort: estimated_effort,
       closed_at: parsed_payload[:issue].to_h[:closed_at] || parsed_payload[:closed_at],
       github_user_ids: github_user_ids,
+      assigned_at: assigned_at,
       source: Oj.dump(parsed_payload[:issue] || parsed_payload, mode: :compat)
     }
   end
@@ -37,6 +38,14 @@ class Github::Issue < Github::Base
     assignees = parsed_payload[:issue].to_h[:assignees] || parsed_payload.fetch(:assignees)
     assignees.map do |assignee|
       assignee.fetch(:id)
+    end
+  end
+
+  def assigned_at
+    if parsed_payload[:action] == "opened" && github_user_ids
+      parsed_payload[:issue].to_h[:created_at] || parsed_payload[:created_at]
+    elsif parsed_payload[:action] == "assigned"
+      parsed_payload[:issue].to_h[:updated_at] || parsed_payload[:updated_at]
     end
   end
 

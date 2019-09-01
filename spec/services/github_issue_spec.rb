@@ -42,6 +42,7 @@ RSpec.describe Github::Issue do
         estimated_effort: 2.0,
         github_user_ids: [4486874],
         issue_id: 406911947,
+        assigned_at: "2019-02-05T18:17:56Z",
         closed_at: nil,
         url: "https://github.com/krisquigley/sprintable/issues/2",
         source: Oj.dump(Oj.load(new_issue_payload)["issue"])
@@ -67,6 +68,7 @@ RSpec.describe Github::Issue do
         state: "open",
         estimated_effort: 2.0,
         github_user_ids: [],
+        assigned_at: nil,
         issue_id: 406911947,
         closed_at: nil,
         url: "https://github.com/krisquigley/sprintable/issues/2",
@@ -95,6 +97,7 @@ RSpec.describe Github::Issue do
         github_user_ids: [],
         issue_id: 406911947,
         closed_at: "2019-02-05T18:26:06Z",
+        assigned_at: nil,
         url: "https://github.com/krisquigley/sprintable/issues/2",
         source: Oj.dump(Oj.load(closed_issue_payload)["issue"])
       }
@@ -121,6 +124,7 @@ RSpec.describe Github::Issue do
         github_user_ids: [],
         issue_id: 406911947,
         closed_at: nil,
+        assigned_at: nil, 
         url: "https://github.com/krisquigley/sprintable/issues/2",
         source: Oj.dump(Oj.load(reopened_issue_payload)["issue"])
       }

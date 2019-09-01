@@ -1,24 +1,36 @@
-<h1>Average time to close once estimated per project</h1>
-<% @all_tickets.each do |project| %>
+<div class="row mt-4 mb-4">
+  <div class="col-md-12">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
+        <li class="breadcrumb-item active" aria-current="page">Analytics</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+<% group_tickets(@tickets).each do |project| %>
   <% project.each do |repo_name, repo_records| %>
-    Repository: <%= repo_name %> | 
-    No of tickets: <%= repo_records.fetch(:record_count) %><br/>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Ticket Size</th>
-          <th>No of Tickets</th>
-          <th>Mean Time to close once estimated</th>
-        </tr>
-      </thead>
-      <tbody>
-      <% repo_records.fetch(:repo_records).each do |effort, effort_records| %>
-        <tr>
-          <td><%= effort.to_i %></td>
-          <td><%= effort_records.fetch(:record_count) %></td>
-          <td><%= distance_of_time_in_words(effort_records.fetch(:time), 0, {include_seconds: true}) %></td>
-      <% end %>
-      </tbody>
-    </table>
+    <h3><%= repo_name %> <span class="badge badge-secondary"><%= pluralize(repo_records.fetch(:record_count), 'ticket') %></span></h3>
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead class="thead-light">
+          <tr>
+            <th>Ticket Size</th>
+            <th>No of Tickets</th>
+            <th>Mean Time to close once estimated</th>
+            <th>Mean Time to close once assigned</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% repo_records.fetch(:repo_records).each do |effort, effort_records| %>
+          <tr>
+            <td><%= effort.to_i %></td>
+            <td><%= effort_records.fetch(:record_count) %></td>
+            <td><%= distance_of_time_in_words(effort_records.fetch(:estimated_time), 0, {include_seconds: true}) %></td>
+            <td><%= distance_of_time_in_words(effort_records.fetch(:assigned_time), 0, {include_seconds: true}) %></td>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
   <% end %>
 <% end %>

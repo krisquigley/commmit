@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_28_102118) do
+ActiveRecord::Schema.define(version: 2019_09_01_140928) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 2019_08_28_102118) do
     t.integer "position"
     t.boolean "kaizen"
     t.jsonb "source"
+    t.datetime "assigned_at"
     t.index ["github_user_ids"], name: "index_sprint_tickets_on_github_user_ids"
     t.index ["position"], name: "index_sprint_tickets_on_position"
     t.index ["sprint_id"], name: "index_sprint_tickets_on_sprint_id"
@@ -127,6 +128,8 @@ ActiveRecord::Schema.define(version: 2019_08_28_102118) do
     t.bigint "github_user_ids", default: [], array: true
     t.string "url", null: false
     t.jsonb "source", null: false
+    t.datetime "assigned_at"
+    t.index ["assigned_at"], name: "index_tickets_on_assigned_at"
     t.index ["closed_at"], name: "index_tickets_on_closed_at"
     t.index ["issue_id"], name: "index_tickets_on_issue_id", unique: true
     t.index ["number"], name: "index_tickets_on_number"

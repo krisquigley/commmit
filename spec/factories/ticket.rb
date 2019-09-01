@@ -14,6 +14,10 @@ FactoryBot.define do
       closed_at { Time.now + 10.minutes }
     end
 
-    factory :closed_tickets, traits: [:closed]
+    trait :assigned_at do
+      assigned_at { Time.now + 5.minutes }
+    end
+
+    factory :closed_and_assigned_tickets, traits: [:closed, :assigned_at]
   end
 end

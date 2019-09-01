@@ -9,9 +9,11 @@ RSpec.describe "Dashboard", type: :feature do
 
   describe "Viewing the dashboard" do
     it "should show the dashboard" do
-      create_list(:closed_tickets, 5)
+      create_list(:closed_and_assigned_tickets, 5)
 
       visit dashboard_path
+
+      expect(page).to have_content 5
     end
   end
 end

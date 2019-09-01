@@ -28,4 +28,19 @@ namespace 'github' do
     end
     print 'Done'
   end
+
+  task :import_assigned => :environment do |task, args|
+    tickets = Ticket.where(assigned_at: nil)
+
+    client = Octokit::Client.new(access_token: ENV.fetch('GITHUB_ACCESS_TOKEN'))
+    client.auto_paginate = true
+
+    tickets.each do |ticket|
+      issue = client.issue_timeline(ticket.repository_name, ticket.number).find do |issue|
+        issue.event == "assigned"
+      end
+      ticket.update(assigned_at: issue.created_at) if issue
+      print 'Done'
+    end
+  end
 end
