@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/ruby:2.6.3-node-browsers
+      - image: circleci/ruby:2.6.5-node-browsers
         environment:
           DATABASE_URL: "postgres://myapp@localhost/sprint_test"
           REDIS_URL: 'redis://redis:6379'
@@ -15,6 +15,8 @@ jobs:
           RAILS_ENV: test
           USERNAME: 'username'
           PASSWORD: 'password'
+          # TODO: Fix this so that circle can connect to selenium
+          SELENIUM_URL: 127.0.0.1:4444/wd/hub
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -26,6 +28,7 @@ jobs:
           POSTGRES_PASSWORD: ""
       - image: circleci/redis:5-alpine3.10
         name: 'redis'
+      - image: selenium/standalone-chrome
             
     working_directory: ~/repo
 

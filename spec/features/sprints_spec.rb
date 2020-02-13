@@ -91,6 +91,8 @@ RSpec.describe "Sprints", type: :feature do
         click_on "Lock & Load"
         page.accept_alert
 
+        sleep 1
+        
         initial_tickets = sprint.sprint_tickets.pluck(:id)
 
         additional_tickets = create_list(:ticket, 5)

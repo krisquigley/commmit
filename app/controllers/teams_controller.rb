@@ -18,8 +18,7 @@ class TeamsController < ApplicationController
   def show
     @team = Team.includes(:sprints).friendly.find(params[:id])
     @sprints = @team.sprints.order(end_date: :desc).page(params[:page])
-    @completed_sprints = @sprints.where.not(final_velocity: nil)
-    @happiness = Retrospective.retros_with_end_dates(@completed_sprints.select(:id))
+    @completed_sprints = @sprints.includes(:retrospectives).where.not(final_velocity: nil)
   end
 
   private
