@@ -15,7 +15,7 @@ jobs:
           RAILS_ENV: test
           USERNAME: 'username'
           PASSWORD: 'password'
-          SELENIUM_URL: 'selenium:4444/wd/hub'
+          SELENIUM_URL: 'http://localhost:4444/wd/hub'
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
