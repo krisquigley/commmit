@@ -15,7 +15,8 @@ jobs:
           RAILS_ENV: test
           USERNAME: 'username'
           PASSWORD: 'password'
-          SELENIUM_URL: 'http://localhost:4444/wd/hub'
+          # TODO: Fix this so that circle can connect to selenium
+          SELENIUM_URL: 127.0.0.1:4444/wd/hub
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
