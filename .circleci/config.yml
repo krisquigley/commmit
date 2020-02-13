@@ -26,6 +26,8 @@ jobs:
           POSTGRES_PASSWORD: ""
       - image: circleci/redis:5-alpine3.10
         name: 'redis'
+      - name: sprintable-selenium
+        image: selenium/standalone-chrome
             
     working_directory: ~/repo
 
