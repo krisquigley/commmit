@@ -48,6 +48,7 @@ services:
       WEBPACKER_DEV_SERVER_HOST: webpack
       USERNAME: 'username'
       PASSWORD: 'password'
+      SELENIUM_URL: 'http://sprintable-selenium:4444/wd/hub'
     networks:
       sprintable:
         aliases: 

@@ -14,7 +14,7 @@ Capybara.register_driver :headless_chrome do |app|
 
   Capybara::Selenium::Driver.new app,
     browser: :chrome,
-    url: "http://sprintable-selenium:4444/wd/hub",
+    url: ENV['SELENIUM_URL'],
     desired_capabilities: capabilities
 end
 
