@@ -1,16 +1,41 @@
 version: '3'
+
+volumes:
+  sprintable-gem-cache:
+
+networks:
+  sprintable:
+
+
 services:
+  selenium:
+    container_name: sprintable-selenium
+    image: selenium/standalone-chrome:latest
+    ports:
+      - 4444:4444
+    networks:
+      - sprintable
+
   postgres:
+    container_name: sprintable-postgres
     image: postgres:10.5-alpine
     ports:
       - '5432'
+    networks:
+      - sprintable
+  
 
   redis: 
+    container_name: sprintable-redis
     image: redis:alpine
     ports:
       - '6379'
+    networks:
+      - sprintable
+  
 
   web:
+    container_name: sprintable-app
     build: .
     image: sprintable
     command: bash -c "rm -f /myapp/tmp/pids/server.pid && bundle install && bundle exec rails s -b 0.0.0.0"
@@ -18,15 +43,19 @@ services:
       DATABASE_URL: 'postgres://postgres:@postgres:5432'
       BUNDLE_PATH: '/gems'
       BUNDLE_APP_CONFIG: /gems/.bundle
-      REDIS_URL: 'redis://redis:6379'
+      REDIS_URL: 'redis://sprintable-redis:6379'
       DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL: 'true'
       WEBPACKER_DEV_SERVER_HOST: webpack
       USERNAME: 'username'
       PASSWORD: 'password'
+    networks:
+      sprintable:
+        aliases: 
+          - sprintable.com
 
     volumes:
       - ./:/myapp
-      - gem-cache:/gems
+      - sprintable-gem-cache:/gems
     ports:
       - "3000:3000"
       - "9222:9222"
@@ -35,13 +64,14 @@ services:
       - redis
 
   webpack:
+    container_name: sprintable-webpack
     image: sprintable
-    command: bash -c "bin/webpack-dev-server"
+    command: bash -c "yarn && bin/webpack-dev-server"
     environment: 
       WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
     volumes:
       - ./:/myapp
-      - gem-cache:/gems
+      - sprintable-gem-cache:/gems
     ports: 
       - "3035:3035"
     depends_on:
@@ -50,17 +80,19 @@ services:
       - redis
 
   worker:
+    container_name: sprintable-sidekiq
     image: sprintable
     command: bundle exec sidekiq -c 5 -q critical -q default
     volumes:
       - ./:/myapp
-      - gem-cache:/gems
+      - sprintable-gem-cache:/gems
     environment:
       <<: *default_environment
     depends_on:
       - redis
       - postgres
       - web
-
-volumes:
-  gem-cache:
+    networks:
+      sprintable:
+        aliases: 
+          - sprintable.com

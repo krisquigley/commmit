@@ -20,6 +20,10 @@ class TeamsController < ApplicationController
     @sprints = @team.sprints.order(end_date: :desc).page(params[:page])
     @completed_sprints = @sprints.where.not(final_velocity: nil)
     @happiness = Retrospective.retros_with_end_dates(@completed_sprints.select(:id))
+
+    # Use sprints, loop through each sprint and get the average_happiness, if there are no retrospectives, then set the average to 0
+    # raise @completed_sprints.select(:id).count.inspect
+    # raise Retrospective.where(sprint_id: @completed_sprints.select(:id)).count.inspect
   end
 
   private
