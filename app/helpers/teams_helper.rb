@@ -37,7 +37,19 @@ module TeamsHelper
     sprints.select(:final_velocity, :end_date).reverse.to_json
   end
 
-  def happiness_values(happiness)
+  def happiness_values(sprints)
+    # TODO: Refactor
+    happiness = sprints.map do |sprint|
+      if sprint.retrospectives.any?
+        sprint.retrospectives.map do |retro|
+          { end_date: sprint.end_date, average_happiness: retro.average_happiness}
+        end
+      else
+        { end_date: sprint.end_date, average_happiness: 0 }
+      end
+    end.flatten.group_by { |sprint| sprint[:end_date] }.sort
+    
+    
     happiness.map do |end_date, user_happiness|
       total_user_happiness = user_happiness.count > 1 ? determine_user_happiness(user_happiness) : user_happiness.first[:average_happiness]
       { end_date: end_date, average_happiness: (total_user_happiness / user_happiness.count).round(1) }

@@ -31,10 +31,10 @@ RSpec.describe TeamsHelper do
       sprint_with_tickets
     end
 
-    let!(:happiness) { Retrospective.retros_with_end_dates([sprint_with_tickets.id, sprint_with_tickets_2.id]) }
+    let(:sprints) { [sprint_with_tickets, sprint_with_tickets_2].flatten }
 
     it "should return json in the correct format" do
-      expect(helper.happiness_values(happiness)).to eq "[{\"end_date\":\"2019-01-05T00:00:00.000Z\",\"average_happiness\":2.5},{\"end_date\":\"2019-01-12T00:00:00.000Z\",\"average_happiness\":3.3}]" 
+      expect(helper.happiness_values(sprints)).to eq "[{\"end_date\":\"2019-01-05T00:00:00.000Z\",\"average_happiness\":2.5},{\"end_date\":\"2019-01-12T00:00:00.000Z\",\"average_happiness\":3.3}]" 
     end
   end
 

@@ -4,15 +4,6 @@ class Retrospective < ApplicationRecord
   validates :role_happiness, :company_happiness, 
             numericality: { greater_than_or_equal_to: 1, less_than_or_equal_to: 5 }
 
-  scope :retros_with_end_dates, ->(sprint_ids) { 
-    where(sprint_id: sprint_ids).joins(:sprint).map do |r|
-      if r.average_happiness
-        { end_date: r.sprint.end_date, average_happiness: r.average_happiness} 
-      else
-        { end_date: r.sprint.end_date, average_happiness: 0 } 
-      end
-    end.group_by {|i| i[:end_date]}.sort }
-
   belongs_to :sprint
   belongs_to :user
 

@@ -67,8 +67,6 @@ services:
     container_name: sprintable-webpack
     image: sprintable
     command: bash -c "yarn && bin/webpack-dev-server"
-    environment: 
-      WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
     volumes:
       - ./:/myapp
       - sprintable-gem-cache:/gems
