@@ -27,8 +27,7 @@ jobs:
           POSTGRES_PASSWORD: ""
       - image: circleci/redis:5-alpine3.10
         name: 'redis'
-      - name: 'selenium'
-        image: selenium/standalone-chrome
+      - image: selenium/standalone-chrome
             
     working_directory: ~/repo
 
