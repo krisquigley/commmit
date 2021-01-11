@@ -27,7 +27,7 @@ gem 'octokit', '~> 4.13'
 gem 'kaminari', '~> 1.1', '>= 1.1.1'
 gem 'bootstrap4-kaminari-views', '~> 1.0', '>= 1.0.1'
 gem 'webpacker', '~> 4.0', '>= 4.0.2'
-gem 'redcarpet', '~> 3.4'
+gem 'redcarpet', '~> 3.5'
 gem 'pry', '~> 0.12.2'
 
 # Reduces boot times through caching; required in config/boot.rb
