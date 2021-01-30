@@ -60,8 +60,8 @@ RSpec.describe "Retrospectives", type: :feature do
         visit sprint_retrospective_path(sprint)
 
         find('[value=Submit]', match: :first).click
-
-        expect(page).to have_content "Role happiness can't be blank Role happiness is not a number Company happiness can't be blank Company happiness is not a number Feedback can't be blank Happiness goal can't be blank"
+        
+        expect(page).to have_content "errors prohibited this form from being saved"
       end
     end
   end

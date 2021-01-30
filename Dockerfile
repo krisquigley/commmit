@@ -1,4 +1,4 @@
-FROM ruby:2.6-slim
+FROM ruby:2.7.2-slim
 
 RUN apt-get update -qq && apt-get install -y curl gnupg
 

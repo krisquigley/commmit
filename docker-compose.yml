@@ -6,92 +6,23 @@ volumes:
 networks:
   sprintable:
 
-
 services:
-  selenium:
-    container_name: sprintable-selenium
-    image: selenium/standalone-chrome:latest
-    ports:
-      - 4444:4444
-    networks:
-      - sprintable
-
   postgres:
     container_name: sprintable-postgres
     image: postgres:10.5-alpine
     ports:
-      - '5432'
+      - '5432:5432'
     networks:
       - sprintable
-  
 
-  redis: 
+  redis:
     container_name: sprintable-redis
     image: redis:alpine
     ports:
-      - '6379'
+      - '6379:6379'
     networks:
       - sprintable
-  
 
-  web:
-    container_name: sprintable-app
-    build: .
-    image: sprintable
-    command: bash -c "rm -f /myapp/tmp/pids/server.pid && bundle install && bundle exec rails s -b 0.0.0.0"
-    environment: &default_environment
-      DATABASE_URL: 'postgres://postgres:@postgres:5432'
-      BUNDLE_PATH: '/gems'
-      BUNDLE_APP_CONFIG: /gems/.bundle
-      REDIS_URL: 'redis://sprintable-redis:6379'
-      DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL: 'true'
-      WEBPACKER_DEV_SERVER_HOST: webpack
-      USERNAME: 'username'
-      PASSWORD: 'password'
-      SELENIUM_URL: 'http://sprintable-selenium:4444/wd/hub'
-    networks:
-      sprintable:
-        aliases: 
-          - sprintable.com
-
-    volumes:
-      - ./:/myapp
-      - sprintable-gem-cache:/gems
-    ports:
-      - "3000:3000"
-      - "9222:9222"
-    depends_on:
-      - postgres
-      - redis
-
-  webpack:
-    container_name: sprintable-webpack
-    image: sprintable
-    command: bash -c "yarn && bin/webpack-dev-server"
-    volumes:
-      - ./:/myapp
-      - sprintable-gem-cache:/gems
-    ports: 
-      - "3035:3035"
-    depends_on:
-      - web
-      - postgres
-      - redis
-
-  worker:
-    container_name: sprintable-sidekiq
-    image: sprintable
-    command: bundle exec sidekiq -c 5 -q critical -q default
-    volumes:
-      - ./:/myapp
-      - sprintable-gem-cache:/gems
-    environment:
-      <<: *default_environment
-    depends_on:
-      - redis
-      - postgres
-      - web
-    networks:
-      sprintable:
-        aliases: 
-          - sprintable.com
+volumes:
+  sprintable-app:
+  sprintable-gem-cache:
