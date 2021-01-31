@@ -1,17 +1,17 @@
 {
-  "name": "myapp",
+  "name": "sprintable",
   "private": true,
   "dependencies": {
-    "@rails/webpacker": "4.3.0",
+    "@rails/activestorage": "^6.1.1",
+    "@rails/ujs": "^6.1.1",
     "@shopify/draggable": "^1.0.0-beta.8",
-    "activestorage": "^5.2.2",
-    "bootstrap": "^4.3.1",
-    "chart.js": "^2.8.0",
-    "chartjs-plugin-trendline": "^0.1.1",
-    "jquery": "^3.3.1",
-    "moment": "^2.24.0",
+    "@rails/webpacker": "5.2.1",
+    "bootstrap": "^4.6.0",
+    "chart.js": "^2.9.4",
+    "chartjs-plugin-trendline": "^0.2.2",
+    "jquery": "^3.5.1",
+    "moment": "^2.29.1",
     "popper.js": "^1.14.7",
-    "rails-ujs": "^5.2.2",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
