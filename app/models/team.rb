@@ -1,4 +1,6 @@
 class Team < ApplicationRecord
+  acts_as_tenant(:account)
+
   extend FriendlyId
   friendly_id :name, use: :slugged
   

@@ -39,4 +39,5 @@ class CreateAccountTable < ActiveRecord::Migration[6.1]
   end
 
   class Ticket < ApplicationRecord; end
+  class Account < ApplicationRecord; end
 end

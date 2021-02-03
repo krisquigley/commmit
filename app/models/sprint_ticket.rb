@@ -1,4 +1,6 @@
 class SprintTicket < ApplicationRecord
+  acts_as_tenant(:account)
+
   validates :title, :estimated_effort, :issue_id, :repository_name, :number, :state, presence: true
 
   belongs_to :sprint, optional: true

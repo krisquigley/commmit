@@ -11,7 +11,7 @@
 ActiveRecord::Base.transaction do
   2.times do 
     User.create(name: Faker::Name.name, 
-                github_user_id: Integer(Faker::Number.number(10)), 
+                github_user_id: Integer(Faker::Number.number(digits: 10)), 
                 source: JSON.parse(File.read("#{Rails.root.to_s}/spec/fixtures/files/new_user_payload.json"))["member"].to_json)
   end
   users = User.all
@@ -21,13 +21,13 @@ ActiveRecord::Base.transaction do
 
   10.times do 
     Ticket.create(title: Faker::Hipster.sentence,
-                  estimated_effort: Integer(Faker::Number.number(1)),
+                  estimated_effort: Integer(Faker::Number.number(digits: 1)),
                   repository_name: Faker::Hipster.word,
-                  number: Integer(Faker::Number.number(1)),
+                  number: Integer(Faker::Number.number(digits: 1)),
                   state: 'open',
                   github_user_ids: [],
                   url: Faker::Internet.url,
-                  issue_id: Integer(Faker::Number.number(10)),
+                  issue_id: Integer(Faker::Number.number(digits: 10)),
                   source: "{}")
   end
 

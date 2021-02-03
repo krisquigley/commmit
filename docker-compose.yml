@@ -1,8 +1,5 @@
 version: '3'
 
-volumes:
-  sprintable-gem-cache:
-
 networks:
   sprintable:
 
@@ -22,7 +19,3 @@ services:
       - '6379:6379'
     networks:
       - sprintable
-
-volumes:
-  sprintable-app:
-  sprintable-gem-cache:
