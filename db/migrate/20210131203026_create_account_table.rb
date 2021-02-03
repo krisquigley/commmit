@@ -17,7 +17,7 @@ class CreateAccountTable < ActiveRecord::Migration[6.1]
     end
 
     tables = [:retrospectives, :sprint_tickets, :sprints, 
-              :sprint_users, :teams, :tickets, :users]
+              :sprints_users, :teams, :tickets, :users]
       
     # Update existing tables to be scoped to account too
     tables.each do |table|
@@ -29,7 +29,7 @@ class CreateAccountTable < ActiveRecord::Migration[6.1]
         SQL
       end
 
-      change_column_null table, account_id, false
+      change_column_null table, :account_id, false
     end
       
     # Migrate the rest of the tables to UUID
@@ -43,8 +43,6 @@ class CreateAccountTable < ActiveRecord::Migration[6.1]
     }, {
       retrospectives: :user
     }, {
-      sprint_tickets: :issue
-    }, {
       sprint_tickets: :sprint
     }, {
       sprints: :team
@@ -53,45 +51,47 @@ class CreateAccountTable < ActiveRecord::Migration[6.1]
     }, {
       sprints_users: :user
     }, {
-      teams: :user
-    }, {
-      tickets: :issue
-    }, {
       tickets: :sprint
     }, {
       users: :team
-    }, {
-      users: :github_user
     }]
     
-    associations.each do |parent_table, column|
+    associations.each do |association|
+      parent_table = association.keys.first
+      column = association.values.first
+
       # Add UUID columns for associations
-      add_column parent_table, `#{column}_uuid`, :uuid
+      add_column parent_table, "#{column}_uuid", :uuid
       
       # Populate UUID columns for associations
       execute <<-SQL
         UPDATE #{parent_table} SET #{column}_uuid =  #{column}s.uuid
-        FROM #{column} WHERE #{parent_table}.sprint_id = #{column}s.id;
+        FROM #{column}s WHERE #{parent_table}.#{column}_id = #{column}s.id;
       SQL
 
       # Change null
-      change_column_null parent_table, `#{column}_uuid`, false
+      change_column_null parent_table, "#{column}_uuid", false
 
       # Migrate UUID to ID for associations
-      remove_column parent_table, `#{column}_id`
-      rename_column parent_table, `#{column}_uuid`, `#{column}_id`
+      remove_column parent_table, "#{column}_id"
+      rename_column parent_table, "#{column}_uuid", "#{column}_id"
 
       # Add indexes for associations
-      add_index parent_table, `#{column}_id`
+      add_index parent_table, "#{column}_id"
 
       # Add foreign keys
-      add_foreign_key parent_table, `#{column}s`
+      # add_foreign_key parent_table, "#{column}s"
     end
 
     # Special column
-    add_column :sprints, :initial_ticket_uuids, :uuid, default: [], array: true
+    add_column :sprints, :initial_ticket_uuids, :uuid, default: [], 
+    array: true
+
+    # Perhaps use AR here to update these values instead
+    # Also, probably want to rename and remove the columns from line 76 after doing the step below
     execute <<-SQL
-      UPDATE sprints SET initial_ticket_uuids = sprints.initial_ticket_ids
+      UPDATE sprints SET initial_ticket_uuids = sprint_tickets.uuid
+      FROM sprint_tickets WHERE sprint_tickets.id = ALL (sprints.initial_ticket_ids)
     SQL
     change_column_null :sprints, :initial_ticket_uuids, false
     remove_column :sprints, :initial_ticket_ids
@@ -102,7 +102,7 @@ class CreateAccountTable < ActiveRecord::Migration[6.1]
     tables.each do |table|
       remove_column table,    :id
       rename_column table,    :uuid, :id
-      execute `ALTER TABLE #{table} ADD PRIMARY KEY (id);`
+      execute "ALTER TABLE #{table} ADD PRIMARY KEY (id);"
       add_index table,    :created_at
     end
   end
