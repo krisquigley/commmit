@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_03_215833) do
+ActiveRecord::Schema.define(version: 2021_02_04_213324) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -21,15 +21,8 @@ ActiveRecord::Schema.define(version: 2021_02_03_215833) do
     t.string "subdomain", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["subdomain"], name: "index_accounts_on_subdomain"
-  end
-
-  create_table "departments", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "slug", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["slug"], name: "index_departments_on_slug"
+    t.index ["name"], name: "index_accounts_on_name", unique: true
+    t.index ["subdomain"], name: "index_accounts_on_subdomain", unique: true
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -123,10 +116,8 @@ ActiveRecord::Schema.define(version: 2021_02_03_215833) do
   create_table "teams", force: :cascade do |t|
     t.string "name", null: false
     t.string "slug"
-    t.integer "department_id"
     t.bigint "account_id", null: false
     t.index ["account_id"], name: "index_teams_on_account_id"
-    t.index ["department_id"], name: "index_teams_on_department_id"
     t.index ["slug"], name: "index_teams_on_slug"
   end
 

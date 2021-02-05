@@ -1,15 +1,17 @@
 class TeamsController < ApplicationController
+  def index
+    @teams = Team.order(name: :asc)
+  end
+
   def new
-    @department = Department.friendly.find(params[:department_id])
-    @team = @department.teams.build
+    @team = Team.new
   end
 
   def create
-    @department = Department.friendly.find(params[:department_id])
-    @team = @department.teams.build(team_params)
+    @team = Team.new(team_params)
 
     if @team.save
-      redirect_to @department
+      redirect_to @team
     else
       render :new
     end

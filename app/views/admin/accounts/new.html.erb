@@ -1,11 +1,10 @@
-<%= form_for @department do |f| %>
+<%= form_for [:admin, @account] do |f| %>
   <div class="row mt-4 mb-4">
     <div class="col-sm-9">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
-          <li class="breadcrumb-item"><%= link_to "Departments", departments_path %></li>
-          <li class="breadcrumb-item active" aria-current="page">New Department</li>
+          <li class="breadcrumb-item"><%= link_to "Accounts", admin_root_path %></li>
+          <li class="breadcrumb-item active" aria-current="page">New Account</li>
         </ol>
       </nav>
     </div>

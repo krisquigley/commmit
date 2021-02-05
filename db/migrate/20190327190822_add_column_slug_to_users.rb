@@ -3,4 +3,6 @@ class AddColumnSlugToUsers < ActiveRecord::Migration[5.2]
     add_column :users, :slug, :string
     User.all.each(&:save)
   end
+
+  class User < ApplicationRecord; end
 end

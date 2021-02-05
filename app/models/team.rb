@@ -6,7 +6,6 @@ class Team < ApplicationRecord
   
   validates :name, presence: true
   
-  belongs_to :department
   has_many :sprints
   has_many :users
 

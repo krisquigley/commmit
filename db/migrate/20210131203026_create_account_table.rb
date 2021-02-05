@@ -6,8 +6,10 @@ class CreateAccountTable < ActiveRecord::Migration[6.1]
     # Create accounts tables
     create_table :accounts do |t|
       t.string :name,       null: false
-      t.string :subdomain,  null: false, index: true
+      t.string :subdomain,  null: false
       
+      t.index :subdomain, unique: true
+      t.index :name, unique: true
       t.timestamps
     end
     
