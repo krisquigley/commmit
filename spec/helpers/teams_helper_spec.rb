@@ -5,14 +5,15 @@ RSpec.describe TeamsHelper do
     # TODO: refactor to use different factories
     # Set up a sprint with 3 people
     # Set up retro with team and company happiness values
-    let!(:department_with_teams) { create(:department_with_teams) }
+    let!(:team) { create(:team_with_users) }
     let!(:sprint_with_tickets) do
       user = create(:user) 
-      department_with_teams.teams.first.users << user 
-      sprint_with_tickets = create(:sprint_with_tickets, team: department_with_teams.teams.first, start_date: '2019-01-01', end_date: '2019-01-05')
+      team.users << user 
+      sprint_with_tickets = create(:sprint_with_tickets, team: team, start_date: '2019-01-01', end_date: '2019-01-05')
       sprint_with_tickets.update(closed_at: '2019-01-05')
-      sprint_with_tickets.team.users.each do |user|
-        sprint_with_tickets.retrospectives.create!(user: user, role_happiness: 1, company_happiness: 4, feedback: 'test', happiness_goal: 'test')
+
+      sprint_with_tickets.team.users.each do |team_user|
+        sprint_with_tickets.retrospectives.create!(user: team_user, role_happiness: 1, company_happiness: 4, feedback: 'test', happiness_goal: 'test')
       end
       sprint_with_tickets
     end
@@ -20,14 +21,14 @@ RSpec.describe TeamsHelper do
     # Set up a sprint with 4 people
     # Set up retro with all happiness values
     let!(:sprint_with_tickets_2) do
-      sprint_with_tickets = create(:sprint_with_tickets, team: department_with_teams.teams.first, start_date: '2019-01-08', end_date: '2019-01-12')
+      sprint_with_tickets = create(:sprint_with_tickets, team: team, start_date: '2019-01-08', end_date: '2019-01-12')
       sprint_with_tickets.update(closed_at: '2019-01-12')
       sprint_with_tickets.team.users.each do |user|
         sprint_with_tickets.retrospectives.create!(user: user, role_happiness: 3, team_happiness: 5, company_happiness: 2, feedback: 'test', happiness_goal: 'test')
       end
       # Add another user which does not have a retro
       user_2 = create(:user) 
-      department_with_teams.teams.first.users << user_2
+      team.users << user_2
       sprint_with_tickets
     end
 
@@ -39,11 +40,11 @@ RSpec.describe TeamsHelper do
   end
 
   describe "#velocity" do
-    let!(:department) { create(:department_with_teams) }
+    let!(:team) { create(:team_with_users) }
     # TODO: refactor
     let!(:closed_sprints_with_closed_tickets) do 
-      create_list(:sprint_with_closed_tickets, 5, team: department.teams.first)
-      create(:sprint_with_closed_tickets, team: department.teams.first, end_date: Date.today.advance(months: +2))
+      create_list(:sprint_with_closed_tickets, 5, team: team)
+      create(:sprint_with_closed_tickets, team: team, end_date: Date.today.advance(months: +2))
       sprints = Sprint.all
       sprints.each { |s| s.update(closed_at: Time.now) }
       Sprint.order(end_date: :desc)
@@ -59,12 +60,12 @@ RSpec.describe TeamsHelper do
   end
 
   describe "#no_of_members_per_sprint" do
-    let!(:department) { create(:department_with_teams) }
+    let!(:team) { create(:team_with_users) }
     let!(:closed_sprints_with_closed_tickets) do 
-      create_list(:sprint_with_closed_tickets, 4, team: department.teams.first)
+      create_list(:sprint_with_closed_tickets, 4, team: team)
       user = create(:user)
-      department.teams.first.users << user
-      create(:sprint_with_tickets, team: department.teams.first, end_date: Time.now.advance(months: +2))
+      team.users << user
+      create(:sprint_with_tickets, team: team, end_date: Time.now.advance(months: +2))
       Sprint.order(end_date: :desc)
     end
 
@@ -74,9 +75,9 @@ RSpec.describe TeamsHelper do
   end
 
   describe "#velocity_per_person_per_day_per_sprint" do
-    let!(:department) { create(:department_with_teams) }
+    let!(:team) { create(:team_with_users) }
     let!(:closed_sprints_with_closed_tickets) do 
-      create_list(:sprint_with_closed_tickets, 5, team: department.teams.first)
+      create_list(:sprint_with_closed_tickets, 5, team: team)
       sprints = Sprint.all
       sprints.each { |s| s.update(closed_at: Time.now) }
       Sprint.order(end_date: :desc)
@@ -85,7 +86,7 @@ RSpec.describe TeamsHelper do
     it "should return an array in json" do
       expect(helper.velocity_per_person_per_day_per_sprint(closed_sprints_with_closed_tickets)).to be_a String
       
-      expectation = Sprint.order(end_date: :desc).first.velocity / (department.teams.first.users.count * 5.0)
+      expectation = Sprint.order(end_date: :desc).first.velocity / (team.users.count * 5.0)
       expect(JSON.parse(helper.velocity_per_person_per_day_per_sprint(closed_sprints_with_closed_tickets)).last).to eq expectation.round(2).to_s
     end
   end

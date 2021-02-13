@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
   resource :dashboard
 
-  resources :teams, only: [:new, :create, :show], shallow: true do
+  resources :teams, only: [:index, :new, :create, :show], shallow: true do
     resources :sprints, only: [:new, :create, :show, :update], shallow: true do
       resources :sprint_tickets, only: [:create, :update, :destroy]
       resource :retrospective, only: [:new, :create, :show]

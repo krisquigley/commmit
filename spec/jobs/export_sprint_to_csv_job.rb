@@ -5,8 +5,8 @@ RSpec.describe ExportSprintToCsvJob, sidekiq: :inline do
   describe "exporting a sprint to csv" do
     let(:user) { create(:user) }
     let!(:tickets) { create_list(:ticket, 5, state: 'open') }
-    let!(:department) { create(:department_with_teams) }
-    let!(:sprint) { create(:sprint, team: department.teams.first) }
+    let!(:team) { create(:team) }
+    let!(:sprint) { create(:sprint, team: team) }
     let!(:sprint_tickets) { tickets.each {|t| sprint.sprint_tickets.create(t.attributes) } }
     let!(:uuid) { SecureRandom.uuid }
 

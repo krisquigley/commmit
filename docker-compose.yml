@@ -9,13 +9,21 @@ services:
     image: postgres:10.5-alpine
     ports:
       - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
     networks:
       - sprintable
 
   redis:
     container_name: sprintable-redis
     image: redis:alpine
+    volumes:
+      - redisdata:/data
     ports:
       - '6379:6379'
     networks:
       - sprintable
+
+volumes:
+  pgdata:
+  redisdata:

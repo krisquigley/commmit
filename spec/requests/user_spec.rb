@@ -18,7 +18,6 @@ RSpec.describe "Users", sidekiq: :inline, type: :request do
     let!(:user) { create(:user, github_user_id: 583231) }
     let(:edited_user_payload) { file_fixture("edited_user_payload.json").read }
 
-    
     before do
       post '/webhooks/members', params: edited_user_payload, headers: { "Content-Type"  => "application/json" }
     end

@@ -58,7 +58,7 @@ end
 
 group :test do
   gem 'rubocop-rspec', '~> 2.1'
-  gem 'database_cleaner', '~> 1.8', '>= 1.8.5'
+  gem 'database_cleaner-active_record', '~> 2.0'
   gem 'capybara', '~> 3.35', '>= 3.35.3'
   gem 'rspec-sidekiq', '~> 3.1'
   gem 'selenium-webdriver', '~> 4.0.0.alpha7'

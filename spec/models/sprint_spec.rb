@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe Sprint, type: :model do
   context "total_estimated_effort" do
     describe "sprint locked and loaded" do
-      let!(:department) { create(:department_with_teams) }
-      let!(:sprint) { create(:sprint_with_tickets, start_date: '2000-1-1', end_date: '2000-1-7', team: department.teams.first) }
+      let!(:team) { create(:team) }
+      let!(:sprint) { create(:sprint_with_tickets, start_date: '2000-1-1', end_date: '2000-1-7', team: team) }
 
       it "should total all estimated effort for associated sprint tickets" do
         sprint.update(initial_ticket_ids: sprint.sprint_tickets.pluck(:id))
@@ -15,8 +15,8 @@ RSpec.describe Sprint, type: :model do
     end
 
     describe "sprint not locked and loaded" do
-      let!(:department) { create(:department_with_teams) }
-      let!(:sprint) { create(:sprint_with_tickets, start_date: '2000-1-1', end_date: '2000-1-7', team: department.teams.first) }
+      let!(:team) { create(:team) }
+      let!(:sprint) { create(:sprint_with_tickets, start_date: '2000-1-1', end_date: '2000-1-7', team: team) }
 
       it "should total all estimated effort for associated sprint tickets" do
         total_estimated_effort = SprintTicket.all.pluck(:estimated_effort).reduce(:+)
@@ -27,8 +27,8 @@ RSpec.describe Sprint, type: :model do
   end
 
   describe "velocity" do
-    let!(:department) { create(:department_with_teams) }
-    let!(:sprint) { create(:sprint_with_tickets, team: department.teams.first) }
+    let!(:team) { create(:team) }
+    let!(:sprint) { create(:sprint_with_tickets, team: team) }
 
     it "should be effort of all closed tickets" do
       ticket = sprint.sprint_tickets.first
@@ -38,8 +38,8 @@ RSpec.describe Sprint, type: :model do
   end
 
   describe "final_velocity" do
-    let!(:department) { create(:department_with_teams) }
-    let!(:sprint) { create(:sprint_with_tickets, team: department.teams.first) }
+    let!(:team) { create(:team) }
+    let!(:sprint) { create(:sprint_with_tickets, team: team) }
 
     it "should get set once a sprint is finished" do
       sprint.sprint_tickets.update_all(closed_at: DateTime.now)
@@ -50,8 +50,8 @@ RSpec.describe Sprint, type: :model do
   end
 
   describe "no_of_members" do
-    let!(:department) { create(:department_with_teams) }
-    let!(:sprint) { create(:sprint_with_tickets, team: department.teams.first) }
+    let!(:team) { create(:team) }
+    let!(:sprint) { create(:sprint_with_tickets, team: team) }
 
     it "should get set once a sprint is created" do
       sprint.sprint_tickets.update_all(closed_at: DateTime.now)
@@ -62,8 +62,8 @@ RSpec.describe Sprint, type: :model do
   end
 
   describe "days_off" do
-    let!(:department) { create(:department_with_teams) }
-    let!(:sprint) { create(:sprint_with_tickets, team: department.teams.first) }
+    let!(:team) { create(:team) }
+    let!(:sprint) { create(:sprint_with_tickets, team: team) }
 
     it "should set the days_off to 0.0" do
       expect(sprint.days_off).to eq 0.0

@@ -32,9 +32,9 @@ RSpec.describe "Tickets", sidekiq: :inline, type: :request do
     describe "when a ticket is updated" do
       let!(:ticket) { create(:ticket, issue_id: 406911947) }
       let(:edited_issue_payload) { file_fixture("edited_issue_payload.json").read }
-      let!(:department) { create(:department_with_teams) }
-      let!(:active_sprint) { create(:sprint, team: department.teams.first) }
-      let!(:inactive_sprint) { create(:sprint, team: department.teams.first, start_date: 2.weeks.ago, end_date: 1.week.ago) }
+      let!(:team) { create(:team) }
+      let!(:active_sprint) { create(:sprint, team: team) }
+      let!(:inactive_sprint) { create(:sprint, team: team, start_date: 2.weeks.ago, end_date: 1.week.ago) }
       let!(:sprint_ticket1) { create(:sprint_ticket, issue_id: 406911947, sprint: active_sprint) }
       let!(:sprint_ticket2) { create(:sprint_ticket, issue_id: 406911947, sprint: inactive_sprint) }
       

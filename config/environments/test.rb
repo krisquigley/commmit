@@ -2,8 +2,11 @@
 # test suite. You never need to work with it otherwise. Remember that
 # your test database is "scratch space" for the test suite and is wiped
 # and recreated between test runs. Don't rely on the data there!
+require_dependency 'acts_as_tenant/test_tenant_middleware'
 
 Rails.application.configure do
+  config.middleware.use ActsAsTenant::TestTenantMiddleware
+
   # Settings specified here will take precedence over those in config/application.rb.
   
   config.cache_classes = false
@@ -45,4 +48,6 @@ Rails.application.configure do
 
   # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true
+  config.hosts << 'www.lvh.me'
+  config.hosts << 'www.example.com'
 end
