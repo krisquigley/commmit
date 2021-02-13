@@ -9,7 +9,6 @@ class CreateAccountTable < ActiveRecord::Migration[6.1]
       t.string :subdomain,  null: false
       
       t.index :subdomain, unique: true
-      t.index :name, unique: true
       t.timestamps
     end
     
