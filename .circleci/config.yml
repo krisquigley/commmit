@@ -115,7 +115,7 @@ jobs:
       - run:
           name: Run Migrations
           command: |
-            heroku run rake db:migrate --app shift-sprintable
+            heroku run rake db:migrate --app $HEROKU_APP_NAME
           timeout: 400 # if your deploys take a long time
 
 workflows:
