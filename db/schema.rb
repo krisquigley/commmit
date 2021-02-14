@@ -10,22 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_01_140928) do
+ActiveRecord::Schema.define(version: 2021_02_04_213324) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
-  create_table "departments", force: :cascade do |t|
+  create_table "accounts", force: :cascade do |t|
     t.string "name", null: false
-    t.string "slug", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["slug"], name: "index_departments_on_slug"
+    t.string "subdomain", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["subdomain"], name: "index_accounts_on_subdomain", unique: true
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false
-    t.integer "sluggable_id", null: false
+    t.bigint "sluggable_id", null: false
     t.string "sluggable_type", limit: 50
     t.string "scope"
     t.datetime "created_at"
@@ -45,6 +46,8 @@ ActiveRecord::Schema.define(version: 2019_09_01_140928) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "average_happiness"
+    t.bigint "account_id", null: false
+    t.index ["account_id"], name: "index_retrospectives_on_account_id"
     t.index ["sprint_id"], name: "index_retrospectives_on_sprint_id"
     t.index ["user_id"], name: "index_retrospectives_on_user_id"
   end
@@ -59,7 +62,7 @@ ActiveRecord::Schema.define(version: 2019_09_01_140928) do
     t.decimal "estimated_effort", null: false
     t.decimal "effort_spent"
     t.datetime "closed_at"
-    t.integer "sprint_id"
+    t.bigint "sprint_id"
     t.string "url", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -69,6 +72,8 @@ ActiveRecord::Schema.define(version: 2019_09_01_140928) do
     t.boolean "kaizen"
     t.jsonb "source"
     t.datetime "assigned_at"
+    t.bigint "account_id", null: false
+    t.index ["account_id"], name: "index_sprint_tickets_on_account_id"
     t.index ["github_user_ids"], name: "index_sprint_tickets_on_github_user_ids"
     t.index ["position"], name: "index_sprint_tickets_on_position"
     t.index ["sprint_id"], name: "index_sprint_tickets_on_sprint_id"
@@ -92,6 +97,8 @@ ActiveRecord::Schema.define(version: 2019_09_01_140928) do
     t.decimal "days_off", default: "0.0"
     t.datetime "finish_by"
     t.bigint "initial_ticket_ids", default: [], array: true
+    t.bigint "account_id", null: false
+    t.index ["account_id"], name: "index_sprints_on_account_id"
     t.index ["closed_at"], name: "index_sprints_on_closed_at"
     t.index ["initial_ticket_ids"], name: "index_sprints_on_initial_ticket_ids"
     t.index ["slug"], name: "index_sprints_on_slug", unique: true
@@ -108,8 +115,8 @@ ActiveRecord::Schema.define(version: 2019_09_01_140928) do
   create_table "teams", force: :cascade do |t|
     t.string "name", null: false
     t.string "slug"
-    t.integer "department_id"
-    t.index ["department_id"], name: "index_teams_on_department_id"
+    t.bigint "account_id", null: false
+    t.index ["account_id"], name: "index_teams_on_account_id"
     t.index ["slug"], name: "index_teams_on_slug"
   end
 
@@ -117,7 +124,7 @@ ActiveRecord::Schema.define(version: 2019_09_01_140928) do
     t.string "title", null: false
     t.decimal "estimated_effort", null: false
     t.datetime "closed_at"
-    t.integer "sprint_id"
+    t.bigint "sprint_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "issue_id", null: false
@@ -128,6 +135,8 @@ ActiveRecord::Schema.define(version: 2019_09_01_140928) do
     t.string "url", null: false
     t.jsonb "source", null: false
     t.datetime "assigned_at"
+    t.bigint "account_id", null: false
+    t.index ["account_id"], name: "index_tickets_on_account_id"
     t.index ["assigned_at"], name: "index_tickets_on_assigned_at"
     t.index ["closed_at"], name: "index_tickets_on_closed_at"
     t.index ["issue_id"], name: "index_tickets_on_issue_id", unique: true
@@ -139,10 +148,12 @@ ActiveRecord::Schema.define(version: 2019_09_01_140928) do
 
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
-    t.integer "team_id"
+    t.bigint "team_id"
     t.bigint "github_user_id", null: false
     t.jsonb "source", null: false
     t.string "slug"
+    t.bigint "account_id", null: false
+    t.index ["account_id"], name: "index_users_on_account_id"
     t.index ["github_user_id"], name: "index_users_on_github_user_id", unique: true
     t.index ["team_id"], name: "index_users_on_team_id"
   end

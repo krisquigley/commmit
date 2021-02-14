@@ -2,14 +2,14 @@ require "rails_helper"
 
 RSpec.describe "Retrospectives", type: :feature do
   include BasicAuthHelper
-  
+
   before(:each) do
     log_in
   end
   
   describe "closing sprint", js: true do
-    let!(:department) { create(:department_with_teams) }
-    let!(:sprint) { create(:sprint, team: department.teams.first) }
+    let!(:team) { create(:team) }
+    let!(:sprint) { create(:sprint, team: team) }
     let!(:tickets) { create_list(:ticket, 5) }
     
     it "should show leave feedback button" do
@@ -20,16 +20,15 @@ RSpec.describe "Retrospectives", type: :feature do
       within "form[action='#{sprint_path(sprint)}']" do
         click_on 'Close Sprint'
       end
-      page.accept_alert
 
       expect(page).to have_link "Retrospective Feedback"
     end
   end
 
   context "adding user feedback to a sprint" do
-    describe "with valid data", js: true do
-      let!(:department) { create(:department_with_teams) }
-      let!(:sprint) { create(:sprint, team: department.teams.first) }
+    describe "with valid data" do
+      let!(:team) { create(:team_with_users) }
+      let!(:sprint) { create(:sprint, team: team) }
       let!(:tickets) { create_list(:ticket, 5) }
       
       it "should get added" do
@@ -52,16 +51,16 @@ RSpec.describe "Retrospectives", type: :feature do
     end
 
     describe "with invalid data" do
-      let!(:department) { create(:department_with_teams) }
-      let!(:sprint) { create(:sprint, team: department.teams.first) }
+      let!(:team) { create(:team_with_users) }
+      let!(:sprint) { create(:sprint, team: team) }
       let!(:tickets) { create_list(:ticket, 5) }
 
-      it "should not get added" do
+      it "should not get added", js: true do
         visit sprint_retrospective_path(sprint)
 
-        find('[value=Submit]', match: :first).click
+        find('[value="Submit Feedback"]').click
         
-        expect(page).to have_content "errors prohibited this form from being saved"
+        expect(find('[value="Submit Feedback"]').disabled?).to_not be_truthy
       end
     end
   end

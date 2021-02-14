@@ -1,4 +1,6 @@
 class Retrospective < ApplicationRecord
+  acts_as_tenant(:account)
+
   validates :role_happiness, :company_happiness, :feedback,
             :happiness_goal, presence: true
   validates :role_happiness, :company_happiness, 

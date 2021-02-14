@@ -7,9 +7,9 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/ruby:2.6.5-node-browsers
+      - image: circleci/ruby:3.0.0-node-browsers
         environment:
-          DATABASE_URL: "postgres://myapp@localhost/sprint_test"
+          DATABASE_URL: 'postgres://myapp@localhost/sprint_test'
           REDIS_URL: 'redis://redis:6379'
           PGHOST: 127.0.0.1
           RAILS_ENV: test
@@ -25,11 +25,11 @@ jobs:
         environment:
           POSTGRES_USER: myapp
           POSTGRES_DB: sprint_test
-          POSTGRES_PASSWORD: ""
+          POSTGRES_PASSWORD: ''
       - image: circleci/redis:5-alpine3.10
         name: 'redis'
       - image: selenium/standalone-chrome
-            
+
     working_directory: ~/repo
 
     steps:
@@ -105,7 +105,7 @@ jobs:
           command: |
             git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
       - run:
-          name: "Install Heroku CLI, if necessary"
+          name: 'Install Heroku CLI, if necessary'
           command: |
             if [[ $(command -v heroku) == "" ]]; then
               curl https://cli-assets.heroku.com/install.sh | sh
@@ -117,7 +117,6 @@ jobs:
           command: |
             heroku run rake db:migrate --app shift-sprintable
           timeout: 400 # if your deploys take a long time
-
 
 workflows:
   version: 2

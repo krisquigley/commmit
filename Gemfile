@@ -2,39 +2,39 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.0.0'
-
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.1'
-# Use postgresql as the database for Active Record
+
+# Database
 gem 'pg', '>= 0.18', '< 2.0'
-# Use Puma as the app server
+gem 'friendly_id', '~> 5.4', '>= 5.4.2'
+gem 'acts_as_tenant', '~> 0.5.0'
+
+# Servers
 gem 'puma', '~> 5.2'
-# See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'mini_racer', platforms: :ruby
-
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.11', '>= 2.11.2'
-# Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 4.0'
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Use ActiveStorage variant
-# gem 'mini_magick', '~> 4.8'
-gem 'oj', '~> 3.11', '>= 3.11.2'
 gem 'sidekiq', '~> 6.1', '>= 6.1.3'
-gem 'octokit', '~> 4.20'
+
+# Assets
 gem 'kaminari', '~> 1.2', '>= 1.2.1'
 gem 'bootstrap4-kaminari-views', '~> 1.0', '>= 1.0.1'
 gem 'webpacker', '~> 5.2', '>= 5.2.1'
+
+# APIs
+gem 'jbuilder', '~> 2.11', '>= 2.11.2'
+gem 'oj', '~> 3.11', '>= 3.11.2'
+gem 'octokit', '~> 4.20'
+
+# Markdown
 gem 'redcarpet', '~> 3.5', '>= 3.5.1'
+
+# Debug
 gem 'pry', '~> 0.13.1'
+gem 'faker', '~> 2.15', '>= 2.15.1'
+
+# Use ActiveStorage variant
+# gem 'mini_magick', '~> 4.8'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '~> 1.6', require: false
-
-gem 'friendly_id', '~> 5.4', '>= 5.4.2'
-gem 'faker', '~> 2.15', '>= 2.15.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -58,7 +58,7 @@ end
 
 group :test do
   gem 'rubocop-rspec', '~> 2.1'
-  gem 'database_cleaner', '~> 1.8', '>= 1.8.5'
+  gem 'database_cleaner-active_record', '~> 2.0'
   gem 'capybara', '~> 3.35', '>= 3.35.3'
   gem 'rspec-sidekiq', '~> 3.1'
   gem 'selenium-webdriver', '~> 4.0.0.alpha7'

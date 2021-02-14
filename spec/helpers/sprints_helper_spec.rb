@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe SprintsHelper do
   describe "#effort_to_date" do
-    let!(:department) { create(:department_with_teams) }
-    let!(:sprint) { create(:sprint_with_tickets, team: department.teams.first) }
+    let!(:team) { create(:team_with_users) }
+    let!(:sprint) { create(:sprint_with_tickets, team: team) }
 
     it "should calculate how much effort has been used up to today" do
       sprint.update(initial_ticket_ids: sprint.sprint_tickets.pluck(:id))

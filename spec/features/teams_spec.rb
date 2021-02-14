@@ -8,23 +8,22 @@ RSpec.describe "Teams", type: :feature do
   end
 
   describe "viewing a team" do
-    let!(:department) { create(:department_with_teams) }
-    let!(:sprint) { create(:sprint_with_tickets, team: department.teams.first) }
+    let!(:team) { create(:team) }
+    let!(:sprint) { create(:sprint, team: team) }
 
     it "should list the sprints" do
-      visit team_path(department.teams.first)
+      visit team_path(team)
 
       expect(page).to have_content sprint.name
     end
   end
 
   describe "adding a team with valid data" do
-    let!(:department) { create(:department) }
     let!(:user) { create(:user) }
 
     it "should create the team" do
-      visit department_path(department)
-
+      visit teams_path
+      
       click_on 'Add Team'
 
       fill_in 'Name', with: 'test'
@@ -37,11 +36,10 @@ RSpec.describe "Teams", type: :feature do
   end
 
   describe "adding a team with invalid data" do
-    let!(:department) { create(:department) }
     let!(:user) { create(:user) }
 
     it "should not create the team" do
-      visit department_path(department)
+      visit teams_path
 
       click_on 'Add Team'
 
@@ -56,15 +54,15 @@ RSpec.describe "Teams", type: :feature do
   context "Goal status" do
     context "When a sprint is in progress" do
       let!(:tickets) { create_list(:ticket, 5, state: 'open') }
-      let!(:department) { create(:department_with_teams) }
-      let!(:sprint) { create(:sprint, team: department.teams.first) }
+      let!(:team) { create(:team) }
+      let!(:sprint) { create(:sprint, team: team) }
       let!(:sprint_tickets) { tickets.each {|t| sprint.sprint_tickets.create(t.attributes) } }
 
       describe "and the goal is yet to be met" do
         it "should show the status 'in progress'" do
           sprint.update(finish_by: sprint.start_date + 2.days, initial_ticket_ids: sprint_tickets.pluck(:id))
           
-          visit team_path(department.teams.first)
+          visit team_path(team)
 
           expect(page).to have_content "In Progress"
         end
@@ -75,7 +73,7 @@ RSpec.describe "Teams", type: :feature do
           sprint.update(finish_by: sprint.start_date + 2.days, initial_ticket_ids: sprint_tickets.pluck(:id))
           sprint.sprint_tickets.update_all(closed_at: sprint.end_date)
 
-          visit team_path(department.teams.first)
+          visit team_path(team)
 
           expect(page).to have_content "Goal Met"
         end
@@ -86,7 +84,7 @@ RSpec.describe "Teams", type: :feature do
           sprint.update(finish_by: sprint.start_date + 2.days, initial_ticket_ids: sprint_tickets.pluck(:id))
           sprint.sprint_tickets.update_all(closed_at: sprint.start_date)
           
-          visit team_path(department.teams.first)
+          visit team_path(team)
 
           expect(page).to have_content "Goal Met Early"
         end
@@ -95,15 +93,15 @@ RSpec.describe "Teams", type: :feature do
 
     context "When a sprint is finished" do
       let!(:tickets) { create_list(:ticket, 5, state: 'open') }
-      let!(:department) { create(:department_with_teams) }
-      let!(:sprint) { create(:sprint, team: department.teams.first) }
+      let!(:team) { create(:team) }
+      let!(:sprint) { create(:sprint, team: team) }
       let!(:sprint_tickets) { tickets.each {|t| sprint.sprint_tickets.create(t.attributes) } }
 
       describe "and the goal wasn't met" do
         it "should show the status 'goal not met'" do
           sprint.update(closed_at: sprint.end_date, initial_ticket_ids: sprint_tickets.pluck(:id))
 
-          visit team_path(department.teams.first)
+          visit team_path(team)
 
           expect(page).to have_content "Goal Not Met"
         end
@@ -114,7 +112,7 @@ RSpec.describe "Teams", type: :feature do
           sprint.update(closed_at: sprint.end_date, initial_ticket_ids: sprint_tickets.pluck(:id))
           sprint.sprint_tickets.update_all(closed_at: sprint.end_date)
 
-          visit team_path(department.teams.first)
+          visit team_path(team)
 
           expect(page).to have_content "Goal Met"
         end
@@ -124,8 +122,8 @@ RSpec.describe "Teams", type: :feature do
 
   context "Velocity status" do
     let!(:tickets) { create_list(:ticket, 5, state: 'open') }
-    let!(:department) { create(:department_with_teams) }
-    let!(:sprint) { create(:sprint, team: department.teams.first) }
+    let!(:team) { create(:team) }
+    let!(:sprint) { create(:sprint, team: team) }
     let!(:sprint_tickets) { tickets.each {|t| sprint.sprint_tickets.create(t.attributes) } }
 
     describe "when the velocity meets the initial effort" do
@@ -133,7 +131,7 @@ RSpec.describe "Teams", type: :feature do
         sprint.update(initial_ticket_ids: sprint_tickets.pluck(:id))
         sprint.sprint_tickets.update_all(closed_at: sprint.end_date)
 
-        visit team_path(department.teams.first)
+        visit team_path(team)
 
         expect(page).to have_content "Initial Effort Met"
       end
@@ -147,7 +145,7 @@ RSpec.describe "Teams", type: :feature do
         additional_tickets = create_list(:ticket, 5, state: 'open')
         additional_tickets.each {|t| sprint.sprint_tickets.create(t.attributes.merge({ closed_at: Date.today})) }
 
-        visit team_path(department.teams.first)
+        visit team_path(team)
 
         expect(page).to have_content "Overdelivered"
       end
@@ -158,7 +156,7 @@ RSpec.describe "Teams", type: :feature do
         sprint.update(initial_ticket_ids: sprint_tickets.pluck(:id))
         sprint.sprint_tickets.first.update(closed_at: sprint.end_date)
 
-        visit team_path(department.teams.first)
+        visit team_path(team)
 
         expect(page).to have_content "Initial Effort Not Met"
       end

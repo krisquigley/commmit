@@ -21,7 +21,9 @@ RSpec.configure do |config|
       raise "sidekiq_mode must be :inline, :fake or :disable"
     end
     Sidekiq::Testing.send("#{example.metadata.fetch(:sidekiq)}!".to_sym) do
-      example.run
+      ActsAsTenant.with_tenant Account.find_or_create_by!(name: 'www', subdomain: 'www') do
+        example.run
+      end
     end
   end
 end

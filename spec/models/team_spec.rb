@@ -3,12 +3,12 @@ require 'rails_helper'
 RSpec.describe Team, type: :model do
   describe "yesterdays weather" do
     context "with 4 previous sprints" do
-      let!(:department) { create(:department_with_teams) }
-      let!(:sprint1) { create(:sprint_with_tickets, team: department.teams.first) }
-      let!(:sprint2) { create(:sprint_with_tickets, team: department.teams.first) }
-      let!(:sprint3) { create(:sprint_with_tickets, team: department.teams.first) }
-      let!(:sprint4) { create(:sprint_with_tickets, team: department.teams.first) }
-      let!(:sprint5) { create(:sprint_with_tickets, team: department.teams.first) }
+      let!(:team) { create(:team) }
+      let!(:sprint1) { create(:sprint_with_tickets, team: team) }
+      let!(:sprint2) { create(:sprint_with_tickets, team: team) }
+      let!(:sprint3) { create(:sprint_with_tickets, team: team) }
+      let!(:sprint4) { create(:sprint_with_tickets, team: team) }
+      let!(:sprint5) { create(:sprint_with_tickets, team: team) }
 
       it "should calculate the average velocity of at most 3 previous sprints" do
         sprint1.sprint_tickets.update_all(closed_at: DateTime.now)
@@ -25,13 +25,13 @@ RSpec.describe Team, type: :model do
 
         sprint5.sprint_tickets.update_all(closed_at: DateTime.now)
 
-        expect(department.teams.first.yesterdays_weather).to eq (sprint4.velocity + sprint3.velocity + sprint2.velocity) / 3
+        expect(team.yesterdays_weather).to eq (sprint4.velocity + sprint3.velocity + sprint2.velocity) / 3
       end
     end
 
     context "with 1 previous sprint" do
-      let!(:department) { create(:department_with_teams) }
-      let!(:sprint) { create(:sprint_with_tickets, team: department.teams.first) }
+      let!(:team) { create(:team) }
+      let!(:sprint) { create(:sprint_with_tickets, team: team) }
 
       it "should calculate the average velocity of the previous sprint" do
         sprint.sprint_tickets.update_all(closed_at: DateTime.now)
@@ -42,8 +42,8 @@ RSpec.describe Team, type: :model do
     end
 
     context "with 0 previous sprints" do
-      let!(:department) { create(:department_with_teams) }
-      let!(:sprint) { create(:sprint_with_tickets, team: department.teams.first) }
+      let!(:team) { create(:team) }
+      let!(:sprint) { create(:sprint_with_tickets, team: team) }
 
       it "should return 0" do
         expect(sprint.team.yesterdays_weather).to eq 0
