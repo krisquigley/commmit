@@ -46,7 +46,7 @@ jobs:
 
       - run:
           name: Bundle Update
-          command: bin/bundle update --bundler --path vendor/bundle
+          command: bin/bundle update --bundler
 
       - run:
           name: Bundle Install
