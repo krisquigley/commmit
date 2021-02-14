@@ -26,7 +26,7 @@ RSpec.describe "Retrospectives", type: :feature do
   end
 
   context "adding user feedback to a sprint" do
-    describe "with valid data", js: true do
+    describe "with valid data" do
       let!(:team) { create(:team_with_users) }
       let!(:sprint) { create(:sprint, team: team) }
       let!(:tickets) { create_list(:ticket, 5) }

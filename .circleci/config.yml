@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/ruby:3.0.0
+      - image: circleci/ruby:3.0.0-node-browsers
         environment:
           DATABASE_URL: 'postgres://myapp@localhost/sprint_test'
           REDIS_URL: 'redis://redis:6379'
