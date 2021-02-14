@@ -45,10 +45,6 @@ jobs:
         key: myapp-yarn-{{ checksum "yarn.lock" }}
 
       - run:
-          name: Bundle Update
-          command: bin/bundle update --bundler
-
-      - run:
           name: Bundle Install
           command: bin/bundle install --path vendor/bundle
 
