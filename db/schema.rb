@@ -21,7 +21,6 @@ ActiveRecord::Schema.define(version: 2021_02_04_213324) do
     t.string "subdomain", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["name"], name: "index_accounts_on_name", unique: true
     t.index ["subdomain"], name: "index_accounts_on_subdomain", unique: true
   end
 
