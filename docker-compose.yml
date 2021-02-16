@@ -1,28 +1,28 @@
 version: '3'
 
 networks:
-  sprintable:
+  commmit:
 
 services:
   postgres:
-    container_name: sprintable-postgres
+    container_name: commmit-postgres
     image: postgres:10.5-alpine
     ports:
       - '5432:5432'
     volumes:
       - pgdata:/var/lib/postgresql/data
     networks:
-      - sprintable
+      - commmit
 
   redis:
-    container_name: sprintable-redis
+    container_name: commmit-redis
     image: redis:alpine
     volumes:
       - redisdata:/data
     ports:
       - '6379:6379'
     networks:
-      - sprintable
+      - commmit
 
 volumes:
   pgdata:
