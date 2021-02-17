@@ -9,7 +9,7 @@ RSpec.describe Github::Issue do
 
     let(:parsed_new_issue) do
       {
-        repository_name: "krisquigley/sprintable",
+        repository_name: "krisquigley/commmit",
         number: 2,
         title: "new issue",
         state: "open",
@@ -17,7 +17,7 @@ RSpec.describe Github::Issue do
         github_user_ids: [],
         issue_id: 406911947,
         closed_at: nil,
-        url: "https://github.com/krisquigley/sprintable/issues/2",
+        url: "https://github.com/krisquigley/commmit/issues/2",
         source: Oj.dump(Oj.load(new_issue_payload)["issue"])
       }
     end
@@ -35,7 +35,7 @@ RSpec.describe Github::Issue do
 
     let(:parsed_new_issue) do
       {
-        repository_name: "krisquigley/sprintable",
+        repository_name: "krisquigley/commmit",
         number: 2,
         title: "[2] new issue",
         state: "open",
@@ -44,7 +44,7 @@ RSpec.describe Github::Issue do
         issue_id: 406911947,
         assigned_at: "2019-02-05T18:17:56Z",
         closed_at: nil,
-        url: "https://github.com/krisquigley/sprintable/issues/2",
+        url: "https://github.com/krisquigley/commmit/issues/2",
         source: Oj.dump(Oj.load(new_issue_payload)["issue"])
       }
     end
@@ -62,7 +62,7 @@ RSpec.describe Github::Issue do
 
     let(:parsed_edited_issue) do
       {
-        repository_name: "krisquigley/sprintable",
+        repository_name: "krisquigley/commmit",
         number: 2,
         title: "[2] new issue",
         state: "open",
@@ -71,7 +71,7 @@ RSpec.describe Github::Issue do
         assigned_at: nil,
         issue_id: 406911947,
         closed_at: nil,
-        url: "https://github.com/krisquigley/sprintable/issues/2",
+        url: "https://github.com/krisquigley/commmit/issues/2",
         source: Oj.dump(Oj.load(edited_issue_payload)["issue"])
       }
     end
@@ -89,7 +89,7 @@ RSpec.describe Github::Issue do
 
     let(:parsed_closed_issue) do
       {
-        repository_name: "krisquigley/sprintable",
+        repository_name: "krisquigley/commmit",
         number: 2,
         title: "[2] new issue",
         state: "closed",
@@ -98,7 +98,7 @@ RSpec.describe Github::Issue do
         issue_id: 406911947,
         closed_at: "2019-02-05T18:26:06Z",
         assigned_at: nil,
-        url: "https://github.com/krisquigley/sprintable/issues/2",
+        url: "https://github.com/krisquigley/commmit/issues/2",
         source: Oj.dump(Oj.load(closed_issue_payload)["issue"])
       }
     end
@@ -116,7 +116,7 @@ RSpec.describe Github::Issue do
 
     let(:parsed_reopened_issue) do
       {
-        repository_name: "krisquigley/sprintable",
+        repository_name: "krisquigley/commmit",
         number: 2,
         title: "[2] new issue",
         state: "open",
@@ -125,7 +125,7 @@ RSpec.describe Github::Issue do
         issue_id: 406911947,
         closed_at: nil,
         assigned_at: nil, 
-        url: "https://github.com/krisquigley/sprintable/issues/2",
+        url: "https://github.com/krisquigley/commmit/issues/2",
         source: Oj.dump(Oj.load(reopened_issue_payload)["issue"])
       }
     end

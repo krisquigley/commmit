@@ -1,7 +1,18 @@
-@import '~bootstrap/dist/css/bootstrap';
+@import '~bootswatch/dist/yeti/variables';
+@import '~bootstrap/scss/bootstrap';
+@import '~bootswatch/dist/yeti/bootswatch';
+
+body {
+  padding-top: 57px;
+}
+
+.navbar-toggler {
+  border: 0;
+  padding: 0;
+}
 
 .tooltip-inner {
-  white-space:pre-wrap;
+  white-space: pre-wrap;
 }
 
 /* Style the tab */
