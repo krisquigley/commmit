@@ -11,10 +11,11 @@ Rails.application.routes.draw do
   end if Rails.env.production?
   mount Sidekiq::Web, at: "/sidekiq"
   
-  devise_for :users
+  devise_for :users, controllers: {
+    registrations: 'users/registrations',
+    sessions: 'users/sessions'
+  }
   root 'teams#index'
-
-  resources :users, only: [:index, :show]
 
   namespace :webhooks do
     resources :members, only: :create

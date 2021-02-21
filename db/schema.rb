@@ -149,8 +149,8 @@ ActiveRecord::Schema.define(version: 2021_02_17_224010) do
   create_table "users", force: :cascade do |t|
     t.string "username", null: false
     t.bigint "team_id"
-    t.bigint "github_user_id", null: false
-    t.jsonb "source", null: false
+    t.bigint "github_user_id"
+    t.jsonb "source"
     t.string "slug"
     t.bigint "account_id", null: false
     t.string "email", null: false
@@ -166,6 +166,7 @@ ActiveRecord::Schema.define(version: 2021_02_17_224010) do
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
     t.integer "failed_attempts", default: 0, null: false
     t.string "unlock_token"
     t.datetime "locked_at"

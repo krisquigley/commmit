@@ -1,5 +1,5 @@
 Rails.application.configure do
-  config.hosts << "caerus"
+  config.hosts << "commmit.com"
   config.hosts << "default.commmit.com"
   # Settings specified here will take precedence over those in config/application.rb.
 

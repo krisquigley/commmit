@@ -47,4 +47,8 @@ RSpec.describe "Admin Account", type: :feature do
       expect(page).to have_content 'www'
     end
   end
+
+  describe "Visiting an account" do
+    it "should not matter what case the subdomain is in"
+  end
 end

@@ -33,6 +33,7 @@ example_id                                            | status | run_time       
 ./spec/features/teams_spec.rb[1:5:1:1]                | passed | 0.44986 seconds |
 ./spec/features/teams_spec.rb[1:5:2:1]                | passed | 0.50744 seconds |
 ./spec/features/teams_spec.rb[1:5:3:1]                | passed | 0.26516 seconds |
+./spec/features/users/registrations_spec.rb[1:1:1]    | passed | 0.77769 seconds |
 ./spec/features/users_spec.rb[1:1:1]                  | passed | 0.19461 seconds |
 ./spec/helpers/sprint_tickets_helper_spec.rb[1:1:1:1] | passed | 0.02522 seconds |
 ./spec/helpers/sprint_tickets_helper_spec.rb[1:1:2:1] | passed | 0.01271 seconds |
