@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  default_scope -> { includes(:account) }
   extend FriendlyId
   friendly_id :username, use: :slugged
 
@@ -10,7 +11,7 @@ class User < ApplicationRecord
   validates :username, format: ::Account.subdomain_format
   validates :username, :email, presence: true, uniqueness: true
   
-  belongs_to :account, :inverse_of => :user
+  belongs_to :account, inverse_of: :user
   validates_presence_of :account
   belongs_to :team, optional: true
   has_many :retrospectives

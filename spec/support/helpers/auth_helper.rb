@@ -1,4 +1,9 @@
-module BasicAuthHelper
+module AuthHelper
+  def sign_up
+    create(:user, username: 'test', email: 'test@example.com', password: 'testing', 
+                  password_confirmation: 'testing', account_id: 1, confirmed_at: Time.now)
+  end
+
   def log_in
     name = ENV.fetch('USERNAME')
     password = ENV.fetch('PASSWORD')

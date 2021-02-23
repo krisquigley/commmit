@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     passwords: 'users/passwords',
     unlocks: 'users/unlocks'
   }
-  root 'teams#index'
+  root 'dashboard#show'
 
   namespace :webhooks do
     resources :members, only: :create

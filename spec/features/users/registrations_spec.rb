@@ -1,14 +1,7 @@
-# Registration
-
-  # without the correct details
-    # should raise an error
-    
-  # with a username containing spaces and special characters
-    # should strip them out automatically
 require 'rails_helper'
 
-RSpec.describe "Registration", type: :feature do
-  include BasicAuthHelper
+RSpec.describe "Signing up for an account", type: :feature do
+  include AuthHelper
 
   before(:each) do
     log_in
@@ -20,14 +13,37 @@ RSpec.describe "Registration", type: :feature do
 
       password = Faker::Lorem.characters(number: 10)
 
-      fill_in 'Username', with: Faker::Internet.username(separators: %w(-))
+      username = Faker::Internet.username(separators: %w(-))
+
+      fill_in 'Username', with: username
       fill_in 'Email', with: Faker::Internet.email
       fill_in 'Password', with: password
       fill_in 'Password confirmation', with: password
 
       click_on 'Sign up'
 
-      expect(page).to have_content 'You need to sign in or sign up before continuing.'
+      expect(page).to have_content username
+    end
+  end
+
+  context "with the incorrect details" do
+    it "should raise errors" do
+      visit new_user_registration_path
+
+      click_on 'Sign up'
+
+      expect(page).to have_content "Email can't be blank"
+      expect(page).to have_content "Password can't be blank"
+      expect(page).to have_content "Username can't be blank"    
+    end
+
+    it "should raise errors" do
+      visit new_user_registration_path
+      fill_in 'Username', with: 'bad username$.'
+
+      click_on 'Sign up'
+
+      expect(page).to have_content "Username must only contain letters a-z, numbers 0-9 or the character -"
     end
   end
 
