@@ -3,6 +3,8 @@
 class AddDeviseToUsers < ActiveRecord::Migration[6.1]
   def self.up
     change_table :users do |t|
+      t.string :username, null: false, default: ""
+
       ## Database authenticatable
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
@@ -36,6 +38,7 @@ class AddDeviseToUsers < ActiveRecord::Migration[6.1]
       # t.timestamps null: false
     end
     User.all.each do |user|
+      user.username = user.name.downcase.gsub(/[^0-9a-z\-]/, '')
       user.email = "#{user.name}@#{user.name}"
       user.save!
     end

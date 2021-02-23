@@ -147,12 +147,13 @@ ActiveRecord::Schema.define(version: 2021_02_17_224010) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "username", null: false
+    t.string "name"
     t.bigint "team_id"
     t.bigint "github_user_id"
     t.jsonb "source"
     t.string "slug"
     t.bigint "account_id", null: false
+    t.string "username", null: false
     t.string "email", null: false
     t.string "encrypted_password", null: false
     t.string "reset_password_token"
@@ -173,7 +174,7 @@ ActiveRecord::Schema.define(version: 2021_02_17_224010) do
     t.index ["account_id"], name: "index_users_on_account_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["github_user_id"], name: "index_users_on_github_user_id", unique: true
+    t.index ["github_user_id"], name: "index_users_on_github_user_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["team_id"], name: "index_users_on_team_id"
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true

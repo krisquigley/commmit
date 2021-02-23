@@ -1,8 +1,8 @@
 class RemoveUsersDefaultValues < ActiveRecord::Migration[6.1]
   def change
-    rename_column :users, :name, :username
-    change_column_default(:users, :email, from: "", to: nil)
-    change_column_default(:users, :encrypted_password, from: "", to: nil)
+    change_column_default :users, :username, from: "", to: nil
+    change_column_default :users, :email, from: "", to: nil
+    change_column_default :users, :encrypted_password, from: "", to: nil
 
     add_index :users, :email,                unique: true
     add_index :users, :username,             unique: true
@@ -12,5 +12,9 @@ class RemoveUsersDefaultValues < ActiveRecord::Migration[6.1]
 
     change_column_null :users, :github_user_id, true
     change_column_null :users, :source, true
+    change_column_null :users, :name, true
+
+    remove_index :users, :github_user_id
+    add_index :users, :github_user_id
   end
 end
