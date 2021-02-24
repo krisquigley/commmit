@@ -1,7 +1,7 @@
 module AuthHelper
   def sign_up
-    create(:user, username: 'test', email: 'test@example.com', password: 'testing', 
-                  password_confirmation: 'testing', account_id: 1, confirmed_at: Time.now)
+    create(:user, username: 'test', email: 'test@example.com', password: 'testing123', 
+                  password_confirmation: 'testing123', account_id: 1, confirmed_at: Time.now)
   end
 
   def log_in

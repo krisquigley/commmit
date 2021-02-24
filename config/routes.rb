@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   end if Rails.env.production?
   mount Sidekiq::Web, at: "/sidekiq"
   
+  get '/' => 'dashboard#show', :constraints => { :subdomain => /.+/ }
+  root 'static_pages#show'
+  
   devise_for :users, controllers: {
     registrations: 'users/registrations',
     sessions: 'users/sessions',
@@ -18,7 +21,6 @@ Rails.application.routes.draw do
     passwords: 'users/passwords',
     unlocks: 'users/unlocks'
   }
-  root 'dashboard#show'
 
   namespace :webhooks do
     resources :members, only: :create

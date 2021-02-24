@@ -24,4 +24,7 @@ class Users::SessionsController < Devise::SessionsController
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:username])
   # end
+  def after_sign_in_path_for(resource)
+    dashboard_url(subdomain: resource.account.subdomain, only_path: false)
+  end
 end
