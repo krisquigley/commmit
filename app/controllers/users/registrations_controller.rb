@@ -50,16 +50,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     devise_parameter_sanitizer.permit(:account_update, keys: [:username])
   end
 
-  def build_resource(hash = {})
-    unless hash.empty?
-      subdomain = hash.fetch("username").downcase
-      account = Account.create(name: subdomain, subdomain: subdomain)
-
-      hash.merge!({ account_id: account.id })
-    end
-    super
-  end
-
   # The path used after sign up.
   # def after_sign_up_path_for(resource)
   #   super(resource)

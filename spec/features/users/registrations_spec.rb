@@ -8,21 +8,19 @@ RSpec.describe "Signing up for an account", type: :feature do
   end
 
   context "with the correct details" do
+    let!(:user) { build(:user) }
+
     it "should redirect to the account page" do
       visit new_user_registration_path
 
-      password = Faker::Lorem.characters(number: 10)
-
-      username = Faker::Internet.username(separators: %w(-))
-
-      fill_in 'Username', with: username
-      fill_in 'Email', with: Faker::Internet.email
-      fill_in 'Password', with: password
-      fill_in 'Password confirmation', with: password
+      fill_in 'Username', with: user.username
+      fill_in 'Email', with: user.email
+      fill_in 'Password', with: user.password
+      fill_in 'Password confirmation', with: user.password
 
       click_on 'Sign up'
 
-      expect(page).to have_content username
+      expect(page).to have_content user.username
     end
   end
 
@@ -48,18 +46,16 @@ RSpec.describe "Signing up for an account", type: :feature do
   end
 
   context "when an account already exists with the same name / domain" do
-    let!(:username) { Faker::Internet.username(separators: %w(-)) }
-    let!(:account) { create(:account, name: 'Existing Account', subdomain: username) }
+    let!(:user) { build(:user) }
+    let!(:account) { create(:account, name: 'Existing Account', subdomain: user.username, owner_user_id: 5) }
 
     it "should raise an error" do
       visit new_user_registration_path
 
-      password = Faker::Lorem.characters(number: 10)
-
-      fill_in 'Username', with: username
-      fill_in 'Email', with: Faker::Internet.email
-      fill_in 'Password', with: password
-      fill_in 'Password confirmation', with: password
+      fill_in 'Username', with: user.username
+      fill_in 'Email', with: user.email
+      fill_in 'Password', with: user.password
+      fill_in 'Password confirmation', with: user.password
 
       click_on 'Sign up'
 

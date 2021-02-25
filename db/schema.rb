@@ -19,9 +19,20 @@ ActiveRecord::Schema.define(version: 2021_02_17_224010) do
   create_table "accounts", force: :cascade do |t|
     t.string "name", null: false
     t.string "subdomain", null: false
+    t.bigint "owner_user_id", null: false
+    t.string "account_type", default: "personal", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["owner_user_id", "account_type"], name: "index_accounts_on_owner_user_id_and_account_type"
+    t.index ["owner_user_id"], name: "index_accounts_on_owner_user_id"
     t.index ["subdomain"], name: "index_accounts_on_subdomain", unique: true
+  end
+
+  create_table "accounts_users", id: false, force: :cascade do |t|
+    t.bigint "account_id"
+    t.bigint "user_id"
+    t.index ["account_id"], name: "index_accounts_users_on_account_id"
+    t.index ["user_id"], name: "index_accounts_users_on_user_id"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -152,7 +163,6 @@ ActiveRecord::Schema.define(version: 2021_02_17_224010) do
     t.bigint "github_user_id"
     t.jsonb "source"
     t.string "slug"
-    t.bigint "account_id", null: false
     t.string "username", null: false
     t.string "email", null: false
     t.string "encrypted_password", null: false
@@ -171,7 +181,6 @@ ActiveRecord::Schema.define(version: 2021_02_17_224010) do
     t.integer "failed_attempts", default: 0, null: false
     t.string "unlock_token"
     t.datetime "locked_at"
-    t.index ["account_id"], name: "index_users_on_account_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["github_user_id"], name: "index_users_on_github_user_id"

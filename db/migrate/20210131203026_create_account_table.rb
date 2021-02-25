@@ -1,5 +1,5 @@
 class CreateAccountTable < ActiveRecord::Migration[6.1]
-  def up
+  def change
     # Enable UUIDs
     enable_extension 'pgcrypto'
 
@@ -7,38 +7,28 @@ class CreateAccountTable < ActiveRecord::Migration[6.1]
     create_table :accounts do |t|
       t.string :name,       null: false
       t.string :subdomain,  null: false
+      t.bigint :owner_user_id, null: false
+      t.string :account_type, null: false, default: 'personal'
       
+      t.index [:owner_user_id, :account_type]
+      t.index :owner_user_id
       t.index :subdomain, unique: true
       t.timestamps
     end
-    
-    # Create a default account
-    if Ticket.first
-      account = Account.create(name: 'default', subdomain: 'default')
-    end
 
     tables = [:retrospectives, :sprint_tickets, :sprints, 
-              :teams, :tickets, :users]
-      
+              :teams, :tickets]
+
     # Update existing tables to be scoped to account too
     tables.each do |table|
-      add_column table, :account_id, :bigint
+      add_column table, :account_id, :bigint, null: false
+
       add_index table, :account_id
+    end
 
-      if account 
-        execute <<-SQL
-          UPDATE #{table} SET account_id = #{account.id}
-        SQL
-      end
-
-      change_column_null table, :account_id, false
+    create_table :accounts_users, id: false do |t|
+      t.belongs_to :account
+      t.belongs_to :user
     end
   end
-      
-  def down
-    raise ActiveRecord::IrreversibleMigration
-  end
-
-  class Ticket < ApplicationRecord; end
-  class Account < ApplicationRecord; end
 end

@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 class AddDeviseToUsers < ActiveRecord::Migration[6.1]
-  def self.up
+  def change
     change_table :users do |t|
-      t.string :username, null: false, default: ""
+      t.string :username, null: false
 
       ## Database authenticatable
-      t.string :email,              null: false, default: ""
-      t.string :encrypted_password, null: false, default: ""
+      t.string :email,              null: false
+      t.string :encrypted_password, null: false
 
       ## Recoverable
       t.string   :reset_password_token
@@ -37,18 +37,11 @@ class AddDeviseToUsers < ActiveRecord::Migration[6.1]
       # Uncomment below if timestamps were not included in your original model.
       # t.timestamps null: false
     end
-    User.all.each do |user|
-      user.username = user.name.downcase.gsub(/[^0-9a-z\-]/, '')
-      user.email = "#{user.name}@#{user.name}"
-      user.save!
-    end
-  end
 
-  def self.down
-    # By default, we don't want to make any assumption about how to roll back a migration when your
-    # model already existed. Please edit below which fields you would like to remove in this migration.
-    raise ActiveRecord::IrreversibleMigration
+    add_index :users, :email,                unique: true
+    add_index :users, :username,             unique: true
+    add_index :users, :reset_password_token, unique: true
+    add_index :users, :confirmation_token,   unique: true
+    add_index :users, :unlock_token,         unique: true
   end
-
-  class User < ApplicationRecord; end
 end

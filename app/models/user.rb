@@ -1,9 +1,12 @@
 class User < ApplicationRecord
-  default_scope -> { includes(:account) }
+  default_scope -> { includes(:accounts) }
+  scope :personal_account, -> { accounts.find(account_type: 'personal') }
+
   extend FriendlyId
   friendly_id :username, use: :slugged
 
   before_create :downcase_username
+  after_create :create_account
   devise  :database_authenticatable, :registerable,
           :recoverable, :rememberable, :validatable,
           :confirmable, :lockable, :trackable
@@ -11,8 +14,7 @@ class User < ApplicationRecord
   validates :username, format: ::Account.subdomain_format
   validates :username, :email, presence: true, uniqueness: true
   
-  belongs_to :account, inverse_of: :user
-  validates_presence_of :account
+  has_and_belongs_to_many :accounts
   belongs_to :team, optional: true
   has_many :retrospectives
   
@@ -24,6 +26,10 @@ class User < ApplicationRecord
 
   def downcase_username
     self.username = self.username.downcase
+  end
+
+  def create_account
+    self.accounts << Account.create(name: self.username, subdomain: self.username, account_type: 'personal', owner_user_id: self.id)
   end
 
   def send_devise_notification(notification, *args)

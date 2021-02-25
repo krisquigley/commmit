@@ -8,52 +8,50 @@
 
 # Create some users
 
-ActiveRecord::Base.transaction do
-  tenant = Account.create(name: 'default', subdomain: 'default')
-  ActsAsTenant.current_tenant = tenant
-  
-  User.create(name: Faker::Name.name, 
-              username: 'default',
-              email: 'demo@example.com',
-              password: 'password',
-              password_confirmation: 'password',
-              github_user_id: Integer(Faker::Number.number(digits: 10)), 
-              source: JSON.parse(File.read("#{Rails.root.to_s}/spec/fixtures/files/new_user_payload.json"))["member"].to_json)
-  users = User.all
+default_user = User.create(name: Faker::Name.name, 
+                          username: 'default',
+                          email: 'demo@example.com',
+                          password: 'password',
+                          password_confirmation: 'password',
+                          github_user_id: Integer(Faker::Number.number(digits: 10)), 
+                          source: JSON.parse(File.read("#{Rails.root.to_s}/spec/fixtures/files/new_user_payload.json"))["member"].to_json)
 
-  team = Team.create(name: Faker::Name.name, users: users)
+ActsAsTenant.current_tenant = default_user.accounts.first
 
-  10.times do 
-    Ticket.create(title: Faker::Hipster.sentence,
-                  estimated_effort: Integer(Faker::Number.number(digits: 1)),
-                  repository_name: Faker::Hipster.word,
-                  number: Integer(Faker::Number.number(digits: 1)),
-                  state: 'open',
-                  github_user_ids: [],
-                  url: Faker::Internet.url,
-                  issue_id: Integer(Faker::Number.number(digits: 10)),
-                  source: "{}")
+users = User.all
+
+team = Team.create(name: Faker::Name.name, users: users)
+
+10.times do 
+  Ticket.create(title: Faker::Hipster.sentence,
+                estimated_effort: Integer(Faker::Number.number(digits: 1)),
+                repository_name: Faker::Hipster.word,
+                number: Integer(Faker::Number.number(digits: 1)),
+                state: 'open',
+                github_user_ids: [],
+                url: Faker::Internet.url,
+                issue_id: Integer(Faker::Number.number(digits: 10)),
+                source: "{}")
+end
+
+[2, 3, 4, 5].each do |week_no|
+  sprint = Sprint.create(name: Faker::Hipster.word,
+                        start_date: Time.now.ago(week_no.week + 1),
+                        end_date: Time.now.ago(week_no.week),
+                        team: team)
+
+  tickets = Ticket.all.sample(5)
+  tickets.each do |t| 
+    sprint.sprint_tickets.create(t.attributes.except("id")
+          .merge(closed_at: Time.now.ago(week_no.week + 1)))
   end
-
-  [2, 3, 4, 5].each do |week_no|
-    sprint = Sprint.create(name: Faker::Hipster.word,
-                          start_date: Time.now.ago(week_no.week + 1),
-                          end_date: Time.now.ago(week_no.week),
-                          team: team)
-
-    tickets = Ticket.all.sample(5)
-    tickets.each do |t| 
-      sprint.sprint_tickets.create(t.attributes.except("id")
-            .merge(closed_at: Time.now.ago(week_no.week + 1)))
-    end
-    sprint.update(closed_at: Time.now.ago(week_no.week))
-    sprint.team.users.each do |user|
-      sprint.retrospectives.create(user: user, 
-                                   role_happiness: rand(5) + 1, 
-                                   team_happiness: rand(5) + 1,
-                                   company_happiness: rand(5) + 1, 
-                                   feedback: Faker::Hipster.sentence,
-                                   happiness_goal: Faker::Hipster.sentence)
-    end
+  sprint.update(closed_at: Time.now.ago(week_no.week))
+  sprint.team.users.each do |user|
+    sprint.retrospectives.create(user: user, 
+                                role_happiness: rand(5) + 1, 
+                                team_happiness: rand(5) + 1,
+                                company_happiness: rand(5) + 1, 
+                                feedback: Faker::Hipster.sentence,
+                                happiness_goal: Faker::Hipster.sentence)
   end
 end
