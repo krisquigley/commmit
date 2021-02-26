@@ -3,7 +3,7 @@ require_relative 'boot'
 require "rails"
 # Pick the frameworks you want:
 require "active_model/railtie"
-# require "active_job/railtie"
+require "active_job/railtie"
 require "active_record/railtie"
 require "active_storage/engine"
 require "action_controller/railtie"
@@ -23,6 +23,12 @@ module Commmit
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
+
+    config.active_job.queue_adapter = :sidekiq
+    config.action_mailer.deliver_later_queue_name = nil # defaults to "mailers"
+    config.active_storage.queues.analysis   = nil       # defaults to "active_storage_analysis"
+    config.active_storage.queues.purge      = nil       # defaults to "active_storage_purge"
+    config.active_storage.queues.mirror     = nil       # defaults to "active_storage_mirror"
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers

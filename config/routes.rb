@@ -23,7 +23,6 @@ Rails.application.routes.draw do
   }
 
   namespace :webhooks do
-    resources :members, only: :create
     resources :issues, only: :create
   end
 
@@ -40,11 +39,5 @@ Rails.application.routes.draw do
         delete 'close'
       end
     end
-  end
-
-  namespace :admin do
-    root 'accounts#index'
-
-    resources :accounts, only: [:index, :new, :create]
   end
 end

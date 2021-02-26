@@ -189,14 +189,6 @@ RSpec.describe "Sprints", type: :feature do
 
         expect(page).to have_content(time.to_date.to_formatted_s(:long))
       end
-
-      it "should show who is assigned" do
-        sprint.sprint_tickets.last.update(github_user_ids: [user.github_user_id])
-
-        visit sprint_path(sprint)
-
-        expect(page).to have_content(user.name)
-      end
     end
   end
 

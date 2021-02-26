@@ -1,9 +1,10 @@
+require_relative './helpers/auth_helper'
+
 RSpec.configure do |config|
+  include AuthHelper
+
   config.before(:each) do |example|
-    $default_user = User.find_by(username: 'www') || User.create(username: 'www', password: 'default123', 
-                                                                password_confirmation: 'default123', 
-                                                                email: 'default@example.com',
-                                                                confirmed_at: Time.now)
+    $default_user = find_or_create_test_user
 
     if example.metadata[:type] == :request
       # Set the `test_tenant` value for integration tests

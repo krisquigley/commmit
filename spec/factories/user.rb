@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :user do
     
     name { Faker::Name.name }
-    username { Faker::Internet.username(separators: %w(-)) }
+    username { "#{Faker::Internet.username(separators: %w(-))}#{rand(9999999)}" }
     email { Faker::Internet::email }
     password { Faker::Internet.password(min_length: 10, max_length: 128) }
     password_confirmation { self.password }

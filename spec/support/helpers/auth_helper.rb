@@ -1,21 +1,12 @@
 module AuthHelper
-  def sign_up
-    create(:user, username: 'test', email: 'test@example.com', password: 'testing123', 
-                  password_confirmation: 'testing123', account_id: 1, confirmed_at: Time.now)
+  def log_in
+    sign_in User.first
   end
 
-  def log_in
-    name = ENV.fetch('USERNAME')
-    password = ENV.fetch('PASSWORD')
-
-    if page.driver.respond_to?(:basic_auth)
-      page.driver.basic_auth(name, password)
-    elsif page.driver.respond_to?(:basic_authorize)
-      page.driver.basic_authorize(name, password)
-    elsif page.driver.respond_to?(:browser) && page.driver.browser.respond_to?(:basic_authorize)
-      page.driver.browser.basic_authorize(name, password)
-    else
-      visit "http://#{name}:#{password}@www.lvh.me:#{ Capybara.current_session.server.port }"
-    end
+  def find_or_create_test_user
+    User.find_by(username: 'www') || User.create(username: 'www', password: 'testing123', 
+      password_confirmation: 'testing123', 
+      email: 'default@example.com',
+      confirmed_at: Time.now)
   end
 end 

@@ -29,7 +29,10 @@ class User < ApplicationRecord
   end
 
   def create_account
-    self.accounts << Account.create(name: self.username, subdomain: self.username, account_type: 'personal', owner_user_id: self.id)
+    self.accounts << Account.create!(name: self.username, subdomain: self.username, account_type: 'personal', owner_user_id: self.id)
+  rescue StandardError => error 
+    self.destroy!
+    raise CreateAccountError, error
   end
 
   def send_devise_notification(notification, *args)
@@ -38,4 +41,6 @@ class User < ApplicationRecord
     
     # devise_mailer.send(notification, self, *args).deliver_later
   end
+
+  class CreateAccountError < StandardError; end
 end

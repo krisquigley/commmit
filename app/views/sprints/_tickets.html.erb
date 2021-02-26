@@ -5,7 +5,6 @@
         <th>#</th>
         <th>Title</th>
         <th>Date Closed</th>
-        <th>Assigned to</th>
         <th>Labels</th>
         <th width="40%">Notes</th>
       </tr>
@@ -16,7 +15,6 @@
         <td><b><%= ticket.number %></b></td>
         <td><b><%= link_to ticket.title, ticket.url %></b></td>
         <td><b><%= closed_at_formatted(ticket) %></b></td>
-        <td><%= !ticket.users.empty? ? render(partial: 'users/link', collection: ticket.users, spacer_template: 'shared/comma') : "Unassigned" %></td>
         <td><%= labels(ticket) %></td>
         <td><%= text_area_tag :notes, ticket.notes, {class: 'form-control', data: {behavior: 'updateNote', id: ticket.id}} %>
       </tr>

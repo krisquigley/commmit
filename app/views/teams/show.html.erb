@@ -9,9 +9,7 @@
   </div>
   <div class="col-sm-auto text-right mb-3 order-last order-md-6">
     <% @team.users.each do |user| %>
-      <%= link_to user_path(user) do %>
-        <%= image_tag JSON.parse(user.source)["avatar_url"], class: "rounded", style: "width: 3rem" %>
-      <% end %>
+      <%= image_tag JSON.parse(user.source)["avatar_url"], class: "rounded", style: "width: 3rem" %>
     <% end %>
   </div>
   <div class="col-sm-2 text-right order-md-last mb-3">

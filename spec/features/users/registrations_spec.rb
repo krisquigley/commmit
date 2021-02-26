@@ -3,10 +3,6 @@ require 'rails_helper'
 RSpec.describe "Signing up for an account", type: :feature do
   include AuthHelper
 
-  before(:each) do
-    log_in
-  end
-
   context "with the correct details" do
     let!(:user) { build(:user) }
 
@@ -57,11 +53,9 @@ RSpec.describe "Signing up for an account", type: :feature do
       fill_in 'Password', with: user.password
       fill_in 'Password confirmation', with: user.password
 
-      click_on 'Sign up'
-
-      expect(page).to have_content 'Account must exist'
+      expect { click_on 'Sign up' }.to raise_error 'Validation failed: Subdomain has already been taken'
       expect(Account.count).to eq 2 # WWW account is created for all the tests
-      expect(User.count).to eq 0
+      expect(User.count).to eq 1
     end
   end
 end

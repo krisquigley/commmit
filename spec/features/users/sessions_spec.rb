@@ -3,11 +3,6 @@ require 'rails_helper'
 RSpec.describe "Logging in", type: :feature do
   include AuthHelper
 
-  before(:each) do
-    log_in
-    sign_up
-  end
-
   context "with the correct details" do
     it "should redirect to the account page" do
       visit new_user_session_path
@@ -18,8 +13,8 @@ RSpec.describe "Logging in", type: :feature do
 
       click_on 'Log in'
 
-      expect(page).to have_content 'Signed in successfully.'
-      expect(page).to have_content user.name
+      expect(page).to have_current_path(dashboard_path)
+      expect(page).to have_content user.username
     end
   end
 
@@ -37,10 +32,11 @@ end
 RSpec.describe "Logging out", type: :feature do
   include AuthHelper
 
-  before(:each) do
+  it "should redirect to the sign in page" do
     log_in
-    sign_up
+    visit dashboard_path
+    click_on 'Log out'
+    
+    expect(page).to have_current_path(new_user_session_path)
   end
-
-  it "should redirect to the sign in page"
 end
