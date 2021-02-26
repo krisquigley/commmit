@@ -37,7 +37,7 @@ RSpec.describe "Signing up for an account", type: :feature do
 
       click_on 'Sign up'
 
-      expect(page).to have_content "Username must only contain letters a-z, numbers 0-9 or the character -"
+      expect(page).to have_content "Username must only contain letters a-z, numbers 0-9 and the character -"
     end
   end
 
