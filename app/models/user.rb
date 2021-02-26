@@ -35,12 +35,5 @@ class User < ApplicationRecord
     raise CreateAccountError, error
   end
 
-  def send_devise_notification(notification, *args)
-    # Queue email through sidekiq
-    super
-    
-    # devise_mailer.send(notification, self, *args).deliver_later
-  end
-
   class CreateAccountError < StandardError; end
 end
