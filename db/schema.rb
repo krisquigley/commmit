@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 2021_02_17_224010) do
   create_table "accounts", force: :cascade do |t|
     t.string "name", null: false
     t.string "subdomain", null: false
-    t.bigint "owner_user_id", null: false
+    t.bigint "owner_user_id"
     t.string "account_type", default: "personal", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

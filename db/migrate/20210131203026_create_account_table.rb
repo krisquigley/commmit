@@ -7,7 +7,7 @@ class CreateAccountTable < ActiveRecord::Migration[6.1]
     create_table :accounts do |t|
       t.string :name,       null: false
       t.string :subdomain,  null: false
-      t.bigint :owner_user_id, null: false
+      t.bigint :owner_user_id
       t.string :account_type, null: false, default: 'personal'
       
       t.index [:owner_user_id, :account_type]
