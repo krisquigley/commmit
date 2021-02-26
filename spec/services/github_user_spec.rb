@@ -9,7 +9,6 @@ RSpec.describe Github::User do
 
     let(:parsed_payload) do
       {
-        name: "octocat",
         github_user_id: 583231,
         source: Oj.dump(Oj.load(new_user_payload)["member"])
       }
@@ -28,7 +27,6 @@ RSpec.describe Github::User do
 
     let(:parsed_payload) do
       {
-        name: "octodog",
         github_user_id: 583231,
         source: Oj.dump(Oj.load(edited_user_payload)["member"])
       }

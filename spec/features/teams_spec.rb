@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Teams", type: :feature do
-  include BasicAuthHelper
+  include AuthHelper
 
   before(:each) do
     log_in

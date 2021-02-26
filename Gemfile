@@ -30,6 +30,9 @@ gem 'redcarpet', '~> 3.5', '>= 3.5.1'
 gem 'pry', '~> 0.13.1'
 gem 'faker', '~> 2.15', '>= 2.15.1'
 
+# User authentication
+gem 'devise', '~> 4.7', '>= 4.7.3'
+
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 

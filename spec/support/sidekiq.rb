@@ -1,4 +1,5 @@
 require 'sidekiq/testing'
+require_relative './helpers/auth_helper'
 
 RSpec::Sidekiq.configure do |config|
   config.warn_when_jobs_not_processed_by_sidekiq = false
@@ -21,7 +22,9 @@ RSpec.configure do |config|
       raise "sidekiq_mode must be :inline, :fake or :disable"
     end
     Sidekiq::Testing.send("#{example.metadata.fetch(:sidekiq)}!".to_sym) do
-      ActsAsTenant.with_tenant Account.find_or_create_by!(name: 'www', subdomain: 'www') do
+      default_user = find_or_create_test_user
+
+      ActsAsTenant.with_tenant default_user.accounts.first do
         example.run
       end
     end

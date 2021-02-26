@@ -5,6 +5,10 @@
 require_dependency 'acts_as_tenant/test_tenant_middleware'
 
 Rails.application.configure do
+  config.hosts << "[a-z0-9]+\.lvh.me"
+  config.hosts << "lvh.me"
+  config.hosts << 'www.example.com'
+
   config.middleware.use ActsAsTenant::TestTenantMiddleware
 
   # Settings specified here will take precedence over those in config/application.rb.
@@ -42,12 +46,11 @@ Rails.application.configure do
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
   # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true
-  config.hosts << 'www.lvh.me'
-  config.hosts << 'www.example.com'
 end

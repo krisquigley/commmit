@@ -1,5 +1,11 @@
 class Account < ApplicationRecord
-  validates :name, presence: true
-  validates :subdomain, presence: true, uniqueness: true
-  validates :subdomain, format: { with: /\A([a-z]+)\z/ }
+  def self.subdomain_format
+    { with: /\A[A-Za-z0-9\-]+\z/, message: 'must only contain letters a-z, numbers 0-9 and the character -' }
+  end
+  
+  has_and_belongs_to_many :accounts
+  
+  validates :name, :account_type, presence: true
+  validates :owner_user_id, presence: true, if: -> { self.account_type == 'personal'}
+  validates :subdomain, presence: true, uniqueness: true, format: subdomain_format
 end

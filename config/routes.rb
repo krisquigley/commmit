@@ -1,13 +1,28 @@
 Rails.application.routes.draw do
   require 'sidekiq/web'
-  mount Sidekiq::Web => '/sidekiq'
-
-  root 'teams#index'
-
-  resources :users, only: [:index, :show]
+  Sidekiq::Web.use Rack::Auth::Basic do |username, password|
+    # Protect against timing attacks:
+    # - See https://codahale.com/a-lesson-in-timing-attacks/
+    # - See https://thisdata.com/blog/timing-attacks-against-string-comparison/
+    # - Use & (do not use &&) so that it doesn't short circuit.
+    # - Use digests to stop length information leaking (see also ActiveSupport::SecurityUtils.variable_size_secure_compare)
+    ActiveSupport::SecurityUtils.secure_compare(::Digest::SHA256.hexdigest(username), ::Digest::SHA256.hexdigest(ENV["SIDEKIQ_USERNAME"])) &
+    ActiveSupport::SecurityUtils.secure_compare(::Digest::SHA256.hexdigest(password), ::Digest::SHA256.hexdigest(ENV["SIDEKIQ_PASSWORD"]))
+  end if Rails.env.production?
+  mount Sidekiq::Web, at: "/sidekiq"
+  
+  get '/' => 'dashboard#show', :constraints => { :subdomain => /.+/ }
+  root 'static_pages#show'
+  
+  devise_for :users, controllers: {
+    registrations: 'users/registrations',
+    sessions: 'users/sessions',
+    confirmations: 'users/confirmations',
+    passwords: 'users/passwords',
+    unlocks: 'users/unlocks'
+  }
 
   namespace :webhooks do
-    resources :members, only: :create
     resources :issues, only: :create
   end
 
@@ -24,11 +39,5 @@ Rails.application.routes.draw do
         delete 'close'
       end
     end
-  end
-
-  namespace :admin do
-    root 'accounts#index'
-
-    resources :accounts, only: [:index, :new, :create]
   end
 end

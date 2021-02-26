@@ -1,12 +1,17 @@
+require_relative './helpers/auth_helper'
+
 RSpec.configure do |config|
+  include AuthHelper
+
   config.before(:each) do |example|
-    $default_account = Account.find_or_create_by!(name: 'www', subdomain: 'www')
+    $default_user = find_or_create_test_user
+
     if example.metadata[:type] == :request
       # Set the `test_tenant` value for integration tests
-      ActsAsTenant.test_tenant = $default_account
+      ActsAsTenant.test_tenant = $default_user.accounts.first
     else
       # Otherwise just use current_tenant
-      ActsAsTenant.current_tenant = $default_account
+      ActsAsTenant.current_tenant = $default_user.accounts.first
     end
   end
   

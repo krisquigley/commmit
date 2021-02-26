@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Sprints", type: :feature do
-  include BasicAuthHelper
+  include AuthHelper
   
   before(:each) do
     log_in
@@ -188,14 +188,6 @@ RSpec.describe "Sprints", type: :feature do
         visit sprint_path(sprint)
 
         expect(page).to have_content(time.to_date.to_formatted_s(:long))
-      end
-
-      it "should show who is assigned" do
-        sprint.sprint_tickets.last.update(github_user_ids: [user.github_user_id])
-
-        visit sprint_path(sprint)
-
-        expect(page).to have_content(user.name)
       end
     end
   end

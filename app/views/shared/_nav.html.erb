@@ -11,12 +11,14 @@
       <li class="nav-item <%= active("teams") %>">
         <%= link_to "Teams", root_path, class: "nav-link" %>
       </li>
-      <li class="nav-item <%= active("users") %>">
-        <%= link_to "Members", users_path, class: "nav-link" %>
-      </li>
       <li class="nav-item <%= active("dashboard") %>">
         <%= link_to "Analytics", dashboard_path, class: "nav-link" %>
       </li>
+      <% if user_signed_in? %>
+        <li class="nav-item">
+          <%= link_to "Log out", destroy_user_session_path, class: "nav-link"%>
+        </li>
+      <% end %>
     </ul>
   </div>
 </nav>
