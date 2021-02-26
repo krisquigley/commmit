@@ -54,7 +54,7 @@ RSpec.describe "Signing up for an account", type: :feature do
       fill_in 'Password confirmation', with: user.password
 
       expect { click_on 'Sign up' }.to raise_error 'Validation failed: Subdomain has already been taken'
-      expect(Account.count).to eq 2 # WWW account is created for all the tests
+      expect(Account.count).to eq 2 # 'testing-account' is created for all the tests
       expect(User.count).to eq 1
     end
   end

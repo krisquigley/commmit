@@ -9,9 +9,13 @@ RSpec.configure do |config|
     if example.metadata[:type] == :request
       # Set the `test_tenant` value for integration tests
       ActsAsTenant.test_tenant = $default_user.accounts.first
+      Capybara.app_host = "http://#{$default_user.accounts.first.subdomain}.lvh.me"
+      Capybara.always_include_port = true
     else
       # Otherwise just use current_tenant
       ActsAsTenant.current_tenant = $default_user.accounts.first
+      Capybara.app_host = "http://#{$default_user.accounts.first.subdomain}.lvh.me"
+      Capybara.always_include_port = true
     end
   end
   

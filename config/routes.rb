@@ -10,12 +10,13 @@ Rails.application.routes.draw do
     ActiveSupport::SecurityUtils.secure_compare(::Digest::SHA256.hexdigest(password), ::Digest::SHA256.hexdigest(ENV["SIDEKIQ_PASSWORD"]))
   end if Rails.env.production?
   mount Sidekiq::Web, at: "/sidekiq"
-  
-  get '/' => 'dashboard#show', :constraints => { :subdomain => /.+/ }
+
+  get '/', to: 'dashboard#show', constraints: { subdomain: /.+/ }, as: :logged_in 
   root 'static_pages#show'
 
   devise_scope :user do
     get 'login', to: 'devise/sessions#new'
+    get 'logout', to: 'devise/sessions#destroy'
     get 'signup', to: 'devise/registrations#new'
   end
   

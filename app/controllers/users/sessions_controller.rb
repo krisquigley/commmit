@@ -26,6 +26,6 @@ class Users::SessionsController < Devise::SessionsController
   # end
 
   def after_sign_in_path_for(resource)
-    dashboard_url(subdomain: resource.username, only_path: false)
+    logged_in_url(subdomain: resource.username, only_path: false)
   end
 end

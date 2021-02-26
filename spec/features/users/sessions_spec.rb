@@ -13,7 +13,7 @@ RSpec.describe "Logging in", type: :feature do
 
       submit_form
 
-      expect(page).to have_current_path(dashboard_path)
+      expect(page).to have_current_path(logged_in_path)
       expect(page).to have_content user.username
     end
   end
@@ -30,16 +30,38 @@ RSpec.describe "Logging in", type: :feature do
       expect(page).to have_content 'Invalid Email or password.'
     end
   end
+
+  describe "already logged in" do
+    context "when visiting the login page" do
+      it "should take you to your dashboard" do
+        log_in
+
+        visit login_path
+
+        expect(page).to have_current_path(logged_in_path)
+      end
+    end
+    
+    context "when visiting root url" do
+      it "should take you to your dashboard" do
+        log_in
+
+        visit 'http://lvh.me'
+
+        expect(Capybara.app_host).to eq "http://testing-account.lvh.me"
+      end
+    end
+  end
 end
 
 RSpec.describe "Logging out", type: :feature do
   include AuthHelper
 
-  it "should redirect to the sign in page" do
+  it "should redirect to the static landing page" do
     log_in
-    visit dashboard_path
+    visit logged_in_path
     click_on 'Log out'
     
-    expect(page).to have_current_path(login_path)
+    expect(page).to have_current_path(root_path)
   end
 end
