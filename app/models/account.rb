@@ -5,6 +5,7 @@ class Account < ApplicationRecord
   
   has_and_belongs_to_many :accounts
   
-  validates :name, :owner_user_id, :account_type, presence: true
+  validates :name, :account_type, presence: true
+  validates :owner_user_id, presence: true, if: -> { self.account_type == 'personal'}
   validates :subdomain, presence: true, uniqueness: true, format: subdomain_format
 end
