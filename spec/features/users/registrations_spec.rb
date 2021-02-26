@@ -7,7 +7,7 @@ RSpec.describe "Signing up for an account", type: :feature do
     let!(:user) { build(:user) }
 
     it "should redirect to the account page" do
-      visit new_user_registration_path
+      visit signup_path
 
       fill_in 'Username', with: user.username
       fill_in 'Email', with: user.email
@@ -22,7 +22,7 @@ RSpec.describe "Signing up for an account", type: :feature do
 
   context "with the incorrect details" do
     it "should raise errors" do
-      visit new_user_registration_path
+      visit signup_path
 
       click_on 'Sign up'
 
@@ -32,7 +32,7 @@ RSpec.describe "Signing up for an account", type: :feature do
     end
 
     it "should raise errors" do
-      visit new_user_registration_path
+      visit signup_path
       fill_in 'Username', with: 'bad username$.'
 
       click_on 'Sign up'
@@ -46,7 +46,7 @@ RSpec.describe "Signing up for an account", type: :feature do
     let!(:account) { create(:account, name: 'Existing Account', subdomain: user.username, owner_user_id: 5) }
 
     it "should raise an error" do
-      visit new_user_registration_path
+      visit signup_path
 
       fill_in 'Username', with: user.username
       fill_in 'Email', with: user.email

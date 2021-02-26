@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :redirect_to_dashboard
 
+  protected
+
   def redirect_to_dashboard
     if request.host.split(ENV.fetch('APP_DOMAIN')).empty? && current_user
       redirect_to dashboard_url(subdomain: current_user.personal_account.subdomain, only_path: false)

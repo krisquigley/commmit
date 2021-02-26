@@ -30,6 +30,8 @@ module Commmit
     config.active_storage.queues.purge      = nil       # defaults to "active_storage_purge"
     config.active_storage.queues.mirror     = nil       # defaults to "active_storage_mirror"
 
+    config.autoload_paths << Rails.root.join('lib')
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading

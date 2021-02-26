@@ -13,14 +13,20 @@ Rails.application.routes.draw do
   
   get '/' => 'dashboard#show', :constraints => { :subdomain => /.+/ }
   root 'static_pages#show'
+
+  devise_scope :user do
+    get 'login', to: 'devise/sessions#new'
+    get 'signup', to: 'devise/registrations#new'
+  end
   
-  devise_for :users, controllers: {
-    registrations: 'users/registrations',
-    sessions: 'users/sessions',
-    confirmations: 'users/confirmations',
-    passwords: 'users/passwords',
-    unlocks: 'users/unlocks'
-  }
+  devise_for  :users, 
+              controllers: {
+                registrations: 'users/registrations',
+                sessions: 'users/sessions',
+                confirmations: 'users/confirmations',
+                passwords: 'users/passwords',
+                unlocks: 'users/unlocks'
+              }
 
   namespace :webhooks do
     resources :issues, only: :create

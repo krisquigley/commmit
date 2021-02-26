@@ -5,13 +5,13 @@ RSpec.describe "Logging in", type: :feature do
 
   context "with the correct details" do
     it "should redirect to the account page" do
-      visit new_user_session_path
+      visit login_path
       user = User.first
 
       fill_in 'Email', with: user.email
       fill_in 'Password', with: 'testing123'
 
-      click_on 'Log in'
+      submit_form
 
       expect(page).to have_current_path(dashboard_path)
       expect(page).to have_content user.username
@@ -20,9 +20,12 @@ RSpec.describe "Logging in", type: :feature do
 
   context "with incorrect details" do
     it "should raise an error" do
-      visit new_user_session_path
+      visit login_path
 
-      click_on 'Log in'
+      fill_in 'Email', with: 'blah@blah.com'
+      fill_in 'Password', with: 'testing123'
+
+      submit_form
 
       expect(page).to have_content 'Invalid Email or password.'
     end
@@ -37,6 +40,6 @@ RSpec.describe "Logging out", type: :feature do
     visit dashboard_path
     click_on 'Log out'
     
-    expect(page).to have_current_path(new_user_session_path)
+    expect(page).to have_current_path(login_path)
   end
 end
