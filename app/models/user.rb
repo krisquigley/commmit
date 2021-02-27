@@ -1,6 +1,5 @@
 class User < ApplicationRecord
   default_scope -> { includes(:accounts) }
-  scope :personal_account, -> { accounts.find(account_type: 'personal') }
 
   extend FriendlyId
   friendly_id :username, use: :slugged
@@ -22,6 +21,10 @@ class User < ApplicationRecord
     SprintTicket.where("'?' = ANY (sprint_tickets.github_user_ids)", github_user_id)
   end
 
+  def personal_account
+    accounts.find_by(account_type: 'personal')
+  end
+
   protected
 
   def downcase_username
@@ -29,10 +32,7 @@ class User < ApplicationRecord
   end
 
   def create_account
-    self.accounts << Account.create!(name: self.username, subdomain: self.username, account_type: 'personal', owner_user_id: self.id)
-  rescue StandardError => error 
-    self.destroy!
-    raise CreateAccountError, error
+    accounts.build(name: self.username, subdomain: self.username, account_type: 'personal', owner_user_id: self.id)
   end
 
   class CreateAccountError < StandardError; end

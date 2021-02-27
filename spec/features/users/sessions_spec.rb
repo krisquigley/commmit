@@ -1,23 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe "Logging in", type: :feature do
-  include AuthHelper
-
-  context "with the correct details" do
-    it "should redirect to the account page" do
-      visit login_path
-      user = User.first
-
-      fill_in 'Email', with: user.email
-      fill_in 'Password', with: 'testing123'
-
-      submit_form
-
-      expect(page).to have_current_path(dashboard_path)
-      expect(page).to have_content user.username
-    end
-  end
-
   context "with incorrect details" do
     it "should raise an error" do
       visit login_path
@@ -35,11 +18,12 @@ end
 RSpec.describe "Logging out", type: :feature do
   include AuthHelper
 
-  it "should redirect to the sign in page" do
+  it "should redirect to the static landing page" do
     log_in
-    visit dashboard_path
+    visit logged_in_path
+    
     click_on 'Log out'
     
-    expect(page).to have_current_path(login_path)
+    expect(page).to have_current_path(root_path)
   end
 end

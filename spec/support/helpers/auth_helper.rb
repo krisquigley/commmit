@@ -4,7 +4,7 @@ module AuthHelper
   end
 
   def find_or_create_test_user
-    User.find_by(username: 'www') || User.create(username: 'www', password: 'testing123', 
+    User.find_by(username: 'testing-account') || User.create(username: 'testing-account', password: 'testing123', 
       password_confirmation: 'testing123', 
       email: 'default@example.com',
       confirmed_at: Time.now)

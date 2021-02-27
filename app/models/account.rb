@@ -3,7 +3,7 @@ class Account < ApplicationRecord
     { with: /\A[A-Za-z0-9\-]+\z/, message: 'must only contain letters a-z, numbers 0-9 and the character -' }
   end
   
-  has_and_belongs_to_many :accounts
+  has_and_belongs_to_many :users
   
   validates :name, :account_type, presence: true
   validates :owner_user_id, presence: true, if: -> { self.account_type == 'personal'}

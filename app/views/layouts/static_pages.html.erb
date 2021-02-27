@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= "#{ActsAsTenant.current_tenant&.name} - " if ActsAsTenant.current_tenant %>Commmit</title>
+    <title>Commmit</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -16,15 +16,8 @@
     <%= javascript_pack_tag 'application' %>
   </head>
 
-  <body class="pt-5">
-    <%= render 'shared/nav' %>
-
-    <div class="container mt-4">
-      <% if flash[:notice] %>
-        <div class="alert alert-success" role="alert"><%= flash[:notice] %></div>
-      <% elsif flash[:alert] %>
-        <div class="alert alert-danger" role="alert"><%= flash[:alert] %></div>
-      <% end %>
+  <body>
+    <div class="container">
       <%= yield %>
     </div>
   </body>

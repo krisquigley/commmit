@@ -4,9 +4,14 @@ class Users::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
-  # def new
-  #   super
-  # end
+  def new
+    # Redirect to root domain if trying to login from a user account
+    if !helpers.request_subdomain(request).blank?
+      redirect_to login_url(:subdomain => '', only_path: false) 
+    else
+      super
+    end
+  end
 
   # POST /resource/sign_in
   # def create
@@ -26,6 +31,10 @@ class Users::SessionsController < Devise::SessionsController
   # end
 
   def after_sign_in_path_for(resource)
-    dashboard_url(subdomain: resource.username, only_path: false)
+    logged_in_url(subdomain: resource.personal_account.subdomain, only_path: false)
+  end
+
+  def after_sign_out_path_for(resource)
+    root_url(subdomain: '')
   end
 end

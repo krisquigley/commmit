@@ -1,11 +1,6 @@
 require 'capybara/rails'
 require 'capybara/rspec'
 
-Capybara.configure do |config|
-  config.app_host = "http://www.lvh.me"
-  config.always_include_port = true
-end
-
 Capybara.register_driver :chrome do |app|
   Capybara::Selenium::Driver.new(app, browser: :chrome)
 end
