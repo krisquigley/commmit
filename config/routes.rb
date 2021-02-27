@@ -29,10 +29,6 @@ Rails.application.routes.draw do
                 unlocks: 'users/unlocks'
               }
 
-  namespace :webhooks do
-    resources :issues, only: :create
-  end
-
   resource :dashboard
 
   resources :teams, only: [:index, :new, :create, :show], shallow: true do

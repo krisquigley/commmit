@@ -32,14 +32,7 @@ class User < ApplicationRecord
   end
 
   def create_account
-    personal_account = Account.find_or_create_by!(name: self.username, subdomain: self.username, account_type: 'personal', owner_user_id: self.id)
-
-    unless self.accounts.include?(personal_account)
-      self.accounts << personal_account
-    end
-  rescue StandardError => error 
-    self.destroy!
-    raise CreateAccountError, error
+    accounts.build(name: self.username, subdomain: self.username, account_type: 'personal', owner_user_id: self.id)
   end
 
   class CreateAccountError < StandardError; end

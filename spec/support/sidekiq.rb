@@ -24,7 +24,7 @@ RSpec.configure do |config|
     Sidekiq::Testing.send("#{example.metadata.fetch(:sidekiq)}!".to_sym) do
       default_user = find_or_create_test_user
 
-      ActsAsTenant.with_tenant default_user.accounts.first do
+      ActsAsTenant.with_tenant default_user.personal_account do
         example.run
       end
     end

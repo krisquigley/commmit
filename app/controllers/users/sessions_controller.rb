@@ -5,8 +5,9 @@ class Users::SessionsController < Devise::SessionsController
 
   # GET /resource/sign_in
   def new
-    if !request.host.split(ENV.fetch('APP_DOMAIN')).empty?
-      redirect_to login_url(:subdomain => '') 
+    # Redirect to root domain if trying to login from a user account
+    if !helpers.request_subdomain(request).blank?
+      redirect_to login_url(:subdomain => '', only_path: false) 
     else
       super
     end

@@ -1,15 +1,16 @@
 class ApplicationController < ActionController::Base
   set_current_tenant_by_subdomain(:account, :subdomain)
-  
+
   protect_from_forgery prepend: true
-  before_action :authenticate_user!
-  before_action :verify_account_route
+  before_action :verify_account!
 
   protected
 
-  def verify_account_route
+  def verify_account!
+    authenticate_user!
+
     # If trying to access someone elses account, then redirect them to thier personal account
-    if current_user && !current_user.accounts.map(&:subdomain).include?(request.host.split(ENV.fetch('APP_DOMAIN')).join('').gsub(/\./, ''))
+    if current_user && !helpers.account_belongs_to_current_user?(current_user)
       raise ActionController::RoutingError.new('Not Found')
     end
   end

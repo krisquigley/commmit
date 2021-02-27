@@ -9,7 +9,7 @@ class StaticPagesController < ActionController::Base
     super
 
     # If trying to access root domain and logged in, take them to their root path
-    if current_user && request.host.split(ENV.fetch('APP_DOMAIN')).empty?
+    if current_user && helpers.request_subdomain(request).blank?
       redirect_to logged_in_url(subdomain: current_user.personal_account.subdomain, only_path: false)
     end
   end

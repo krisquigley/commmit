@@ -1,6 +1,5 @@
 FactoryBot.define do
   factory :user do
-    
     name { Faker::Name.name }
     username { "#{Faker::Internet.username(separators: %w(-))}#{rand(9999999)}" }
     email { Faker::Internet::email }
