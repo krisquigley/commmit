@@ -1,4 +1,8 @@
 class CustomFailure < Devise::FailureApp
+  def route(scope)
+    login_url(:subdomain => '')
+  end
+
   def redirect_url
     login_url(:subdomain => '')
   end

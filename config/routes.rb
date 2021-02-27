@@ -15,9 +15,9 @@ Rails.application.routes.draw do
   root 'static_pages#show'
 
   devise_scope :user do
-    get 'login', to: 'devise/sessions#new'
-    get 'logout', to: 'devise/sessions#destroy'
-    get 'signup', to: 'devise/registrations#new'
+    get 'login',  to: 'users/sessions#new'
+    get 'logout', to: 'users/sessions#destroy'
+    get 'signup', to: 'users/registrations#new'
   end
   
   devise_for  :users, 

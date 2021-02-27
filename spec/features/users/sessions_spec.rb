@@ -60,6 +60,7 @@ RSpec.describe "Logging out", type: :feature do
   it "should redirect to the static landing page" do
     log_in
     visit logged_in_path
+    
     click_on 'Log out'
     
     expect(page).to have_current_path(root_path)
