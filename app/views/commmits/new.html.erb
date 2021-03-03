@@ -1,0 +1,9 @@
+<%= form_for @commmit do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name, placeholder: 'Choose a Name or Goal for this Commmit' %>
+
+  <%= f.label :length_in_days, name: 'Length', type: :number, min: 1 %>
+  <%= f.select :length_in_days, options_for_select(["1", "2", "3", "4", "5"], selected: "1") %> Days
+
+  <%= f.submit :commmit %>
+<% end %>

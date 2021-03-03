@@ -11,7 +11,12 @@ Rails.application.routes.draw do
   end if Rails.env.production?
   mount Sidekiq::Web, at: "/sidekiq"
 
-  get '/', to: 'dashboard#show', constraints: { subdomain: /.+/ }, as: :logged_in 
+  get '/',  to: 'dashboard#show', 
+            constraints: { 
+              subdomain: /.+/ 
+            }, 
+            as: :logged_in
+
   root 'static_pages#show'
 
   devise_scope :user do
@@ -30,6 +35,7 @@ Rails.application.routes.draw do
               }
 
   resource :dashboard
+  resources :commmits, only: [:new, :create, :index, :show]
 
   resources :teams, only: [:index, :new, :create, :show], shallow: true do
     resources :sprints, only: [:new, :create, :show, :update], shallow: true do
