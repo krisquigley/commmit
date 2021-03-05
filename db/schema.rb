@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2021_03_02_223813) do
   create_table "commmits", force: :cascade do |t|
     t.string "name", null: false
     t.integer "length_in_days", default: 1, null: false
+    t.date "start_date", default: -> { "CURRENT_DATE" }, null: false
     t.bigint "account_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

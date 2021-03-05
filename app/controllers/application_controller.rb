@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   set_current_tenant_by_subdomain(:account, :subdomain)
+  helper_method :nav_header
 
   protect_from_forgery prepend: true
   before_action :verify_account!

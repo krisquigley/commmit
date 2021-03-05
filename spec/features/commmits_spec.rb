@@ -16,7 +16,7 @@ RSpec.describe "Commmits", type: :feature do
 
         submit_form
 
-        expect(page).to have_content 'Commmit'
+        expect(page).to have_content 'Commmit succesfully created.'
       end
     end
   end

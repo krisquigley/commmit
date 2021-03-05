@@ -1,4 +1,5 @@
 class Commmit < ApplicationRecord
+  scope :most_recent, -> { order(created_at: :desc) }
   acts_as_tenant :account
 
   validates :name, :length_in_days, presence: true

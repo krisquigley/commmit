@@ -1,1 +1,2 @@
-import './application.scss'
+import './application.scss';
+import './_nav_bar.scss';

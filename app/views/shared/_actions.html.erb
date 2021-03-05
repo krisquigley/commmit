@@ -1,0 +1,5 @@
+<div class="fixed-bottom">
+  <% actions.each do |action| %>
+    <%= link_to action.fetch(:label), action.fetch(:path), class: 'btn btn-primary btn-block', type: :button %>
+  <% end %>
+</div>

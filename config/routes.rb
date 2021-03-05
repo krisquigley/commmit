@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   end if Rails.env.production?
   mount Sidekiq::Web, at: "/sidekiq"
 
-  get '/',  to: 'dashboard#show', 
+  get '/',  to: 'commmits#index', 
             constraints: { 
               subdomain: /.+/ 
             }, 

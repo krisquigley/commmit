@@ -1,5 +1,6 @@
 class CommmitsController < ApplicationController
   def index
+    @commmits = Commmit.most_recent
   end
 
   def new
@@ -10,7 +11,7 @@ class CommmitsController < ApplicationController
     @commmit = Commmit.new(commmit_params)
 
     if @commmit.save
-      redirect_to @commmit
+      redirect_to @commmit, notice: 'Commmit succesfully created.'
     else
       render :new
     end
