@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_02_223813) do
+ActiveRecord::Schema.define(version: 2021_03_06_000138) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -23,8 +23,10 @@ ActiveRecord::Schema.define(version: 2021_03_02_223813) do
     t.string "account_type", default: "personal", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "slug"
     t.index ["owner_user_id", "account_type"], name: "index_accounts_on_owner_user_id_and_account_type"
     t.index ["owner_user_id"], name: "index_accounts_on_owner_user_id"
+    t.index ["slug"], name: "index_accounts_on_slug"
     t.index ["subdomain"], name: "index_accounts_on_subdomain", unique: true
   end
 
@@ -38,11 +40,13 @@ ActiveRecord::Schema.define(version: 2021_03_02_223813) do
   create_table "commmits", force: :cascade do |t|
     t.string "name", null: false
     t.integer "length_in_days", default: 1, null: false
+    t.string "slug"
     t.date "start_date", default: -> { "CURRENT_DATE" }, null: false
     t.bigint "account_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["account_id"], name: "index_commmits_on_account_id"
+    t.index ["slug"], name: "index_commmits_on_slug"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|

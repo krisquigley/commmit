@@ -1,4 +1,8 @@
 class CommmitsController < ApplicationController
+  def show
+    @commmit = Commmit.friendly.find(params[:id])
+  end
+
   def index
     @commmits = Commmit.most_recent
   end

@@ -1,9 +1,17 @@
 #!/bin/bash
-RAILS_ENV=test bundle exec rails db:drop
-RAILS_ENV=test bundle exec rails db:create
-RAILS_ENV=test bundle exec rails db:migrate
 
-RAILS_ENV=development bundle exec rails db:drop
-RAILS_ENV=development bundle exec rails db:create
-RAILS_ENV=development bundle exec rails db:migrate
-RAILS_ENV=development bundle exec rails db:seed
+read -p "THIS IS A DESTRUCTIVE ACTION: Are you sure you want to continue? " -n 1 -r
+echo    # (optional) move to a new line
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+  # do dangerous stuff
+  RAILS_ENV=test bundle exec rails db:drop
+  RAILS_ENV=test bundle exec rails db:create
+  RAILS_ENV=test bundle exec rails db:migrate
+
+  RAILS_ENV=development bundle exec rails db:drop
+  RAILS_ENV=development bundle exec rails db:create
+  RAILS_ENV=development bundle exec rails db:migrate
+  RAILS_ENV=development bundle exec rails db:seed
+fi
+

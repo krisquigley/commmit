@@ -8,7 +8,7 @@ module ApplicationHelper
     request.subdomains.join('')
   end
 
-  def account_belongs_to_current_user?(current_user) 
+  def account_belongs_to_current_user?(current_user)
     current_user.accounts.map(&:subdomain).include?(current_tenant.subdomain)
   end
 

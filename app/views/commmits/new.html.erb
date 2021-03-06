@@ -19,7 +19,13 @@
 
   <div class="form-group">
     <%= f.label :length_in_days, value: 'Length', type: :number, min: 1 %><br/>
-    <%= f.select :length_in_days, options_for_select({ "One Day": "1", "Two Days": "2", "Three Days": "3", "Four Days": "4", "Five Days": "5" }, selected: "One Day"), {}, class: "form-control w-100" %> 
+    <%= f.select :length_in_days, options_for_select({ 
+      "One Day": "1", 
+      "Two Days": "2", 
+      "Three Days": "3", 
+      "Four Days": "4", 
+      "Five Days": "5"
+    }, selected: "One Day"), {}, class: "form-control w-100" %> 
   </div>
   <div class="fixed-bottom">
     <%= link_to 'Cancel', commmits_path, class: "btn btn-secondary btn-block" %>

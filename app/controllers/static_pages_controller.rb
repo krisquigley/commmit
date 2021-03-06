@@ -1,4 +1,6 @@
 class StaticPagesController < ActionController::Base
+  http_basic_authenticate_with name: ENV.fetch("USERNAME"), password: ENV.fetch("PASSWORD") if Rails.env.development?
+
   layout 'static_pages'
   before_action :user_signed_in?
 

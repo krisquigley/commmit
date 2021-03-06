@@ -15,7 +15,6 @@ jobs:
           RAILS_ENV: test
           USERNAME: 'username'
           PASSWORD: 'password'
-          # TODO: Fix this so that circle can connect to selenium
           SELENIUM_URL: 127.0.0.1:4444/wd/hub
 
       # Specify service dependencies here if necessary

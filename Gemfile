@@ -52,6 +52,8 @@ group :development do
   gem 'web-console', '~> 4.1'
   gem 'listen', '~> 3.4', '>= 3.4.1'
   gem 'foreman', '~> 0.87.2'
+  gem 'solargraph', '~> 0.40.4'
+  gem 'solargraph-rails', '~> 0.2.0.pre'
   gem 'rubocop-rails', '~> 2.9', '>= 2.9.1'
   gem 'rubocop-performance', '~> 1.9', '>= 1.9.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring

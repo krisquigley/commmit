@@ -10,13 +10,13 @@
 
 default_user = User.create(name: Faker::Name.name, 
                           username: 'default',
-                          email: 'demo@example.com',
+                          email: 'default@example.com',
                           password: 'password',
                           password_confirmation: 'password',
                           github_user_id: Integer(Faker::Number.number(digits: 10)), 
                           source: JSON.parse(File.read("#{Rails.root.to_s}/spec/fixtures/files/new_user_payload.json"))["member"].to_json)
-
-ActsAsTenant.current_tenant = default_user.accounts.first
+default_account = Account.find_or_create_by(name: default_user.username, subdomain: default_user.username, account_type: 'personal', owner_user_id: default_user.id)
+ActsAsTenant.current_tenant = default_account
 
 users = User.all
 
