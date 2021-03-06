@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe DashboardController, type: :controller do
   include AuthHelper
 
-  describe "accessing an account which does not belong to the user" do
+  describe 'accessing an account which does not belong to the user' do
     before do
       find_or_create_test_user
       create(:account, subdomain: 'someaccount')
@@ -15,7 +17,7 @@ RSpec.describe DashboardController, type: :controller do
       @request.host = 'someaccount.lvh.me'
     end
 
-    it "should raise an error" do
+    it 'should raise an error' do
       log_in
 
       # assert something

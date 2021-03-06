@@ -1,35 +1,37 @@
+# frozen_string_literal: true
+
 module TeamsHelper
   def goal_status(sprint)
-    if sprint.finished_early? 
-      content_tag(:span, "Goal Met Early", class: "badge badge-success")
+    if sprint.finished_early?
+      content_tag(:span, 'Goal Met Early', class: 'badge badge-success')
     elsif sprint.complete?
-      content_tag(:span, "Goal Met", class: "badge badge-warning")
+      content_tag(:span, 'Goal Met', class: 'badge badge-warning')
     elsif !sprint.closed_at?
-      content_tag(:span, "In Progress", class: "badge badge-primary")
+      content_tag(:span, 'In Progress', class: 'badge badge-primary')
     else
-      content_tag(:span, "Goal Not Met", class: "badge badge-danger")
+      content_tag(:span, 'Goal Not Met', class: 'badge badge-danger')
     end
   end
 
   def velocity_status(sprint)
     if sprint.sprint_surpassed?
-      content_tag(:span, "Overdelivered", class: "badge badge-success")
+      content_tag(:span, 'Overdelivered', class: 'badge badge-success')
     elsif sprint.initial_effort_met?
-      content_tag(:span, "Initial Effort Met", class: "badge badge-warning")
+      content_tag(:span, 'Initial Effort Met', class: 'badge badge-warning')
     else
-      content_tag(:span, "Initial Effort Not Met", class: "badge badge-danger")
+      content_tag(:span, 'Initial Effort Not Met', class: 'badge badge-danger')
     end
   end
 
   def progress_status(sprint)
-    if sprint.finished_early? 
-      "success"
+    if sprint.finished_early?
+      'success'
     elsif sprint.complete?
-      "warning"
+      'warning'
     elsif !sprint.closed_at?
-      "info"
+      'info'
     else
-      "danger"
+      'danger'
     end
   end
 
@@ -42,17 +44,21 @@ module TeamsHelper
     happiness = sprints.map do |sprint|
       if sprint.retrospectives.any?
         sprint.retrospectives.map do |retro|
-          { end_date: sprint.end_date, average_happiness: retro.average_happiness}
+          { end_date: sprint.end_date, average_happiness: retro.average_happiness }
         end
       else
         { end_date: sprint.end_date, average_happiness: 0 }
       end
     end.flatten.group_by { |sprint| sprint[:end_date] }.sort
-    
-    
+
     happiness.map do |end_date, user_happiness|
-      total_user_happiness = user_happiness.count > 1 ? determine_user_happiness(user_happiness) : user_happiness.first[:average_happiness]
-      { end_date: end_date, average_happiness: (total_user_happiness / user_happiness.count).round(1) }
+      total_user_happiness = if user_happiness.count > 1
+                               determine_user_happiness(user_happiness)
+                             else
+                               user_happiness.first[:average_happiness]
+                             end
+      { end_date: end_date,
+        average_happiness: (total_user_happiness / user_happiness.count).round(1) }
     end.to_json
   end
 

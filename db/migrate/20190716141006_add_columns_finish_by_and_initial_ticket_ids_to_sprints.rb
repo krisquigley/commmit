@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddColumnsFinishByAndInitialTicketIdsToSprints < ActiveRecord::Migration[5.2]
   def change
     add_column :sprints, :finish_by, :datetime

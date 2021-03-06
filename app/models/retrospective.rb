@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class Retrospective < ApplicationRecord
   acts_as_tenant :account
 
   validates :role_happiness, :company_happiness, :feedback,
             :happiness_goal, presence: true
-  validates :role_happiness, :company_happiness, 
+  validates :role_happiness, :company_happiness,
             numericality: { greater_than_or_equal_to: 1, less_than_or_equal_to: 5 }
 
   belongs_to :sprint
@@ -15,12 +17,12 @@ class Retrospective < ApplicationRecord
   private
 
   def determine_average_happiness
-    if self.team_happiness
-      average = (role_happiness + team_happiness + company_happiness) / 3
-    else
-      average = (role_happiness + company_happiness) / 2
-    end
+    average = if team_happiness
+                (role_happiness + team_happiness + company_happiness) / 3
+              else
+                (role_happiness + company_happiness) / 2
+              end
 
-    self.update!(average_happiness: average)
+    update!(average_happiness: average)
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ConvertEffortValuesToDecimals < ActiveRecord::Migration[5.2]
   def up
     change_column :sprint_tickets, :estimated_effort, :decimal, null: false

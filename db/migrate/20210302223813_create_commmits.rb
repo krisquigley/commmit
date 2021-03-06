@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateCommmits < ActiveRecord::Migration[6.1]
   def up
     create_table :commmits do |t|
@@ -17,5 +19,3 @@ class CreateCommmits < ActiveRecord::Migration[6.1]
     raise ActiveRecord::IrreversibleMigration
   end
 end
-
- 

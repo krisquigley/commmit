@@ -1,17 +1,21 @@
-class Github::User < Github::Base
-  private
+# frozen_string_literal: true
 
-  def actions
-    [
-      "added",
-      "edited"
-    ]
-  end
+module Github
+  class User < Github::Base
+    private
 
-  def attributes
-    {
-      github_user_id: parsed_payload[:member].to_h[:id] || parsed_payload.fetch(:id),
-      source: Oj.dump(parsed_payload[:member] || parsed_payload, mode: :compat)
-    }
+    def actions
+      %w[
+        added
+        edited
+      ]
+    end
+
+    def attributes
+      {
+        github_user_id: parsed_payload[:member].to_h[:id] || parsed_payload.fetch(:id),
+        source: Oj.dump(parsed_payload[:member] || parsed_payload, mode: :compat)
+      }
+    end
   end
 end

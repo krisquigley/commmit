@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SprintTicketsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
@@ -5,7 +7,8 @@ class SprintTicketsController < ApplicationController
     ticket = Ticket.find_by(issue_id: params[:issue_id])
     sprint = Sprint.includes(:sprint_tickets).find(params[:sprint_id])
     position = sprint.sprint_tickets.count + 1
-    sprint_ticket = sprint.sprint_tickets.create!(ticket.attributes.except("id").merge(position: position))
+    sprint_ticket = sprint.sprint_tickets
+                          .create!(ticket.attributes.except('id').merge(position: position))
 
     render json: sprint_ticket
   end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddColumnSourceToTables < ActiveRecord::Migration[5.2]
   def change
     add_column :tickets, :source, :jsonb, null: false

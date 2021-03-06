@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Team, type: :model do
-  describe "yesterdays weather" do
-    context "with 4 previous sprints" do
+  describe 'yesterdays weather' do
+    context 'with 4 previous sprints' do
       let!(:team) { create(:team) }
       let!(:sprint1) { create(:sprint_with_tickets, team: team) }
       let!(:sprint2) { create(:sprint_with_tickets, team: team) }
@@ -10,7 +12,7 @@ RSpec.describe Team, type: :model do
       let!(:sprint4) { create(:sprint_with_tickets, team: team) }
       let!(:sprint5) { create(:sprint_with_tickets, team: team) }
 
-      it "should calculate the average velocity of at most 3 previous sprints" do
+      it 'should calculate the average velocity of at most 3 previous sprints' do
         sprint1.sprint_tickets.update_all(closed_at: DateTime.now)
         sprint1.update(closed_at: DateTime.now)
 
@@ -25,15 +27,16 @@ RSpec.describe Team, type: :model do
 
         sprint5.sprint_tickets.update_all(closed_at: DateTime.now)
 
-        expect(team.yesterdays_weather).to eq (sprint4.velocity + sprint3.velocity + sprint2.velocity) / 3
+        expect(team.yesterdays_weather)
+          .to eq((sprint4.velocity + sprint3.velocity + sprint2.velocity) / 3)
       end
     end
 
-    context "with 1 previous sprint" do
+    context 'with 1 previous sprint' do
       let!(:team) { create(:team) }
       let!(:sprint) { create(:sprint_with_tickets, team: team) }
 
-      it "should calculate the average velocity of the previous sprint" do
+      it 'should calculate the average velocity of the previous sprint' do
         sprint.sprint_tickets.update_all(closed_at: DateTime.now)
         sprint.update(closed_at: DateTime.now)
 
@@ -41,11 +44,11 @@ RSpec.describe Team, type: :model do
       end
     end
 
-    context "with 0 previous sprints" do
+    context 'with 0 previous sprints' do
       let!(:team) { create(:team) }
       let!(:sprint) { create(:sprint_with_tickets, team: team) }
 
-      it "should return 0" do
+      it 'should return 0' do
         expect(sprint.team.yesterdays_weather).to eq 0
       end
     end

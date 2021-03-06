@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :ticket do
     title { Faker::Hipster.sentence }
     estimated_effort { Integer(Faker::Number.within(range: 1..250)) }
     repository_name { Faker::Hipster.word }
     number { Integer(Faker::Number.number(digits: 1)) }
-    state { ['open', 'closed'].sample }
+    state { %w[open closed].sample }
     github_user_ids { [] }
     url { Faker::Internet.url }
     issue_id { Integer(Faker::Number.number(digits: 10)) }
@@ -18,6 +20,6 @@ FactoryBot.define do
       assigned_at { Time.now + 5.minutes }
     end
 
-    factory :closed_and_assigned_tickets, traits: [:closed, :assigned_at]
+    factory :closed_and_assigned_tickets, traits: %i[closed assigned_at]
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RetrospectivesController < ApplicationController
   protect_from_forgery except: [:create]
 
@@ -11,15 +13,15 @@ class RetrospectivesController < ApplicationController
   def create
     @sprint = Sprint.includes(:retrospectives).friendly.find(params[:sprint_id])
     @retrospective = @sprint.retrospectives.build(retrospective_params)
-    
+
     if @retrospective.save
       respond_to do |format|
-        format.html {
+        format.html do
           redirect_to sprint_retrospective_path(@sprint)
-        }
-        format.json {
+        end
+        format.json do
           render json: {}, status: :ok
-        }
+        end
       end
     else
       render :new
@@ -29,6 +31,11 @@ class RetrospectivesController < ApplicationController
   private
 
   def retrospective_params
-    params.require(:retrospective).permit(:role_happiness, :team_happiness, :company_happiness, :feedback, :happiness_goal, :user_id)
+    params.require(:retrospective).permit(:role_happiness,
+                                          :team_happiness,
+                                          :company_happiness,
+                                          :feedback,
+                                          :happiness_goal,
+                                          :user_id)
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'sidekiq/testing'
 require_relative './helpers/auth_helper'
 
@@ -16,11 +18,12 @@ RSpec.configure do |config|
   config.before(:suite) do
     Sidekiq::Testing.fake!
   end
- 
-  config.around(:example, sidekiq: -> (mode) { !!mode }) do |example|
-    unless %i(inline fake disable).include?(example.metadata.fetch(:sidekiq))
-      raise "sidekiq_mode must be :inline, :fake or :disable"
+
+  config.around(:example, sidekiq: ->(mode) { !mode.nil? }) do |example|
+    unless %i[inline fake disable].include?(example.metadata.fetch(:sidekiq))
+      raise 'sidekiq_mode must be :inline, :fake or :disable'
     end
+
     Sidekiq::Testing.send("#{example.metadata.fetch(:sidekiq)}!".to_sym) do
       default_user = find_or_create_test_user
 

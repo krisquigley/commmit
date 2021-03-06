@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RemoveDepartments < ActiveRecord::Migration[6.1]
   def up
     drop_table :departments

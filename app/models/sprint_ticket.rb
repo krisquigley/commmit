@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SprintTicket < ApplicationRecord
   acts_as_tenant(:account)
 
@@ -5,13 +7,16 @@ class SprintTicket < ApplicationRecord
 
   belongs_to :sprint, optional: true
 
-  scope :merged_tickets, -> (initial_ticket_ids) { where(id: initial_ticket_ids).where.not(closed_at: nil).order(closed_at: :asc) }
+  scope :merged_tickets, lambda { |initial_ticket_ids|
+                           where(id: initial_ticket_ids)
+                             .where.not(closed_at: nil).order(closed_at: :asc)
+                         }
 
   def estimated_effort
     estimated_effort_override || read_attribute(:estimated_effort)
   end
 
   def users
-    User.where("github_user_id IN (?)", github_user_ids)
+    User.where('github_user_id IN (?)', github_user_ids)
   end
 end

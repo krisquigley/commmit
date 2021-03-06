@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   set_current_tenant_by_subdomain(:account, :subdomain)
   helper_method :nav_header
@@ -11,10 +13,10 @@ class ApplicationController < ActionController::Base
     authenticate_user!
 
     return if user_signed_in? && !helpers.request_subdomain(request).present?
-    
+
     # If trying to access someone elses account, then redirect them to thier personal account
     if user_signed_in? && !helpers.account_belongs_to_current_user?(current_user)
-      raise ActionController::RoutingError.new('Not Found')
+      raise ActionController::RoutingError, 'Not Found'
     end
   end
 end

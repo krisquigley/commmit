@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'csv'
 
 class ExportSprintToCsv
@@ -13,13 +15,15 @@ class ExportSprintToCsv
 
   def call
     CSV.generate do |csv|
-      csv << ["title", "repository", "issue number", "state", "estimated effort",
-              "opened at", "closed at", "url", "notes", "labels"]
-      
+      csv << ['title', 'repository', 'issue number', 'state', 'estimated effort',
+              'opened at', 'closed at', 'url', 'notes', 'labels']
+
       sprint.sprint_tickets.each do |ticket|
-        csv << [ticket.title, ticket.repository_name, ticket.number, ticket.state, 
-                ticket.estimated_effort, (JSON.parse(ticket.source)["created_at"] || JSON.parse(ticket.source)["issue"]["created_at"]),
-                ticket.closed_at, ticket.url, ticket.notes, (JSON.parse(ticket.source)["labels"] || JSON.parse(ticket.source)["issue"]["labels"]).pluck("name").join(',')]
+        csv << [ticket.title, ticket.repository_name, ticket.number, ticket.state,
+                ticket.estimated_effort, (JSON.parse(ticket.source)['created_at'] ||
+                  JSON.parse(ticket.source)['issue']['created_at']),
+                ticket.closed_at, ticket.url, ticket.notes, (JSON.parse(ticket.source)['labels'] ||
+                  JSON.parse(ticket.source)['issue']['labels']).pluck('name').join(',')]
       end
     end
   end

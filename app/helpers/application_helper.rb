@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   def markdown(text)
     markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(hard_wrap: true), autolink: true)
@@ -17,11 +19,11 @@ module ApplicationHelper
 
     case days_ago
     when 0
-      return 'Today'
+      'Today'
     when 1
-      return 'Yesterday'
+      'Yesterday'
     else
-      return "#{days_ago} days ago"
+      "#{days_ago} days ago"
     end
   end
 end

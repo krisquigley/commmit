@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateSprintHolidays < ActiveRecord::Migration[5.2]
   def change
     create_table :sprint_holidays do |t|

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CommmitsController < ApplicationController
   def show
     @commmit = Commmit.friendly.find(params[:id])

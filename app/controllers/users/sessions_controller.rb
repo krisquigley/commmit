@@ -1,40 +1,42 @@
 # frozen_string_literal: true
 
-class Users::SessionsController < Devise::SessionsController
-  # before_action :configure_sign_in_params, only: [:create]
+module Users
+  class SessionsController < Devise::SessionsController
+    # before_action :configure_sign_in_params, only: [:create]
 
-  # GET /resource/sign_in
-  def new
-    # Redirect to root domain if trying to login from a user account
-    if !helpers.request_subdomain(request).blank?
-      redirect_to login_url(:subdomain => '', only_path: false) 
-    else
-      super
+    # GET /resource/sign_in
+    def new
+      # Redirect to root domain if trying to login from a user account
+      if !helpers.request_subdomain(request).blank?
+        redirect_to login_url(subdomain: '', only_path: false)
+      else
+        super
+      end
     end
-  end
 
-  # POST /resource/sign_in
-  # def create
-  #   super 
-  # end
+    # POST /resource/sign_in
+    # def create
+    #   super
+    # end
 
-  # DELETE /resource/sign_out
-  # def destroy
-  #   super
-  # end
+    # DELETE /resource/sign_out
+    # def destroy
+    #   super
+    # end
 
-  protected
+    protected
 
-  # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_in_params
-  #   devise_parameter_sanitizer.permit(:sign_in, keys: [:username])
-  # end
+    # If you have extra params to permit, append them to the sanitizer.
+    # def configure_sign_in_params
+    #   devise_parameter_sanitizer.permit(:sign_in, keys: [:username])
+    # end
 
-  def after_sign_in_path_for(resource)
-    logged_in_url(subdomain: resource.personal_account.subdomain, only_path: false)
-  end
+    def after_sign_in_path_for(resource)
+      logged_in_url(subdomain: resource.personal_account.subdomain, only_path: false)
+    end
 
-  def after_sign_out_path_for(resource)
-    root_url(subdomain: '')
+    def after_sign_out_path_for(_resource)
+      root_url(subdomain: '')
+    end
   end
 end

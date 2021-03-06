@@ -1,20 +1,29 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   require 'sidekiq/web'
-  Sidekiq::Web.use Rack::Auth::Basic do |username, password|
-    # Protect against timing attacks:
-    # - See https://codahale.com/a-lesson-in-timing-attacks/
-    # - See https://thisdata.com/blog/timing-attacks-against-string-comparison/
-    # - Use & (do not use &&) so that it doesn't short circuit.
-    # - Use digests to stop length information leaking (see also ActiveSupport::SecurityUtils.variable_size_secure_compare)
-    ActiveSupport::SecurityUtils.secure_compare(::Digest::SHA256.hexdigest(username), ::Digest::SHA256.hexdigest(ENV["SIDEKIQ_USERNAME"])) &
-    ActiveSupport::SecurityUtils.secure_compare(::Digest::SHA256.hexdigest(password), ::Digest::SHA256.hexdigest(ENV["SIDEKIQ_PASSWORD"]))
-  end if Rails.env.production?
-  mount Sidekiq::Web, at: "/sidekiq"
+  if Rails.env.production?
+    Sidekiq::Web.use Rack::Auth::Basic do |username, password|
+      # Protect against timing attacks:
+      # - See https://codahale.com/a-lesson-in-timing-attacks/
+      # - See https://thisdata.com/blog/timing-attacks-against-string-comparison/
+      # - Use & (do not use &&) so that it doesn't short circuit.
+      # - Use digests to stop length information leaking
+      # - (see also ActiveSupport::SecurityUtils.variable_size_secure_compare)
+      ActiveSupport::SecurityUtils
+        .secure_compare(::Digest::SHA256.hexdigest(username),
+                        ::Digest::SHA256.hexdigest(ENV['SIDEKIQ_USERNAME'])) &
+        ActiveSupport::SecurityUtils
+        .secure_compare(::Digest::SHA256.hexdigest(password),
+                        ::Digest::SHA256.hexdigest(ENV['SIDEKIQ_PASSWORD']))
+    end
+  end
+  mount Sidekiq::Web, at: '/sidekiq'
 
-  get '/',  to: 'commmits#index', 
-            constraints: { 
-              subdomain: /.+/ 
-            }, 
+  get '/',  to: 'commmits#index',
+            constraints: {
+              subdomain: /.+/
+            },
             as: :logged_in
 
   root 'static_pages#show'
@@ -24,8 +33,8 @@ Rails.application.routes.draw do
     get 'logout', to: 'users/sessions#destroy'
     get 'signup', to: 'users/registrations#new'
   end
-  
-  devise_for  :users, 
+
+  devise_for  :users,
               controllers: {
                 registrations: 'users/registrations',
                 sessions: 'users/sessions',
@@ -35,12 +44,12 @@ Rails.application.routes.draw do
               }
 
   resource :dashboard
-  resources :commmits, only: [:new, :create, :index, :show]
+  resources :commmits, only: %i[new create index show]
 
-  resources :teams, only: [:index, :new, :create, :show], shallow: true do
-    resources :sprints, only: [:new, :create, :show, :update], shallow: true do
-      resources :sprint_tickets, only: [:create, :update, :destroy]
-      resource :retrospective, only: [:new, :create, :show]
+  resources :teams, only: %i[index new create show], shallow: true do
+    resources :sprints, only: %i[new create show update], shallow: true do
+      resources :sprint_tickets, only: %i[create update destroy]
+      resource :retrospective, only: %i[new create show]
       member do
         post 'export_csv'
         get 'download_csv'

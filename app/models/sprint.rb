@@ -1,36 +1,44 @@
+# frozen_string_literal: true
+
 class Sprint < ApplicationRecord
   acts_as_tenant(:account)
 
   extend FriendlyId
   friendly_id :name, use: :slugged
-  
+
   validates :name, :start_date, :end_date, presence: true
 
   belongs_to :team, optional: true
   has_many :sprint_tickets, dependent: :destroy
   has_many :retrospectives
 
-  after_update :save_velocity, if: -> { self.closed_at && !self.final_velocity }
+  after_update :save_velocity, if: -> { closed_at && !final_velocity }
   after_create :save_no_of_members
 
   def total_estimated_effort
-    sprint_tickets.where(id: initial_ticket_ids).map{ |s| s.estimated_effort }.reduce(:+) || 0
+    sprint_tickets.where(id: initial_ticket_ids).map(&:estimated_effort).reduce(:+) || 0
   end
 
   def initial_effort_velocity
-    sprint_tickets.where(id: initial_ticket_ids).where.not(closed_at: nil).map{ |s| s.estimated_effort }.reduce(:+) || 0
+    sprint_tickets.where(id: initial_ticket_ids).where.not(closed_at: nil).map(&:estimated_effort)
+                  .reduce(:+) || 0
   end
 
   def velocity
-    sprint_tickets.where.not(closed_at: nil).map{ |s| s.estimated_effort }.reduce(:+) || 0
+    sprint_tickets.where.not(closed_at: nil).map(&:estimated_effort).reduce(:+) || 0
   end
 
   def complete?
-    sprint_tickets.merged_tickets(initial_ticket_ids).count == initial_ticket_ids.count if !initial_ticket_ids.empty?
+    return if initial_ticket_ids.empty?
+
+    sprint_tickets.merged_tickets(initial_ticket_ids).count == initial_ticket_ids.count
   end
 
   def finished_early?
-    complete? && sprint_tickets.merged_tickets(initial_ticket_ids).last.closed_at < (finish_by + 17.hours) if finish_by
+    return unless finish_by
+
+    complete? &&
+      sprint_tickets.merged_tickets(initial_ticket_ids).last.closed_at < (finish_by + 17.hours)
   end
 
   def sprint_surpassed?
@@ -60,10 +68,10 @@ class Sprint < ApplicationRecord
   private
 
   def save_velocity
-    self.update(final_velocity: self.velocity)
+    update(final_velocity: velocity)
   end
 
   def save_no_of_members
-    self.update(no_of_members: self.team.users.count)
+    update(no_of_members: team.users.count)
   end
 end

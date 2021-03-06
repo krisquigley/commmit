@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateTableSprintTickets < ActiveRecord::Migration[5.2]
   def change
     create_table :sprint_tickets do |t|

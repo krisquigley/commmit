@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 class CustomFailure < Devise::FailureApp
-  def route(scope)
-    login_url(:subdomain => '')
+  def route(_scope)
+    login_url(subdomain: '')
   end
 
   def redirect_url
-    login_url(:subdomain => '')
+    login_url(subdomain: '')
   end
 
   # You need to override respond to eliminate recall

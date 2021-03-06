@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "Logging in", type: :feature do
-  context "with incorrect details" do
-    it "should raise an error" do
+RSpec.describe 'Logging in', type: :feature do
+  context 'with incorrect details' do
+    it 'should raise an error' do
       visit login_path
 
       fill_in 'Email', with: 'blah@blah.com'
@@ -15,15 +17,15 @@ RSpec.describe "Logging in", type: :feature do
   end
 end
 
-RSpec.describe "Logging out", type: :feature do
+RSpec.describe 'Logging out', type: :feature do
   include AuthHelper
 
-  it "should redirect to the static landing page" do
+  it 'should redirect to the static landing page' do
     log_in
     visit logged_in_path
-    
+
     click_on 'Log out'
-    
+
     expect(page).to have_current_path(root_path)
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChangeUsersNullFlags < ActiveRecord::Migration[6.1]
   def change
     change_column_null :users, :github_user_id, true

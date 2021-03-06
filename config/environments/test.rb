@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # The test environment is used exclusively to run your application's
 # test suite. You never need to work with it otherwise. Remember that
 # your test database is "scratch space" for the test suite and is wiped
@@ -6,12 +8,12 @@ require_dependency 'acts_as_tenant/test_tenant_middleware'
 
 Rails.application.configure do
   config.hosts << "[a-z0-9\-]+\.lvh.me"
-  config.hosts << "lvh.me"
+  config.hosts << 'lvh.me'
 
   config.middleware.use ActsAsTenant::TestTenantMiddleware
 
   # Settings specified here will take precedence over those in config/application.rb.
-  
+
   config.cache_classes = false
 
   # Do not eager load code on boot. This avoids loading your whole application

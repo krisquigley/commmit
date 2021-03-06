@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'redis'
 
 class DownloadCsvExport
@@ -7,7 +9,7 @@ class DownloadCsvExport
     @redis = Redis.new(url: ENV.fetch('REDIS_URL'))
     @uuid = uuid
   end
-  
+
   def self.call(uuid)
     new(uuid).call
   end

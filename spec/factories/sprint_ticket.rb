@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :sprint_ticket do
     title { Faker::Hipster.sentence }
