@@ -16,16 +16,19 @@
     <%= javascript_pack_tag 'application' %>
   </head>
 
-  <body class="pt-5">
+  <body>
     <%= render 'shared/nav' %>
 
-    <div class="container mt-4 main-container">
+    <div class="grid-container">
       <% if flash[:notice] %>
         <div class="alert alert-success" role="alert"><%= flash[:notice] %></div>
       <% elsif flash[:alert] %>
         <div class="alert alert-danger" role="alert"><%= flash[:alert] %></div>
       <% end %>
       <%= yield %>
+      <div class="grid-footer">
+        <%= render 'shared/footer_nav' unless (!user_signed_in? || content_for(:hide_footer_nav?)) %>
+      </div>
     </div>
   </body>
 </html>

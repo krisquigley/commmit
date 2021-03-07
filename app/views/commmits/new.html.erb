@@ -1,4 +1,7 @@
-<%= form_for @commmit do |f| %>
+<% content_for(:hide_footer_nav?) do %>
+  true
+<% end %>
+<%= form_for @commmit, html: { class: "grid-content" } do |f| %>
   <div class="form-group">
     <%= f.label :name %>
     <%= f.text_field :name, required: true, placeholder: 'Name or Goal', class: "form-control" %>
@@ -6,11 +9,11 @@
 
   <div class="form-group">
     <%= f.label :start_date %><br/>
-    <div class="btn-group btn-group-toggle" data-toggle="buttons" style="width: 100%">
-      <label class="btn btn-secondary active" style="width: 50%">
+    <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
+      <label class="btn btn-secondary active w-50">
         <input type="radio" name="day" id="today" checked> Today
       </label>
-      <label class="btn btn-secondary" style="width: 50%">
+      <label class="btn btn-secondary w-50">
         <input type="radio" name="day" id="tomorrow"> Tomorrow
       </label>
     </div>
@@ -27,9 +30,10 @@
       "Five Days": "5"
     }, selected: "One Day"), {}, class: "form-control w-100" %> 
   </div>
-  <div class="fixed-bottom">
-    <%= link_to 'Cancel', commmits_path, class: "btn btn-secondary btn-block" %>
-    <%= f.submit "Create Commmit", class: "btn btn-primary btn-block" %>
-  </div>
-<% end %>
 
+  <div class="form-action-buttons">
+    <%= f.submit "Create Commmit", class: "btn btn-lg btn-success btn-block" %>
+    <%= link_to 'Cancel', commmits_path, class: "btn btn-lg btn-secondary btn-block" %>
+  </div>
+</div>
+<% end %>

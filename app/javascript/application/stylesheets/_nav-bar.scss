@@ -9,6 +9,9 @@
 }
 
 .secton-heading {
-  display: contents;
+  display: inline-block;
   color: white;
+  overflow: scroll;
+  width: 66vw;
+  margin-bottom: 0;
 }

@@ -8,6 +8,7 @@ default_user = User.create(
   email: 'default@example.com',
   password: 'password',
   password_confirmation: 'password',
+  confirmed_at: Time.now,
   github_user_id: Integer(Faker::Number.number(digits: 10)),
   source: JSON.parse(File
     .read("#{Rails.root}/spec/fixtures/files/new_user_payload.json"))['member'].to_json

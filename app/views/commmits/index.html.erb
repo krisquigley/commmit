@@ -2,21 +2,23 @@
   Commmits
 <% end %> 
 
-<% @commmits.each do |commmit| %>
-  <%# TODO: If this is a one/two day commmit then show a progress bar, if it is more than two days, show a burndown chart %>
-  <%= link_to commmit_path(commmit) do %>
-    <div class="card">
-      <div class="progress">
-        <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-      </div>
-      <div class="card-body">
-        <h6><%= commmit.name %></h6>
-      </div>
-      <div class="card-footer">
-        <small><i>Started <%= days_ago_in_words(commmit.start_date) %>.</i><small>
-      </div>
-    </div>
-  <% end %>
-<% end %>
+<div class="grid-content">
+  <div class="card-deck">
+    <% @commmits.each do |commmit| %>
+      <%# TODO: If this is a one/two day commmit then show a progress bar, if it is more than two days, show a burndown chart %>
+      <%= link_to commmit_path(commmit), class: "card" do %>
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        <div class="card-body">
+          <h6><b><%= commmit.name %></b></h6>
+        </div>
+        <div class="card-footer">
+          <small><i>Started <%= days_ago_in_words(commmit.start_date) %>.</i></small>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
 
 <%= render "shared/actions", actions: [{ label: 'New Commmit', path: new_commmit_path }] %>

@@ -1,1 +1,32 @@
- <%= @commmit.name %>  
+<% content_for :nav_header do %>
+  <%= @commmit.name %>
+<% end %> 
+
+<div class="grid-content">
+  List of Stories
+</div>
+<div class="grid-actions">
+  <button type="button" class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#addPlanModal">
+    Add Stories
+  </button>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addPlanModal" tabindex="-1" aria-labelledby="addPlanModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Stories</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        List of Stories
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Done</button>
+      </div>
+    </div>
+  </div>
+</div>

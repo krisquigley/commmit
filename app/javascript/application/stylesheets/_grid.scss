@@ -1,0 +1,28 @@
+.grid-container {
+  height: 100%;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 10fr auto auto;
+  grid-template-areas:
+    'content'
+    'actions'
+    'footernav';
+}
+
+.grid-content {
+  overflow-y: scroll;
+  grid-area: content;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.grid-actions {
+  grid-area: actions;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-bottom: 0.5rem;
+}
+
+.grid-footernav {
+  grid-area: footernav;
+}

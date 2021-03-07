@@ -1,0 +1,9 @@
+.footer-navigation {
+  width: 100%;
+
+  & a {
+    width: 50%;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+}

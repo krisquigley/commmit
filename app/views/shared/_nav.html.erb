@@ -2,18 +2,15 @@
   <%= link_to root_path, class: "navbar-brand" do %>
     <img src="/android-chrome-512x512-white.png" width="30" height="30" alt="" style="color: white">
   <% end %>
-  <h5 class="secton-heading">
+  <h6 class="secton-heading">
     <%= content_for :nav_header %>
-  </h5>
+  </h6>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item <%= active("commmits") %>">
-        <%= link_to "Commmits", commmits_path, class: "nav-link" %>
-      </li>
       <% if user_signed_in? %>
         <li class="nav-item">
           <%= link_to "Log out", logout_path, class: "nav-link"%>
