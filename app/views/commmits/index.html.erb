@@ -3,6 +3,10 @@
 <% end %> 
 
 <div class="grid-content">
+  <% if @commmits.empty? %>
+    <p class="text-center text-secondary mt-2">You haven't created any Commmits yet</p>
+  <% end %>
+
   <div class="card-deck">
     <% @commmits.each do |commmit| %>
       <%# TODO: If this is a one/two day commmit then show a progress bar, if it is more than two days, show a burndown chart %>

@@ -22,7 +22,11 @@
         </button>
       </div>
       <div class="modal-body">
-        List of Stories
+         <div class="card-deck">
+          <% @stories.each do |story| %>
+            <%= render 'shared/story', object: story %>
+          <% end %>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Done</button>

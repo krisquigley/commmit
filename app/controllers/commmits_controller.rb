@@ -3,6 +3,7 @@
 class CommmitsController < ApplicationController
   def show
     @commmit = Commmit.friendly.find(params[:id])
+    @stories = Story.most_recent
   end
 
   def index

@@ -1,0 +1,25 @@
+<% content_for :hide_footer_nav? do %>
+  true
+<% end %>
+
+<%= form_for @story, html: { class: "grid-content" } do |f| %>
+  <div class="form-group">
+    <%= f.label :i_want, value: 'I want...' %>
+    <%= f.text_field :i_want, required: true, placeholder: '...some goal,', class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :so_that, value: 'so that...' %>
+    <%= f.text_field :so_that, placeholder: '...some reason.', class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :notes %><br/>
+    <%= f.text_area :notes, class: "form-control"  %>
+  </div>
+
+  <div class="form-action-buttons">
+    <%= f.submit "Create Story", class: "btn btn-lg btn-success btn-block" %>
+    <%= link_to 'Cancel', stories_path, class: "btn btn-lg btn-secondary btn-block" %>
+  </div>
+<% end %>

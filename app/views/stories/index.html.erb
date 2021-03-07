@@ -1,0 +1,18 @@
+<% content_for :nav_header do %>
+  Stories
+<% end %> 
+
+<div class="grid-content">
+  <% if @stories.empty? %>
+    <p class="text-center text-secondary mt-2">You haven't created any stories yet</p>
+  <% end %>
+  <div class="card-deck">
+    <% @stories.each do |story| %>
+      <%= link_to edit_story_path(story) do %>
+        <%= render 'shared/story', object: story %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<%= render "shared/actions", actions: [{ label: 'New Story', path: new_story_path }] %>

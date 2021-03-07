@@ -45,6 +45,7 @@ Rails.application.routes.draw do
 
   resource :dashboard
   resources :commmits, only: %i[new create index show]
+  resources :stories, only: %i[new create index edit update]
 
   resources :teams, only: %i[index new create show], shallow: true do
     resources :sprints, only: %i[new create show update], shallow: true do

@@ -138,7 +138,7 @@ ActiveRecord::Schema.define(version: 2021_03_06_194652) do
   end
 
   create_table "stories", force: :cascade do |t|
-    t.string "i_want_to", null: false
+    t.string "i_want", null: false
     t.string "so_that"
     t.string "slug"
     t.text "notes"
@@ -146,6 +146,7 @@ ActiveRecord::Schema.define(version: 2021_03_06_194652) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["account_id"], name: "index_stories_on_account_id"
+    t.index ["i_want"], name: "index_stories_on_i_want"
   end
 
   create_table "teams", force: :cascade do |t|
