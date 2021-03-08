@@ -44,7 +44,11 @@ Rails.application.routes.draw do
               }
 
   resource :dashboard
-  resources :commmits, only: %i[new create index show]
+  resources :commmits, only: %i[new create index show] do
+    member do
+      patch 'add_story'
+    end
+  end
   resources :stories, only: %i[new create index edit update]
 
   resources :teams, only: %i[index new create show], shallow: true do

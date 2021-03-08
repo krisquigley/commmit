@@ -9,7 +9,14 @@
   <div class="card-deck">
     <% @stories.each do |story| %>
       <%= link_to edit_story_path(story) do %>
-        <%= render 'shared/story', object: story %>
+        <div class="card">
+          <div class="card-body">
+            <small><i>I want...</i></small>
+            <h6><b><%= story.i_want %></b></h6>
+            <small><i>So that...</i></small>
+            <h6><b><%= story.so_that %></b></h6>
+          </div>
+        </div>
       <% end %>
     <% end %>
   </div>

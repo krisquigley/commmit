@@ -142,11 +142,18 @@ ActiveRecord::Schema.define(version: 2021_03_06_194652) do
     t.string "so_that"
     t.string "slug"
     t.text "notes"
+    t.bigint "mvt_id"
+    t.bigint "lvt_id"
+    t.datetime "completed_at"
     t.bigint "account_id"
+    t.bigint "commmit_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["account_id"], name: "index_stories_on_account_id"
+    t.index ["commmit_id"], name: "index_stories_on_commmit_id"
     t.index ["i_want"], name: "index_stories_on_i_want"
+    t.index ["lvt_id"], name: "index_stories_on_lvt_id"
+    t.index ["mvt_id"], name: "index_stories_on_mvt_id"
   end
 
   create_table "teams", force: :cascade do |t|

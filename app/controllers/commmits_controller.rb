@@ -2,8 +2,8 @@
 
 class CommmitsController < ApplicationController
   def show
-    @commmit = Commmit.friendly.find(params[:id])
-    @stories = Story.most_recent
+    @commmit = Commmit.includes(:stories).friendly.find(params[:id])
+    @stories = Story.most_recent.unassigned
   end
 
   def index
@@ -22,6 +22,10 @@ class CommmitsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def add_story
+    raise params.inspect
   end
 
   protected

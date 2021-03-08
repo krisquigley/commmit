@@ -18,7 +18,7 @@
           <h6><b><%= commmit.name %></b></h6>
         </div>
         <div class="card-footer">
-          <small><i>Started <%= days_ago_in_words(commmit.start_date) %>.</i></small>
+          <small><i>Started <%= distance_of_time_in_words(commmit.start_date, Date.today, scope: 'datetime.distance_in_words.days_and_months')%>.</i></small>
         </div>
       <% end %>
     <% end %>

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class StoriesController < ApplicationController
-  before_action :get_story, only: %i[edit update]
+  before_action :story, only: %i[edit update]
 
   def index
     @stories = Story.most_recent
@@ -15,7 +15,7 @@ class StoriesController < ApplicationController
     @story = Story.new(story_params)
 
     if @story.save
-      redirect_to 'stories#index'
+      redirect_to stories_path
     else
       render :new
     end
@@ -25,7 +25,7 @@ class StoriesController < ApplicationController
 
   def update
     if @story.update(story_params)
-      redirect_to stories_path
+      redirect_back fallback_location: stories_path
     else
       render :edit
     end
@@ -33,11 +33,11 @@ class StoriesController < ApplicationController
 
   protected
 
-  def get_story
-    @story ||= Story.friendly.find(params[:id])
+  def story
+    @story = Story.friendly.find(params[:id])
   end
 
   def story_params
-    params.require(:story).permit(:i_want, :so_that, :notes)
+    params.require(:story).permit(:i_want, :so_that, :notes, :commmit_id)
   end
 end

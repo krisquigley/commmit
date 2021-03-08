@@ -7,4 +7,7 @@ class Story < ApplicationRecord
   validates :i_want, presence: true
 
   scope :most_recent, -> { order(created_at: :desc) }
+  scope :unassigned, -> { where(commmit_id: nil) }
+
+  belongs_to :commmit, optional: true
 end

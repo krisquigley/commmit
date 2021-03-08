@@ -3,8 +3,24 @@
 <% end %> 
 
 <div class="grid-content">
-  List of Stories
+  <% if @commmit.stories.empty? %>
+    <p class="text-center text-secondary mt-2">You haven't added any stories yet</p>
+  <% end %>
+  <div class="card-deck">
+    <% @commmit.stories.each do |story| %>
+      <div class="card">
+        <div class="card-body">
+          <small><i>I want...</i></small>
+          <h6><b><%= story.i_want %></b></h6>
+          <small><i>So that...</i></small>
+          <h6><b><%= story.so_that %></b></h6>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
+
+
 <div class="grid-actions">
   <button type="button" class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#addPlanModal">
     Add Stories
@@ -22,9 +38,25 @@
         </button>
       </div>
       <div class="modal-body">
-         <div class="card-deck">
+        <div class="card-deck">
+          <% if @stories.empty? %>
+            <p class="text-center text-secondary mt-2">
+              You haven't <%= link_to 'created any stories', new_story_path %> yet.
+            </p>
+          <% end %>
           <% @stories.each do |story| %>
-            <%= render 'shared/story', object: story %>
+            <div class="card">
+              <div class="card-body">
+                <%= form_for story do |f| %>
+                  <%= f.hidden_field :commmit_id, value: @commmit.id %>
+                  <%= f.submit 'Add to Commmit', class: 'btn btn-success' %>
+                <% end %>
+                <small><i>I want...</i></small>
+                <h6><b><%= story.i_want %></b></h6>
+                <small><i>So that...</i></small>
+                <h6><b><%= story.so_that %></b></h6>
+              </div>
+            </div>
           <% end %>
         </div>
       </div>

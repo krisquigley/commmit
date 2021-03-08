@@ -10,4 +10,6 @@ class Commmit < ApplicationRecord
 
   validates :name, :length_in_days, presence: true
   validates :length_in_days, numericality: { only_integer: true, greater_than: 0 }
+
+  has_many :stories
 end
