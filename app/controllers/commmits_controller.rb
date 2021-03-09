@@ -2,12 +2,14 @@
 
 class CommmitsController < ApplicationController
   def show
-    @commmit = Commmit.includes(:stories).friendly.find(params[:id])
-    @stories = Story.most_recent.unassigned
+    @commmit = Commmit.includes(:stories)
+                      .order('stories.completed_at desc, stories.created_at desc')
+                      .friendly.find(params[:id])
+    @stories = Story.most_recent_first.unassigned
   end
 
   def index
-    @commmits = Commmit.most_recent
+    @commmits = Commmit.includes(:stories).most_recent
   end
 
   def new
@@ -24,13 +26,9 @@ class CommmitsController < ApplicationController
     end
   end
 
-  def add_story
-    raise params.inspect
-  end
-
   protected
 
   def commmit_params
-    params.require(:commmit).permit(:name, :length_in_days)
+    params.require(:commmit).permit(:name, :length_in_days, :start_date)
   end
 end

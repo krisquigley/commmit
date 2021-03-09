@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class StoriesController < ApplicationController
-  before_action :story, only: %i[edit update]
+  before_action :story, only: %i[edit update mark_as_done]
 
   def index
-    @stories = Story.most_recent
+    @stories = Story.most_recent_first
   end
 
   def new
@@ -31,10 +31,15 @@ class StoriesController < ApplicationController
     end
   end
 
+  def mark_as_done
+    @story.update(completed_at: Time.now)
+    redirect_back fallback_location: commmits_path
+  end
+
   protected
 
   def story
-    @story = Story.friendly.find(params[:id])
+    @story = Story.friendly.find(params[:id] || params[:story_id])
   end
 
   def story_params

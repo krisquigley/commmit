@@ -8,16 +8,14 @@
   <% end %>
   <div class="card-deck">
     <% @stories.each do |story| %>
-      <%= link_to edit_story_path(story) do %>
-        <div class="card">
-          <div class="card-body">
-            <small><i>I want...</i></small>
-            <h6><b><%= story.i_want %></b></h6>
-            <small><i>So that...</i></small>
-            <h6><b><%= story.so_that %></b></h6>
-          </div>
+      <div class="card">
+        <div class="card-body">
+          <small><i>I want&hellip;</i></small>
+          <h5><b><%= link_to story.i_want, edit_story_path(story) %></b></h5>
+          <small><i>So that&hellip;</i></small>
+          <h6><%= story.so_that %></h6>
         </div>
-      <% end %>
+      </div>
     <% end %>
   </div>
 </div>

@@ -4,7 +4,7 @@
 <%= form_for @commmit, html: { class: "grid-content" } do |f| %>
   <div class="form-group">
     <%= f.label :name %>
-    <%= f.text_field :name, required: true, placeholder: 'Name or Goal', class: "form-control" %>
+    <%= f.text_field :name, required: true, autocomplete: 'off', placeholder: 'Name or Goal', class: "form-control" %>
   </div>
 
   <div class="form-group">

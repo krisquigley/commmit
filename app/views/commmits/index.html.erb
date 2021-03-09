@@ -9,18 +9,39 @@
 
   <div class="card-deck">
     <% @commmits.each do |commmit| %>
+      <% @progress = commmit.stories.where.not('stories.completed_at': nil).count %>
       <%# TODO: If this is a one/two day commmit then show a progress bar, if it is more than two days, show a burndown chart %>
-      <%= link_to commmit_path(commmit), class: "card" do %>
+      <div class="card" style="<%= commmit.finished? ? "opacity: 50%" : "" %>">
         <div class="progress">
-          <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="progress-bar" role="progressbar" 
+               aria-valuenow="<%= @progress %>" 
+               style="width: <%= (@progress.to_f / commmit.stories.size.to_f) * 100.0 if @progress > 0 %>%"
+               aria-valuemin="0" aria-valuemax="<%= commmit.stories.size %>">
+          </div>
         </div>
         <div class="card-body">
-          <h6><b><%= commmit.name %></b></h6>
+          <h6><b><%= link_to commmit.name, commmit_path(commmit) %></b></h6>
+          <% if commmit.finished? %>
+            <small>
+              <i>
+                Finished <%= distance_of_time_in_words(commmit.end_date, Date.today, scope: 'datetime.distance_in_words.days_and_months')%>.
+              </i>
+            </small>
+          <% elsif commmit.in_progress? %>
+            <small>
+              <i>
+                Finishes <%= distance_of_time_in_words(commmit.end_date, Date.today, scope: 'datetime.distance_in_words.days_and_months')%>.
+              </i>
+            </small>
+          <% elsif commmit.not_started? %>
+            <small>
+              <i>
+                Starts <%= distance_of_time_in_words(commmit.start_date, Date.today, scope: 'datetime.distance_in_words.days_and_months_future')%>.
+              </i>
+            </small>
+          <% end %>
         </div>
-        <div class="card-footer">
-          <small><i>Started <%= distance_of_time_in_words(commmit.start_date, Date.today, scope: 'datetime.distance_in_words.days_and_months')%>.</i></small>
-        </div>
-      <% end %>
+      </div>
     <% end %>
   </div>
 </div>
