@@ -18,8 +18,12 @@ RSpec.describe 'Commmits', type: :feature do
 
         submit_form
 
-        expect(page).to have_content 'Commmit succesfully created.'
+        expect(page).to have_content 'Commmit succesfully created'
       end
+    end
+
+    context 'using the day buttons' do
+      it 'should update the the date accordingly'
     end
   end
 
@@ -31,16 +35,36 @@ RSpec.describe 'Commmits', type: :feature do
 
       expect(page).to have_content commmit.name
     end
+
+    context 'adding stories' do
+      it 'should add them to the commmit'
+    end
+
+    context 'marking stories as done' do
+      it 'should mark them as complete'
+    end
   end
 
   describe 'listing commmits' do
-    context "when it's less than three days logs" do
+    context 'when it is starting in the future' do
+      it 'should be indicated as such'
+    end
+
+    context 'when it is in progress' do
+      it 'should be indicated as such'
+    end
+
+    context 'when it has finished' do
+      it 'should be indicated as such'
+    end
+
+    context "when it's less than three days long" do
       let!(:commmit) { create(:commmit) }
 
       it 'should show a progress bar'
     end
 
-    context "when it's more than three days logs" do
+    context "when it's more than three days long" do
       it 'should show a burndown'
     end
   end

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe DashboardController, type: :controller do
+RSpec.describe ApplicationController, type: :controller do
   include AuthHelper
 
   describe 'accessing an account which does not belong to the user' do
