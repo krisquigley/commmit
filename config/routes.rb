@@ -45,7 +45,8 @@ Rails.application.routes.draw do
 
   resource :dashboard
   resources :commmits, only: %i[new create index show]
-  resources :stories, only: %i[new create index edit update] do
+  resources :stories, only: %i[new create index edit update]
+  resources :planned_stories, only: %i[create] do
     patch :mark_as_done
   end
 

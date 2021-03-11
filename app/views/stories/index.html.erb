@@ -10,10 +10,15 @@
     <% @stories.each do |story| %>
       <div class="card">
         <div class="card-body">
-          <small><i>I want&hellip;</i></small>
-          <h5><b><%= link_to story.i_want, edit_story_path(story) %></b></h5>
-          <small><i>So that&hellip;</i></small>
-          <h6><%= story.so_that %></h6>
+          <h5>
+            <b>
+              <%= link_to "I want #{story.goal}#{story.reason.present? ? ',' : ''}", edit_story_path(story) %>
+            </b>
+          </h5>
+          <% if story.reason.present? %><h6>so that <%= story.reason %>.</h6><% end %>
+        </div>
+        <div class="card-footer text-right">
+          <small><i><%= story.created_at.strftime("%a, %B %d") %></i></small>
         </div>
       </div>
     <% end %>

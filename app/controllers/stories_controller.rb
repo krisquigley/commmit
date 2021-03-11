@@ -4,7 +4,7 @@ class StoriesController < ApplicationController
   before_action :story, only: %i[edit update mark_as_done]
 
   def index
-    @stories = Story.most_recent_first
+    @stories = Story.most_recent_first.open
   end
 
   def new
@@ -15,7 +15,7 @@ class StoriesController < ApplicationController
     @story = Story.new(story_params)
 
     if @story.save
-      redirect_to stories_path
+      redirect_to stories_path, notice: 'Created Story'
     else
       render :new
     end
@@ -25,24 +25,19 @@ class StoriesController < ApplicationController
 
   def update
     if @story.update(story_params)
-      redirect_back fallback_location: stories_path
+      redirect_to stories_path, notice: 'Updated Story'
     else
       render :edit
     end
   end
 
-  def mark_as_done
-    @story.update(completed_at: Time.now)
-    redirect_back fallback_location: commmits_path
-  end
-
   protected
 
   def story
-    @story = Story.friendly.find(params[:id] || params[:story_id])
+    @story = Story.friendly.find(params[:id])
   end
 
   def story_params
-    params.require(:story).permit(:i_want, :so_that, :notes, :commmit_id)
+    params.require(:story).permit(:goal, :reason, :notes)
   end
 end

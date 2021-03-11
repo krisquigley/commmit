@@ -2,14 +2,16 @@
 
 class CommmitsController < ApplicationController
   def show
-    @commmit = Commmit.includes(:stories)
+    @commmit = Commmit.includes(:stories, :planned_stories)
                       .order('stories.completed_at desc, stories.created_at desc')
                       .friendly.find(params[:id])
-    @stories = Story.most_recent_first.unassigned
+
+    story_ids = @commmit.planned_stories.map(&:story_id)
+    @stories = Story.where.not(id: story_ids).where(completed_at: nil).most_recent_first
   end
 
   def index
-    @commmits = Commmit.includes(:stories).most_recent
+    @commmits = Commmit.includes(:stories).most_recent_first
   end
 
   def new
@@ -20,7 +22,7 @@ class CommmitsController < ApplicationController
     @commmit = Commmit.new(commmit_params)
 
     if @commmit.save
-      redirect_to @commmit, notice: 'Commmit succesfully created.'
+      redirect_to @commmit, notice: 'Created Commmit'
     else
       render :new
     end

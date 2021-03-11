@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_210_309_142_342) do
+ActiveRecord::Schema.define(version: 20_210_311_101_148) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'pgcrypto'
   enable_extension 'plpgsql'
@@ -47,9 +47,11 @@ ActiveRecord::Schema.define(version: 20_210_309_142_342) do
     t.bigint 'account_id', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
-    t.integer 'stories_count'
+    t.integer 'commmit_stories_count'
     t.index ['account_id'], name: 'index_commmits_on_account_id'
+    t.index ['created_at'], name: 'index_commmits_on_created_at'
     t.index ['slug'], name: 'index_commmits_on_slug'
+    t.index ['start_date'], name: 'index_commmits_on_start_date'
   end
 
   create_table 'friendly_id_slugs', force: :cascade do |t|
@@ -63,6 +65,19 @@ ActiveRecord::Schema.define(version: 20_210_309_142_342) do
     t.index %w[slug sluggable_type], name: 'index_friendly_id_slugs_on_slug_and_sluggable_type'
     t.index %w[sluggable_type sluggable_id],
             name: 'index_friendly_id_slugs_on_sluggable_type_and_sluggable_id'
+  end
+
+  create_table 'planned_stories', force: :cascade do |t|
+    t.bigint 'account_id'
+    t.bigint 'commmit_id'
+    t.bigint 'story_id'
+    t.datetime 'completed_at'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['account_id'], name: 'index_planned_stories_on_account_id'
+    t.index ['commmit_id'], name: 'index_planned_stories_on_commmit_id'
+    t.index ['created_at'], name: 'index_planned_stories_on_created_at'
+    t.index ['story_id'], name: 'index_planned_stories_on_story_id'
   end
 
   create_table 'retrospectives', force: :cascade do |t|
@@ -143,22 +158,20 @@ ActiveRecord::Schema.define(version: 20_210_309_142_342) do
   end
 
   create_table 'stories', force: :cascade do |t|
-    t.string 'i_want', null: false
-    t.string 'so_that'
+    t.string 'goal', null: false
+    t.string 'reason'
     t.string 'slug'
     t.text 'notes'
     t.bigint 'mvt_id'
     t.bigint 'lvt_id'
     t.datetime 'completed_at'
     t.bigint 'account_id'
-    t.bigint 'commmit_id'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index ['account_id'], name: 'index_stories_on_account_id'
-    t.index ['commmit_id'], name: 'index_stories_on_commmit_id'
-    t.index %w[completed_at created_at], name: 'index_stories_on_completed_at_and_created_at',
-                                         order: { completed_at: 'DESC NULLS LAST' }
-    t.index ['i_want'], name: 'index_stories_on_i_want'
+    t.index ['completed_at'], name: 'index_stories_on_completed_at'
+    t.index ['created_at'], name: 'index_stories_on_created_at'
+    t.index ['goal'], name: 'index_stories_on_goal'
     t.index ['lvt_id'], name: 'index_stories_on_lvt_id'
     t.index ['mvt_id'], name: 'index_stories_on_mvt_id'
   end

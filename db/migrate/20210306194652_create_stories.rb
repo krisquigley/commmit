@@ -3,8 +3,8 @@
 class CreateStories < ActiveRecord::Migration[6.1]
   def change
     create_table :stories do |t|
-      t.string :i_want, null: false
-      t.string :so_that
+      t.string :goal, null: false
+      t.string :reason
       t.string :slug
       t.text :notes
       t.bigint :mvt_id
@@ -12,13 +12,25 @@ class CreateStories < ActiveRecord::Migration[6.1]
       t.datetime :completed_at
 
       t.belongs_to :account
-      t.belongs_to :commmit
       t.timestamps
     end
 
-    add_index :stories, :i_want
+    create_table :planned_stories do |t|
+      t.belongs_to :account
+      t.belongs_to :commmit
+      t.belongs_to :story
+      t.datetime :completed_at
+
+      t.timestamps
+    end
+
+    add_index :stories, :goal
     add_index :stories, :mvt_id
     add_index :stories, :lvt_id
+    add_index :stories, :completed_at
+    add_index :stories, :created_at
+    add_index :commmits, :created_at
+    add_index :planned_stories, :created_at
   end
 end
 

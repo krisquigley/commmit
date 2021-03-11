@@ -13,6 +13,7 @@ class CreateCommmits < ActiveRecord::Migration[6.1]
     end
 
     add_index :commmits, :slug
+    add_column :commmits, :commmit_stories_count, :integer
   end
 
   def down

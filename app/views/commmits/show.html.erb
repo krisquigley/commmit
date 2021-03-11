@@ -7,15 +7,13 @@
     <p class="text-center text-secondary mt-2">You haven't added any stories yet</p>
   <% end %>
   <div class="card-deck">
-    <% @commmit.stories.each do |story| %>
-      <div class="card" style="<%= story.completed? ? "opacity: 50%" : "" %>">
+    <% @commmit.planned_stories.each do |planned_story| %>
+      <div class="card" style="<%= planned_story.completed? ? "opacity: 50%" : "" %>">
         <div class="card-body">
-          <%= button_to 'Mark as Done', story_mark_as_done_path(story), class: 'btn btn-success', method: :patch %>
-          <small><i>I want&hellip;</i></small>
-          <h6><b><%= story.i_want %></b></h6>
-          <small><i>So that&hellip;</i></small>
-          <h6><b><%= story.so_that %></b></h6>
+          <h5><b>I want <%= planned_story.story.goal %><% if planned_story.story.reason.present? %>,<% end %></b></h5>
+          <% if planned_story.story.reason.present? %><h6>so that <%= planned_story.story.reason %>.</h6><% end %>
         </div>
+        <%= button_to 'Mark as Done', planned_story_mark_as_done_path(planned_story), class: 'btn btn-success btn-block', method: :patch %>
       </div>
     <% end %>
   </div>
@@ -48,15 +46,14 @@
           <% @stories.each do |story| %>
             <div class="card">
               <div class="card-body">
-                <%= form_for story do |f| %>
-                  <%= f.hidden_field :commmit_id, value: @commmit.id %>
-                  <%= f.submit 'Add to Commmit', class: 'btn btn-success' %>
-                <% end %>
-                <small><i>I want&hellip;</i></small>
-                <h5><b><%= story.i_want %></b></h5>
-                <small><i>So that&hellip;</i></small>
-                <h6><b><%= story.so_that %></b></h6>
+                <h5><b>I want <%= story.goal %><% if story.reason.present? %>,<% end %></b></h5>
+                <% if story.reason.present? %><h6>so that <%= story.reason %>.</h6><% end %>
               </div>
+              <%= form_for PlannedStory.new do |f| %>
+                <%= f.hidden_field :commmit_id, value: @commmit.id %>
+                <%= f.hidden_field :story_id, value: story.id %>
+                <%= f.submit 'Add to Commmit', class: 'btn btn-success btn-block' %>
+              <% end %>
             </div>
           <% end %>
         </div>

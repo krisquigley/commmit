@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Create some users
-
+puts 'Seeding database...'
 default_user = User.create(
   name: Faker::Name.name,
   username: 'default',
@@ -13,17 +13,20 @@ default_user = User.create(
   source: JSON.parse(File
     .read("#{Rails.root}/spec/fixtures/files/new_user_payload.json"))['member'].to_json
 )
+printf('.')
 
 default_account = Account.find_or_create_by(name: default_user.username,
                                             subdomain: default_user.username,
                                             account_type: 'personal',
                                             owner_user_id: default_user.id)
+printf('.')
 
 ActsAsTenant.current_tenant = default_account
 
 users = User.all
 
 team = Team.create(name: Faker::Name.name, users: users)
+printf('.')
 
 10.times do
   Ticket.create(title: Faker::Hipster.sentence,
@@ -35,6 +38,7 @@ team = Team.create(name: Faker::Name.name, users: users)
                 url: Faker::Internet.url,
                 issue_id: Integer(Faker::Number.number(digits: 10)),
                 source: '{}')
+  printf('.')
 end
 
 [2, 3, 4, 5].each do |week_no|
@@ -47,6 +51,7 @@ end
   tickets.each do |t|
     sprint.sprint_tickets.create(t.attributes.except('id')
           .merge(closed_at: Time.now.ago(week_no.week + 1)))
+    printf('.')
   end
   sprint.update(closed_at: Time.now.ago(week_no.week))
   sprint.team.users.each do |user|
@@ -56,5 +61,8 @@ end
                                  company_happiness: rand(1..5),
                                  feedback: Faker::Hipster.sentence,
                                  happiness_goal: Faker::Hipster.sentence)
+    printf('.')
   end
 end
+
+puts 'Done'

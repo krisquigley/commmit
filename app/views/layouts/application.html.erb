@@ -20,11 +20,7 @@
     <%= render 'shared/nav' %>
 
     <div class="grid-container">
-      <% if flash[:notice] %>
-        <div class="alert alert-success" role="alert"><%= flash[:notice] %></div>
-      <% elsif flash[:alert] %>
-        <div class="alert alert-danger" role="alert"><%= flash[:alert] %></div>
-      <% end %>
+      <%= render 'shared/alerts' %>
       <%= yield %>
       <div class="grid-footer">
         <%= render 'shared/footer_nav' unless (!user_signed_in? || content_for(:hide_footer_nav?)) %>

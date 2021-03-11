@@ -2,7 +2,7 @@
 
 module SprintsHelper
   def active(path)
-    request.path.include?(path) ? 'active' : ''
+    request.path == "/#{path}" ? 'active' : ''
   end
 
   def ticket_status(ticket)

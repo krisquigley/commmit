@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 
 class Story < ApplicationRecord
-  acts_as_tenant(:account)
+  acts_as_tenant :account
 
   extend FriendlyId
-  friendly_id :i_want, use: :slugged
+  friendly_id :goal, use: :slugged
 
-  validates :i_want, presence: true
+  validates :goal, presence: true
 
   scope :most_recent_first, -> { order(created_at: :desc) }
-  scope :unassigned, -> { where(commmit_id: nil) }
-  scope :todo, -> { where(completed_at: nil) }
+  scope :open, -> { where(completed_at: nil) }
 
-  belongs_to :commmit, optional: true, counter_cache: true
+  has_many :planned_stories
+  has_many :commmits, counter_cache: true, through: :planned_stories
 
   def completed?
     completed_at.present?

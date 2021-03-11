@@ -9,14 +9,15 @@
 
   <div class="card-deck">
     <% @commmits.each do |commmit| %>
-      <% @progress = commmit.stories.where.not('stories.completed_at': nil).count %>
+      <% @progress = commmit.planned_stories.map(&:completed_at).compact.count %>
+
       <%# TODO: If this is a one/two day commmit then show a progress bar, if it is more than two days, show a burndown chart %>
       <div class="card" style="<%= commmit.finished? ? "opacity: 50%" : "" %>">
         <div class="progress">
           <div class="progress-bar" role="progressbar" 
                aria-valuenow="<%= @progress %>" 
-               style="width: <%= (@progress.to_f / commmit.stories.size.to_f) * 100.0 if @progress > 0 %>%"
-               aria-valuemin="0" aria-valuemax="<%= commmit.stories.size %>">
+               style="width: <%= (@progress.to_f / commmit.planned_stories.size.to_f) * 100.0 if @progress > 0 %>%"
+               aria-valuemin="0" aria-valuemax="<%= commmit.planned_stories.size %>">
           </div>
         </div>
         <div class="card-body">
@@ -30,7 +31,7 @@
           <% elsif commmit.in_progress? %>
             <small>
               <i>
-                Finishes <%= distance_of_time_in_words(commmit.end_date, Date.today, scope: 'datetime.distance_in_words.days_and_months')%>.
+                Finishes <%= distance_of_time_in_words(commmit.end_date, Date.today, scope: 'datetime.distance_in_words.days_and_months_future')%>.
               </i>
             </small>
           <% elsif commmit.not_started? %>
