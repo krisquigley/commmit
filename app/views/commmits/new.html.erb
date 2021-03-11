@@ -1,39 +1,40 @@
 <% content_for(:hide_footer_nav?) do %>
   true
 <% end %>
-<%= form_for @commmit, html: { class: "grid-content" } do |f| %>
-  <div class="form-group">
-    <%= f.label :name %>
-    <%= f.text_field :name, required: true, autocomplete: 'off', placeholder: 'Name or Goal', class: "form-control", autofocus: :autofocus %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :start_date %><br/>
-    <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
-      <label class="btn btn-secondary active w-50">
-        <input type="radio" name="day" id="today" checked> Today
-      </label>
-      <label class="btn btn-secondary w-50">
-        <input type="radio" name="day" id="tomorrow"> Tomorrow
-      </label>
+<%= form_for @commmit, html: { class: 'flex-form' } do |f| %>
+  <div class="grid-content">
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, required: true, autocomplete: 'off', placeholder: 'Name or Goal', class: "form-control", autofocus: :autofocus %>
     </div>
-    <%= f.text_field :start_date, required: true, class: "form-control", type: :date, value: Date.today  %>
+
+    <div class="form-group">
+      <%= f.label :start_date %><br/>
+      <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
+        <label class="btn btn-secondary active w-50">
+          <input type="radio" name="day" id="today" checked> Today
+        </label>
+        <label class="btn btn-secondary w-50">
+          <input type="radio" name="day" id="tomorrow"> Tomorrow
+        </label>
+      </div>
+      <%= f.text_field :start_date, required: true, class: "form-control", type: :date, value: Date.today  %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :length_in_days, value: 'Length', type: :number, min: 1 %><br/>
+      <%= f.select :length_in_days, options_for_select({ 
+        "One Day": "1", 
+        "Two Days": "2", 
+        "Three Days": "3", 
+        "Four Days": "4", 
+        "Five Days": "5"
+      }, selected: "One Day"), {}, class: "form-control w-100" %> 
+    </div>
   </div>
 
-  <div class="form-group">
-    <%= f.label :length_in_days, value: 'Length', type: :number, min: 1 %><br/>
-    <%= f.select :length_in_days, options_for_select({ 
-      "One Day": "1", 
-      "Two Days": "2", 
-      "Three Days": "3", 
-      "Four Days": "4", 
-      "Five Days": "5"
-    }, selected: "One Day"), {}, class: "form-control w-100" %> 
-  </div>
-
-  <div class="form-action-buttons">
+  <div class="grid-actions">
     <%= f.submit "Create Commmit", class: "btn btn-lg btn-success btn-block" %>
     <%= link_to 'Cancel', commmits_path, class: "btn btn-lg btn-secondary btn-block" %>
   </div>
-</div>
 <% end %>

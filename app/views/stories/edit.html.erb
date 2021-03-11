@@ -2,23 +2,10 @@
   true
 <% end %>
 
-<%= form_for @story, html: { class: "grid-content" } do |f| %>
-  <div class="form-group">
-    <%= f.label :goal, 'I want...' %>
-    <%= f.text_field :goal, required: true, placeholder: '...some goal,', class: "form-control" %>
-  </div>
+<%= form_for @story, html: { class: 'flex-form' } do |f| %>
+  <%= render 'fields', f: f %>
 
-  <div class="form-group">
-    <%= f.label :reason, 'so that...' %>
-    <%= f.text_field :reason, placeholder: '...some reason.', class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :notes %><br/>
-    <%= f.text_area :notes, class: "form-control"  %>
-  </div>
-
-  <div class="form-action-buttons">
+  <div class="grid-actions">
     <%= f.submit "Save Changes", class: "btn btn-lg btn-danger btn-block" %>
     <%= link_to 'Cancel', stories_path, class: "btn btn-lg btn-secondary btn-block" %>
   </div>

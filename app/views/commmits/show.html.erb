@@ -10,10 +10,15 @@
     <% @commmit.planned_stories.each do |planned_story| %>
       <div class="card" style="<%= planned_story.completed? ? "opacity: 50%" : "" %>">
         <div class="card-body">
-          <h5><b>I want <%= planned_story.story.goal %><% if planned_story.story.reason.present? %>,<% end %></b></h5>
+          <h5>
+            <b>I want <%= planned_story.story.goal %><% if planned_story.story.reason.present? %>,<% end %></b>
+          </h5>
           <% if planned_story.story.reason.present? %><h6>so that <%= planned_story.story.reason %>.</h6><% end %>
         </div>
-        <%= button_to 'Mark as Done', planned_story_mark_as_done_path(planned_story), class: 'btn btn-success btn-block', method: :patch %>
+        <div class="card-footer">
+          <%= render 'shared/notes_icon' if planned_story.story.notes.present? %>
+          <%= button_to 'Done', planned_story_mark_as_done_path(planned_story), class: 'text-success link-button', method: :patch %>
+        </div>
       </div>
     <% end %>
   </div>
@@ -49,11 +54,13 @@
                 <h5><b>I want <%= story.goal %><% if story.reason.present? %>,<% end %></b></h5>
                 <% if story.reason.present? %><h6>so that <%= story.reason %>.</h6><% end %>
               </div>
-              <%= form_for PlannedStory.new do |f| %>
-                <%= f.hidden_field :commmit_id, value: @commmit.id %>
-                <%= f.hidden_field :story_id, value: story.id %>
-                <%= f.submit 'Add to Commmit', class: 'btn btn-success btn-block' %>
-              <% end %>
+              <div class="card-footer">
+                <%= form_for PlannedStory.new do |f| %>
+                  <%= f.hidden_field :commmit_id, value: @commmit.id %>
+                  <%= f.hidden_field :story_id, value: story.id %>
+                  <%= f.submit 'Add', class: 'text-success link-button' %>
+                <% end %>
+              </div>
             </div>
           <% end %>
         </div>

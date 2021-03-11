@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   end
   mount Sidekiq::Web, at: '/sidekiq'
 
-  get '/',  to: 'commmits#index',
+  get '/',  to: 'commmits#current_commmit',
             constraints: {
               subdomain: /.+/
             },
@@ -44,6 +44,7 @@ Rails.application.routes.draw do
               }
 
   resource :dashboard
+
   resources :commmits, only: %i[new create index show]
   resources :stories, only: %i[new create index edit update]
   resources :planned_stories, only: %i[create] do

@@ -17,7 +17,8 @@
           </h5>
           <% if story.reason.present? %><h6>so that <%= story.reason %>.</h6><% end %>
         </div>
-        <div class="card-footer text-right">
+        <div class="card-footer">
+          <%= render 'shared/notes_icon' if story.notes.present? %>
           <small><i><%= story.created_at.strftime("%a, %B %d") %></i></small>
         </div>
       </div>

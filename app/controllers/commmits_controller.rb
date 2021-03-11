@@ -29,6 +29,16 @@ class CommmitsController < ApplicationController
     end
   end
 
+  def current_commmit
+    @commmit = Commmit.current_commmit
+
+    if @commmit
+      redirect_to @commmit
+    else
+      redirect_to commmits_path
+    end
+  end
+
   protected
 
   def commmit_params

@@ -1,13 +1,29 @@
-<%# TODO: Implement these classes into the fields from new and render into new and edit %>
-<div class="form-group row">
-  <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-  <div class="col-sm-10">
-    <input type="email" class="form-control" id="inputEmail3">
+<div class="grid-content">
+  <%= label_tag 'Story' %>
+  <%= f.label :goal, 'I want...', class: 'sr-only' %>
+  <div class="input-group mb-2 mr-sm-2">
+    <div class="input-group-prepend">
+      <div class="input-group-text">I want </div>
+    </div>
+    <%= f.text_field :goal, required: true, autocomplete: 'off', autocapitalize: "none", placeholder: 'some goal', class: "form-control", autofocus: :autofocus %>
+    <div class="input-group-append">
+      <div class="input-group-text">,</div>
+    </div>
   </div>
-</div>
-<div class="form-group row">
-  <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
-  <div class="col-sm-10">
-    <input type="password" class="form-control" id="inputPassword3">
+
+    <%= f.label :reason, 'so that...', class: 'sr-only' %>
+  <div class="input-group mb-2 mr-sm-2">
+    <div class="input-group-prepend">
+      <div class="input-group-text">so that </div>
+    </div>
+    <%= f.text_field :reason, autocomplete: 'off', autocapitalize: "none", placeholder: 'some reason', class: "form-control" %>
+    <div class="input-group-append">
+      <div class="input-group-text">.</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :notes %><br/>
+    <%= f.text_area :notes, autocomplete: 'off', class: "form-control", style: "min-height: 30vh"  %>
   </div>
 </div>

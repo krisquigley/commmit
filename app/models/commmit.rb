@@ -8,6 +8,9 @@ class Commmit < ApplicationRecord
 
   scope :most_recent_first, -> { order(start_date: :desc) }
 
+  # TODO: should match logic for #in_progress?
+  scope :current_commmit, -> { order(start_date: :desc).where('start_date <= ?', Date.today).first }
+
   validates :name, :length_in_days, presence: true
   validates :length_in_days, numericality: { only_integer: true, greater_than: 0 }
 

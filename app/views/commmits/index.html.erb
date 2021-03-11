@@ -6,7 +6,6 @@
   <% if @commmits.empty? %>
     <p class="text-center text-secondary mt-2">You haven't created any Commmits yet</p>
   <% end %>
-
   <div class="card-deck">
     <% @commmits.each do |commmit| %>
       <% @progress = commmit.planned_stories.map(&:completed_at).compact.count %>
@@ -22,6 +21,7 @@
         </div>
         <div class="card-body">
           <h6><b><%= link_to commmit.name, commmit_path(commmit) %></b></h6>
+          <%= render 'shared/clock_icon' %>
           <% if commmit.finished? %>
             <small>
               <i>

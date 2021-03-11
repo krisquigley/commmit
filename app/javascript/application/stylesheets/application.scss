@@ -15,6 +15,17 @@ small {
   font-weight: 300;
 }
 
+.link-button {
+  border: 0;
+  background: none;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
 .tooltip-inner {
   white-space: pre-wrap;
 }
