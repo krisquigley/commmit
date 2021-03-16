@@ -2,21 +2,20 @@
   height: 100%;
   display: grid;
   grid-template-columns: auto;
-  grid-template-rows: auto 10fr auto auto;
+  grid-template-rows: auto auto 10fr auto auto;
   grid-template-areas:
-    'alerts'
+    'topcontent'
     'content'
     'actions'
     'footernav';
 }
 
-.grid-alerts {
-  grid-area: alerts;
-  padding-left: 15px;
-  padding-right: 15px;
+.grid-topcontent {
+  grid-area: topcontent;
 }
 
 .grid-content {
+  padding-top: 0.8rem;
   overflow-y: scroll;
   grid-area: content;
   padding-left: 15px;

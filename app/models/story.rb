@@ -4,7 +4,7 @@ class Story < ApplicationRecord
   acts_as_tenant :account
 
   extend FriendlyId
-  friendly_id :goal, use: :slugged
+  friendly_id :goal, use: :scoped, scope: :account
 
   validates :goal, presence: true
 
@@ -13,8 +13,19 @@ class Story < ApplicationRecord
 
   has_many :planned_stories
   has_many :commmits, counter_cache: true, through: :planned_stories
+  has_and_belongs_to_many :tags
+
+  accepts_nested_attributes_for :tags
 
   def completed?
     completed_at.present?
+  end
+
+  def repeatable?
+    repeatable
+  end
+
+  def tags_attributes=(attributes)
+    raise attributes.inspect
   end
 end

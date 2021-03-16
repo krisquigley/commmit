@@ -4,7 +4,7 @@ class Team < ApplicationRecord
   acts_as_tenant(:account)
 
   extend FriendlyId
-  friendly_id :name, use: :slugged
+  friendly_id :name, use: :scoped, scope: :account
 
   validates :name, presence: true
 

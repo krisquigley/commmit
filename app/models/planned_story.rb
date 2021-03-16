@@ -3,7 +3,7 @@
 class PlannedStory < ApplicationRecord
   acts_as_tenant :account
 
-  after_update :complete_story, if: -> { completed_at.present? }
+  after_update :complete_story, if: -> { completed_at.present? && !story.repeatable? }
 
   belongs_to :commmit
   belongs_to :story

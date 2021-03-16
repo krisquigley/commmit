@@ -4,7 +4,7 @@ class Commmit < ApplicationRecord
   acts_as_tenant :account
 
   extend FriendlyId
-  friendly_id :name, use: :slugged
+  friendly_id :name, use: :scoped, scope: :account
 
   scope :most_recent_first, -> { order(start_date: :desc) }
 
@@ -16,6 +16,8 @@ class Commmit < ApplicationRecord
 
   has_many :planned_stories
   has_many :stories, through: :planned_stories
+
+  has_and_belongs_to_many :tags
 
   def finished?
     end_date < Date.today

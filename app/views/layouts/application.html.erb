@@ -22,7 +22,7 @@
     <div class="grid-container">
       <%= render 'shared/alerts' %>
       <%= yield %>
-      <div class="grid-footer">
+      <div class="grid-footernav">
         <%= render 'shared/footer_nav' unless (!user_signed_in? || content_for(:hide_footer_nav?)) %>
       </div>
     </div>

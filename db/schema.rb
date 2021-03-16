@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_210_311_101_148) do
+ActiveRecord::Schema.define(version: 20_210_316_224_734) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'pgcrypto'
   enable_extension 'plpgsql'
@@ -24,11 +24,11 @@ ActiveRecord::Schema.define(version: 20_210_311_101_148) do
     t.string 'account_type', default: 'personal', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
-    t.string 'slug'
+    t.string 'slug', null: false
     t.index %w[owner_user_id account_type],
             name: 'index_accounts_on_owner_user_id_and_account_type'
     t.index ['owner_user_id'], name: 'index_accounts_on_owner_user_id'
-    t.index ['slug'], name: 'index_accounts_on_slug'
+    t.index ['slug'], name: 'index_accounts_on_slug', unique: true
     t.index ['subdomain'], name: 'index_accounts_on_subdomain', unique: true
   end
 
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 20_210_311_101_148) do
   create_table 'commmits', force: :cascade do |t|
     t.string 'name', null: false
     t.integer 'length_in_days', default: 1, null: false
-    t.string 'slug'
+    t.string 'slug', null: false
     t.date 'start_date', default: -> { 'CURRENT_DATE' }, null: false
     t.bigint 'account_id', null: false
     t.datetime 'created_at', precision: 6, null: false
@@ -50,8 +50,15 @@ ActiveRecord::Schema.define(version: 20_210_311_101_148) do
     t.integer 'commmit_stories_count'
     t.index ['account_id'], name: 'index_commmits_on_account_id'
     t.index ['created_at'], name: 'index_commmits_on_created_at'
-    t.index ['slug'], name: 'index_commmits_on_slug'
+    t.index %w[slug account_id], name: 'index_commmits_on_slug_and_account_id', unique: true
     t.index ['start_date'], name: 'index_commmits_on_start_date'
+  end
+
+  create_table 'commmits_tags', id: false, force: :cascade do |t|
+    t.bigint 'commmit_id'
+    t.bigint 'tag_id'
+    t.index ['commmit_id'], name: 'index_commmits_tags_on_commmit_id'
+    t.index ['tag_id'], name: 'index_commmits_tags_on_tag_id'
   end
 
   create_table 'friendly_id_slugs', force: :cascade do |t|
@@ -160,7 +167,7 @@ ActiveRecord::Schema.define(version: 20_210_311_101_148) do
   create_table 'stories', force: :cascade do |t|
     t.string 'goal', null: false
     t.string 'reason'
-    t.string 'slug'
+    t.string 'slug', null: false
     t.text 'notes'
     t.bigint 'mvt_id'
     t.bigint 'lvt_id'
@@ -168,6 +175,7 @@ ActiveRecord::Schema.define(version: 20_210_311_101_148) do
     t.bigint 'account_id'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.boolean 'repeatable', default: false
     t.index ['account_id'], name: 'index_stories_on_account_id'
     t.index ['completed_at'], name: 'index_stories_on_completed_at'
     t.index ['created_at'], name: 'index_stories_on_created_at'
@@ -176,12 +184,30 @@ ActiveRecord::Schema.define(version: 20_210_311_101_148) do
     t.index ['mvt_id'], name: 'index_stories_on_mvt_id'
   end
 
+  create_table 'stories_tags', id: false, force: :cascade do |t|
+    t.bigint 'story_id'
+    t.bigint 'tag_id'
+    t.index ['story_id'], name: 'index_stories_tags_on_story_id'
+    t.index ['tag_id'], name: 'index_stories_tags_on_tag_id'
+  end
+
+  create_table 'tags', force: :cascade do |t|
+    t.string 'name', null: false
+    t.string 'slug', null: false
+    t.string 'color', null: false
+    t.bigint 'account_id'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['account_id'], name: 'index_tags_on_account_id'
+    t.index %w[slug account_id], name: 'index_tags_on_slug_and_account_id', unique: true
+  end
+
   create_table 'teams', force: :cascade do |t|
     t.string 'name', null: false
-    t.string 'slug'
+    t.string 'slug', null: false
     t.bigint 'account_id', null: false
     t.index ['account_id'], name: 'index_teams_on_account_id'
-    t.index ['slug'], name: 'index_teams_on_slug'
+    t.index %w[slug account_id], name: 'index_teams_on_slug_and_account_id', unique: true
   end
 
   create_table 'tickets', force: :cascade do |t|
@@ -215,7 +241,7 @@ ActiveRecord::Schema.define(version: 20_210_311_101_148) do
     t.bigint 'team_id'
     t.bigint 'github_user_id'
     t.jsonb 'source'
-    t.string 'slug'
+    t.string 'slug', null: false
     t.string 'username', null: false
     t.string 'email', null: false
     t.string 'encrypted_password', null: false
@@ -238,6 +264,7 @@ ActiveRecord::Schema.define(version: 20_210_311_101_148) do
     t.index ['email'], name: 'index_users_on_email', unique: true
     t.index ['github_user_id'], name: 'index_users_on_github_user_id'
     t.index ['reset_password_token'], name: 'index_users_on_reset_password_token', unique: true
+    t.index ['slug'], name: 'index_users_on_slug', unique: true
     t.index ['team_id'], name: 'index_users_on_team_id'
     t.index ['unlock_token'], name: 'index_users_on_unlock_token', unique: true
     t.index ['username'], name: 'index_users_on_username', unique: true

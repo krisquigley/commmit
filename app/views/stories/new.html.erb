@@ -3,7 +3,7 @@
 <% end %>
 
 <%= form_for @story, html: { class: 'flex-form' } do |f| %>
-  <%= render 'fields', f: f %>
+  <%= render 'fields', f: f, story: @story %>
 
   <div class="grid-actions">
     <%= f.submit "Create Story", class: "btn btn-lg btn-success btn-block" %>

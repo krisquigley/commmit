@@ -11,7 +11,7 @@
     </div>
   </div>
 
-    <%= f.label :reason, 'so that...', class: 'sr-only' %>
+  <%= f.label :reason, 'so that...', class: 'sr-only' %>
   <div class="input-group mb-2 mr-sm-2">
     <div class="input-group-prepend">
       <div class="input-group-text">so that </div>
@@ -23,7 +23,29 @@
   </div>
 
   <div class="form-group">
+      <%= f.label :repeatable, "Uses" %><br/>
+      <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
+        <label class="btn btn-secondary active w-50">
+          <%= f.radio_button :repeatable, false %> One Off
+        </label>
+        <label class="btn btn-secondary w-50">
+          <%= f.radio_button :repeatable, true %>  Multiple
+        </label>
+      </div>
+    </div>
+
+  <%= story.tags.inspect %>
+
+  <%= f.fields_for story.tags.build do |t| %>
+    <div class="form-group">
+      <%= t.hidden_field :color, value: "#{Random.bytes(3).unpack1('H*')}" %>
+      <%= t.label :name, 'Values' %><br/>
+      <%= t.text_field :name, autocomplete: 'off', class: "form-control" %>
+    </div>
+  <% end %>
+
+  <div class="form-group">
     <%= f.label :notes %><br/>
-    <%= f.text_area :notes, autocomplete: 'off', class: "form-control", style: "min-height: 30vh"  %>
+    <%= f.text_area :notes, autocomplete: 'off', class: "form-control", style: "min-height: 25vh"  %>
   </div>
 </div>

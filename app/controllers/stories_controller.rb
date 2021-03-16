@@ -15,7 +15,7 @@ class StoriesController < ApplicationController
     @story = Story.new(story_params)
 
     if @story.save
-      redirect_to stories_path, notice: 'Created Story'
+      redirect_to new_story_path, notice: 'Created Story'
     else
       render :new
     end
@@ -38,6 +38,6 @@ class StoriesController < ApplicationController
   end
 
   def story_params
-    params.require(:story).permit(:goal, :reason, :notes)
+    params.require(:story).permit(:goal, :reason, :notes, :repeatable, tags: %i[name color])
   end
 end
