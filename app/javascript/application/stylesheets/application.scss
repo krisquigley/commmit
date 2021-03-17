@@ -16,8 +16,11 @@ small {
 }
 
 .alert {
-  margin-left: 15px;
-  margin-right: 15px;
+  margin-left: 7px;
+  width: calc(100% - 14px);
+  opacity: 0.7;
+  position: absolute;
+  z-index: 100;
 }
 
 .link-button {

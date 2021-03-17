@@ -2,11 +2,15 @@
   true
 <% end %>
 
-<%= form_for @story, html: { class: 'flex-form' } do |f| %>
-  <%= render 'fields', f: f, story: @story %>
-
-  <div class="grid-actions">
-    <%= f.submit "Create Story", class: "btn btn-lg btn-success btn-block" %>
-    <%= link_to 'Cancel', stories_path, class: "btn btn-lg btn-secondary btn-block" %>
-  </div>
-<% end %>
+<div class="grid-content">
+  <%= form_for @story, { html: { class: 'flex-form' }} do |f| %>
+    <div class="form-content">
+      <%= render 'fields', f: f, story: @story %>
+    </div>
+    
+    <div class="form-group form-actions">
+      <%= f.submit "Create Story", class: "btn btn-lg btn-success btn-block" %>
+      <%= link_to 'Cancel', stories_path, class: "btn btn-lg btn-secondary btn-block" %>
+    </div>
+  <% end %>
+</div>
