@@ -31,6 +31,8 @@ RSpec.describe 'Commmits', type: :feature do
 
         submit_form
 
+        sleep 1
+
         visit commmits_path
 
         expect(page).to have_content 'Starts tomorrow'
@@ -44,6 +46,8 @@ RSpec.describe 'Commmits', type: :feature do
         find('label[for=today]').click
 
         submit_form
+
+        sleep 1
 
         visit commmits_path
 

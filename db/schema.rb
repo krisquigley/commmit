@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_210_316_224_734) do
+ActiveRecord::Schema.define(version: 20_210_318_171_125) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'pgcrypto'
   enable_extension 'plpgsql'
@@ -87,83 +87,6 @@ ActiveRecord::Schema.define(version: 20_210_316_224_734) do
     t.index ['story_id'], name: 'index_planned_stories_on_story_id'
   end
 
-  create_table 'retrospectives', force: :cascade do |t|
-    t.bigint 'sprint_id', null: false
-    t.bigint 'user_id'
-    t.float 'role_happiness', null: false
-    t.float 'team_happiness'
-    t.float 'company_happiness', null: false
-    t.string 'feedback', null: false
-    t.string 'happiness_goal', null: false
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.float 'average_happiness'
-    t.bigint 'account_id', null: false
-    t.index ['account_id'], name: 'index_retrospectives_on_account_id'
-    t.index ['sprint_id'], name: 'index_retrospectives_on_sprint_id'
-    t.index ['user_id'], name: 'index_retrospectives_on_user_id'
-  end
-
-  create_table 'sprint_tickets', force: :cascade do |t|
-    t.string 'title', null: false
-    t.bigint 'issue_id', null: false
-    t.string 'repository_name', null: false
-    t.bigint 'github_user_ids', default: [], array: true
-    t.integer 'number', null: false
-    t.string 'state', null: false
-    t.decimal 'estimated_effort', null: false
-    t.decimal 'effort_spent'
-    t.datetime 'closed_at'
-    t.bigint 'sprint_id'
-    t.string 'url', null: false
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.text 'notes'
-    t.decimal 'estimated_effort_override'
-    t.integer 'position'
-    t.boolean 'kaizen'
-    t.jsonb 'source'
-    t.datetime 'assigned_at'
-    t.bigint 'account_id', null: false
-    t.index ['account_id'], name: 'index_sprint_tickets_on_account_id'
-    t.index ['github_user_ids'], name: 'index_sprint_tickets_on_github_user_ids'
-    t.index ['position'], name: 'index_sprint_tickets_on_position'
-    t.index ['sprint_id'], name: 'index_sprint_tickets_on_sprint_id'
-  end
-
-  create_table 'sprints', force: :cascade do |t|
-    t.string 'name', null: false
-    t.datetime 'start_date', null: false
-    t.datetime 'end_date', null: false
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.decimal 'available_effort'
-    t.datetime 'closed_at'
-    t.string 'slug'
-    t.text 'what_went_well'
-    t.text 'what_could_be_better'
-    t.text 'what_one_thing_to_work_on'
-    t.integer 'team_id'
-    t.decimal 'final_velocity'
-    t.integer 'no_of_members'
-    t.decimal 'days_off', default: '0.0'
-    t.datetime 'finish_by'
-    t.bigint 'initial_ticket_ids', default: [], array: true
-    t.bigint 'account_id', null: false
-    t.index ['account_id'], name: 'index_sprints_on_account_id'
-    t.index ['closed_at'], name: 'index_sprints_on_closed_at'
-    t.index ['initial_ticket_ids'], name: 'index_sprints_on_initial_ticket_ids'
-    t.index ['slug'], name: 'index_sprints_on_slug', unique: true
-    t.index ['team_id'], name: 'index_sprints_on_team_id'
-  end
-
-  create_table 'sprints_users', id: false, force: :cascade do |t|
-    t.bigint 'sprint_id'
-    t.bigint 'user_id'
-    t.index ['sprint_id'], name: 'index_sprints_users_on_sprint_id'
-    t.index ['user_id'], name: 'index_sprints_users_on_user_id'
-  end
-
   create_table 'stories', force: :cascade do |t|
     t.string 'goal', null: false
     t.string 'reason'
@@ -208,32 +131,6 @@ ActiveRecord::Schema.define(version: 20_210_316_224_734) do
     t.bigint 'account_id', null: false
     t.index ['account_id'], name: 'index_teams_on_account_id'
     t.index %w[slug account_id], name: 'index_teams_on_slug_and_account_id', unique: true
-  end
-
-  create_table 'tickets', force: :cascade do |t|
-    t.string 'title', null: false
-    t.decimal 'estimated_effort', null: false
-    t.datetime 'closed_at'
-    t.bigint 'sprint_id'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.bigint 'issue_id', null: false
-    t.string 'repository_name', null: false
-    t.integer 'number', null: false
-    t.string 'state', null: false
-    t.bigint 'github_user_ids', default: [], array: true
-    t.string 'url', null: false
-    t.jsonb 'source', null: false
-    t.datetime 'assigned_at'
-    t.bigint 'account_id', null: false
-    t.index ['account_id'], name: 'index_tickets_on_account_id'
-    t.index ['assigned_at'], name: 'index_tickets_on_assigned_at'
-    t.index ['closed_at'], name: 'index_tickets_on_closed_at'
-    t.index ['issue_id'], name: 'index_tickets_on_issue_id', unique: true
-    t.index ['number'], name: 'index_tickets_on_number'
-    t.index ['repository_name'], name: 'index_tickets_on_repository_name'
-    t.index ['sprint_id'], name: 'index_tickets_on_sprint_id'
-    t.index ['title'], name: 'index_tickets_on_title'
   end
 
   create_table 'users', force: :cascade do |t|

@@ -43,24 +43,9 @@ Rails.application.routes.draw do
                 unlocks: 'users/unlocks'
               }
 
-  resource :dashboard
-
   resources :commmits, only: %i[new create index show]
   resources :stories, only: %i[new create index edit update]
   resources :planned_stories, only: %i[create] do
     patch :mark_as_done
-  end
-
-  resources :teams, only: %i[index new create show], shallow: true do
-    resources :sprints, only: %i[new create show update], shallow: true do
-      resources :sprint_tickets, only: %i[create update destroy]
-      resource :retrospective, only: %i[new create show]
-      member do
-        post 'export_csv'
-        get 'download_csv'
-        get 'manage'
-        delete 'close'
-      end
-    end
   end
 end

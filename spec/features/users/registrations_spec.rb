@@ -19,7 +19,7 @@ RSpec.describe 'Signing up for an account', type: :feature do
       click_on 'Sign up'
 
       expect(page).to have_content 'Welcome! You have signed up successfully.'
-      expect(page).to have_current_path(root_path)
+      expect(page).to have_current_path(commmits_path)
     end
   end
 

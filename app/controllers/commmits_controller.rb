@@ -30,10 +30,10 @@ class CommmitsController < ApplicationController
   end
 
   def current_commmit
-    @commmit = Commmit.current_commmit
+    commmit = Commmit.current_commmit
 
-    if @commmit
-      redirect_to @commmit
+    if commmit.present?
+      redirect_to commmit
     else
       redirect_to commmits_path
     end
