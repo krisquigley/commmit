@@ -19,12 +19,12 @@
         </div>
         <% if planned_story.completed? %>
           <div class="card-footer">
-            <%= render 'shared/notes_icon' if planned_story.story.notes.present? %>
+            <%= image_tag asset_pack_path 'media/images/notes_icon.svg' if planned_story.story.notes.present? %>
             <%= button_to 'Re-Open', planned_story_mark_as_done_path(planned_story), class: 'text-danger link-button', method: :patch %>
           </div>
         <% else %>
           <div class="card-footer">
-            <%= render 'shared/notes_icon' if planned_story.story.notes.present? %>
+            <%= image_tag asset_pack_path 'media/images/notes_icon.svg' if planned_story.story.notes.present? %>
             <%= button_to 'Close', planned_story_mark_as_done_path(planned_story), class: 'text-success link-button', method: :patch %>
           </div>
         <% end %>  

@@ -1,1 +1,0 @@
-import '../application/javascripts/happiness_graph.js'
