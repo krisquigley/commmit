@@ -13,6 +13,14 @@ RSpec.describe 'Stories', type: :feature do
     describe 'with valid data' do
       it 'should create the story with just the goal'
     end
+
+    describe 'with notes' do
+      it 'should show the note icon'
+    end
+
+    describe 'that is repeatable' do
+      it 'should show the repeat icon'
+    end
   end
 
   context 'when listing stories' do

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  include ::AccountConcern
+
   default_scope -> { includes(:accounts) }
 
   extend FriendlyId
@@ -12,7 +14,7 @@ class User < ApplicationRecord
           :recoverable, :rememberable, :validatable,
           :confirmable, :lockable, :trackable
 
-  validates :username, format: ::Account.subdomain_format
+  validates :username, format: subdomain_format
   validates :username, :email, presence: true, uniqueness: true
 
   has_and_belongs_to_many :accounts

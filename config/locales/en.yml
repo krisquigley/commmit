@@ -30,6 +30,82 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  commmits:
+    index:
+      no_commmits_yet: You haven't created any Commmits yet
+      statuses:
+        not_started: Starts
+        finished: Finished
+        in_progress: Finishes
+      new_commmit: New Commmit
+    new:
+      created: Commmit Created
+    show:
+      no_stories_yet: You haven't added any stories yet
+      close_story: Close
+      reopen_story: Re-Open
+      add_stories: Add Stories
+      close_modal: Done
+      add_story: Add
+    form:
+      name:
+        label: Name
+        placeholder: Name or Goal
+      start_date:
+        label: Start Date
+        today: Today
+        tomorrow: Tomorrow
+      length_in_days:
+        label: Length
+        option1: One Day
+        option2: Two Days
+        option3: Three Days
+        option4: Four Days
+        option5: Five Days
+      create: Create Commmit
+      cancel: Cancel
+  footer_nav:
+    left_button: Commmits
+    right_button: Stories
+  form:
+    errors: prohibited this form from being saved
+  sessions:
+    logout: Log out
+  stories:
+    form:
+      goal:
+        label: I want
+        placeholder: some goal
+      reason:
+        label: so that
+        placeholder: some reason
+      repeatable:
+        label: Uses
+        once: One-Off
+        forever: Multiple
+      notes:
+        label: Notes
+      tags:
+        label: Values
+      create: Create Story
+      update: Save Changes
+      cancel: Cancel
+    index:
+      new_story: New Story
+      no_stories_yet: You haven't created any stories yet
+  users:
+    form:
+      email:
+        label: Email
+      password:
+        label: Password
+      username:
+        label: Username
+      password_confirmation:
+        label: Password confirmation
+      create: Sign up
+    validation:
+      username: Username must only contain letters a-z, numbers 0-9 and the character -
   datetime:
     distance_in_words:
       days_and_months:

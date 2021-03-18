@@ -1,10 +1,10 @@
 <% content_for :nav_header do %>
-  Stories
+  <%= t('footer_nav.right_button') %>
 <% end %> 
 
 <div class="grid-content">
   <% if @stories.empty? %>
-    <p class="text-center text-secondary mt-2">You haven't created any stories yet</p>
+    <p class="text-center text-secondary mt-2"><%= t('stories.index.no_stories_yet') %></p>
   <% end %>
   <div class="card-deck">
     <% @stories.each do |story| %>
@@ -12,12 +12,13 @@
         <div class="card-body">
           <h5>
             <b>
-              <%= link_to "I want #{story.goal}#{story.reason.present? ? ',' : ''}", edit_story_path(story) %>
+              <%= link_to "#{t('stories.form.goal.label')} #{story.goal}#{story.reason.present? ? ',' : ''}", edit_story_path(story) %>
             </b>
           </h5>
-          <% if story.reason.present? %><h6>so that <%= story.reason %>.</h6><% end %>
+          <% if story.reason.present? %><h6><%= t('stories.form.reason.label') %> <%= story.reason %>.</h6><% end %>
         </div>
         <div class="card-footer">
+          <%= image_tag asset_pack_path 'media/images/repeat_icon.svg' if story.repeatable? %>
           <%= image_tag asset_pack_path 'media/images/notes_icon.svg' if story.notes.present? %>
           <small><i><%= story.created_at.strftime("%a, %B %d") %></i></small>
         </div>
@@ -26,4 +27,4 @@
   </div>
 </div>
 
-<%= render "shared/actions", actions: [{ label: 'New Story', path: new_story_path }] %>
+<%= render "shared/actions", actions: [{ label: t('stories.index.new_story'), path: new_story_path }] %>

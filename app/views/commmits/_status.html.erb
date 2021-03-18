@@ -1,0 +1,31 @@
+<% if commmit.finished? %>
+  <small>
+    <i>
+      <%= t('commmits.index.statuses.finished') %> 
+      <%= distance_of_time_in_words(commmit.end_date, 
+                                    Date.today, 
+                                    scope: 'datetime.distance_in_words.days_and_months')
+      %>
+    </i>
+  </small>
+<% elsif commmit.in_progress? %>
+  <small>
+    <i>
+      <%= t('commmits.index.statuses.in_progress') %> 
+      <%= distance_of_time_in_words(commmit.end_date, 
+                                    Date.today, 
+                                    scope: 'datetime.distance_in_words.days_and_months_future')
+      %>
+    </i>
+  </small>
+<% elsif commmit.not_started? %>
+  <small>
+    <i>
+      <%= t('commmits.index.statuses.not_started') %>
+      <%= distance_of_time_in_words(commmit.start_date, 
+                                    Date.today, 
+                                    scope: 'datetime.distance_in_words.days_and_months_future')
+      %>
+    </i>
+  </small>
+<% end %>

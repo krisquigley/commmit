@@ -23,7 +23,7 @@ class CommmitsController < ApplicationController
     @commmit = Commmit.new(commmit_params)
 
     if @commmit.save
-      redirect_to @commmit, notice: 'Created Commmit'
+      redirect_to @commmit, notice: t('commmits.new.created')
     else
       render :new
     end

@@ -24,13 +24,11 @@ class Commmit < ApplicationRecord
   end
 
   def end_date
-    return start_date if length_in_days == 1
-
-    start_date + length_in_days
+    start_date + (length_in_days - 1)
   end
 
   def in_progress?
-    start_date <= Date.today && end_date <= Date.today + length_in_days
+    start_date <= Date.today && end_date <= Date.today + (length_in_days - 1)
   end
 
   def not_started?

@@ -1,44 +1,53 @@
-<% content_for(:hide_footer_nav?) do %>
-  true
-<% end %>
-
 <div class="grid-content">
   <%= form_for @commmit, html: { class: 'flex-form' } do |f| %>
     <div class="form-content">
       <div class="form-group">
-        <%= f.label :name %>
-        <%= f.text_field :name, required: true, autocomplete: 'off', placeholder: 'Name or Goal', class: "form-control", autofocus: :autofocus %>
+        <%= f.label :name, t('commmits.form.name.label') %>
+        <%= f.text_field :name, required: true, 
+                                autocomplete: 'off', 
+                                placeholder: t('commmits.form.name.placeholder'), 
+                                class: "form-control", 
+                                autofocus: :autofocus %>
       </div>
 
       <div class="form-group" data-controller="startdate">
-        <%= f.label :start_date %><br/>
+        <%= f.label :start_date, t('commmits.form.start_date.label') %><br/>
         <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
           <label class="btn btn-secondary active w-50" for="today">
-            <input type="radio" name="day" id="today" checked data-action="startdate#today"> Today
+            <input type="radio" name="day" id="today" checked data-action="startdate#today"> 
+            <%= t('commmits.form.start_date.today') %>
           </label>
           <label class="btn btn-secondary w-50" for="tomorrow">
-            <input type="radio" name="day" id="tomorrow" data-action="startdate#tomorrow"> Tomorrow
+            <input type="radio" name="day" id="tomorrow" data-action="startdate#tomorrow"> 
+            <%= t('commmits.form.start_date.tomorrow') %>
           </label>
         </div>
-        <%= f.text_field :start_date, required: true, class: "form-control", type: :date, value: Date.today, data: { startdate_target: :date  }  %>
+        <%= f.text_field :start_date, required: true, 
+                                      class: "form-control", 
+                                      type: :date, 
+                                      value: Date.today, 
+                                      data: { startdate_target: :date  }  %>
       </div>
 
       <div class="form-group">
-        <%= f.label :length_in_days, value: 'Length', type: :number, min: 1 %><br/>
+        <%= f.label :length_in_days, value: t('commmits.form.length_in_days.label'), type: :number, min: 1 %><br/>
         <%= f.select :length_in_days, options_for_select({ 
-          "One Day": "1", 
-          "Two Days": "2", 
-          "Three Days": "3", 
-          "Four Days": "4", 
-          "Five Days": "5"
-        }, selected: "One Day"), {}, class: "form-control w-100" %> 
+          t('commmits.form.length_in_days.option1') => "1", 
+          t('commmits.form.length_in_days.option2') => "2", 
+          t('commmits.form.length_in_days.option3') => "3", 
+          t('commmits.form.length_in_days.option4') => "4", 
+          t('commmits.form.length_in_days.option5') => "5"
+        }, selected: t('commmits.form.length_in_days.option1')), {}, class: "form-control w-100" %> 
       </div>
     </div>
 
     <div class="form-group flex-actions">
-      <%= f.submit "Create Commmit", class: "btn btn-lg btn-success btn-block" %>
-      <%= link_to 'Cancel', commmits_path, class: "btn btn-lg btn-secondary btn-block" %>
+      <%= f.submit t('commmits.form.length_in_days.create'), class: "btn btn-lg btn-success btn-block" %>
+      <%= link_to t('commmits.form.length_in_days.cancel'), commmits_path, class: "btn btn-lg btn-secondary btn-block" %>
     </div>
   <% end %>
 </div>
 
+<% content_for(:hide_footer_nav?) do %>
+  true
+<% end %>

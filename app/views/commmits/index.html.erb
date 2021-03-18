@@ -1,10 +1,10 @@
 <% content_for :nav_header do %>
-  Commmits
+  <%= t('footer_nav.left_button') %>
 <% end %> 
 
 <div class="grid-content">
   <% if @commmits.empty? %>
-    <p class="text-center text-secondary mt-2">You haven't created any Commmits yet</p>
+    <p class="text-center text-secondary mt-2"><%= t('commmits.index.no_commmits_yet') %></p>
   <% end %>
   <div class="card-deck">
     <% @commmits.each do |commmit| %>
@@ -16,25 +16,7 @@
           <h6><b><%= link_to commmit.name, commmit_path(commmit) %></b></h6>
         </div>
         <div class="card-footer">
-          <% if commmit.finished? %>
-            <small>
-              <i>
-                Finished <%= distance_of_time_in_words(commmit.end_date, Date.today, scope: 'datetime.distance_in_words.days_and_months')%>.
-              </i>
-            </small>
-          <% elsif commmit.in_progress? %>
-            <small>
-              <i>
-                Finishes <%= distance_of_time_in_words(commmit.end_date, Date.today, scope: 'datetime.distance_in_words.days_and_months_future')%>.
-              </i>
-            </small>
-          <% elsif commmit.not_started? %>
-            <small>
-              <i>
-                Starts <%= distance_of_time_in_words(commmit.start_date, Date.today, scope: 'datetime.distance_in_words.days_and_months_future')%>.
-              </i>
-            </small>
-          <% end %>
+          <%= render 'commmits/status', commmit: commmit %>
           <div class="ml-2">
             <%= image_tag asset_pack_path 'media/images/clock_icon.svg' %>
           </div>
@@ -44,4 +26,4 @@
   </div>
 </div>
 
-<%= render "shared/actions", actions: [{ label: 'New Commmit', path: new_commmit_path }] %>
+<%= render "shared/actions", actions: [{ label: t('commmits.index.new_commmit'), path: new_commmit_path }] %>

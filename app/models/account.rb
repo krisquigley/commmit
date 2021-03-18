@@ -1,10 +1,7 @@
 # frozen_string_literal: true
 
 class Account < ApplicationRecord
-  def self.subdomain_format
-    { with: /\A[A-Za-z0-9\-]+\z/,
-      message: 'must only contain letters a-z, numbers 0-9 and the character -' }
-  end
+  include ::AccountConcern
 
   extend FriendlyId
   friendly_id :name, use: :slugged

@@ -11,14 +11,14 @@ RSpec.describe 'Signing up for an account', type: :feature do
     it 'should redirect to the account page' do
       visit signup_path
 
-      fill_in 'Username', with: user.username
-      fill_in 'Email', with: user.email
-      fill_in 'Password', with: user.password
-      fill_in 'Password confirmation', with: user.password
+      fill_in t('users.form.username.label'), with: user.username
+      fill_in t('users.form.email.label'), with: user.email
+      fill_in t('users.form.password.label'), with: user.password
+      fill_in t('users.form.password_confirmation.label'), with: user.password
 
-      click_on 'Sign up'
+      submit_form
 
-      expect(page).to have_content 'Welcome! You have signed up successfully.'
+      expect(page).to have_content t('devise.registrations.signed_up')
       expect(page).to have_current_path(commmits_path)
     end
   end
@@ -27,21 +27,20 @@ RSpec.describe 'Signing up for an account', type: :feature do
     it 'should raise errors' do
       visit signup_path
 
-      click_on 'Sign up'
+      submit_form
 
-      expect(page).to have_content "Email can't be blank"
-      expect(page).to have_content "Password can't be blank"
-      expect(page).to have_content "Username can't be blank"
+      expect(page).to have_content "#{t('users.form.email.label')} #{t('errors.messages.blank')}"
+      expect(page).to have_content "#{t('users.form.password.label')} #{t('errors.messages.blank')}"
+      expect(page).to have_content "#{t('users.form.username.label')} #{t('errors.messages.blank')}"
     end
 
     it 'should raise errors' do
       visit signup_path
-      fill_in 'Username', with: 'bad username$.'
+      fill_in t('users.form.username.label'), with: 'bad username$.'
 
-      click_on 'Sign up'
+      submit_form
 
-      expect(page).to have_content 'Username must only contain letters a-z, '\
-        'numbers 0-9 and the character -'
+      expect(page).to have_content t('users.validation.username')
     end
   end
 
@@ -54,14 +53,14 @@ RSpec.describe 'Signing up for an account', type: :feature do
     it 'should raise an error' do
       visit signup_path
 
-      fill_in 'Username', with: user.username
-      fill_in 'Email', with: user.email
-      fill_in 'Password', with: user.password
-      fill_in 'Password confirmation', with: user.password
+      fill_in t('users.form.username.label'), with: user.username
+      fill_in t('users.form.email.label'), with: user.email
+      fill_in t('users.form.password.label'), with: user.password
+      fill_in t('users.form.password_confirmation.label'), with: user.password
 
-      click_on 'Sign up'
+      submit_form
 
-      expect(page).to have_content 'Accounts is invalid'
+      expect(page).to have_content "Accounts #{t('errors.messages.invalid')}"
       expect(Account.count).to eq 2 # 'testing-account' is created for all the tests
       expect(User.count).to eq 1
     end
