@@ -13,10 +13,10 @@
       <div class="form-group" data-controller="startdate">
         <%= f.label :start_date %><br/>
         <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
-          <label class="btn btn-secondary active w-50">
+          <label class="btn btn-secondary active w-50" for="today">
             <input type="radio" name="day" id="today" checked data-action="startdate#today"> Today
           </label>
-          <label class="btn btn-secondary w-50">
+          <label class="btn btn-secondary w-50" for="tomorrow">
             <input type="radio" name="day" id="tomorrow" data-action="startdate#tomorrow"> Tomorrow
           </label>
         </div>

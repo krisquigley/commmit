@@ -18,12 +18,37 @@ RSpec.describe 'Commmits', type: :feature do
 
         submit_form
 
-        expect(page).to have_content 'Commmit succesfully created'
+        expect(page).to have_content 'Created Commmit'
       end
     end
 
-    context 'using the day buttons' do
-      it 'should update the the date accordingly'
+    context 'using the day buttons', js: true do
+      it 'should update the the date to tomorrow' do
+        visit new_commmit_path
+
+        fill_in 'Name', with: 'Test'
+        find('label[for=tomorrow]').click
+
+        submit_form
+
+        visit commmits_path
+
+        expect(page).to have_content 'Starts tomorrow'
+      end
+
+      it 'should keep the the date as today' do
+        visit new_commmit_path
+
+        fill_in 'Name', with: 'Test'
+        find('label[for=tomorrow]').click
+        find('label[for=today]').click
+
+        submit_form
+
+        visit commmits_path
+
+        expect(page).to have_content 'Finishes today'
+      end
     end
   end
 
