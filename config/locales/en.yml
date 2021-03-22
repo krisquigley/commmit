@@ -51,7 +51,7 @@ en:
       name:
         label_html: What do you want to <b>focus</b> on?
       start_date:
-        label_html: <b>When</b> do you want to start on?
+        label_html: <b>When</b> do you want to start?
         today: Today
         tomorrow: Tomorrow
       length_in_days:
