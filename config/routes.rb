@@ -43,7 +43,9 @@ Rails.application.routes.draw do
                 unlocks: 'users/unlocks'
               }
 
-  resources :commmits, only: %i[new create index show]
+  resources :commmits, only: %i[new create index show] do
+    resource :stories, only: :create
+  end
   resources :stories, only: %i[new create index edit update]
   resources :planned_stories, only: %i[create] do
     patch :mark_as_done

@@ -32,6 +32,9 @@ module CommmitApp
     config.active_storage.queues.purge      = nil       # defaults to "active_storage_purge"
     config.active_storage.queues.mirror     = nil       # defaults to "active_storage_mirror"
 
+    # Disable for Turbo
+    config.action_view.form_with_generates_remote_forms = false
+
     config.autoload_paths << Rails.root.join('lib')
 
     # Settings in config/environments/* take precedence over those specified here.

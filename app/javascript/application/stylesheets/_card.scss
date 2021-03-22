@@ -1,0 +1,20 @@
+.card--finished {
+  opacity: 50%;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: end;
+  background: none;
+  border: 0;
+
+  &__left {
+    justify-content: left;
+  }
+
+  &__right {
+    justify-content: right;
+  }
+}

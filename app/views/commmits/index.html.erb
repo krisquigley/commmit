@@ -8,20 +8,7 @@
   <% end %>
   <div class="card-deck">
     <% @commmits.each do |commmit| %>
-      <%# TODO: If this is a one/two day commmit then show a progress bar, if it is more than two days, show a burndown chart %>
-      <div class="card" style="<%= commmit.finished? ? "opacity: 50%" : "" %>">
-        <%= render 'shared/progress', commmit: commmit %>
-
-        <div class="card-body">
-          <h6><b><%= link_to commmit.name, commmit_path(commmit) %></b></h6>
-        </div>
-        <div class="card-footer">
-          <%= render 'commmits/status', commmit: commmit %>
-          <div class="ml-2">
-            <%= image_tag asset_pack_path 'media/images/clock_icon.svg' %>
-          </div>
-        </div>
-      </div>
+      <%= render 'commmit', commmit: commmit %>
     <% end %>
   </div>
 </div>

@@ -3,12 +3,13 @@
 class CommmitsController < ApplicationController
   def show
     @commmit = Commmit.includes(:stories, :planned_stories)
-                      .order('stories.completed_at desc, stories.created_at desc')
+                      .order('planned_stories.completed_at desc, planned_stories.created_at desc')
                       .friendly.find(params[:id])
 
     # TODO: Only make this call when loading the modal
     story_ids = @commmit.planned_stories.map(&:story_id)
-    @stories = Story.where.not(id: story_ids).where(completed_at: nil).most_recent_first
+    @repeatable_stories = Story.where.not(id: story_ids).where(completed_at: nil).where(repeatable: true).most_recent_first
+    @one_off_stories = Story.where.not(id: story_ids).where(completed_at: nil).where(repeatable: false).most_recent_first
   end
 
   def index
@@ -39,7 +40,7 @@ class CommmitsController < ApplicationController
     end
   end
 
-  protected
+  private
 
   def commmit_params
     params.require(:commmit).permit(:name, :length_in_days, :start_date)

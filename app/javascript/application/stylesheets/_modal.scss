@@ -1,0 +1,23 @@
+.modal {
+  @include enforce-mobile-viewport;
+
+  left: auto;
+}
+
+.modal-open.modal {
+  overflow-x: initial;
+  overflow-y: initial;
+}
+
+.modal-dialog {
+  overflow-y: initial !important;
+}
+
+.modal-content {
+  max-height: calc(#{$mobile-height} - 1rem);
+}
+
+.modal-body {
+  height: 80vh;
+  overflow-y: auto;
+}

@@ -1,0 +1,24 @@
+<div class="card" data-controller="navigate" data-action="click->navigate#navigate">
+  <div class="card-body">
+    <h5>
+      <b>
+        <%= link_to "#{t('stories.form.goal.label')} #{story.goal}#{story.reason.present? ? ',' : ''}", 
+                    edit_story_path(story), data: { navigate_target: :link } %>
+      </b>
+    </h5>
+    <% if story.reason.present? %>
+      <h6>
+        <%= t('stories.form.reason.label') %> <%= story.reason %>.
+      </h6>
+    <% end %>
+  </div>
+  <div class="card-footer">
+    <div class="card-footer__left">
+      <%= image_tag asset_pack_path('media/images/notes_icon.svg'), class: 'mr-1' if story.notes.present? %>
+    </div>
+    <div class="card-footer__right">
+      <%= image_tag asset_pack_path('media/images/repeat_icon.svg'), class: 'mr-1' if story.repeatable? %>
+      <small><i><%= story.created_at.strftime("%a, %B %d") %></i></small>
+    </div>
+  </div>
+</div>

@@ -12,74 +12,17 @@
   <% end %>
   <div class="card-deck">
     <% @commmit.planned_stories.each do |planned_story| %>
-      <div class="card" style="<%= planned_story.completed? ? "opacity: 50%" : "" %>">
-        <div class="card-body">
-          <h5>
-            <b><%= t('stories.form.goal.label') %> <%= planned_story.story.goal %><% if planned_story.story.reason.present? %>,<% end %></b>
-          </h5>
-          <% if planned_story.story.reason.present? %><h6><%= t('stories.form.reason.label') %> <%= planned_story.story.reason %>.</h6><% end %>
-        </div>
-        <% if planned_story.completed? %>
-          <div class="card-footer">
-            <%= image_tag asset_pack_path 'media/images/notes_icon.svg' if planned_story.story.notes.present? %>
-            <%= button_to t('commmits.show.reopen_story'), planned_story_mark_as_done_path(planned_story), class: 'text-danger link-button', method: :patch %>
-          </div>
-        <% else %>
-          <div class="card-footer">
-            <%= image_tag asset_pack_path 'media/images/notes_icon.svg' if planned_story.story.notes.present? %>
-            <%= button_to t('commmits.show.close_story'), planned_story_mark_as_done_path(planned_story), class: 'text-success link-button', method: :patch %>
-          </div>
-        <% end %>  
-      </div>
+      <%= render 'planned_story', planned_story: planned_story %>
     <% end %>
   </div>
 </div>
 
 
 <div class="grid-actions">
-  <button type="button" class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#addPlanModal">
+  <button type="button" class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#addStoriesModal">
     <%= t('commmits.show.add_stories') %>
   </button>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="addPlanModal" tabindex="-1" aria-labelledby="addPlanModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel"><%= t('commmits.show.add_stories') %></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="card-deck">
-          <% if @stories.empty? %>
-            <p class="text-center text-secondary mt-2">
-              <%= link_to t('stories.index.no_stories_yet'), new_story_path %>
-            </p>
-          <% end %>
-          <% @stories.each do |story| %>
-            <div class="card">
-              <div class="card-body">
-                <h5><b><%= t('stories.form.goal.label') %> <%= story.goal %><% if story.reason.present? %>,<% end %></b></h5>
-                <% if story.reason.present? %><h6><%= t('stories.form.reason.label') %> <%= story.reason %>.</h6><% end %>
-              </div>
-              <div class="card-footer">
-                <%= image_tag asset_pack_path 'media/images/repeat_icon.svg' if story.repeatable? %>
-                <%= form_for PlannedStory.new do |f| %>
-                  <%= f.hidden_field :commmit_id, value: @commmit.id %>
-                  <%= f.hidden_field :story_id, value: story.id %>
-                  <%= f.submit t('commmits.show.add_story'), class: 'text-success link-button' %>
-                <% end %>
-              </div>
-            </div>
-          <% end %>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t('commmits.show.close_modal') %></button>
-      </div>
-    </div>
-  </div>
-</div>
+<%= render 'add_stories', one_off_stories: @one_off_stories, repeatable_stories: @repeatable_stories, commmit: @commmit %>

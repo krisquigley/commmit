@@ -42,28 +42,27 @@ en:
       created: Commmit Created
     show:
       no_stories_yet: You haven't added any stories yet
-      close_story: Close
-      reopen_story: Re-Open
+      close_story: Done?
+      reopen_story: Done
       add_stories: Add Stories
-      close_modal: Done
+      close_modal: Close
       add_story: Add
     form:
       name:
-        label: Name
-        placeholder: Name or Goal
+        label_html: What do you want to <b>focus</b> on?
       start_date:
-        label: Start Date
+        label_html: <b>When</b> do you want to start on?
         today: Today
         tomorrow: Tomorrow
       length_in_days:
-        label: Length
+        label_html: <b>How many days</b> do you want to commit to?
         option1: One Day
         option2: Two Days
         option3: Three Days
         option4: Four Days
         option5: Five Days
       create: Create Commmit
-      cancel: Cancel
+      cancel: Close
   footer_nav:
     left_button: Commmits
     right_button: Stories
@@ -73,6 +72,8 @@ en:
     logout: Log out
   stories:
     form:
+      story:
+        label_html: <b>What</b> do you want to achieve?
       goal:
         label: I want
         placeholder: some goal
@@ -80,16 +81,16 @@ en:
         label: so that
         placeholder: some reason
       repeatable:
-        label: Uses
-        once: One-Off
-        forever: Multiple
+        label_html: <b>How many</b> times do you plan to do this?
+        once: Once
+        forever: Repeatable
       notes:
         label: Notes
       tags:
-        label: Values
+        label_html: What <b>value(s)</b> does this goal focus on?
       create: Create Story
       update: Save Changes
-      cancel: Cancel
+      cancel: Close
     index:
       new_story: New Story
       no_stories_yet: You haven't created any stories yet

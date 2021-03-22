@@ -8,13 +8,14 @@ class Commmit < ApplicationRecord
 
   scope :most_recent_first, -> { order(start_date: :desc) }
 
-  # TODO: should match logic for #in_progress?
-  scope :current_commmit, -> { order(start_date: :desc).where('start_date <= ?', Date.today).first }
+  scope :current_commmit, lambda {
+                            order(start_date: :desc, created_at: :desc).where('start_date <= ?', Date.today).first
+                          }
 
   validates :name, :length_in_days, presence: true
   validates :length_in_days, numericality: { only_integer: true, greater_than: 0 }
 
-  has_many :planned_stories
+  has_many :planned_stories, dependent: :destroy
   has_many :stories, through: :planned_stories
 
   has_and_belongs_to_many :tags
