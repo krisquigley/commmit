@@ -3,6 +3,9 @@
   <%= render 'shared/progress', commmit: commmit %>
 
   <div class="card-body">
+    <%= button_to commmit_path(commmit), method: :delete, class: 'link-button discard-link', data: { action: "click->navigate#stopPropagation" } do %>
+      <%= image_tag asset_pack_path('media/images/close_icon.svg') %> 
+    <% end %>
     <h6><b><%= link_to commmit.name, commmit_path(commmit), data: { navigate_target: :link } %></b></h6>
   </div>
   <div class="card-footer">

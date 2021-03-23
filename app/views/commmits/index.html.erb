@@ -7,9 +7,7 @@
     <p class="text-center text-secondary mt-2"><%= t('commmits.index.no_commmits_yet') %></p>
   <% end %>
   <div class="card-deck">
-    <% @commmits.each do |commmit| %>
-      <%= render 'commmit', commmit: commmit %>
-    <% end %>
+    <%= render partial: "commmit", collection: @commmits %>
   </div>
 </div>
 

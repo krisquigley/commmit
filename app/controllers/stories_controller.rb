@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class StoriesController < ApplicationController
-  before_action :story, only: %i[edit update mark_as_done]
+  before_action :find_story, only: %i[edit update mark_as_done destroy]
   before_action :find_commmit, if: -> { params[:commmit_id] }
 
   def index
-    @stories = Story.most_recent_first.open
+    @stories = Story.kept.most_recent_first.open
   end
 
   def new
@@ -33,13 +33,17 @@ class StoriesController < ApplicationController
     end
   end
 
+  def destroy
+    redirect_back fallback_location: stories_path, notice: 'Archived Story' if @story.discard
+  end
+
   private
 
   def find_commmit
     @commmit = Commmit.friendly.find(params[:commmit_id])
   end
 
-  def story
+  def find_story
     @story = Story.friendly.find(params[:id])
   end
 

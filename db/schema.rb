@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_210_318_171_125) do
+ActiveRecord::Schema.define(version: 20_210_322_223_516) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'pgcrypto'
   enable_extension 'plpgsql'
@@ -48,8 +48,10 @@ ActiveRecord::Schema.define(version: 20_210_318_171_125) do
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.integer 'commmit_stories_count'
+    t.datetime 'discarded_at'
     t.index ['account_id'], name: 'index_commmits_on_account_id'
     t.index ['created_at'], name: 'index_commmits_on_created_at'
+    t.index ['discarded_at'], name: 'index_commmits_on_discarded_at'
     t.index %w[slug account_id], name: 'index_commmits_on_slug_and_account_id', unique: true
     t.index ['start_date'], name: 'index_commmits_on_start_date'
   end
@@ -99,9 +101,11 @@ ActiveRecord::Schema.define(version: 20_210_318_171_125) do
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.boolean 'repeatable', default: false
+    t.datetime 'discarded_at'
     t.index ['account_id'], name: 'index_stories_on_account_id'
     t.index ['completed_at'], name: 'index_stories_on_completed_at'
     t.index ['created_at'], name: 'index_stories_on_created_at'
+    t.index ['discarded_at'], name: 'index_stories_on_discarded_at'
     t.index ['goal'], name: 'index_stories_on_goal'
     t.index ['lvt_id'], name: 'index_stories_on_lvt_id'
     t.index ['mvt_id'], name: 'index_stories_on_mvt_id'

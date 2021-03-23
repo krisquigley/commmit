@@ -13,6 +13,16 @@ class PlannedStoriesController < ApplicationController
     redirect_back fallback_location: commmits_path, notice: 'Marked Story as Done'
   end
 
+  def destroy
+    planned_story = PlannedStory.find(params[:id])
+    redirect = commmit_path(planned_story.commmit)
+
+    return unless planned_story.destroy
+
+    redirect_back fallback_location: redirect,
+                  notice: 'Removed Story from Commmit'
+  end
+
   private
 
   def planned_story_params

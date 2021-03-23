@@ -16,6 +16,7 @@
 @import './_alert';
 @import './_modal';
 @import './_card';
+@import './_discard-link';
 
 html {
   @include enforce-mobile-viewport;

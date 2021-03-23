@@ -55,9 +55,7 @@
                   <%= link_to t('stories.index.no_stories_yet'), new_story_path %>
                 </p>
               <% end %>
-              <% one_off_stories.each do |story| %>
-                <%= render 'story', story: story %>
-              <% end %>
+              <%= render partial: "story", collection: one_off_stories %>
             </div>
           </div>
           <div class="tab-pane fade" 
@@ -70,9 +68,7 @@
                   <%= link_to t('stories.index.no_stories_yet'), new_story_path %>
                 </p>
               <% end %>
-              <% repeatable_stories.each do |story| %>
-                <%= render 'story', story: story %>
-              <% end %>
+              <%= render partial: "story", collection: repeatable_stories %>
             </div>
           </div>
           <div class="tab-pane fade" 

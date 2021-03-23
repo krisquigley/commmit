@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Commmit < ApplicationRecord
+  include Discard::Model
+
   acts_as_tenant :account
 
   extend FriendlyId

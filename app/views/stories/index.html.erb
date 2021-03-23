@@ -7,9 +7,7 @@
     <p class="text-center text-secondary mt-2"><%= t('stories.index.no_stories_yet') %></p>
   <% end %>
   <div class="card-deck">
-    <% @stories.each do |story| %>
-      <%= render 'story', story: story %>
-    <% end %>
+    <%= render partial: "story", collection: @stories %>
   </div>
 </div>
 

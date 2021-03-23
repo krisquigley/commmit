@@ -11,17 +11,15 @@
     <p class="text-center text-secondary mt-2"><%= t('commmits.show.no_stories_yet') %></p>
   <% end %>
   <div class="card-deck">
-    <% @commmit.planned_stories.each do |planned_story| %>
-      <%= render 'planned_story', planned_story: planned_story %>
-    <% end %>
+    <%= render partial: 'planned_story', collection: @commmit.planned_stories, locals: { commmit: @commmit } %>
   </div>
 </div>
 
 
 <div class="grid-actions">
-  <button type="button" class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#addStoriesModal">
-    <%= t('commmits.show.add_stories') %>
-  </button>
+  <%= button_tag class: "btn btn-lg btn-primary btn-block", disabled: @commmit.finished?, data: { toggle: "modal", target: "#addStoriesModal" } do %>
+    <%= @commmit.finished? ? t('commmits.show.finished') : t('commmits.show.add_stories') %> 
+  <% end %>
 </div>
 
 <!-- Modal -->
