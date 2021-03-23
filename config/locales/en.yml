@@ -62,6 +62,8 @@ en:
         option3: Three Days
         option4: Four Days
         option5: Five Days
+        option6: Six Days
+        option7: Seven Days
       create: Create Commmit
       cancel: Close
   confirmations:
