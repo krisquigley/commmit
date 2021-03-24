@@ -46,7 +46,9 @@ Rails.application.routes.draw do
   resources :commmits, only: %i[new create index show destroy] do
     resource :stories, only: :create
   end
-  resources :stories, only: %i[new create index edit update destroy]
+  resources :stories, only: %i[new create index edit update destroy] do
+    resource :tags, only: %i[index create destroy]
+  end
   resources :planned_stories, only: %i[create destroy] do
     patch :mark_as_done
   end

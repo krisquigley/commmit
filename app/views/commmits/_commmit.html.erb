@@ -6,7 +6,7 @@
     <%= button_to commmit_path(commmit), method: :delete, class: 'link-button discard-link', data: { action: "click->navigate#stopPropagation" } do %>
       <%= render 'shared/close_icon', classes: '' %> 
     <% end %>
-    <h6><%= link_to commmit.name, commmit_path(commmit), data: { navigate_target: :link }, class: 'font-weight-bold' %></h6>
+    <h5><%= link_to commmit.name, commmit_path(commmit), data: { navigate_target: :link }, class: 'font-weight-bold' %></h5>
   </div>
   <div class="card-footer">
     <div class="card-footer__left">
