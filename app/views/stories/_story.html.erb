@@ -1,26 +1,24 @@
 <div class="card" data-controller="navigate" data-action="click->navigate#navigate">
   <div class="card-body">
     <%= button_to story_path(story), method: :delete, class: 'link-button discard-link', data: { action: "click->navigate#stopPropagation" } do %>
-      <%= image_tag asset_pack_path('media/images/close_icon.svg') %> 
+      <%= render 'shared/close_icon', classes: '' %> 
     <% end %>
-    <h5>
-      <b>
-        <%= link_to "#{t('stories.form.goal.label')} #{story.goal}#{story.reason.present? ? ',' : ''}", 
+    <h5 class="card--goal">
+      <%= link_to "#{t('stories.form.goal.label')} #{story.goal}#{story.reason.present? ? ',' : ''}", 
                     edit_story_path(story), data: { navigate_target: :link } %>
-      </b>
     </h5>
     <% if story.reason.present? %>
-      <h6>
+      <h6 class="card--reason">
         <%= t('stories.form.reason.label') %> <%= story.reason %>.
       </h6>
     <% end %>
   </div>
   <div class="card-footer">
     <div class="card-footer__left">
-      <%= image_tag asset_pack_path('media/images/notes_icon.svg'), class: 'mr-1' if story.notes.present? %>
+      <%= render 'shared/notes_icon', classes: 'mr-1 card-footer__icon' if story.notes.present? %>
     </div>
     <div class="card-footer__right">
-      <%= image_tag asset_pack_path('media/images/repeat_icon.svg'), class: 'mr-1' if story.repeatable? %>
+      <%= render 'shared/repeat_icon', classes: 'mr-1 card-footer__icon' if story.repeatable? %>
       <small><i><%= story.created_at.strftime("%a, %B %d") %></i></small>
     </div>
   </div>

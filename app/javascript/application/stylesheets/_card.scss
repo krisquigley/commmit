@@ -1,3 +1,15 @@
+.card--goal {
+  display: inline;
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+
+.card--reason {
+  display: inline;
+  font-size: 1.1rem;
+  font-weight: 300;
+}
+
 .card--finished {
   opacity: 50%;
 }
@@ -9,6 +21,11 @@
   align-items: end;
   background: none;
   border: 0;
+  color: $secondary-text;
+
+  svg {
+    color: $secondary-text;
+  }
 
   &__left {
     justify-content: left;

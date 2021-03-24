@@ -1,7 +1,13 @@
 <div class="card">
   <div class="card-body">
-    <h5><b><%= t('stories.form.goal.label') %> <%= story.goal %><% if story.reason.present? %>,<% end %></b></h5>
-    <% if story.reason.present? %><h6><%= t('stories.form.reason.label') %> <%= story.reason %>.</h6><% end %>
+    <h5 class="card--goal">
+      <%= t('stories.form.goal.label') %> <%= story.goal %><% if story.reason.present? %>,<% end %>
+    </h5>
+    <% if story.reason.present? %>
+      <h6 class="card--reason">
+        <%= t('stories.form.reason.label') %> <%= story.reason %>.
+      </h6>
+    <% end %>
   </div>
   <div class="card-footer">
     <div class="card-footer__left">

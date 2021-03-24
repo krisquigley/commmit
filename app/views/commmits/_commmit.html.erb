@@ -4,18 +4,18 @@
 
   <div class="card-body">
     <%= button_to commmit_path(commmit), method: :delete, class: 'link-button discard-link', data: { action: "click->navigate#stopPropagation" } do %>
-      <%= image_tag asset_pack_path('media/images/close_icon.svg') %> 
+      <%= render 'shared/close_icon', classes: '' %> 
     <% end %>
-    <h6><b><%= link_to commmit.name, commmit_path(commmit), data: { navigate_target: :link } %></b></h6>
+    <h6><%= link_to commmit.name, commmit_path(commmit), data: { navigate_target: :link }, class: 'font-weight-bold' %></h6>
   </div>
   <div class="card-footer">
     <div class="card-footer__left">
       <small><%= commmit.planned_stories.count %></small>
-      <%= image_tag asset_pack_path('media/images/story_icon.svg'), class: 'ml-1' %> 
+      <%= render 'shared/story_icon', classes: 'ml-1' %> 
     </div>
     <div class="card-footer__right">
       <%= render 'status', commmit: commmit %>
-      <%= image_tag asset_pack_path('media/images/clock_icon.svg'), class: 'ml-1' %>
+      <%= render 'shared/clock_icon', classes: 'ml-1' %>
     </div>
   </div>
 </div>
