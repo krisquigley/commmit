@@ -25,7 +25,7 @@ class CommmitsController < ApplicationController
     @commmit = Commmit.new(commmit_params)
 
     if @commmit.save
-      redirect_to @commmit, notice: t('commmits.new.created')
+      redirect_to @commmit, notice: t('commmits.notice.created')
     else
       render :new
     end
@@ -34,7 +34,10 @@ class CommmitsController < ApplicationController
   def destroy
     @commmit = Commmit.friendly.find(params[:id])
 
-    redirect_back fallback_location: commmits_path, notice: 'Archived Commmit' if @commmit.discard
+    return unless @commmit.discard
+
+    redirect_back fallback_location: commmits_path,
+                  notice: t('commmits.notice.destroyed')
   end
 
   def current_commmit

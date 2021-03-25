@@ -42,7 +42,6 @@
   <%= f.label :repeatable, t('stories.form.repeatable.label_html') %><br/>
 
   <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
-
     <label class="btn btn-secondary <%= 'active' if !story&.repeatable %> w-50">
       <%= f.radio_button :repeatable, false %> <%= t('stories.form.repeatable.once') %>
     </label>
@@ -50,13 +49,19 @@
     <label class="btn btn-secondary <%= 'active' if story&.repeatable %> w-50">
       <%= f.radio_button :repeatable, true %> <%= t('stories.form.repeatable.forever') %>
     </label>
-
   </div>
-
 </div>
 
 <div class="form-group">
-  <%= link_to t('stories.form.tags.manage'), story_tags_path(story) if story %>
+  <%= t('stories.form.tags.label_html') %> <br/>
+  <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |b| %>
+    <div class="form-check form-check-inline">
+      <%= b.check_box class: 'form-check-input', checked: story&.tags&.any? { |t| t.id == b.value } %>
+      <%= b.label class: 'form-check-label' do %>
+        <%= render 'tags/tag', tag: b.object %>
+      <% end %>
+    </div>
+  <% end %>
 </div>
 
 <div class="form-group">

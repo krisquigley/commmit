@@ -17,10 +17,10 @@
   </head>
 
   <body>
+    <%= render 'shared/alerts' %>
     <%= render 'shared/nav' %>
 
     <div class="grid-container">
-      <%= render 'shared/alerts' %>
       <%= yield %>
       <div class="grid-footernav">
         <%= render 'shared/footer_nav' unless (!user_signed_in? || content_for(:hide_footer_nav?)) %>

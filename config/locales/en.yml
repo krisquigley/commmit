@@ -31,6 +31,9 @@
 
 en:
   commmits:
+    notice:
+      created: Commmit Created
+      destroyed: Commmit Archived
     index:
       no_commmits_yet: You haven't created any Commmits yet
       statuses:
@@ -38,8 +41,6 @@ en:
         finished: Finished
         in_progress: Finishes
       new_commmit: New Commmit
-    new:
-      created: Commmit Created
     show:
       no_stories_yet: You haven't added any stories yet
       close_story: Done?
@@ -85,6 +86,10 @@ en:
       header: Log in
     logout: Log out
   stories:
+    notice:
+      created: Created Story
+      updated: Updated Story
+      destroyed: Archived Story
     form:
       story:
         label_html: <b>What</b> do you want to achieve?
@@ -110,13 +115,16 @@ en:
       new_story: New Story
       no_stories_yet: You haven't created any stories yet
   tags:
+    notice:
+      created: Created Value
+      destroyed: Removed Value
     form:
       name:
         label: Name of your value
       create: Create Value
       update: Save Changes
       cancel: Close
-    show:
+    index:
       header: Values
   unlocks:
     new:

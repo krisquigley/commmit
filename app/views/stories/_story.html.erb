@@ -19,10 +19,10 @@
   <div class="card-footer">
     <div class="card-footer__left">
       <%= render 'shared/icons/notes_icon', classes: 'mr-1 card-footer__icon' if story.notes.present? %>
+      <%= render 'shared/icons/repeat_icon', classes: 'mr-1 card-footer__icon' if story.repeatable? %>
     </div>
     <div class="card-footer__right">
-      <%= render 'shared/icons/repeat_icon', classes: 'mr-1 card-footer__icon' if story.repeatable? %>
-      <small><i><%= story.created_at.strftime("%a, %B %d") %></i></small>
+      <small><i><%= time_ago_in_words(story.created_at) %> ago</i></small>
     </div>
   </div>
 </div>

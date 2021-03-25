@@ -1,16 +1,17 @@
 .navbar {
   max-width: 414px;
-  justify-content: initial;
   padding: 0.5rem 1rem;
   margin-left: auto;
   margin-right: auto;
-  flex-wrap: initial;
 }
 
 .navbar-toggler {
-  margin-left: auto;
   border: 0;
   padding: 0;
+}
+
+.nav-item {
+  text-align: right;
 }
 
 .secton-heading {

@@ -17,7 +17,7 @@ class StoriesController < ApplicationController
     @story.planned_stories.build(commmit_id: @commmit.id) if @commmit
 
     if @story.save
-      redirect_to story_tags_path(@story), notice: 'Created Story'
+      redirect_back fallback_location: new_story_path, notice: t('stories.notice.created')
     else
       render :new
     end
@@ -26,28 +26,23 @@ class StoriesController < ApplicationController
   def edit; end
 
   def update
+    story_params[:tag_ids]&.reject!(&:empty?)
+
     if @story.update(story_params)
-      redirect
+      redirect_to stories_path, notice: t('stories.notice.updated')
     else
       render :edit
     end
   end
 
   def destroy
-    redirect_back fallback_location: stories_path, notice: 'Archived Story' if @story.discard
+    return unless @story.discard
+
+    redirect_back fallback_location: stories_path,
+                  notice: t('stories.notice.destroyed')
   end
 
   private
-
-  def redirect
-    if @commmit
-      redirect_to commmit_path(@commmit), notice: 'Updated Story'
-    elsif story_params[:tag_ids]
-      redirect_to story_path(@story), notice: 'Updated Story'
-    else
-      redirect_to stories_path, notice: 'Updated Story'
-    end
-  end
 
   def find_commmit
     @commmit = Commmit.friendly.find(params[:commmit_id])
