@@ -39,7 +39,6 @@
 </div>
 
 <div class="form-group">
-
   <%= f.label :repeatable, t('stories.form.repeatable.label_html') %><br/>
 
   <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
@@ -56,16 +55,12 @@
 
 </div>
 
-<%= f.fields_for story.tags.build do |t| %>
-  <div class="form-group">
-    <%= t.hidden_field :color, value: "#{Random.bytes(3).unpack1('H*')}" %>
-    <%= t.label :name, t('stories.form.tags.label_html') %><br/>
-    <%= t.text_field :name, autocomplete: 'off', class: "form-control" %>
-  </div>
-<% end if story %>
+<div class="form-group">
+  <%= link_to t('stories.form.tags.manage'), story_tags_path(story) if story %>
+</div>
 
 <div class="form-group">
-  <%= f.label :notes, t('stories.form.notes.label') %> <%= image_tag asset_pack_path('media/images/notes_icon.svg'), class: 'ml-1' %><br/>
+  <%= f.label :notes, t('stories.form.notes.label') %> <%=  render 'shared/icons/notes_icon', classes: 'ml-1' %><br/>
   <%= f.text_area :notes, autocomplete: 'off', class: "form-control", rows: 5  %>
 </div>
 

@@ -1,7 +1,7 @@
 <div class="card" data-controller="navigate" data-action="click->navigate#navigate">
   <div class="card-body">
     <%= button_to story_path(story), method: :delete, class: 'link-button discard-link', data: { action: "click->navigate#stopPropagation" } do %>
-      <%= render 'shared/close_icon', classes: '' %> 
+      <%= render 'shared/icons/close_icon', classes: '' %> 
     <% end %>
     <h5 class="card--goal">
       <%= link_to "#{t('stories.form.goal.label')} #{story.goal}#{story.reason.present? ? ',' : ''}", 
@@ -12,13 +12,16 @@
         <%= t('stories.form.reason.label') %> <%= story.reason %>.
       </h6>
     <% end %>
+    <div>
+      <%= render partial: 'tags/tag', collection: story.tags %>
+    </div>
   </div>
   <div class="card-footer">
     <div class="card-footer__left">
-      <%= render 'shared/notes_icon', classes: 'mr-1 card-footer__icon' if story.notes.present? %>
+      <%= render 'shared/icons/notes_icon', classes: 'mr-1 card-footer__icon' if story.notes.present? %>
     </div>
     <div class="card-footer__right">
-      <%= render 'shared/repeat_icon', classes: 'mr-1 card-footer__icon' if story.repeatable? %>
+      <%= render 'shared/icons/repeat_icon', classes: 'mr-1 card-footer__icon' if story.repeatable? %>
       <small><i><%= story.created_at.strftime("%a, %B %d") %></i></small>
     </div>
   </div>

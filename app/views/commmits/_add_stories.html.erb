@@ -22,7 +22,7 @@
                role="tab" 
                aria-controls="<%= t('stories.form.repeatable.forever') %>" 
                aria-selected="false">
-              <%= image_tag asset_pack_path('media/images/repeat_icon.svg'), class: 'mr-2' %> 
+              <%= render 'shared/icons/repeat_icon', classes: 'mr-2' %> 
               <%= t('stories.form.repeatable.forever') %>
             </a>
           </li>
@@ -34,7 +34,7 @@
                role="tab" 
                aria-controls="<%= t('stories.form.create') %>" 
                aria-selected="false">
-              <%= image_tag asset_pack_path('media/images/story_icon.svg'), class: 'mr-2' %> 
+              <%= render 'shared/icons/story_icon', classes: 'mr-2' %> 
               <%= t('stories.form.create') %>
             </a>
           </li>

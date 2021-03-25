@@ -17,17 +17,11 @@ class Story < ApplicationRecord
   has_many :commmits, counter_cache: true, through: :planned_stories
   has_and_belongs_to_many :tags
 
-  accepts_nested_attributes_for :tags
-
   def completed?
     completed_at.present?
   end
 
   def repeatable?
     repeatable
-  end
-
-  def tags_attributes=(attributes)
-    raise attributes.inspect
   end
 end

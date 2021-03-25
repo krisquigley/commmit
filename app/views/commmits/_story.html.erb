@@ -8,6 +8,9 @@
         <%= t('stories.form.reason.label') %> <%= story.reason %>.
       </h6>
     <% end %>
+    <div>
+      <%= render partial: 'tags/tag', collection: story.tags %>
+    </div>
   </div>
   <div class="card-footer">
     <div class="card-footer__left">

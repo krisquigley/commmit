@@ -1,29 +1,26 @@
 # frozen_string_literal: true
 
 class TagsController < ApplicationController
-  before_action :find_story
+  before_action :find_story, if: -> { params[:story_id] }
 
-  def index
+  def show
     @tags = Tag.all
   end
 
   def create
-    tag = Tag.create(tag_params)
-
+    tag = Tag.find_or_create_by(tag_params)
     @story.tags << tag
 
-    redirect_back fallback_location: story_tags_path(@story), notice: 'Added Value'
+    redirect_back fallback_location: story_tags_path(@story), notice: 'Created Value'
   end
-
-  def destroy; end
 
   private
 
   def find_story
-    @story = story.friendly.find(params[:story_id])
+    @story = Story.friendly.find(params[:story_id])
   end
 
   def tag_params
-    params.require(:tags).permit(:name, :color)
+    params.require(:tag).permit(:name)
   end
 end

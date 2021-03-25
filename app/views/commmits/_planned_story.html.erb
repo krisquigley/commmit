@@ -4,7 +4,7 @@
                   method: :delete, 
                   class: 'link-button discard-link', 
                   data: { action: "click->navigate#stopPropagation" } do %>
-      <%= render 'shared/close_icon', classes: '' %> 
+      <%= render 'shared/icons/close_icon', classes: '' %> 
     <% end unless planned_story.completed? || commmit.finished? %>
 
     <h5 class="card--goal">
@@ -16,10 +16,14 @@
         <%= t('stories.form.reason.label') %> <%= planned_story.story.reason %>.
       </h6>
     <% end %>
+    <div>
+      <%= render partial: 'tags/tag', collection: planned_story.story.tags %>
+    </div>
   </div>
   <div class="card-footer">
     <div class="card-footer__left">
-      <%= render 'shared/notes_icon', classes: '' if planned_story.story.notes.present? %>
+      <%= render 'shared/icons/notes_icon', classes: 'ml-1' if planned_story.story.notes.present? %>
+      <%= render 'shared/icons/repeat_icon', classes: '' if planned_story.story.repeatable? %>
     </div>
     <div class="card-footer__right">
       <% if planned_story.completed? %>
@@ -29,11 +33,12 @@
                       method: :patch, 
                       disabled: commmit.finished? %>
       <% else %>
-        <%= button_to t('commmits.show.close_story'), 
-                      planned_story_mark_as_done_path(planned_story), 
+        <%= button_to planned_story_mark_as_done_path(planned_story), 
                       class: 'btn btn-link', 
                       method: :patch, 
-                      disabled: commmit.finished? %>
+                      disabled: commmit.finished? do %>
+          <%= render 'shared/icons/done_icon', classes: 'text-success' %> Done
+        <% end %>
       <% end %>  
     </div>
   </div>
