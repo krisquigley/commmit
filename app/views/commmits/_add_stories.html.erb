@@ -28,20 +28,17 @@
           </li>
           <li class="nav-item" role="presentation">
             <a class="nav-link" 
-               id="<%= t('stories.form.create').gsub(' ', '-') %>-tab" 
+               id="<%= t('stories.index.new_story').gsub(' ', '-') %>-tab" 
                data-toggle="tab" 
-               href="#<%= t('stories.form.create').gsub(' ', '-') %>" 
+               href="#<%= t('stories.index.new_story').gsub(' ', '-') %>" 
                role="tab" 
-               aria-controls="<%= t('stories.form.create') %>" 
+               aria-controls="<%= t('stories.index.new_story') %>" 
                aria-selected="false">
               <%= render 'shared/icons/story_icon', classes: 'mr-2' %> 
-              <%= t('stories.form.create') %>
+              <%= t('stories.index.new_story') %>
             </a>
           </li>
         </ul>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
       </div>
       <div class="modal-body">
         <div class="tab-content" id="storiesTabContent">
@@ -72,16 +69,16 @@
             </div>
           </div>
           <div class="tab-pane fade" 
-               id="<%= t('stories.form.create').gsub(' ', '-') %>" 
+               id="<%= t('stories.index.new_story').gsub(' ', '-') %>" 
                role="tabpanel" 
-               aria-labelledby="<%= t('stories.form.create').gsub(' ', '-') %>-tab">
+               aria-labelledby="<%= t('stories.index.new_story').gsub(' ', '-') %>-tab">
             <%= form_with model: [commmit, Story.new], html: { class: 'flex-form' } do |f| %>
               <div class="form-content">
                 <%= render 'stories/fields', f: f, story: nil %>
               </div>
               
               <div class="form-group form-actions">
-                <%= f.submit t('stories.form.create'), class: "btn btn-lg btn-success btn-block" %>
+                <%= f.submit t('stories.index.new_story'), class: "btn btn-lg btn-success btn-block" %>
               </div>
             <% end %>
           </div>

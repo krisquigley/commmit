@@ -11,7 +11,10 @@ class Story < ApplicationRecord
   validates :goal, presence: true
 
   scope :most_recent_first, -> { order(created_at: :desc) }
-  scope :open, -> { where(completed_at: nil) }
+  scope :one_off, -> { where(repeatable: false) }
+  scope :repeatable, -> { where(repeatable: true) }
+  scope :complete, -> { where.not(completed_at: nil) }
+  scope :incomplete, -> { where(completed_at: nil) }
 
   has_many :planned_stories
   has_many :commmits, counter_cache: true, through: :planned_stories

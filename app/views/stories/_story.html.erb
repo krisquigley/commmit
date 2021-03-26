@@ -22,7 +22,7 @@
       <%= render 'shared/icons/repeat_icon', classes: 'mr-1 card-footer__icon' if story.repeatable? %>
     </div>
     <div class="card-footer__right">
-      <small><i><%= time_ago_in_words(story.created_at) %> ago</i></small>
+      <small><i><%= t('stories.index.added') %> <%= time_ago_in_words(story.created_at) %> <%= t('stories.index.ago') %></i></small>
     </div>
   </div>
 </div>

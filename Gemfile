@@ -65,6 +65,7 @@ end
 
 group :test do
   gem 'capybara', '~> 3.35', '>= 3.35.3'
+  gem 'cucumber-rails', '~> 2.2', require: false
   gem 'database_cleaner-active_record', '~> 2.0'
   gem 'rspec-sidekiq', '~> 3.1'
   gem 'rubocop-rspec', '~> 2.1'
@@ -75,4 +76,4 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
-gem "discard", "~> 1.2"
+gem 'discard', '~> 1.2'

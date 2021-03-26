@@ -52,5 +52,6 @@ Rails.application.routes.draw do
 
   resources :planned_stories, only: %i[create destroy] do
     patch :mark_as_done
+    patch :mark_as_not_done
   end
 end

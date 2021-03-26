@@ -31,6 +31,8 @@
 
 en:
   commmits:
+    planned_stories:
+      done: Done
     notice:
       created: Commmit Created
       destroyed: Commmit Archived
@@ -43,8 +45,6 @@ en:
       new_commmit: New Commmit
     show:
       no_stories_yet: You haven't added any stories yet
-      close_story: Done?
-      reopen_story: Done
       add_stories: Add Stories
       close_modal: Close
       add_story: Add
@@ -71,8 +71,11 @@ en:
     new:
       header: Resend confirmation instructions
   footer_nav:
-    left_button: Commmits
-    right_button: Stories
+    overview_button: Overview
+    commmits_button: Commmits
+    stories_button: Stories
+    barriers_button: Barriers
+  feedback: Request Feature?
   forms:
     errors: prohibited this form from being saved
   passwords:
@@ -112,7 +115,10 @@ en:
       update: Save Changes
       cancel: Close
     index:
+      added: Added
+      ago: ago
       new_story: New Story
+      no_repeatable_stories_yet: You haven't created any repeatable stories yet
       no_stories_yet: You haven't created any stories yet
   tags:
     notice:

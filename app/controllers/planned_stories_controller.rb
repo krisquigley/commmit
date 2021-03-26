@@ -13,6 +13,13 @@ class PlannedStoriesController < ApplicationController
     redirect_back fallback_location: commmits_path, notice: 'Marked Story as Done'
   end
 
+  def mark_as_not_done
+    planned_story = PlannedStory.find(params[:planned_story_id])
+    planned_story.update(completed_at: nil)
+
+    redirect_back fallback_location: commmits_path, notice: 'Marked Story as Not Done'
+  end
+
   def destroy
     planned_story = PlannedStory.find(params[:id])
     redirect = commmit_path(planned_story.commmit)

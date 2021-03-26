@@ -1,14 +1,26 @@
 <div class="btn-group btn-group-lg footer-navigation" role="group" aria-label="Footer Navigation">
+  <%= link_to stories_path, class: "btn btn-secondary disabled #{active("overview")} w-50", type: :button do %>
+    <div class="footer-navigation__buttons">
+      <%=  render 'shared/icons/overview_icon', classes: '' %>
+      <small><%= t('footer_nav.overview_button') %></small>
+    </div>
+  <% end %>
   <%= link_to commmits_path, class: "btn btn-secondary #{active("commmits")} w-50", type: :button do %>
     <div class="footer-navigation__buttons">
       <img src="/android-chrome-512x512-white.png" width="20" height="20" alt="">
-      <small><%= t('footer_nav.left_button') %></small>
+      <small><%= t('footer_nav.commmits_button') %></small>
     </div>
   <% end %>
-  <%= link_to stories_path, class: "btn btn-secondary #{active("stories")} w-50", type: :button do %>
+    <%= link_to stories_path, class: "btn btn-secondary #{active("stories")} w-50", type: :button, disabled: true do %>
     <div class="footer-navigation__buttons">
       <%=  render 'shared/icons/story_icon', classes: '' %>
-      <small><%= t('footer_nav.right_button') %></small>
+      <small><%= t('footer_nav.stories_button') %></small>
+    </div>
+  <% end %>
+    <%= link_to stories_path, class: "btn btn-secondary disabled #{active("barriers")} w-50", type: :button, disabled: true do %>
+    <div class="footer-navigation__buttons">
+      <%= render 'shared/icons/barrier_icon', classes: '' %>
+      <small><%= t('footer_nav.barriers_button') %></small>
     </div>
   <% end %>
 </div>

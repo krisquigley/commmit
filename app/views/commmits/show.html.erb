@@ -10,11 +10,11 @@
   <% if @commmit.stories.empty? %>
     <p class="text-center text-secondary mt-2"><%= t('commmits.show.no_stories_yet') %></p>
   <% end %>
+
   <div class="card-deck">
     <%= render partial: 'planned_story', collection: @commmit.planned_stories, locals: { commmit: @commmit } %>
   </div>
 </div>
-
 
 <div class="grid-actions">
   <%= button_tag class: "btn btn-lg btn-primary btn-block", disabled: @commmit.finished?, data: { toggle: "modal", target: "#addStoriesModal" } do %>

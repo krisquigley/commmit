@@ -30,6 +30,15 @@ body {
   height: 100%;
 }
 
+.nav-pills {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.nav-link {
+  padding: 0.5rem 1rem;
+}
+
 .close-button {
   vertical-align: middle;
   color: white;

@@ -5,7 +5,8 @@ class StoriesController < ApplicationController
   before_action :find_commmit, if: -> { params[:commmit_id] }
 
   def index
-    @stories = Story.includes(:tags).kept.most_recent_first.open
+    @one_off_stories = Story.includes(:tags).incomplete.one_off.kept.most_recent_first
+    @repeatable_stories = Story.includes(:tags).incomplete.repeatable.kept.most_recent_first
   end
 
   def new
