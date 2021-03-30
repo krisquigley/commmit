@@ -10,10 +10,14 @@ gem 'rails', '~> 6.1'
 gem 'acts_as_tenant', '~> 0.5.0'
 gem 'friendly_id', '~> 5.4', '>= 5.4.2'
 gem 'pg', '>= 0.18', '< 2.0'
+gem 'discard', '~> 1.2'
 
 # Servers
 gem 'puma', '~> 5.2'
 gem 'sidekiq', '~> 6.1', '>= 6.1.3'
+
+# Caching 
+gem 'dalli', '~> 2.7', '>= 2.7.11'
 
 # Assets
 gem 'bootstrap4-kaminari-views', '~> 1.0', '>= 1.0.1'
@@ -76,4 +80,3 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
-gem 'discard', '~> 1.2'

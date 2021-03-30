@@ -86,6 +86,8 @@ en:
       header: Sign up
   sessions:
     new:
+      form:
+        create: Log in
       header: Log in
     logout: Log out
   stories:
