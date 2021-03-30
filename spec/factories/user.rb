@@ -12,6 +12,11 @@ FactoryBot.define do
       JSON.parse(File.read("#{Rails.root}/spec/fixtures/files/new_user_payload.json"))['member']
           .to_json
     end
-    confirmed_at { Time.now }
+
+    trait :confirmed do
+      confirmed_at { Time.now }
+    end
+
+    factory :confirmed_user, traits: [:confirmed]
   end
 end

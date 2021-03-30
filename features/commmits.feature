@@ -7,26 +7,26 @@ Feature: Commmits
   Productivity is determined by averaging the number of stories completed over the course of a day.
 
   Background: 
-    Given a default user
+    Given a "default" user
     And already logged in
 
   Scenario: Creating a Commmit with valid data
-
     When I create a Commmit with the name test
-    Then I should be notified that it was created
-    And see Test in my list of Commmits
+    Then I should be notified that it was "created"
+    And see "Test" in my list of Commmits
 
+  # @javascript
   # Scenario: Creating a Commmit without a name
 
   #   When I create a new Commmit with invalid details
   #   Then I should be alerted that something is wrong
-  #   And it should not be saved
 
-  # Scenario: Listing Commmits
+  @allow-rescue
+  Scenario: Listing Commmits
 
-  #   Given I have created some Commmits
-  #   When I visit the Commmits page
-  #   Then I should see my most recent Commmits 
+    Given I have created some Commmits
+    When I visit the Commmits page
+    Then I should see my most recent Commmits
 
   # Scenario: Viewing a Commmit that has finished
 

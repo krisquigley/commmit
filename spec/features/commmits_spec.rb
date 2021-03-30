@@ -12,18 +12,6 @@ RSpec.describe 'Commmits', type: :feature do
   context 'creating a commmit' do
     let(:date) { Date.today }
 
-    describe 'with valid data' do
-      it 'should create the commmit' do
-        visit new_commmit_path
-
-        fill_in t('commmits.form.name.label'), with: 'Test'
-
-        submit_form
-
-        expect(page).to have_content t('commmits.new.created')
-      end
-    end
-
     context 'using the day buttons', js: true do
       it 'should update the the date to tomorrow' do
         visit new_commmit_path
@@ -61,12 +49,6 @@ RSpec.describe 'Commmits', type: :feature do
 
   describe 'viewing a commmit' do
     let!(:commmit) { create(:commmit) }
-
-    it 'should display correctly' do
-      visit commmit_path(commmit)
-
-      expect(page).to have_content commmit.name
-    end
 
     describe 'adding stories' do
       it 'should add them to the commmit'
