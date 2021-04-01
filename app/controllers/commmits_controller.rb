@@ -37,7 +37,7 @@ class CommmitsController < ApplicationController
     return unless @commmit.discard
 
     redirect_back fallback_location: commmits_path,
-                  notice: t('commmits.notice.destroyed')
+                  notice: t('commmits.notice.archived')
   end
 
   def current_commmit

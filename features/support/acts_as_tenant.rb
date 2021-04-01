@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+Before do
+  create_user
+end
+
 Before('@request') do
   ActsAsTenant.test_tenant = User.first.personal_account
 end

@@ -3,7 +3,7 @@
   <%= render 'shared/progress', commmit: commmit %>
 
   <div class="card-body">
-    <%= button_to commmit_path(commmit), method: :delete, class: 'link-button discard-link', data: { action: "click->navigate#stopPropagation" } do %>
+    <%= button_to commmit_path(commmit), method: :delete, class: 'link-button discard-link', data: { action: "click->navigate#stopPropagation" }, name: "archive_commmit" do %>
       <%= render 'shared/icons/close_icon', classes: '' %> 
     <% end %>
     <h5><%= link_to commmit.name, commmit_path(commmit), data: { navigate_target: :link }, class: 'font-weight-bold' %></h5>

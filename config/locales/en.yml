@@ -35,7 +35,8 @@ en:
       done: Done
     notice:
       created: Commmit Created
-      destroyed: Commmit Archived
+      archived: Commmit Archived
+      unarchived: Commmit Unarchived
     index:
       no_commmits_yet: You haven't created any Commmits yet
       statuses:
