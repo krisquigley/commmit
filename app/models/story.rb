@@ -11,6 +11,8 @@ class Story < ApplicationRecord
   validates :goal, presence: true
 
   scope :most_recent_first, -> { order(created_at: :desc) }
+  scope :completed_first, -> { order(completed_at: :desc) }
+
   scope :one_off, -> { where(repeatable: false) }
   scope :repeatable, -> { where(repeatable: true) }
   scope :complete, -> { where.not(completed_at: nil) }

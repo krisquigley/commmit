@@ -119,6 +119,7 @@ en:
       cancel: Close
     index:
       added: Added
+      last_completed: Last Completed
       ago: ago
       new_story: New Story
       no_repeatable_stories_yet: You haven't created any repeatable stories yet
