@@ -97,6 +97,7 @@ en:
       added: Added Story
       created: Created Story
       updated: Updated Story
+      removed: Removed Story
       destroyed: Archived Story
     form:
       story:

@@ -42,12 +42,12 @@ class CommmitsController < ApplicationController
 
   def current
     current = Commmit.kept.current_commmit
-    
+
     if current.present?
       @commmit = Commmit.includes(:planned_stories, stories: [:tags])
                         .where('stories.discarded_at': nil)
                         .order('planned_stories.completed_at desc, planned_stories.created_at desc')
-                        .find(commmit.id)
+                        .find(current.id)
 
       # TODO: Only make this call when loading the modal
       story_ids = @commmit.planned_stories.map(&:story_id)

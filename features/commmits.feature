@@ -82,10 +82,8 @@ Feature: Commmits
   #   And I should be able to see the Commmit again
     
   Scenario: Accessing the currently active Commmit
-    The logo / home button should take the user to their currently active Commmit.
-
     Given I already have a Commmit with 1 planned stories
-    When I click on the home logo
+    When I click on Today
     Then I should be taken to my latest Commmit
 
   Scenario: Adding a one-time story
@@ -107,14 +105,14 @@ Feature: Commmits
   Scenario: Creating a story
     Given I already have a "Commmit"
     When I create a new story from my Commmit
-    Then the Story should appear in my Commmit
-    And I should be notified that my "Story" was "added"
+    Then I should be notified that my "Story" was "added"
+    And the Story should appear in my Commmit
 
   Scenario: Removing a planned story
     Given I already have a Commmit with 1 planned stories
     When I remove a planned story
-    Then it should not be listed under my commmit anymore
-    And I should be notified that my "Story" was "removed"
+    Then I should be notified that my "Story" was "removed"
+    And it should not be listed under my commmit anymore
 
   # Scenario: Editing a story
   #   Given I already have a "Commmit" with planned stories

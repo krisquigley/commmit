@@ -59,9 +59,9 @@ Then('I should no longer see my Commmit') do
   expect(page).to_not have_content @commmit.name
 end
 
-When('I click on the home logo') do
+When('I click on Today') do
   visit commmits_path
-  find(:css, "img[alt='Commmit']").click
+  click_on 'Today'
 end
 
 Then('I should be taken to my latest Commmit') do
@@ -208,7 +208,7 @@ Then('the planned story and story should be marked as done') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Given('I already have a Commmit with {int} done planned stories') do |number|
+Given('I already have a Commmit with {int} done planned stories') do |_number|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
