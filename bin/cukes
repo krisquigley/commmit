@@ -1,0 +1,2 @@
+#!/bin/bash
+bundle exec cucumber -f html -o reports/features.html $@

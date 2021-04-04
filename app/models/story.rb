@@ -5,9 +5,6 @@ class Story < ApplicationRecord
 
   acts_as_tenant :account
 
-  extend FriendlyId
-  friendly_id :goal, use: :scoped, scope: :account
-
   validates :goal, presence: true
 
   scope :most_recent_first, -> { order(created_at: :desc) }

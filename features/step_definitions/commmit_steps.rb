@@ -27,7 +27,7 @@ end
 
 Then('I can see my planned stories') do
   with_tenant do
-    expect(@commmit.planned_stories.count).to be.positive?
+    expect(@commmit.planned_stories.count).to be_positive
 
     @commmit.stories.each do |story|
       expect(page).to have_content story.goal
@@ -74,7 +74,7 @@ Then('the Story should appear in my Commmit') do
   visit commmit_path(@commmit)
 
   with_tenant do
-    expect(page).to have_content @commmit.story.first.goal
+    expect(page).to have_content @commmit.stories.first.goal
   end
 end
 
@@ -90,4 +90,70 @@ When('I create a new Commmit with invalid details') do
   click_link t('commmits.index.new_commmit')
 
   submit_form
+end
+
+Given('I am creating a Commmit') do
+  visit new_commmit_path
+end
+
+When('I click {string}') do |string|
+  find("label[for='#{string.downcase}']").click
+end
+
+Then('the date should match tomorrows date') do
+  date = find('input[type="date"]')
+  expect(date.value).to eq Date.tomorrow.iso8601
+end
+
+Then('the date should change back to today') do
+  date = find('input[type="date"]')
+  expect(date.value).to eq Date.today.iso8601
+end
+
+Then('I should see a message to create a Commmit') do
+  expect(page).to have_content t('commmits.index.no_commmits_yet')
+end
+
+Then('I can view my Reflection') do
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Given('I already have a Commmit which starts tomorrow') do
+  with_tenant do
+    create(:commmit, start_date: Date.tomorrow)
+  end
+end
+
+Then('I should see that it starts tomorrow') do
+  expect(page).to have_content t('commmits.index.statuses.not_started')
+end
+
+Given('I already have a Commmit which is in progress') do
+  with_tenant do
+    create(:commmit, start_date: Date.today, length_in_days: 3)
+  end
+end
+
+Then('I should see that it finishes today') do
+  expect(page).to have_content t('commmits.index.statuses.in_progress')
+end
+
+Given('I already have a Commmit which has finished') do
+  with_tenant do
+    create(:commmit, start_date: Date.yesterday)
+  end
+end
+
+Then('I should see that it finished yesterday') do
+  expect(page).to have_content t('commmits.index.statuses.finished')
+end
+
+
+When('I add a one-time Story') do
+  visit commmit_path(@commmit)
+  click_on t('commmits.show.add_stories')
+end
+
+Then('I should not be able to add the Story again') do
+  pending # Write code here that turns the phrase above into concrete actions
 end

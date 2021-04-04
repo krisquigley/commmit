@@ -5,9 +5,6 @@ class User < ApplicationRecord
 
   default_scope -> { includes(:accounts) }
 
-  extend FriendlyId
-  friendly_id :username, use: :slugged
-
   before_create :downcase_username
   after_create :create_account
   devise  :database_authenticatable, :registerable,

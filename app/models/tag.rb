@@ -4,9 +4,6 @@ class Tag < ApplicationRecord
   before_validation :set_color, only: :create
   acts_as_tenant :account
 
-  extend FriendlyId
-  friendly_id :name, use: :scoped, scope: :account
-
   validates :name, presence: true, uniqueness: { scope: :account, case_sensitive: false }
   validates :color, presence: true
 

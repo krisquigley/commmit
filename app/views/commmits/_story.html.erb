@@ -17,9 +17,8 @@
       <small><i><%= completed_or_added(story) %></i></small>
     </div>
     <div class="card-footer__right">
-      <%= form_for PlannedStory.new do |f| %>
+      <%= form_with model: [story, PlannedStory.new] do |f| %>
         <%= f.hidden_field :commmit_id, value: @commmit.id %>
-        <%= f.hidden_field :story_id, value: story.id %>
         <%= f.submit t('commmits.show.add_story'), class: 'text-success link-button' %>
       <% end %>
     </div>

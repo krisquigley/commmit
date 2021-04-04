@@ -9,7 +9,6 @@ gem 'rails', '~> 6.1'
 # Database
 gem 'acts_as_tenant', '~> 0.5.0'
 gem 'discard', '~> 1.2'
-gem 'friendly_id', '~> 5.4', '>= 5.4.2'
 gem 'pg', '>= 0.18', '< 2.0'
 
 # Servers

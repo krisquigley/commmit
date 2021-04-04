@@ -5,7 +5,7 @@ class CommmitsController < ApplicationController
     @commmit = Commmit.includes(:planned_stories, stories: [:tags])
                       .where('stories.discarded_at': nil)
                       .order('planned_stories.completed_at desc, planned_stories.created_at desc')
-                      .friendly.find(params[:id])
+                      .find(params[:id])
 
     # TODO: Only make this call when loading the modal
     story_ids = @commmit.planned_stories.map(&:story_id)
@@ -32,7 +32,7 @@ class CommmitsController < ApplicationController
   end
 
   def destroy
-    @commmit = Commmit.friendly.find(params[:id])
+    @commmit = Commmit.find(params[:id])
 
     return unless @commmit.discard
 

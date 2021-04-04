@@ -3,9 +3,6 @@
 class Account < ApplicationRecord
   include ::AccountConcern
 
-  extend FriendlyId
-  friendly_id :name, use: :slugged
-
   has_and_belongs_to_many :users
   has_many :commmits, dependent: :destroy
   has_many :stories, dependent: :destroy

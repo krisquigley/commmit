@@ -5,9 +5,6 @@ class Commmit < ApplicationRecord
 
   acts_as_tenant :account
 
-  extend FriendlyId
-  friendly_id :name, use: :scoped, scope: :account
-
   scope :most_recent_first, -> { order(start_date: :desc) }
 
   scope :current_commmit, lambda {

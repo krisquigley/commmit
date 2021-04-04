@@ -46,11 +46,11 @@ class StoriesController < ApplicationController
   private
 
   def find_commmit
-    @commmit = Commmit.friendly.find(params[:commmit_id])
+    @commmit = Commmit.find(params[:commmit_id])
   end
 
   def find_story
-    @story = Story.includes(:tags).friendly.find(params[:id])
+    @story = Story.includes(:tags).find(params[:id])
   end
 
   def story_params

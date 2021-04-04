@@ -6,7 +6,7 @@ class ExportSprintToCsv
   attr_accessor :sprint
 
   def initialize(sprint_id)
-    self.sprint = Sprint.friendly.find(sprint_id)
+    self.sprint = Sprint.find(sprint_id)
   end
 
   def self.call(sprint_id)

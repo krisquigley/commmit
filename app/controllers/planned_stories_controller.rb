@@ -1,8 +1,9 @@
+
 # frozen_string_literal: true
 
 class PlannedStoriesController < ApplicationController
   def create
-    PlannedStory.create!(planned_story_params)
+    PlannedStory.create!(story_id: params[:story_id], commmit_id: planned_story_params[:commmit_id])
     redirect_back fallback_location: commmits_path, notice: 'Added Story'
   end
 

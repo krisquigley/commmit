@@ -12,7 +12,7 @@ class TagsController < ApplicationController
   end
 
   def destroy
-    tag = Tag.friendly.find(params[:id])
+    tag = Tag.find(params[:id])
 
     redirect_back fallback_location: tags_path, notice: t('tags.notice.destroyed') if tag.destroy
   end
