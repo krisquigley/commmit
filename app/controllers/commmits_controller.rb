@@ -41,22 +41,18 @@ class CommmitsController < ApplicationController
   end
 
   def current
+    # TODO: Not quite current this should not include finished commmits
     current = Commmit.kept.current_commmit
 
-    if current.present?
-      @commmit = Commmit.includes(:planned_stories, stories: [:tags])
-                        .where('stories.discarded_at': nil)
-                        .order('planned_stories.completed_at desc, planned_stories.created_at desc')
-                        .find(current.id)
-
-      # TODO: Only make this call when loading the modal
-      story_ids = @commmit.planned_stories.map(&:story_id)
-      @repeatable_stories = Story.includes(:tags).repeatable.kept.completed_first
-      @one_off_stories = Story.includes(:tags).incomplete.where.not(id: story_ids).one_off.kept.most_recent_first
+    if current.present? && !current.finished?
+      params[:id] = current.id
+      show
 
       render :show
     else
-      redirect_to commmits_path
+      index
+      flash[:alert] = t('commmits.notice.no_commmits_today')
+      render :index
     end
   end
 

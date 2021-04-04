@@ -25,7 +25,7 @@ module CommmitApp
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
-
+    config.time_zone = 'Europe/London'
     config.active_job.queue_adapter = :sidekiq
     config.action_mailer.deliver_later_queue_name = 'default' # defaults to "mailers"
     config.active_storage.queues.analysis   = nil       # defaults to "active_storage_analysis"

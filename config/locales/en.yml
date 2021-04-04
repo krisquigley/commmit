@@ -37,6 +37,7 @@ en:
       created: Commmit Created
       archived: Commmit Archived
       unarchived: Commmit Unarchived
+      no_commmits_today: You have no Commmits for today
     index:
       header: 'Commmits'
       no_commmits_yet: You haven't created any Commmits yet
@@ -94,10 +95,12 @@ en:
     logout: Log out
   stories:
     notice:
+      done: Marked Story as Done
+      not_done: Marked Story as Not Done
       added: Added Story
       created: Created Story
       updated: Updated Story
-      removed: Removed Story
+      removed: Removed Story from Commmit
       destroyed: Archived Story
     form:
       story:

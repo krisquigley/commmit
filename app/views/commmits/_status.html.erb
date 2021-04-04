@@ -3,7 +3,7 @@
     <i>
       <%= t('commmits.index.statuses.finished') %> 
       <%= distance_of_time_in_words(commmit.end_date, 
-                                    Date.today, 
+                                    Time.current.to_date, 
                                     scope: 'datetime.distance_in_words.days_and_months')
       %>
     </i>
@@ -13,7 +13,7 @@
     <i>
       <%= t('commmits.index.statuses.in_progress') %> 
       <%= distance_of_time_in_words(commmit.end_date, 
-                                    Date.today, 
+                                    Time.current.to_date, 
                                     scope: 'datetime.distance_in_words.days_and_months_future')
       %>
     </i>
@@ -23,7 +23,7 @@
     <i>
       <%= t('commmits.index.statuses.not_started') %>
       <%= distance_of_time_in_words(commmit.start_date, 
-                                    Date.today, 
+                                    Time.current.to_date, 
                                     scope: 'datetime.distance_in_words.days_and_months_future')
       %>
     </i>

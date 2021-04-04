@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-  <%= link_to '#', class: "navbar-brand" do %>
+  <%= link_to current_commmits_path, class: "navbar-brand" do %>
     <img src="/android-chrome-512x512-white.png" width="30" height="30" alt="Commmit" style="color: white">
   <% end %>
   <h6 class="section-heading">
@@ -18,6 +18,7 @@
         <li class="nav-item">
           <%= link_to t('tags.index.header'), tags_path, class: "nav-link" %>
         </li>
+        <hr />
         <li class="nav-item">
           <%= link_to t('feedback'), 'https://forms.gle/pEE4SxD9JE2KJRU2A', target: '_about', class: "nav-link" %>
         </li>

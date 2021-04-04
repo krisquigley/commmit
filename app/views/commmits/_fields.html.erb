@@ -22,7 +22,7 @@
     <%= f.text_field :start_date, required: true, 
                                   class: "form-control", 
                                   type: :date, 
-                                  value: Date.today, 
+                                  value: Time.current.to_date, 
                                   data: { startdate_target: :date  }  %>
   </div>
 

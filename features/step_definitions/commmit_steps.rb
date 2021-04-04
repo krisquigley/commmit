@@ -107,7 +107,7 @@ end
 
 Then('the date should change back to today') do
   date = find('input[type="date"]')
-  expect(date.value).to eq Date.today.iso8601
+  expect(date.value).to eq Time.current.to_date.iso8601
 end
 
 Then('I should see a message to create a Commmit') do
@@ -130,7 +130,7 @@ end
 
 Given('I already have a Commmit which is in progress') do
   with_tenant do
-    create(:commmit, start_date: Date.today, length_in_days: 3)
+    create(:commmit, start_date: Time.current.to_date, length_in_days: 3)
   end
 end
 
@@ -196,30 +196,70 @@ end
 
 Then('it should not be listed under my commmit anymore') do
   with_tenant do
-    expect(page).to_not have_content Story.first.goal
+    within('div[data-attributes="planned_stories"]') do
+      expect(page).to_not have_content Story.first.goal
+    end
   end
 end
 
-When('I mark a planned story as done') do
-  pending # Write code here that turns the phrase above into concrete actions
+When('I mark the planned story as done') do
+  with_tenant do
+    visit commmit_path(@commmit)
+    find("button[name=done]").click
+  end
 end
 
 Then('the planned story and story should be marked as done') do
-  pending # Write code here that turns the phrase above into concrete actions
+  with_tenant do
+    expect(@commmit.planned_stories.first.completed?).to be_truthy
+    expect(@commmit.planned_stories.first.story.completed?).to be_truthy
+  end
 end
 
-Given('I already have a Commmit with {int} done planned stories') do |_number|
-  pending # Write code here that turns the phrase above into concrete actions
+Then('the planned story should be marked as done') do
+  with_tenant do
+    expect(@commmit.planned_stories.first.completed?).to be_truthy
+    expect(@commmit.planned_stories.first.story.completed?).to be_truthy
+  end
 end
 
-When('I mark a planned story as not done') do
-  pending # Write code here that turns the phrase above into concrete actions
+Given('I already have a Commmit with {int} completed planned stories') do |number|
+  with_tenant do
+    @commmit = commmit_with_completed_planned_stories(stories_count: number)
+  end
+end
+
+When('I mark the planned story as not done') do
+  with_tenant do
+    visit commmit_path(@commmit)
+    find("button[name=not_done]").click
+  end
 end
 
 Then('the planned story and story should not be marked as done') do
-  pending # Write code here that turns the phrase above into concrete actions
+  with_tenant do
+    expect(@commmit.planned_stories.first.completed?).to be_falsy
+    expect(@commmit.planned_stories.first.story.completed?).to be_falsy
+  end
 end
 
 When('I create a new story from my Commmit') do
-  pending # Write code here that turns the phrase above into concrete actions
+  visit commmit_path(@commmit)
+  click_on t('commmits.show.add_stories')
+  find('input[id=story_goal]').set(Faker::Hipster.sentence)
+
+  submit_form
+end
+
+Given('I already have a Commmit with {int} repeatable planned stories') do |number|
+  with_tenant do
+    @commmit = commmit_with_repeatable_planned_stories(stories_count: number)
+  end
+end
+
+Then('I can still add the repeatable Story again') do
+  visit commmit_path(@commmit)
+  click_on t('commmits.show.add_stories')
+
+  first("input[value='#{t('commmits.show.add_story')}']").click
 end
