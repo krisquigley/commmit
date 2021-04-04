@@ -1,6 +1,7 @@
 <div class="card <%= planned_story.completed? ? "card--finished" : "" %>">
   <div class="card-body">
     <%= button_to planned_story_path(planned_story), 
+                  name: 'remove_story',
                   method: :delete, 
                   class: 'link-button discard-link', 
                   data: { action: "click->navigate#stopPropagation" } do %>

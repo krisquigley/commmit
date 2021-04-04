@@ -14,8 +14,6 @@ Feature: Commmits
     Then I should be notified that my "Commmit" was "created"
     And see "Test" in my list of "Commmits"
 
-
-
   @javascript
   Scenario: Creating a Commmit without a name
     When I create a new Commmit with invalid details
@@ -54,12 +52,12 @@ Feature: Commmits
     Then I should see a message to create a Commmit
 
   Scenario: Viewing a Commmit
-    Given I have an unfinished Commmit with planned stories
+    Given I have an unfinished Commmit with 5 planned stories
     When I view the "Commmit"
     Then I can see my planned stories
 
   Scenario: Viewing a Commmit that has finished
-    Given I have a finished Commmit with planned stories
+    Given I have a finished Commmit with 5 planned stories
     When I view the "Commmit"
     Then I should not be able to edit the Commmit
     But I can view my Reflection
@@ -86,36 +84,37 @@ Feature: Commmits
   Scenario: Accessing the currently active Commmit
     The logo / home button should take the user to their currently active Commmit.
 
-    Given I already have a Commmit with planned stories
+    Given I already have a Commmit with 1 planned stories
     When I click on the home logo
     Then I should be taken to my latest Commmit
 
   Scenario: Adding a one-time story
     Given I already have a "Commmit"
-    And some Stories
+    And a Story
     When I add a one-time Story
-    Then the Story should appear in my Commmit
-    And I should be notified that my "Story" was "added"
+    Then I should be notified that my "Story" was "added"
+    And the Story should appear in my Commmit
     But I should not be able to add the Story again
 
-  # Scenario: Adding a repeating story
-  #   Given I already have a "Commmit"
-  #   When I add a repeatable story
-  #   Then it should appear in my Commmit
-  #   And notify me
-  #   Then I should be able to add it again
+  Scenario: Adding a repeating story
+    Given I already have a "Commmit"
+    And a Repeatable Story
+    When I add a repeatable story
+    Then I should be notified that my "Story" was "added"
+    And the Story should appear in my Commmit
+    Then I should be able to add the Story again
 
-  # Scenario: Creating a story
-  #   Given I already have a "Commmit"
-  #   When I create a new story
-  #   Then it should be added to my Commmit as well
-  #   And notify me
+  Scenario: Creating a story
+    Given I already have a "Commmit"
+    When I create a new story from my Commmit
+    Then the Story should appear in my Commmit
+    And I should be notified that my "Story" was "added"
 
-  # Scenario: Removing a planned story
-  #   Given I already have a "Commmit" with planned stories
-  #   When I remove a planned story
-  #   Then it should not be listed under my commmit anymore
-  #   And notify me
+  Scenario: Removing a planned story
+    Given I already have a Commmit with 1 planned stories
+    When I remove a planned story
+    Then it should not be listed under my commmit anymore
+    And I should be notified that my "Story" was "removed"
 
   # Scenario: Editing a story
   #   Given I already have a "Commmit" with planned stories
@@ -130,17 +129,17 @@ Feature: Commmits
   #   Then I should be able to add another immediately after
   #   And notify me
 
-  # Scenario: Marking a story as done
-  #   Given I already have a "Commmit" with planned stories
-  #   When I mark a planned story as done
-  #   Then the planned story and story should be marked as done 
-  #   And notify me
+  Scenario: Marking a story as done
+    Given I already have a Commmit with 1 planned stories
+    When I mark a planned story as done
+    Then the planned story and story should be marked as done 
+    And I should be notified that my "Story" was "done"
 
-  # Scenario: Marking a story as not done
-  #   Given I already have a "Commmit" with a done planned story
-  #   When I mark a planned story as not done
-  #   Then the planned story and story should not be marked as done 
-  #   And notify me
+  Scenario: Marking a story as not done
+    Given I already have a Commmit with 1 done planned stories
+    When I mark a planned story as not done
+    Then the planned story and story should not be marked as done 
+    And I should be notified that my "Story" was "not_done"
 
   # Scenario: Marking a significant step as done
   #   Given I already have a "Commmit" with a planned story and significant steps

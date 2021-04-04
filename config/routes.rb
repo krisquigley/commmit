@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   end
   mount Sidekiq::Web, at: '/sidekiq'
 
-  get '/',  to: 'commmits#current_commmit',
+  get '/',  to: 'commmits#current',
             constraints: {
               subdomain: /.+/
             },
@@ -43,7 +43,11 @@ Rails.application.routes.draw do
                 unlocks: 'users/unlocks'
               }
 
-  resources :commmits
+  resources :commmits do
+    collection do
+      get :current
+    end
+  end
 
   resources :stories do
     resources :planned_stories, shallow: true do

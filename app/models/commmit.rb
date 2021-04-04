@@ -8,7 +8,7 @@ class Commmit < ApplicationRecord
   scope :most_recent_first, -> { order(start_date: :desc) }
 
   scope :current_commmit, lambda {
-                            order(start_date: :desc, created_at: :desc).where('start_date <= ?', Date.today).first
+                            order(start_date: :desc, created_at: :desc).where('start_date <= ?', Date.today).limit(1).first
                           }
 
   validates :name, :length_in_days, presence: true
@@ -33,5 +33,9 @@ class Commmit < ApplicationRecord
 
   def not_started?
     start_date > Date.today
+  end
+
+  def no_active_commmits?
+    !Commmit.current_commmit.present?
   end
 end

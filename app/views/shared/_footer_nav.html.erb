@@ -5,7 +5,7 @@
       <small><%= t('footer_nav.overview_button') %></small>
     </div>
   <% end %>
-  <%= link_to commmits_path, class: "btn btn-secondary #{active("commmits")} w-50", type: :button do %>
+  <%= link_to current_commmits_path, class: "btn btn-secondary #{active("commmits/current")} w-50", type: :button do %>
     <div class="footer-navigation__buttons">
       <img src="/android-chrome-512x512-white.png" width="20" height="20" alt="">
       <small><%= t('footer_nav.commmits_button') %></small>

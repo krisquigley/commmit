@@ -38,6 +38,7 @@ en:
       archived: Commmit Archived
       unarchived: Commmit Unarchived
     index:
+      header: 'Commmits'
       no_commmits_yet: You haven't created any Commmits yet
       statuses:
         not_started: Starts
@@ -73,7 +74,7 @@ en:
       header: Resend confirmation instructions
   footer_nav:
     overview_button: Overview
-    commmits_button: Commmits
+    commmits_button: Today
     stories_button: Stories
     barriers_button: Barriers
   feedback: Request Feature?
@@ -93,6 +94,7 @@ en:
     logout: Log out
   stories:
     notice:
+      added: Added Story
       created: Created Story
       updated: Updated Story
       destroyed: Archived Story

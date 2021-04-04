@@ -40,11 +40,21 @@ class CommmitsController < ApplicationController
                   notice: t('commmits.notice.archived')
   end
 
-  def current_commmit
-    commmit = Commmit.kept.current_commmit
+  def current
+    current = Commmit.kept.current_commmit
+    
+    if current.present?
+      @commmit = Commmit.includes(:planned_stories, stories: [:tags])
+                        .where('stories.discarded_at': nil)
+                        .order('planned_stories.completed_at desc, planned_stories.created_at desc')
+                        .find(commmit.id)
 
-    if commmit.present?
-      redirect_to commmit
+      # TODO: Only make this call when loading the modal
+      story_ids = @commmit.planned_stories.map(&:story_id)
+      @repeatable_stories = Story.includes(:tags).repeatable.kept.completed_first
+      @one_off_stories = Story.includes(:tags).incomplete.where.not(id: story_ids).one_off.kept.most_recent_first
+
+      render :show
     else
       redirect_to commmits_path
     end

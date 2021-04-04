@@ -9,9 +9,9 @@ Then('I should see my most recent Commmits') do
   expect(page).to have_content @commmits.last.name
 end
 
-Given('I have a finished Commmit with planned stories') do
+Given('I have a finished Commmit with {int} planned stories') do |number|
   with_tenant do
-    @commmit = finished_commmit_with_planned_stories
+    @commmit = finished_commmit_with_planned_stories(stories_count: number)
   end
 end
 
@@ -19,9 +19,9 @@ Then('I should not be able to edit the Commmit') do
   expect(page).to have_content t('commmits.show.finished')
 end
 
-Given('I have an unfinished Commmit with planned stories') do
+Given('I have an unfinished Commmit with {int} planned stories') do |number|
   with_tenant do
-    @commmit = commmit_with_planned_stories
+    @commmit = commmit_with_planned_stories(stories_count: number)
   end
 end
 
@@ -35,9 +35,9 @@ Then('I can see my planned stories') do
   end
 end
 
-Given('I already have a Commmit with planned stories') do
+Given('I already have a Commmit with {int} planned stories') do |number|
   with_tenant do
-    @commmit = commmit_with_planned_stories
+    @commmit = commmit_with_planned_stories(stories_count: number)
   end
 end
 
@@ -74,7 +74,7 @@ Then('the Story should appear in my Commmit') do
   visit commmit_path(@commmit)
 
   with_tenant do
-    expect(page).to have_content @commmit.stories.first.goal
+    expect(page).to have_content Story.first.goal
   end
 end
 
@@ -148,12 +148,78 @@ Then('I should see that it finished yesterday') do
   expect(page).to have_content t('commmits.index.statuses.finished')
 end
 
-
 When('I add a one-time Story') do
   visit commmit_path(@commmit)
   click_on t('commmits.show.add_stories')
+
+  first("input[value='#{t('commmits.show.add_story')}']").click
 end
 
 Then('I should not be able to add the Story again') do
+  visit commmit_path(@commmit)
+  click_on t('commmits.show.add_stories')
+
+  expect(page).to have_content t('commmits.show.add_story')
+end
+
+Given('a Story') do
+  with_tenant do
+    create(:story)
+  end
+end
+
+Given('a Repeatable Story') do
+  with_tenant do
+    create(:repeatable_story)
+  end
+end
+
+When('I add a repeatable story') do
+  visit commmit_path(@commmit)
+  click_on t('commmits.show.add_stories')
+
+  first("input[value='#{t('commmits.show.add_story')}']").click
+end
+
+Then('I should be able to add the Story again') do
+  visit commmit_path(@commmit)
+  click_on t('commmits.show.add_stories')
+
+  first("input[value='#{t('commmits.show.add_story')}']").click
+end
+
+When('I remove a planned story') do
+  visit commmit_path(@commmit)
+
+  first("button[name='remove_story']").click
+end
+
+Then('it should not be listed under my commmit anymore') do
+  with_tenant do
+    expect(page).to_not have_content Story.first.goal
+  end
+end
+
+When('I mark a planned story as done') do
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Then('the planned story and story should be marked as done') do
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Given('I already have a Commmit with {int} done planned stories') do |number|
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+When('I mark a planned story as not done') do
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Then('the planned story and story should not be marked as done') do
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+When('I create a new story from my Commmit') do
   pending # Write code here that turns the phrase above into concrete actions
 end
