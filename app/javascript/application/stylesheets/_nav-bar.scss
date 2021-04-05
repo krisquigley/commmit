@@ -15,6 +15,10 @@
 }
 
 .section-heading {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 66%;
   display: inline-block;
   color: white;
   margin-bottom: 0;

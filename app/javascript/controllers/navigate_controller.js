@@ -11,4 +11,8 @@ export default class extends Controller {
   stopPropagation(event) {
     event.stopPropagation();
   }
+
+  showSectionHeadingTooltip(event) {
+    $('h6[data-toggle="sectionHeadingTooltip"]').tooltip('show');
+  }
 }

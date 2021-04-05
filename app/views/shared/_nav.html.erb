@@ -2,9 +2,11 @@
   <%= link_to current_commmits_path, class: "navbar-brand" do %>
     <%= render 'shared/icons/logo_icon', classes: '' %>
   <% end %>
-  <h6 class="section-heading">
+
+  <h6 class="section-heading" title="<%= content_for :nav_header %>" data-toggle="sectionHeadingTooltip" data-placement="bottom" data-action="click->navigate#showSectionHeadingTooltip">
     <%= content_for :nav_header %>
   </h6>
+
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>

@@ -18,7 +18,9 @@
 
   <body>
     <%= render 'shared/alerts' %>
-    <%= render 'shared/nav' %>
+    <div data-controller="navigate">
+      <%= render 'shared/nav' %>
+    </div>
 
     <div class="grid-container">
       <%= yield %>
