@@ -14,6 +14,7 @@ class Story < ApplicationRecord
   scope :repeatable, -> { where(repeatable: true) }
   scope :complete, -> { where.not(completed_at: nil) }
   scope :incomplete, -> { where(completed_at: nil) }
+  scope :automatic, -> { repeatable.where(automatically_add: true) }
 
   has_many :planned_stories
   has_many :commmits, counter_cache: true, through: :planned_stories
@@ -25,5 +26,9 @@ class Story < ApplicationRecord
 
   def repeatable?
     repeatable
+  end
+
+  def automatic?
+    automatically_add
   end
 end

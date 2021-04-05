@@ -19,8 +19,13 @@ FactoryBot.define do
       completed_at { Time.now }
     end
 
+    trait :automatic do
+      automatically_add { true }
+    end
+
     factory :discarded_story, traits: [:discarded]
     factory :repeatable_story, traits: [:repeatable]
     factory :completed_story, traits: [:completed]
+    factory :automatic_repeatable_story, traits: %i[automatic repeatable]
   end
 end

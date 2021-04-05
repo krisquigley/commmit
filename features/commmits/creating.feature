@@ -26,3 +26,9 @@ Feature: Creating Commmits
     Then the date should match tomorrows date
     When I click "Today"
     Then the date should change back to today
+
+  Scenario: Creating a Commmit and automatically adding repeatable stories
+    Given I already have 3 automatic repeatable stories 
+    When I create a Commmit with the name test
+    Then I should be notified that my "Commmit" was "created"
+    And see the repeatable stories in my list of planned stories

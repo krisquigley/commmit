@@ -19,6 +19,8 @@ class Commmit < ApplicationRecord
 
   has_and_belongs_to_many :tags
 
+  after_create :automatically_add_repeatable_stories
+
   def finished?
     end_date < Time.current.to_date
   end
@@ -37,5 +39,11 @@ class Commmit < ApplicationRecord
 
   def no_active_commmits?
     !Commmit.current_commmit.present?
+  end
+
+  def automatically_add_repeatable_stories
+    Story.automatic.each do |story|
+      planned_stories.create(story: story)
+    end
   end
 end

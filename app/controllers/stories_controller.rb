@@ -54,6 +54,6 @@ class StoriesController < ApplicationController
   end
 
   def story_params
-    params.require(:story).permit(:goal, :reason, :notes, :repeatable, tag_ids: [])
+    params.require(:story).permit(:goal, :reason, :notes, :repeatable, :automatically_add, tags: [])
   end
 end

@@ -1,6 +1,6 @@
 <div class="grid-content">
   <%= form_with model: @story, html: { class: 'flex-form' } do |f| %>
-    <div class="form-content">
+    <div class="form-content" data-controller="stories">
       <%= render 'fields', f: f, story: @story %>
     </div>
     

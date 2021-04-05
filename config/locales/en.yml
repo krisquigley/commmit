@@ -115,6 +115,8 @@ en:
         label_html: <b>How many times</b> do you plan to do this?
         once: Once
         forever: Repeatable
+      automatically_add:
+        label: Automatically add this Story to all future Commmits?
       notes:
         label: Notes
       tags:

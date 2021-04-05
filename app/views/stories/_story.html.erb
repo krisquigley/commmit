@@ -25,6 +25,7 @@
     <div class="card-footer__left">
       <%= render 'shared/icons/notes_icon', classes: 'mr-1 card-footer__icon' if story.notes.present? %>
       <%= render 'shared/icons/repeat_icon', classes: 'mr-1 card-footer__icon' if story.repeatable? %>
+      <%= render 'shared/icons/cog_icon', classes: 'mr-1 card-footer__icon' if story.automatic? %>
     </div>
     <div class="card-footer__right">
       <small><i><%= completed_or_added(story) %></i></small>

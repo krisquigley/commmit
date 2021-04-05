@@ -36,5 +36,12 @@ Feature: Creating Stories
     When I create a repeatable Story
     Then my Story should have a repeat icon
 
+  @javascript
+  Scenario: Creating a repeatable story which gets automatically added
+
+    Given I am creating a repeatable Story
+    When I choose to make the Story get automatically added
+    Then I should see a cog icon next to it
+
   Scenario: Valueing a story
 

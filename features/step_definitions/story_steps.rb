@@ -114,3 +114,25 @@ Then('I should see my repeatable Story under the Repeatable tab') do
     expect(page).to have_content @story.goal
   end
 end
+
+Given('I am creating a repeatable Story') do
+  visit new_story_path
+
+  find("input[name*='goal']").set('Test')
+  find("input[value='true']").click
+end
+
+When('I choose to make the Story get automatically added') do
+  find("label[for='story_repeatable_true']").click
+  find("input[name*='automatically_add']").check
+
+  submit_form
+end
+
+Then('I should see a cog icon next to it') do
+  visit stories_path
+
+  within("div[data-container='repeatable_stories']") do
+    expect(page).to have_css "svg[name='automatically_add']"
+  end
+end

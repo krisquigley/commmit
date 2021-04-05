@@ -42,13 +42,25 @@
   <%= f.label :repeatable, t('stories.form.repeatable.label_html') %><br/>
 
   <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
-    <label class="btn btn-secondary <%= 'active' if !story&.repeatable %> w-50">
-      <%= f.radio_button :repeatable, false %> <%= t('stories.form.repeatable.once') %>
+    <label class="btn btn-secondary <%= 'active' if !story&.repeatable %> w-50" for="story_repeatable_false">
+      <%= f.radio_button :repeatable, false, data: { action: "stories#hideAutoAdd" } %>
+      <%= t('stories.form.repeatable.once') %>
     </label>
 
-    <label class="btn btn-secondary <%= 'active' if story&.repeatable %> w-50">
-      <%= f.radio_button :repeatable, true %> <%= t('stories.form.repeatable.forever') %>
+    <label class="btn btn-secondary <%= 'active' if story&.repeatable %> w-50" for="story_repeatable_true" data-action="focusout->stories#show">
+      <%= f.radio_button :repeatable, true, data: { action: "stories#showAutoAdd" } %>
+      <%= t('stories.form.repeatable.forever') %>
     </label>
+  </div>
+</div>
+
+<div class="form-group" data-stories-target="autoAdd" style="display: none">
+  <div class="form-check">
+    <%= f.check_box :automatically_add, class: "form-check-input"  %>
+
+    <%= f.label :automatically_add, class: "form-check-label" do %>
+      <%= t('stories.form.automatically_add.label') %>
+    <% end %>
   </div>
 </div>
 

@@ -269,3 +269,21 @@ Then('I can still add the repeatable Story again') do
 
   first("input[value='#{t('commmits.show.add_story')}']").click
 end
+
+Given('I already have {int} automatic repeatable stories') do |number|
+  with_tenant do
+    @stories = create_list(:automatic_repeatable_story, number)
+  end
+end
+
+Then('see the repeatable stories in my list of planned stories') do
+  with_tenant do
+    visit commmit_path(Commmit.first)
+
+    @stories.each do |story|
+      within("div[data-container='planned_stories']") do
+        expect(page).to have_content story.goal
+      end
+    end
+  end
+end
