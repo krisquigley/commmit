@@ -101,7 +101,7 @@ en:
       created: Created Story
       updated: Updated Story
       removed: Removed Story from Commmit
-      destroyed: Archived Story
+      archived: Archived Story
     form:
       story:
         label_html: <b>What</b> do you want to achieve?

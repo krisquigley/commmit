@@ -1,6 +1,11 @@
-<div class="card" data-controller="navigate" data-action="click->navigate#navigate">
+<div class="card" data-controller="navigate" data-action="click->navigate#navigate" data-container="story">
   <div class="card-body">
-    <%= button_to story_path(story), method: :delete, class: 'link-button discard-link', data: { action: "click->navigate#stopPropagation" } do %>
+    <%= button_to story_path(story), method: :delete, 
+                                     class: 'link-button discard-link', 
+                                     data: { 
+                                       action: "click->navigate#stopPropagation" 
+                                     },
+                                     name: 'archive_story' do %>
       <%= render 'shared/icons/close_icon', classes: '' %> 
     <% end %>
     <h5 class="card--goal">

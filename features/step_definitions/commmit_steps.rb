@@ -50,7 +50,7 @@ end
 When('I archive my Commmit') do
   visit commmits_path
 
-  find(:css, "button[name='archive_commmit']").click
+  click_archive_button('commmit')
 end
 
 Then('I should no longer see my Commmit') do
@@ -196,7 +196,7 @@ end
 
 Then('it should not be listed under my commmit anymore') do
   with_tenant do
-    within('div[data-attributes="planned_stories"]') do
+    within('div[data-container="planned_stories"]') do
       expect(page).to_not have_content Story.first.goal
     end
   end
@@ -205,7 +205,7 @@ end
 When('I mark the planned story as done') do
   with_tenant do
     visit commmit_path(@commmit)
-    find("button[name=done]").click
+    find('button[name=done]').click
   end
 end
 
@@ -232,7 +232,7 @@ end
 When('I mark the planned story as not done') do
   with_tenant do
     visit commmit_path(@commmit)
-    find("button[name=not_done]").click
+    find('button[name=not_done]').click
   end
 end
 

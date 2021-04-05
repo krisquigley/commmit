@@ -40,7 +40,7 @@ class StoriesController < ApplicationController
     return unless @story.discard
 
     redirect_back fallback_location: stories_path,
-                  notice: t('stories.notice.destroyed')
+                  notice: t('stories.notice.archived')
   end
 
   private

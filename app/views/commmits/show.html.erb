@@ -11,7 +11,7 @@
     <p class="text-center text-secondary mt-2"><%= t('commmits.show.no_stories_yet') %></p>
   <% end %>
 
-  <div class="card-deck" data-attributes="planned_stories">
+  <div class="card-deck" data-container="planned_stories">
     <%= render partial: 'planned_story', collection: @commmit.planned_stories, locals: { commmit: @commmit } %>
   </div>
 </div>
