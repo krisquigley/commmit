@@ -47,8 +47,8 @@
       <%= t('stories.form.repeatable.once') %>
     </label>
 
-    <label class="btn btn-secondary <%= 'active' if story&.repeatable %> w-50" for="story_repeatable_true" data-action="focusout->stories#show">
-      <%= f.radio_button :repeatable, true, data: { action: "stories#showAutoAdd" } %>
+    <label class="btn btn-secondary <%= 'active' if story&.repeatable %> w-50" for="story_repeatable_true">
+      <%= f.radio_button :repeatable, true, data: { stories_target: "repeatable", action: "stories#showAutoAdd" } %>
       <%= t('stories.form.repeatable.forever') %>
     </label>
   </div>
