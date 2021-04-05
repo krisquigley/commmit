@@ -70,11 +70,31 @@ Then('I should be taken to my latest Commmit') do
   end
 end
 
-Then('the Story should appear in my Commmit') do
+Then('the Story with the goal {string} should appear in my Commmit') do |goal|
   visit commmit_path(@commmit)
 
+  within("div[data-container='planned_stories']") do
+    expect(page).to have_content goal
+  end
+end
+
+Given('a Repeatable Story with {string}') do |goal|
   with_tenant do
-    expect(page).to have_content Story.first.goal
+    create(:repeatable_story, goal: goal)
+  end
+end
+
+When('I create a new story with {string} from my Commmit') do |goal|
+  visit commmit_path(@commmit)
+  click_on t('commmits.show.add_stories')
+  find('input[id=story_goal]').set(goal)
+
+  submit_form
+end
+
+Given('a Story with {string}') do |goal|
+  with_tenant do
+    create(:story, goal: goal)
   end
 end
 
@@ -168,12 +188,6 @@ Given('a Story') do
   end
 end
 
-Given('a Repeatable Story') do
-  with_tenant do
-    create(:repeatable_story)
-  end
-end
-
 When('I add a repeatable story') do
   visit commmit_path(@commmit)
   click_on t('commmits.show.add_stories')
@@ -241,14 +255,6 @@ Then('the planned story and story should not be marked as done') do
     expect(@commmit.planned_stories.first.completed?).to be_falsy
     expect(@commmit.planned_stories.first.story.completed?).to be_falsy
   end
-end
-
-When('I create a new story from my Commmit') do
-  visit commmit_path(@commmit)
-  click_on t('commmits.show.add_stories')
-  find('input[id=story_goal]').set(Faker::Hipster.sentence)
-
-  submit_form
 end
 
 Given('I already have a Commmit with {int} repeatable planned stories') do |number|

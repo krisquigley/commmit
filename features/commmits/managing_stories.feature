@@ -11,25 +11,25 @@ Feature: Managing Stories In a Commmit
 
   Scenario: Adding a one-time story
     Given I already have a "Commmit"
-    And a Story
+    And a Story with "one-time"
     When I add a one-time Story
     Then I should be notified that my "Story" was "added"
-    And the Story should appear in my Commmit
+    And the Story with the goal "one-time" should appear in my Commmit
     But I should not be able to add the Story again
 
   Scenario: Adding a repeating story
     Given I already have a "Commmit"
-    And a Repeatable Story
+    And a Repeatable Story with "Repeating"
     When I add a repeatable story
     Then I should be notified that my "Story" was "added"
-    And the Story should appear in my Commmit
+    And the Story with the goal "Repeating" should appear in my Commmit
     Then I should be able to add the Story again
 
   Scenario: Creating a story
     Given I already have a "Commmit"
-    When I create a new story from my Commmit
+    When I create a new story with "My Goal" from my Commmit
     Then I should be notified that my "Story" was "created"
-    And the Story should appear in my Commmit
+    And the Story with the goal "My Goal" should appear in my Commmit
 
   Scenario: Removing a planned story
     Given I already have a Commmit with 1 planned stories

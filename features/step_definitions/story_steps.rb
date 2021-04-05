@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 When('I archive my Story') do
   visit stories_path
 
