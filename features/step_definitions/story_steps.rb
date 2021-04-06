@@ -119,7 +119,7 @@ Given('I am creating a repeatable Story') do
   visit new_story_path
 
   find("input[name*='goal']").set('Test')
-  find("input[value='true']").click
+  find("label[for='story_repeatable_true']").click
 end
 
 When('I choose to make the Story get automatically added') do
@@ -132,6 +132,7 @@ end
 Then('I should see a cog icon next to it') do
   visit stories_path
 
+  find("a[id='#{t('stories.form.repeatable.forever').tr(' ', '-')}-tab']").click
   within("div[data-container='repeatable_stories']") do
     expect(page).to have_css "svg[name='automatically_add']"
   end

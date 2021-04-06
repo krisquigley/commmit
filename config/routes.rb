@@ -44,16 +44,17 @@ Rails.application.routes.draw do
               }
 
   resources :commmits do
+    resources :planned_stories, shared: true do
+      patch :mark_as_done
+      patch :mark_as_not_done
+    end
     collection do
       get :current
     end
   end
 
   resources :stories do
-    resources :planned_stories, shallow: true do
-      patch :mark_as_done
-      patch :mark_as_not_done
-    end
+    resources :planned_stories, shallow: true
   end
 
   resources :tags, only: %i[index create destroy]

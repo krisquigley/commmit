@@ -4,7 +4,7 @@ class CommmitsController < ApplicationController
   def show
     @commmit = Commmit.includes(:planned_stories, stories: [:tags])
                       .where('stories.discarded_at': nil)
-                      .order('planned_stories.completed_at desc, planned_stories.created_at desc')
+                      .order('planned_stories.completed_at desc, planned_stories.created_at asc')
                       .find(params[:id])
 
     # TODO: Only make this call when loading the modal
