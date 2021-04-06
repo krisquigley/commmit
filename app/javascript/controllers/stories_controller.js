@@ -4,7 +4,7 @@ export default class extends Controller {
   static targets = ['autoAdd', 'repeatable'];
 
   initialize() {
-    if (this.repeatableTarget.value === 'true') {
+    if (this.repeatableTarget.selected) {
       console.log('here');
       this.autoAddTarget.style.display = 'block';
     }
