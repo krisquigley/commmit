@@ -1,0 +1,15 @@
+.divider {
+  width: 100%;
+  display: inline-flex;
+  margin-bottom: 1rem;
+  align-items: flex-end;
+
+  .dropdown-divider {
+    width: 100%;
+  }
+
+  small {
+    color: grey;
+    margin: 0 1rem;
+  }
+}

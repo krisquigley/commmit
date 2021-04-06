@@ -1,6 +1,6 @@
 <%# TODO: If this is a one/two day commmit then show a progress bar, if it is more than two days, show a burndown chart %>
 <div class="card <%= commmit.finished? ? "card--finished" : "" %>" data-controller="navigate" data-action="click->navigate#navigate">
-  <%= render 'shared/progress', commmit: commmit %>
+  <%= render 'shared/progress', completed_stories: commmit.planned_stories.filter { |ps| ps.completed_at !=  nil }, planned_stories: commmit.planned_stories.filter { |ps| ps.completed_at ==  nil } %>
 
   <div class="card-body">
     <%= button_to commmit_path(commmit), method: :delete, class: 'link-button discard-link', data: { action: "click->navigate#stopPropagation" }, name: "archive_commmit" do %>

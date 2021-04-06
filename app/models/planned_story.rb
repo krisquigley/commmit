@@ -8,6 +8,9 @@ class PlannedStory < ApplicationRecord
   belongs_to :commmit
   belongs_to :story
 
+  scope :todo, -> { where(completed_at: nil) }
+  scope :completed, -> { where.not(completed_at: nil) }
+
   def completed?
     completed_at.present?
   end

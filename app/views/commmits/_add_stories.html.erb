@@ -74,7 +74,7 @@
                aria-labelledby="<%= t('stories.index.new_story').gsub(' ', '-') %>-tab">
             <%= form_with model: Story.new, html: { class: 'flex-form' } do |f| %>
 
-              <%= hidden_field_tag :commmit_id, @commmit.id %>
+              <%= hidden_field_tag :commmit_id, commmit.id %>
               <div class="form-content" data-controller="stories">
                 <%= render 'stories/fields', f: f, story: nil %>
               </div>

@@ -13,3 +13,5 @@ Feature: Values
   Scenario: Changing a value's color
 
   Scenario: Listing values
+
+  Scenario: Adding a value to a Story

@@ -5,6 +5,7 @@ class Commmit < ApplicationRecord
 
   acts_as_tenant :account
 
+  auto_strip_attributes :name
   scope :most_recent_first, -> { order(start_date: :desc) }
 
   scope :current_commmit, lambda {

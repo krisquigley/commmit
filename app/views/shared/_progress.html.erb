@@ -1,9 +1,9 @@
-<% @progress = progress(commmit) %>
+<% @progress = progress(completed_stories) %>
 <div class="progress">
   <div class="progress-bar" role="progressbar" 
       aria-valuenow="<%= @progress %>" 
-      style="width: <%= percentage(commmit) || 0 %>%"
-      aria-valuemin="0" aria-valuemax="<%= commmit.planned_stories.size %>">
+      style="width: <%= percentage(planned_stories, completed_stories) || 0 %>%"
+      aria-valuemin="0" aria-valuemax="<%= planned_stories.size + completed_stories.size %>">
       <%= @progress %>
   </div>
 </div>

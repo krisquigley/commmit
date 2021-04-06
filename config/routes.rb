@@ -44,7 +44,7 @@ Rails.application.routes.draw do
               }
 
   resources :commmits do
-    resources :planned_stories, shared: true do
+    resources :planned_stories do
       patch :mark_as_done
       patch :mark_as_not_done
     end

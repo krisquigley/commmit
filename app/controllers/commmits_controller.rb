@@ -2,12 +2,15 @@
 
 class CommmitsController < ApplicationController
   def show
-    @commmit = Commmit.includes(:planned_stories, stories: [:tags])
-                      .where('stories.discarded_at': nil)
-                      .order('planned_stories.completed_at desc, planned_stories.created_at asc')
-                      .find(params[:id])
+    @commmit = Commmit.find(params[:id])
+    stories = PlannedStory.includes(story: [:tags])
+                          .where(commmit_id: params[:id])
+                          .where('story.discarded_at': nil)
+                          .order(created_at: :asc)
+    @planned_stories = stories.todo
+    @completed_stories = stories.completed
 
-    # TODO: Only make this call when loading the modal
+    # TODO: Only make these calls when loading the modal
     story_ids = @commmit.planned_stories.map(&:story_id)
     @repeatable_stories = Story.includes(:tags).repeatable.kept.completed_first
     @one_off_stories = Story.includes(:tags).incomplete.where.not(id: story_ids).one_off.kept.most_recent_first

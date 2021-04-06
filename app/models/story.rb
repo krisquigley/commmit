@@ -5,6 +5,7 @@ class Story < ApplicationRecord
 
   acts_as_tenant :account
 
+  auto_strip_attributes :goal, :reason, :notes
   validates :goal, presence: true
 
   scope :most_recent_first, -> { order(created_at: :desc) }

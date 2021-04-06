@@ -1,41 +1,42 @@
 <%= label_tag :story, t('stories.form.story.label_html') %>
 
 <%= f.label :goal, t('stories.form.goal.label'), class: 'sr-only' %>
-<div class="input-group mb-2 mr-sm-2">
+<div class="form-group">
+  <div class="input-group mb-2 mr-sm-2">
 
-  <div class="input-group-prepend">
-    <div class="input-group-text"><%= t('stories.form.goal.label') %> </div>
-  </div>
+    <div class="input-group-prepend">
+      <div class="input-group-text"><%= t('stories.form.goal.label') %> </div>
+    </div>
 
-  <%= f.text_field :goal, required: true,
-                          autocomplete: 'off', 
-                          autocapitalize: "none", 
-                          placeholder: t('stories.form.goal.placeholder'), 
-                          class: "form-control", 
-                          autofocus: true %>
-
-  <div class="input-group-append">
-    <div class="input-group-text">,</div>
-  </div>
-
-</div>
-
-<%= f.label :reason, t('stories.form.reason.label'), class: 'sr-only' %>
-<div class="input-group mb-2 mr-sm-2">
-
-  <div class="input-group-prepend">
-    <div class="input-group-text"><%= t('stories.form.reason.label') %> </div>
-  </div>
-
-  <%= f.text_field :reason, autocomplete: 'off', 
+    <%= f.text_field :goal, required: true,
+                            autocomplete: 'off', 
                             autocapitalize: "none", 
-                            placeholder: t('stories.form.reason.placeholder'), 
-                            class: "form-control" %>
+                            placeholder: t('stories.form.goal.placeholder'), 
+                            class: "form-control", 
+                            autofocus: true %>
 
-  <div class="input-group-append">
-    <div class="input-group-text">.</div>
+    <div class="input-group-append">
+      <div class="input-group-text">,</div>
+    </div>
   </div>
 
+  <%= f.label :reason, t('stories.form.reason.label'), class: 'sr-only' %>
+  <div class="input-group mb-2 mr-sm-2">
+
+    <div class="input-group-prepend">
+      <div class="input-group-text"><%= t('stories.form.reason.label') %> </div>
+    </div>
+
+    <%= f.text_field :reason, autocomplete: 'off', 
+                              autocapitalize: "none", 
+                              placeholder: t('stories.form.reason.placeholder'), 
+                              class: "form-control" %>
+
+    <div class="input-group-append">
+      <div class="input-group-text">.</div>
+    </div>
+
+  </div>
 </div>
 
 <div class="form-group">
@@ -66,14 +67,16 @@
 
 <div class="form-group">
   <%= t('stories.form.tags.label_html') %> <br/>
-  <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |b| %>
-    <div class="form-check form-check-inline">
-      <%= b.check_box class: 'form-check-input', checked: story&.tags&.any? { |t| t.id == b.value } %>
-      <%= b.label class: 'form-check-label' do %>
-        <%= render 'tags/tag', tag: b.object %>
-      <% end %>
-    </div>
-  <% end %>
+  <div class="values">
+    <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |b| %>
+      <div class="form-check form-check-inline">
+        <%= b.check_box class: 'form-check-input', checked: story&.tags&.any? { |t| t.id == b.value } %>
+        <%= b.label class: 'form-check-label mt-1' do %>
+          <%= render 'tags/tag', tag: b.object %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 </div>
 
 <div class="form-group">

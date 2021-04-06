@@ -3,16 +3,22 @@
 <% end %> 
 
 <div class="grid-topcontent">
-  <%= render 'shared/progress', commmit: @commmit %>
+  <%= render 'shared/progress', planned_stories: @planned_stories, completed_stories: @completed_stories %>
 </div>
 
 <div class="grid-content">
-  <% if @commmit.stories.empty? %>
+  <% if @planned_stories.empty? %>
     <p class="text-center text-secondary mt-2"><%= t('commmits.show.no_stories_yet') %></p>
   <% end %>
 
   <div class="card-deck" data-container="planned_stories">
-    <%= render partial: 'planned_story', collection: @commmit.planned_stories, locals: { commmit: @commmit } %>
+    <%= render partial: 'planned_story', collection: @planned_stories, locals: { commmit: @commmit } %>
+    <div class="divider">
+      <div class="dropdown-divider"></div>
+      <small><%= t('commmits.show.done_divider') %></small>
+      <div class="dropdown-divider"></div>
+    </div>
+    <%= render partial: 'planned_story', collection: @completed_stories, locals: { commmit: @commmit } %>
   </div>
 </div>
 

@@ -66,6 +66,8 @@ GEM
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     ast (2.4.2)
+    auto_strip_attributes (2.6.0)
+      activerecord (>= 4.0)
     backport (1.1.2)
     bcrypt (3.1.16)
     benchmark (0.1.1)
@@ -395,6 +397,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts_as_tenant (~> 0.5.0)
+  auto_strip_attributes (~> 2.6)
   bootsnap (~> 1.6)
   bootstrap4-kaminari-views (~> 1.0, >= 1.0.1)
   byebug

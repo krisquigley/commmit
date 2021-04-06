@@ -5,7 +5,27 @@
   height: 100%;
 }
 
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
 .form-control,
 .form-control:focus {
   background-color: #dedede;
+}
+
+.form-check-inline .form-check-input {
+  position: absolute;
+  left: -100vw;
+}
+
+.form-check-inline .form-check-input + label .badge {
+  padding: 0.35em 0.5em;
+  filter: brightness(0.9);
+  border: 2px solid rgba(0, 0, 0, 0);
+}
+
+.form-check-inline .form-check-input:checked + label .badge {
+  filter: brightness(1.1);
+  border: 2px solid white;
 }

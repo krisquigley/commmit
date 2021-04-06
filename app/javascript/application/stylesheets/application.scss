@@ -18,6 +18,7 @@
 @import './_modal';
 @import './_card';
 @import './_discard-link';
+@import './_divider';
 
 html {
   @include enforce-mobile-viewport;
@@ -30,10 +31,14 @@ body {
   height: 100%;
 }
 
-hr {
-  width: 100%;
-  margin: 0;
-  border-top: 1px solid #444;
+.values {
+  display: inline-flex;
+  justify-content: space-around;
+  flex-flow: wrap;
+}
+
+.badge {
+  font-size: 80%;
 }
 
 .nav-pills {

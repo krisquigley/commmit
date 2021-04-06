@@ -47,6 +47,7 @@ en:
         in_progress: Finishes
       new_commmit: New Commmit
     show:
+      done_divider: DONE
       no_stories_yet: You haven't added any stories yet
       add_stories: Add Stories
       close_modal: Close
