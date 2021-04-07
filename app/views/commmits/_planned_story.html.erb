@@ -1,5 +1,5 @@
 <div class="card <%= planned_story.completed? ? "card--finished" : "" %>">
-  <div class="card-body card__story">
+  <div class="card-body card__flex">
     <div>
       <h5 class="card--goal">
         <%= t('stories.form.goal.label') %> <%= planned_story.story.goal %><% if planned_story.story.reason.present? %>,<% end %>

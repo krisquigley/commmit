@@ -1,5 +1,8 @@
-.card__story {
+.card__flex {
   display: inline-flex;
+  & h5:first-child {
+    width: 100%;
+  }
 }
 
 .card--goal {

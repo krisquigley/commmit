@@ -1,5 +1,5 @@
 <div class="card" data-controller="navigate" data-action="click->navigate#navigate" data-container="story">
-  <div class="card-body card__story">
+  <div class="card-body card__flex">
     <div>
       <h5 class="card--goal">
         <%= link_to "#{t('stories.form.goal.label')} #{story.goal}#{story.reason.present? ? ',' : ''}", 
