@@ -19,7 +19,7 @@ class Story < ApplicationRecord
 
   has_many :planned_stories
   has_many :commmits, counter_cache: true, through: :planned_stories
-  has_and_belongs_to_many :tags
+  has_and_belongs_to_many :values
 
   def completed?
     completed_at.present?

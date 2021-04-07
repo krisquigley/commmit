@@ -54,7 +54,6 @@
         <%= render partial: "story", collection: @repeatable_stories %>
       </div>
     </div>
+    <%= render "shared/actions", actions: [{ label: t('stories.index.new_story'), path: new_story_path }] %>
   </div>
 </div>
-
-<%= render "shared/actions", actions: [{ label: t('stories.index.new_story'), path: new_story_path }] %>

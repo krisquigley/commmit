@@ -120,7 +120,7 @@ en:
         label: Automatically add this Story to all future Commmits?
       notes:
         label: Notes
-      tags:
+      values:
         label_html: What <b>value(s)</b> does this goal focus on?
         manage: Assign Values
       create: Create Story
@@ -133,16 +133,20 @@ en:
       new_story: New Story
       no_repeatable_stories_yet: You haven't created any repeatable stories yet
       no_stories_yet: You haven't created any stories yet
-  tags:
+  values:
     notice:
       created: Created Value
       destroyed: Removed Value
+      updated: Updated Value
     form:
       name:
         label: Name of your value
+      color:
+        label: Colour
       create: Create Value
       update: Save Changes
       cancel: Close
+      archive: Archive
     index:
       header: Values
   unlocks:

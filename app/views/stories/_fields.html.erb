@@ -66,13 +66,13 @@
 </div>
 
 <div class="form-group">
-  <%= t('stories.form.tags.label_html') %> <br/>
+  <%= t('stories.form.values.label_html') %> <br/>
   <div class="values">
-    <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |b| %>
+    <%= f.collection_check_boxes(:value_ids, Value.all, :id, :name) do |b| %>
       <div class="form-check form-check-inline">
-        <%= b.check_box class: 'form-check-input', checked: story&.tags&.any? { |t| t.id == b.value } %>
+        <%= b.check_box class: 'form-check-input', checked: story&.values&.any? { |t| t.id == b.value } %>
         <%= b.label class: 'form-check-label mt-1' do %>
-          <%= render 'tags/tag', tag: b.object %>
+          <%= render 'values/value', value: b.object %>
         <% end %>
       </div>
     <% end %>

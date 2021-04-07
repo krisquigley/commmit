@@ -8,7 +8,6 @@
   <% end %>
   <div class="card-deck">
     <%= render partial: "commmit", collection: @commmits %>
+    <%= render "shared/actions", actions: [{ label: t('commmits.index.new_commmit'), path: new_commmit_path }] %>
   </div>
 </div>
-
-<%= render "shared/actions", actions: [{ label: t('commmits.index.new_commmit'), path: new_commmit_path }] %>

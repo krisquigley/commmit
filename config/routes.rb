@@ -57,5 +57,5 @@ Rails.application.routes.draw do
     resources :planned_stories, shallow: true
   end
 
-  resources :tags, only: %i[index create destroy]
+  resources :values
 end

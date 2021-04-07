@@ -5,8 +5,8 @@ class StoriesController < ApplicationController
   before_action :find_commmit, if: -> { params[:commmit_id] }
 
   def index
-    @one_off_stories = Story.includes(:tags).incomplete.one_off.kept.most_recent_first
-    @repeatable_stories = Story.includes(:tags).repeatable.kept.completed_first
+    @one_off_stories = Story.includes(:values).incomplete.one_off.kept.most_recent_first
+    @repeatable_stories = Story.includes(:values).repeatable.kept.completed_first
   end
 
   def new
@@ -27,7 +27,7 @@ class StoriesController < ApplicationController
   def edit; end
 
   def update
-    story_params[:tag_ids]&.reject!(&:empty?)
+    story_params[:value_ids]&.reject!(&:empty?)
 
     if @story.update(story_params)
       redirect_to stories_path, notice: t('stories.notice.updated')
@@ -50,10 +50,10 @@ class StoriesController < ApplicationController
   end
 
   def find_story
-    @story = Story.includes(:tags).find(params[:id])
+    @story = Story.includes(:values).find(params[:id])
   end
 
   def story_params
-    params.require(:story).permit(:goal, :reason, :notes, :repeatable, :automatically_add, tag_ids: [])
+    params.require(:story).permit(:goal, :reason, :notes, :repeatable, :automatically_add, value_ids: [])
   end
 end

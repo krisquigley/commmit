@@ -1,5 +1,19 @@
 <div class="card" data-controller="navigate" data-action="click->navigate#navigate" data-container="story">
-  <div class="card-body">
+  <div class="card-body card__story">
+    <div>
+      <h5 class="card--goal">
+        <%= link_to "#{t('stories.form.goal.label')} #{story.goal}#{story.reason.present? ? ',' : ''}", 
+                      edit_story_path(story), data: { navigate_target: :link } %>
+      </h5>
+      <% if story.reason.present? %>
+        <h6 class="card--reason">
+          <%= t('stories.form.reason.label') %> <%= story.reason %>.
+        </h6>
+      <% end %>
+      <div class="mt-1">
+        <%= render partial: 'values/value', collection: story.values %>
+      </div>
+    </div>
     <%= button_to story_path(story), method: :delete, 
                                      class: 'link-button discard-link', 
                                      data: { 
@@ -8,18 +22,6 @@
                                      name: 'archive_story' do %>
       <%= render 'shared/icons/close_icon', classes: '' %> 
     <% end %>
-    <h5 class="card--goal">
-      <%= link_to "#{t('stories.form.goal.label')} #{story.goal}#{story.reason.present? ? ',' : ''}", 
-                    edit_story_path(story), data: { navigate_target: :link } %>
-    </h5>
-    <% if story.reason.present? %>
-      <h6 class="card--reason">
-        <%= t('stories.form.reason.label') %> <%= story.reason %>.
-      </h6>
-    <% end %>
-    <div class="mt-1">
-      <%= render partial: 'tags/tag', collection: story.tags %>
-    </div>
   </div>
   <div class="card-footer">
     <div class="card-footer__left">

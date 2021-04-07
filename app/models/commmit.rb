@@ -18,8 +18,6 @@ class Commmit < ApplicationRecord
   has_many :planned_stories, dependent: :destroy
   has_many :stories, through: :planned_stories
 
-  has_and_belongs_to_many :tags
-
   after_create :automatically_add_repeatable_stories
 
   def finished?

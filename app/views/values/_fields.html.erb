@@ -1,0 +1,16 @@
+<div class="form-content">
+  <div class="form-group">
+    <%= f.label :name, t('values.form.name.label') %>
+    <%= f.text_field :name, required: true, 
+                            autocomplete: 'off', 
+                            class: "form-control", 
+                            autofocus: :autofocus %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :color, t('values.form.color.label') %>
+    <%= f.text_field :color, required: true, 
+                            autocomplete: 'off', 
+                            class: "form-control" %>
+  </div>
+</div>

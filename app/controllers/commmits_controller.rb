@@ -3,7 +3,7 @@
 class CommmitsController < ApplicationController
   def show
     @commmit = Commmit.find(params[:id])
-    stories = PlannedStory.includes(story: [:tags])
+    stories = PlannedStory.includes(story: [:values])
                           .where(commmit_id: params[:id])
                           .where('story.discarded_at': nil)
                           .order(created_at: :asc)
@@ -12,8 +12,8 @@ class CommmitsController < ApplicationController
 
     # TODO: Only make these calls when loading the modal
     story_ids = @commmit.planned_stories.map(&:story_id)
-    @repeatable_stories = Story.includes(:tags).repeatable.kept.completed_first
-    @one_off_stories = Story.includes(:tags).incomplete.where.not(id: story_ids).one_off.kept.most_recent_first
+    @repeatable_stories = Story.includes(:values).repeatable.kept.completed_first
+    @one_off_stories = Story.includes(:values).incomplete.where.not(id: story_ids).one_off.kept.most_recent_first
   end
 
   def index
