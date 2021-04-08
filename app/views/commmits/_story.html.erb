@@ -9,7 +9,7 @@
       </h6>
     <% end %>
     <div class="mt-1">
-      <%= render partial: 'values/value', collection: story.values %>
+      <%= render partial: 'values/value', collection: story.values.filter{|v| v.discarded_at.nil? } %>
     </div>
   </div>
   <div class="card-footer">

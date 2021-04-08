@@ -3,7 +3,7 @@
 <% end %> 
 
 <div class="grid-topcontent">
-  <%= render 'shared/progress', planned_stories: @planned_stories, completed_stories: @completed_stories %>
+  <%= render 'shared/progress', total_count: (@planned_stories.size + @completed_stories.size), completed_count: @completed_stories.size %>
 </div>
 
 <div class="grid-content">

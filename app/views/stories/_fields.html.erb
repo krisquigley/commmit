@@ -68,7 +68,7 @@
 <div class="form-group">
   <%= t('stories.form.values.label_html') %> <br/>
   <div class="values">
-    <%= f.collection_check_boxes(:value_ids, Value.all, :id, :name) do |b| %>
+    <%= f.collection_check_boxes(:value_ids, Value.kept, :id, :name) do |b| %>
       <div class="form-check form-check-inline">
         <%= b.check_box class: 'form-check-input', checked: story&.values&.any? { |t| t.id == b.value } %>
         <%= b.label class: 'form-check-label mt-1' do %>

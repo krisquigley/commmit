@@ -1,11 +1,8 @@
 # frozen_string_literal: true
 
 module CommmitsHelper
-  def percentage(planned_stories, completed_stories)
-    ((@progress.to_f / (planned_stories.size + completed_stories.size)) * 100).round if @progress.positive?
-  end
-
-  def progress(completed_stories)
-    completed_stories.size
+  def percentage_left(total_number, current_number)
+    percentage_done = current_number.positive? ? (current_number.to_f / total_number) * 100 : 0
+    100 - percentage_done
   end
 end
