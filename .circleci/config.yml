@@ -90,7 +90,7 @@ jobs:
           name: Save Feature Specs results
           command: |
             mkdir -p ~/cucumber
-            bundle exec cucumber --format pretty --format json --out ~/cucumber/tests.cucumber
+            bundle exec cucumber --format pretty --format json --out ~/cucumber/tests.cucumber  --strict-flaky --no-strict-pending --no-strict-undefined
           when: always
       - store_test_results:
           path: ~/cucumber
