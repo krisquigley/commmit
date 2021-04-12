@@ -5,7 +5,6 @@ export default class extends Controller {
 
   initialize() {
     if (this.repeatableTarget.selected) {
-      console.log('here');
       this.autoAddTarget.style.display = 'block';
     }
   }

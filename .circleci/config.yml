@@ -87,18 +87,15 @@ jobs:
               $TEST_FILES
 
       - run:
-          name: run Feature Tests
+          name: Save Feature Specs results
           command: |
-            mkdir -p $CIRCLE_TEST_REPORTS/cucumber
-
-            bundle exec cucumber --format junit --out $CIRCLE_TEST_REPORTS/cucumber/junit.xml
-
-      # collect reports
+            mkdir -p ~/cucumber
+            bundle exec cucumber --format pretty --format json --out ~/cucumber/tests.cucumber
+          when: always
       - store_test_results:
-          path: /tmp/test-results
+          path: ~/cucumber
       - store_artifacts:
-          path: /tmp/test-results
-          destination: test-results
+          path: ~/cucumber
 
   deploy:
     docker:
