@@ -54,7 +54,7 @@ class CommmitsController < ApplicationController
       render :show
     else
       index
-      flash[:alert] = t('commmits.notice.no_commmits_today')
+      flash.now.alert = t('commmits.notice.no_commmits_today')
       render :index
     end
   end

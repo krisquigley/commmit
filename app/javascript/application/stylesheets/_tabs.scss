@@ -5,6 +5,10 @@
   background-color: #f1f1f1;
 }
 
+.tab-content > .active {
+  height: 100%;
+}
+
 /* Style the buttons that are used to open the tab content */
 .tab button {
   background-color: inherit;
@@ -27,11 +31,6 @@
 }
 
 /* Style the tab content */
-.tabcontent {
-  display: none;
-  padding: 6px 12px;
-}
-
-.tabcontent.active {
-  display: initial;
+.tab-content {
+  height: 100%;
 }

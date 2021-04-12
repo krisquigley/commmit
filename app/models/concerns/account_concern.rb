@@ -5,7 +5,7 @@ module AccountConcern
 
   class_methods do
     def subdomain_format
-      { with: /\A[A-Za-z0-9\-]+\z/,
+      { with: SubdomainAndUsernameValidation.call,
         message: I18n.t('users.validation.username') } # Username follows the same convention
     end
   end

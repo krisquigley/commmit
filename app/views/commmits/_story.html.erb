@@ -19,7 +19,9 @@
     <div class="card-footer__right">
       <%= form_with model: [story, PlannedStory.new] do |f| %>
         <%= f.hidden_field :commmit_id, value: @commmit.id %>
-        <%= f.submit t('commmits.show.add_story'), class: 'text-success link-button' %>
+        <%= button_tag class: 'btn btn-link d-inline-flex align-middle', style: 'align-items: center', name: 'add', type: 'submit' do %>
+          <%= render('shared/icons/add_icon', classes: 'mr-2 text-success') %> Add
+        <% end %>
       <% end %>
     </div>
   </div>

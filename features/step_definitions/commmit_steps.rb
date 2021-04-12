@@ -172,7 +172,7 @@ When('I add a one-time Story') do
   visit commmit_path(@commmit)
   click_on t('commmits.show.add_stories')
 
-  first("input[value='#{t('commmits.show.add_story')}']").click
+  first("button[name='add']").click
 end
 
 Then('I should not be able to add the Story again') do
@@ -192,14 +192,14 @@ When('I add a repeatable story') do
   visit commmit_path(@commmit)
   click_on t('commmits.show.add_stories')
 
-  first("input[value='#{t('commmits.show.add_story')}']").click
+  first("button[name='add']").click
 end
 
 Then('I should be able to add the Story again') do
   visit commmit_path(@commmit)
   click_on t('commmits.show.add_stories')
 
-  first("input[value='#{t('commmits.show.add_story')}']").click
+  first("button[name='add']").click
 end
 
 When('I remove a planned story') do
@@ -267,7 +267,7 @@ Then('I can still add the repeatable Story again') do
   visit commmit_path(@commmit)
   click_on t('commmits.show.add_stories')
 
-  first("input[value='#{t('commmits.show.add_story')}']").click
+  first("button[name='add']").click
 end
 
 Given('I already have {int} automatic repeatable stories') do |number|

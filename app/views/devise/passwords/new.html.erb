@@ -3,7 +3,7 @@
     <%= t('passwords.new.header') %>
   <% end %> 
 
-  <%= form_for(resource, as: resource_name, url: password_path(resource_name), data: { turbo: false }, html: { method: :post, class: "flex-form" }) do |f| %>
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: "flex-form", data: { turbo: false } }) do |f| %>
     <div class="form-content">
       <%= render "devise/shared/error_messages", resource: resource %>
 

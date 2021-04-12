@@ -19,7 +19,7 @@ RSpec.describe 'Signing up for an account', type: :feature do
       submit_form
 
       expect(page).to have_content t('devise.registrations.signed_up')
-      expect(page).to have_current_path(commmits_path)
+      expect(page).to have_current_path('/')
     end
   end
 

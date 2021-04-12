@@ -7,9 +7,10 @@ class User < ApplicationRecord
 
   before_create :downcase_username
   after_create :create_account
-  devise  :database_authenticatable, :registerable,
-          :recoverable, :rememberable, :validatable,
-          :confirmable, :lockable, :trackable
+  devise  :database_authenticatable, :validatable,
+          :recoverable, :rememberable,
+          :lockable, :trackable, :invitable,
+          :registerable, :confirmable
 
   validates :username, format: subdomain_format
   validates :username, :email, presence: true, uniqueness: true
