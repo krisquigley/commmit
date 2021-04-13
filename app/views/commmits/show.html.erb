@@ -28,8 +28,8 @@
       <%= link_to new_commmit_path, class: "btn btn-lg btn-primary btn-block" do %>
         <%= t('commmits.index.new_commmit') %> 
       <% end if @commmit.no_active_commmits? %>
-      <%= button_tag class: "btn btn-lg btn-primary btn-block", disabled: @commmit.finished?, data: { toggle: "modal", target: "#addStoriesModal" } do %>
-        <%= @commmit.finished? ? t('commmits.show.finished') : t('commmits.show.add_stories') %> 
+      <%= button_tag class: "btn btn-lg btn-primary btn-block", disabled: @commmit.reflected?, data: { toggle: "modal", target: "#addStoriesModal" } do %>
+        <%= @commmit.reflected? ? t('commmits.show.finished') : t('commmits.show.add_stories') %> 
       <% end %>
     </div>
   </div>

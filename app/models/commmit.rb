@@ -20,6 +20,10 @@ class Commmit < ApplicationRecord
 
   after_create :automatically_add_repeatable_stories
 
+  def reflected?
+    false
+  end
+
   def finished?
     end_date < Time.current.to_date
   end

@@ -72,6 +72,15 @@ jobs:
       - run: bundle exec rake db:create
       - run: bundle exec rake db:schema:load
 
+  lint:
+    steps:
+      - run:
+        name: Rubocop
+        command: |
+          bundle exec rubocop
+
+  specs:
+    steps:
       # run tests!
       - run:
           name: run Unit Tests
@@ -86,6 +95,8 @@ jobs:
               --format progress \
               $TEST_FILES
 
+  features:
+    steps:
       - run:
           name: Save Feature Specs results
           command: |
@@ -123,9 +134,18 @@ jobs:
 
 workflows:
   version: 2
-  build-deploy:
+  build-lint-test-deploy:
     jobs:
       - build
+      - lint:
+        requires:
+          - build
+      - specs:
+        requires:
+          - build
+      - features:
+        requires:
+          - build
       - deploy:
           requires:
             - build

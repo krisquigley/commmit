@@ -40,7 +40,8 @@ Rails.application.routes.draw do
                 sessions: 'users/sessions',
                 confirmations: 'users/confirmations',
                 passwords: 'users/passwords',
-                unlocks: 'users/unlocks'
+                unlocks: 'users/unlocks',
+                invitations: 'users/invitations'
               }
 
   resources :commmits do

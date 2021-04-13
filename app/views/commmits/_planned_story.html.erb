@@ -20,7 +20,7 @@
                   class: 'link-button discard-link', 
                   data: { action: "click->navigate#stopPropagation" } do %>
       <%= render 'shared/icons/close_icon', classes: '' %> 
-    <% end unless planned_story.completed? || commmit.finished? %>
+    <% end unless planned_story.completed? || commmit.reflected? %>
   </div>
   <div class="card-footer">
     <div class="card-footer__left">
@@ -34,7 +34,7 @@
                       class: 'btn',
                       style: 'padding: 0;',
                       method: :patch, 
-                      disabled: commmit.finished? do %>
+                      disabled: commmit.reflected? do %>
             <%= render 'shared/icons/done_done_icon', classes: 'text-success' %>
         <% end %>
       <% else %>
@@ -42,7 +42,7 @@
                       name: 'done',
                       class: 'btn btn-link', 
                       method: :patch, 
-                      disabled: commmit.finished? do %>
+                      disabled: commmit.reflected? do %>
           <%= render 'shared/icons/done_icon', classes: 'text-success' %>
         <% end %>
       <% end %>  

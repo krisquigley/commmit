@@ -1,0 +1,22 @@
+<div class="grid-content">
+  <% content_for :nav_header do %>
+    <%= t("devise.invitations.new.header") %>
+  <% end %> 
+
+  <%= form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post, class: "flex-form", data: { turbo: false } }) do |f| %>
+    <div class="form-content">
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <% resource.class.invite_key_fields.each do |field| -%>
+        <div class="form-group">
+          <%= f.label field %><br />
+          <%= f.text_field field, class: 'form-control' %>
+        </div>
+      <% end -%>
+    </div>
+
+    <div class="form-group form-actions">
+      <%= f.submit t("devise.invitations.new.submit_button"), class: 'btn btn-success btn-lg btn-block' %>
+    </div>
+  <% end %>
+</div>
