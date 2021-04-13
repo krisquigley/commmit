@@ -15,8 +15,6 @@ class ApplicationController < ActionController::Base
     return if user_signed_in? && !helpers.request_subdomain(request).present?
 
     # If trying to access someone elses account, then redirect them to thier personal account
-    if user_signed_in? && !helpers.account_belongs_to_current_user?(current_user)
-      raise ActionController::RoutingError, 'Not Found'
-    end
+    raise ActionController::RoutingError, 'Not Found' if user_signed_in? && !helpers.account_belongs_to_current_user?(current_user)
   end
 end

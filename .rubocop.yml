@@ -132,3 +132,7 @@ RSpec/StubbedMock:
 InternalAffairs/ExampleDescription:
   Include:
     - 'spec/rubocop/cop/**/*.rb'
+
+RSpec/InstanceVariable:
+  Exclude:
+    - 'spec/**/*.rb'

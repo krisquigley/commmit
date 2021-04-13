@@ -2,7 +2,7 @@
 
 class Value < ApplicationRecord
   include Discard::Model
-  
+
   before_validation :set_color, only: :create
   acts_as_tenant :account
 
