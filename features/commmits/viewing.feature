@@ -15,10 +15,10 @@ Feature: Viewing a Commmit
     Then I can see my planned stories
 
   Scenario: Viewing a Commmit that has finished
-    Given I have a finished Commmit with 5 planned stories
-    When I view the "Commmit"
-    Then I should not be able to edit the Commmit
-    But I can view my Reflection
+    # Given I have a finished Commmit with 5 planned stories
+    # When I view the "Commmit"
+    # Then I should not be able to edit the Commmit
+    # But I can view my Reflection
 
   Scenario: Accessing the currently active Commmit
     Given I already have a Commmit with 1 planned stories
