@@ -106,8 +106,9 @@ jobs:
           path: ~/cucumber
       - store_artifacts:
           path: ~/cucumber
-          path: coverage
           destination: feature-tests
+      - store_artifacts:
+          path: coverage
 
   deploy:
     docker:
