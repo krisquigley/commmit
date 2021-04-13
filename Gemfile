@@ -75,6 +75,7 @@ group :test do
   gem 'rspec-sidekiq', '~> 3.1'
   gem 'rubocop-rspec', '~> 2.1'
   gem 'selenium-webdriver', '~> 4.0.0.alpha7'
+  gem 'simplecov', require: false
   gem 'webdrivers', '~> 4.5'
 end
 

@@ -79,7 +79,7 @@ jobs:
 
       # run tests!
       - run:
-          name: run Unit Tests
+          name: Run Unit Tests
           command: |
             mkdir /tmp/test-results
             TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | \
@@ -90,9 +90,14 @@ jobs:
               --out /tmp/test-results/rspec.xml \
               --format progress \
               $TEST_FILES
+      - store_test_results:
+          path: /tmp/test-results
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: unit-tests
 
       - run:
-          name: Save Feature Specs results
+          name: Run Feature Tests
           command: |
             mkdir -p ~/cucumber
             bundle exec cucumber --format pretty --format json --out ~/cucumber/tests.cucumber  --strict-flaky --no-strict-pending --no-strict-undefined
@@ -101,6 +106,8 @@ jobs:
           path: ~/cucumber
       - store_artifacts:
           path: ~/cucumber
+          path: coverage
+          destination: feature-tests
 
   deploy:
     docker:
