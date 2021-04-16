@@ -1,50 +1,83 @@
-@import '~bootswatch/dist/yeti/variables';
-@import '~bootstrap/scss/bootstrap';
-@import '~bootswatch/dist/yeti/bootswatch';
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+@import './bootstrap';
 
-.navbar-toggler {
-  border: 0;
+@import '~bootswatch/dist/darkly/variables';
+@import '~bootswatch/dist/darkly/bootswatch';
+
+@import './fonts';
+@import './_variables';
+@import './_mixins';
+@import './_nav-bar';
+@import './_footer-navigation';
+@import './_grid';
+@import './_forms';
+@import './_tabs';
+@import './_alert';
+@import './_modal';
+@import './_card';
+@import './_discard-link';
+@import './_divider';
+
+html {
+  @include enforce-mobile-viewport;
+
+  height: 100%;
+}
+
+body {
+  padding-top: 57px;
+  height: 100%;
+}
+
+.page-actions {
+  position: sticky;
+  bottom: 0.5rem;
+}
+
+.pill-actions {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.values {
+  display: inline-flex;
+  justify-content: space-around;
+  flex-flow: wrap;
+}
+
+.badge {
+  font-size: 80%;
+}
+
+.nav-pills {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.nav-link {
+  padding: 0.5rem 1rem;
+}
+
+.close-button {
+  vertical-align: middle;
+  color: white;
   padding: 0;
+  mix-blend-mode: hard-light;
+}
+
+.link-button {
+  border: 0;
+  background: none;
 }
 
 .tooltip-inner {
   white-space: pre-wrap;
 }
 
-/* Style the tab */
-.tab {
-  overflow: hidden;
-  border: 1px solid #ccc;
-  background-color: #f1f1f1;
-}
-
-/* Style the buttons that are used to open the tab content */
-.tab button {
-  background-color: inherit;
-  float: left;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  transition: 0.3s;
-}
-
-/* Change background color of buttons on hover */
-.tab button:hover {
-  background-color: #ddd;
-}
-
-/* Create an active/current tablink class */
-.tab button.active {
-  background-color: #ccc;
-}
-
-/* Style the tab content */
-.tabcontent {
-  display: none;
-  padding: 6px 12px;
-}
-
-.tabcontent.active {
-  display: initial;
+.btn-link {
+  padding: 0;
+  font-weight: normal;
 }

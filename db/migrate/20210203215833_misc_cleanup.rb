@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MiscCleanup < ActiveRecord::Migration[6.1]
   def change
     # Misc. cleanup

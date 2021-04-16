@@ -1,0 +1,34 @@
+.navbar {
+  max-width: 414px;
+  padding: 0.5rem 1rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.navbar-toggler {
+  border: 0;
+  padding: 0;
+}
+
+.nav-item {
+  text-align: right;
+}
+
+.navbar-brand {
+  margin-right: 0;
+  svg {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.section-heading {
+  text-align: center;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 66%;
+  display: inline-block;
+  color: white;
+  margin-bottom: 0;
+}

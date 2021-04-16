@@ -30,4 +30,217 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  commmits:
+    planned_stories:
+      done: Done
+    notice:
+      created: Commmit Created
+      archived: Commmit Archived
+      unarchived: Commmit Unarchived
+      no_commmits_today: You have no Commmits for today
+    index:
+      header: 'Commmits'
+      no_commmits_yet: You haven't created any Commmits yet
+      statuses:
+        not_started: Starts
+        finished: Finished
+        in_progress: Finishes
+      new_commmit: New Commmit
+    show:
+      done_divider: DONE
+      no_stories_yet: You haven't added any stories yet.
+      no_stories_left: You don't have any planned stories left to do.
+      add_stories: Add Stories
+      close_modal: Close
+      add_story: Add
+      finished: Commmit Finished
+    form:
+      name:
+        label_html: What do you want to <b>focus</b> on?
+      start_date:
+        label_html: <b>When</b> do you want to start?
+        today: Today
+        tomorrow: Tomorrow
+      length_in_days:
+        label_html: <b>How many days</b> do you want to commit to?
+        option1: One Day
+        option2: Two Days
+        option3: Three Days
+        option4: Four Days
+        option5: Five Days
+        option6: Six Days
+        option7: Seven Days
+      create: Create Commmit
+      cancel: Close
+  confirmations:
+    new:
+      header: Resend confirmation instructions
+  footer_nav:
+    overview_button: Overview
+    commmits_button: Today
+    stories_button: Stories
+    barriers_button: Barriers
+  feedback: Request Feature?
+  forms:
+    errors: prohibited this form from being saved
+  passwords:
+    new:
+      header: Forgot your password?
+  registrations:
+    new:
+      header: Sign up
+  sessions:
+    new:
+      form:
+        create: Log in
+      header: Log in
+    logout: Log out
+  stories:
+    notice:
+      done: Marked Story as Done
+      not_done: Marked Story as Not Done
+      added: Added Story
+      created: Created Story
+      updated: Updated Story
+      removed: Removed Story from Commmit
+      archived: Archived Story
+    form:
+      story:
+        label_html: <b>What</b> do you want to achieve?
+      goal:
+        label: I want
+        placeholder: some goal
+      reason:
+        label: so that
+        placeholder: some reason
+      repeatable:
+        label_html: <b>How many times</b> do you plan to do this?
+        once: Once
+        forever: Repeatable
+      automatically_add:
+        label: Automatically add this Story to all future Commmits?
+      notes:
+        label: Notes
+      values:
+        label_html: What <b>value(s)</b> does this goal focus on?
+        manage: Assign Values
+      create: Create Story
+      update: Save Changes
+      cancel: Close
+    index:
+      added: Added
+      last_completed: Last Completed
+      ago: ago
+      new_story: New Story
+      no_repeatable_stories_yet: You haven't created any repeatable stories yet
+      no_stories_yet: You haven't created any stories yet
+  values:
+    notice:
+      created: Created Value
+      destroyed: Removed Value
+      updated: Updated Value
+    form:
+      name:
+        label: Name of your value
+      color:
+        label: Colour
+      create: Create Value
+      update: Save Changes
+      cancel: Close
+      archive: Archive
+    index:
+      header: Values
+  unlocks:
+    new:
+      header: Resend unlock instructions
+  users:
+    form:
+      email:
+        label: Email
+      password:
+        label: Password
+      username:
+        label: Username
+      password_confirmation:
+        label: Password confirmation
+      create: Sign up
+    validation:
+      username: Username must only contain letters a-z, numbers 0-9 and the character -
+  datetime:
+    distance_in_words:
+      days_and_months:
+        about_x_hours:
+          one: today
+          other: today
+        about_x_months:
+          one: about 1 month ago
+          other: about %{count} months ago
+        about_x_years:
+          one: about 1 year ago
+          other: about %{count} years ago
+        almost_x_years:
+          one: almost 1 year ago
+          other: almost %{count} years ago
+        half_a_minute: today
+        less_than_x_seconds:
+          one: today
+          other: today
+        less_than_x_minutes:
+          one: today
+          other: today
+        over_x_years:
+          one: over 1 year ago
+          other: over %{count} years ago
+        x_seconds:
+          one: today
+          other: today
+        x_minutes:
+          one: today
+          other: today
+        x_days:
+          one: yesterday
+          other: '%{count} days ago'
+        x_months:
+          one: 1 month ago
+          other: '%{count} months ago'
+        x_years:
+          one: 1 year ago
+          other: '%{count} years ago'
+      days_and_months_future:
+        about_x_hours:
+          one: today
+          other: today
+        about_x_months:
+          one: in about 1 month
+          other: in about %{count} months
+        about_x_years:
+          one: in about 1 year
+          other: in about %{count} years
+        almost_x_years:
+          one: in almost 1 year
+          other: in almost %{count} years
+        half_a_minute: today
+        less_than_x_seconds:
+          one: today
+          other: today
+        less_than_x_minutes:
+          one: today
+          other: today
+        over_x_years:
+          one: in over 1 year
+          other: in over %{count} years
+        x_seconds:
+          one: today
+          other: today
+        x_minutes:
+          one: today
+          other: today
+        x_days:
+          one: tomorrow
+          other: 'in %{count} days'
+        x_months:
+          one: in 1 month
+          other: 'in %{count} months'
+        x_years:
+          one: in 1 year
+          other: 'in %{count} years'

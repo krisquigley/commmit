@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   def markdown(text)
     markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(hard_wrap: true), autolink: true)
@@ -8,7 +10,11 @@ module ApplicationHelper
     request.subdomains.join('')
   end
 
-  def account_belongs_to_current_user?(current_user) 
+  def account_belongs_to_current_user?(current_user)
     current_user.accounts.map(&:subdomain).include?(current_tenant.subdomain)
+  end
+
+  def active(path)
+    request.path == "/#{path}" ? 'active' : ''
   end
 end

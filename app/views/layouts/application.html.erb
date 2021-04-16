@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= "#{ActsAsTenant.current_tenant&.name} - " if ActsAsTenant.current_tenant %>Commmit</title>
+    <title>Commmit</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -11,21 +11,22 @@
     <link rel="manifest" href="/site.webmanifest">
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
-    <%= stylesheet_pack_tag 'application' %>
-    <%= javascript_pack_tag 'application' %>
+    <meta name="theme-color" content="#000000">
+    <%= stylesheet_pack_tag 'application', data: { turbo_track: "reload" } %>
+    <%= javascript_pack_tag 'application', data: { turbo_track: "reload" } %>
   </head>
 
-  <body class="pt-5">
-    <%= render 'shared/nav' %>
+  <body>
+    <%= render 'shared/alerts' %>
+    <div data-controller="navigate">
+      <%= render 'shared/nav' %>
+    </div>
 
-    <div class="container mt-4">
-      <% if flash[:notice] %>
-        <div class="alert alert-success" role="alert"><%= flash[:notice] %></div>
-      <% elsif flash[:alert] %>
-        <div class="alert alert-danger" role="alert"><%= flash[:alert] %></div>
-      <% end %>
+    <div class="grid-container">
       <%= yield %>
+      <div class="grid-footernav">
+        <%= render 'shared/footer_nav' unless (!user_signed_in? || content_for(:hide_footer_nav?)) %>
+      </div>
     </div>
   </body>
 </html>

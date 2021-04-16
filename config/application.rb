@@ -1,16 +1,18 @@
+# frozen_string_literal: true
+
 require_relative 'boot'
 
-require "rails"
+require 'rails'
 # Pick the frameworks you want:
-require "active_model/railtie"
-require "active_job/railtie"
-require "active_record/railtie"
-require "active_storage/engine"
-require "action_controller/railtie"
-require "action_mailer/railtie"
-require "action_mailbox/engine"
-require "action_text/engine"
-require "action_view/railtie"
+require 'active_model/railtie'
+require 'active_job/railtie'
+require 'active_record/railtie'
+require 'active_storage/engine'
+require 'action_controller/railtie'
+require 'action_mailer/railtie'
+require 'action_mailbox/engine'
+require 'action_text/engine'
+require 'action_view/railtie'
 # require "action_cable/engine"
 # require "sprockets/railtie"
 # require "rails/test_unit/railtie"
@@ -19,16 +21,19 @@ require "action_view/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module Commmit
+module CommmitApp
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
-
+    config.time_zone = 'Europe/London'
     config.active_job.queue_adapter = :sidekiq
     config.action_mailer.deliver_later_queue_name = 'default' # defaults to "mailers"
     config.active_storage.queues.analysis   = nil       # defaults to "active_storage_analysis"
     config.active_storage.queues.purge      = nil       # defaults to "active_storage_purge"
     config.active_storage.queues.mirror     = nil       # defaults to "active_storage_mirror"
+
+    # Disable for Turbo
+    config.action_view.form_with_generates_remote_forms = false
 
     config.autoload_paths << Rails.root.join('lib')
 

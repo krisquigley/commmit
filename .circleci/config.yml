@@ -15,7 +15,6 @@ jobs:
           RAILS_ENV: test
           USERNAME: 'username'
           PASSWORD: 'password'
-          # TODO: Fix this so that circle can connect to selenium
           SELENIUM_URL: 127.0.0.1:4444/wd/hub
 
       # Specify service dependencies here if necessary
@@ -73,9 +72,14 @@ jobs:
       - run: bundle exec rake db:create
       - run: bundle exec rake db:schema:load
 
+      - run:
+          name: Rubocop
+          command: |
+            bundle exec rubocop
+
       # run tests!
       - run:
-          name: run tests
+          name: Run Unit Tests
           command: |
             mkdir /tmp/test-results
             TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | \
@@ -86,13 +90,25 @@ jobs:
               --out /tmp/test-results/rspec.xml \
               --format progress \
               $TEST_FILES
-
-      # collect reports
       - store_test_results:
           path: /tmp/test-results
       - store_artifacts:
           path: /tmp/test-results
-          destination: test-results
+          destination: unit-tests
+
+      - run:
+          name: Run Feature Tests
+          command: |
+            mkdir -p ~/cucumber
+            bundle exec cucumber --format pretty --format json --out ~/cucumber/tests.cucumber  --strict-flaky --no-strict-pending --no-strict-undefined
+          when: always
+      - store_test_results:
+          path: ~/cucumber
+      - store_artifacts:
+          path: ~/cucumber
+          destination: feature-tests
+      - store_artifacts:
+          path: coverage
 
   deploy:
     docker:
@@ -120,7 +136,7 @@ jobs:
 
 workflows:
   version: 2
-  build-deploy:
+  build-lint-test-deploy:
     jobs:
       - build
       - deploy:

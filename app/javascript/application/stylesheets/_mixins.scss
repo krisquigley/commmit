@@ -1,0 +1,6 @@
+@mixin enforce-mobile-viewport {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: $mobile-width;
+  max-height: $mobile-height;
+}

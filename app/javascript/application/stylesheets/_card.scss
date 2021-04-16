@@ -1,0 +1,44 @@
+.card__flex {
+  display: inline-flex;
+  & h5:first-child {
+    width: 100%;
+  }
+}
+
+.card--goal {
+  display: inline;
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+
+.card--reason {
+  display: inline;
+  font-size: 1.1rem;
+  font-weight: 300;
+}
+
+.card--finished {
+  opacity: 50%;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: flex-end;
+  background: none;
+  border: 0;
+  color: $secondary-text;
+
+  svg {
+    color: $secondary-text;
+  }
+
+  &__left {
+    justify-content: left;
+  }
+
+  &__right {
+    justify-content: right;
+  }
+}

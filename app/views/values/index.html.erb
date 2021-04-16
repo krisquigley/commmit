@@ -1,0 +1,12 @@
+<% content_for :nav_header do %>
+  <%= t('values.index.header') %>
+<% end %> 
+
+<div class="grid-content">
+  <%= render 'create_value', story: @story %>
+  <% @values.each do |value| %>
+    <%= link_to edit_value_path(value), style: "font-size: 1.2rem; display: inline-flex; margin-bottom: 0.5rem" do %> 
+      <%= render 'value', value: value %>  
+    <% end %>
+  <% end %>
+</div>

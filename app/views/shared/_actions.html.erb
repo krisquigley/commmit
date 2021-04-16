@@ -1,0 +1,5 @@
+<div class="page-actions">
+  <% actions.each do |action| %>
+    <%= link_to action.fetch(:label), action.fetch(:path), class: 'btn btn-lg btn-primary btn-block', type: :button %>
+  <% end %>
+</div>

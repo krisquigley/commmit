@@ -1,0 +1,94 @@
+<div class="modal fade" id="addStoriesModal" tabindex="-1" aria-labelledby="addPlanModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <ul class="nav nav-pills" id="storiesTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <a class="nav-link active" 
+               id="<%= t('stories.form.repeatable.once') %>-tab" 
+               data-toggle="tab" 
+               href="#<%= t('stories.form.repeatable.once') %>" 
+               role="tab" 
+               aria-controls="home" 
+               aria-selected="true">
+               <%= t('stories.form.repeatable.once') %>
+            </a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" 
+               id="<%= t('stories.form.repeatable.forever').gsub(' ', '-') %>-tab" 
+               data-toggle="tab" 
+               href="#<%= t('stories.form.repeatable.forever').gsub(' ', '-') %>" 
+               role="tab" 
+               aria-controls="<%= t('stories.form.repeatable.forever') %>" 
+               aria-selected="false">
+              <%= render 'shared/icons/repeat_icon', classes: 'mr-2' %> 
+              <%= t('stories.form.repeatable.forever') %>
+            </a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" 
+               id="<%= t('stories.index.new_story').gsub(' ', '-') %>-tab" 
+               data-toggle="tab" 
+               href="#<%= t('stories.index.new_story').gsub(' ', '-') %>" 
+               role="tab" 
+               aria-controls="<%= t('stories.index.new_story') %>" 
+               aria-selected="false">
+              <%= render 'shared/icons/story_icon', classes: 'mr-2' %> 
+              <%= t('stories.index.new_story') %>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="modal-body">
+        <div class="tab-content modal-tab-content" id="storiesTabContent">
+          <div class="tab-pane fade show active" 
+               id="<%= t('stories.form.repeatable.once') %>" 
+               role="tabpanel" 
+               aria-labelledby="<%= t('stories.form.repeatable.once') %>-tab">
+            <div class="card-deck">
+              <% if one_off_stories.empty? %>
+                <p class="text-center text-secondary mt-2">
+                  <%= link_to t('stories.index.no_stories_yet'), new_story_path %>
+                </p>
+              <% end %>
+              <%= render partial: "story", collection: one_off_stories %>
+            </div>
+          </div>
+          <div class="tab-pane fade" 
+               id="<%= t('stories.form.repeatable.forever').gsub(' ', '-') %>" 
+               role="tabpanel" 
+               aria-labelledby="<%= t('stories.form.repeatable.forever').gsub(' ', '-') %>-tab">
+            <div class="card-deck">
+              <% if repeatable_stories.empty? %>
+                <p class="text-center text-secondary mt-2">
+                  <%= link_to t('stories.index.no_stories_yet'), new_story_path %>
+                </p>
+              <% end %>
+              <%= render partial: "story", collection: repeatable_stories %>
+            </div>
+          </div>
+          <div class="tab-pane fade" 
+               id="<%= t('stories.index.new_story').gsub(' ', '-') %>" 
+               role="tabpanel" 
+               aria-labelledby="<%= t('stories.index.new_story').gsub(' ', '-') %>-tab">
+            <%= form_with model: Story.new, html: { class: 'flex-form' } do |f| %>
+
+              <%= hidden_field_tag :commmit_id, commmit.id %>
+              <div class="form-content" data-controller="stories">
+                <%= render 'stories/fields', f: f, story: nil %>
+              </div>
+              
+              <div class="form-actions">
+                <%= f.submit t('stories.form.create'), class: "btn btn-lg btn-success btn-block" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t('commmits.show.close_modal') %></button>
+      </div>
+    </div>
+  </div>
+</div>

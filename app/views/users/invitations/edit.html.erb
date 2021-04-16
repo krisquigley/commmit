@@ -1,0 +1,28 @@
+<div class="grid-content">
+  <% content_for :nav_header do %>
+    <%= t("devise.invitations.edit.header") %>
+  <% end %> 
+
+  <%= form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { class: 'flex-form', method: :put, data: { turbo: false }  }) do |f| %>
+    <div class="form-content">
+      <%= render "devise/shared/error_messages", resource: resource %>
+      <%= f.hidden_field :invitation_token, readonly: true %>
+
+      <% if f.object.class.require_password_on_accepting %>
+        <div class="form-group">
+          <%= f.label :password %><br />
+          <%= f.password_field :password, class: 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :password_confirmation %><br />
+          <%= f.password_field :password_confirmation, class: 'form-control' %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="form-group form-actions">
+      <%= f.submit t("devise.invitations.edit.submit_button") %>
+    </div>
+  <% end %>
+</div>

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddColumnAssignedAtToTickets < ActiveRecord::Migration[6.0]
   def change
     add_column :tickets, :assigned_at, :datetime

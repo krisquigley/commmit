@@ -1,0 +1,21 @@
+<div class="grid-content">
+  <% content_for :nav_header do %>
+    <%= t('unlocks.new.header') %>
+  <% end %> 
+
+<%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post, class: "flex-form", data: { turbo: false } }) do |f| %>
+  <div class="form-content">
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <div class="form-group">
+      <%= f.label :email %><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+    </div>
+    <%= render "devise/shared/links" %>
+  </div>
+
+  <div class="form-group form-actions">
+    <%= f.submit "Resend unlock instructions", class: "btn btn-success btn-lg btn-block" %>
+  </div>
+<% end %>
+

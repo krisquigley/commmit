@@ -1,4 +1,6 @@
-# It 
+# frozen_string_literal: true
+
+# It
 
 # It should show the dashboard if logged in on their domain
 
@@ -7,7 +9,7 @@ require 'rails_helper'
 RSpec.describe StaticPagesController, type: :controller do
   include AuthHelper
 
-  describe "accessing the landing page when not logged in" do
+  describe 'accessing the landing page when not logged in' do
     before do
       # Mimic the router behavior of setting the Devise scope through the env.
       @request.env['devise.mapping'] = Devise.mappings[:user]
@@ -16,7 +18,7 @@ RSpec.describe StaticPagesController, type: :controller do
       @request.host = 'lvh.me'
     end
 
-    it "should load" do
+    it 'should load' do
       get :show
 
       # assert something
@@ -24,7 +26,7 @@ RSpec.describe StaticPagesController, type: :controller do
     end
   end
 
-  describe "accessing the landing page when logged in" do
+  describe 'accessing the landing page when logged in' do
     before do
       # Mimic the router behavior of setting the Devise scope through the env.
       @request.env['devise.mapping'] = Devise.mappings[:user]
@@ -33,7 +35,7 @@ RSpec.describe StaticPagesController, type: :controller do
       @request.host = 'lvh.me'
     end
 
-    it "should load" do
+    it 'should load' do
       log_in
 
       get :show

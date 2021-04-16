@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateSprintsUsers < ActiveRecord::Migration[5.2]
   def change
     create_table :sprints_users, id: false do |t|

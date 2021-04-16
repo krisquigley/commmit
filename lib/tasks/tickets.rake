@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 namespace 'tickets' do
-  desc "update sprint tickets"
+  desc 'update sprint tickets'
   task update: :environment do
     tickets = Ticket.all
 

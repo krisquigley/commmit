@@ -1,0 +1,127 @@
+# frozen_string_literal: true
+
+require 'rails_helper'
+
+RSpec.describe Github::Issue do
+  describe 'when new issues are created with no estimations' do
+    let(:new_issue_payload) { file_fixture('opened_issue_payload.json').read }
+    let(:parsed_new_issue) do
+      {
+        repository_name: 'krisquigley/commmit',
+        number: 2,
+        title: 'new issue',
+        state: 'open',
+        estimated_effort: nil,
+        github_user_ids: [],
+        issue_id: 406_911_947,
+        closed_at: nil,
+        url: 'https://github.com/krisquigley/commmit/issues/2',
+        source: Oj.dump(Oj.load(new_issue_payload)['issue'])
+      }
+    end
+
+    it 'should return nothing' do
+      expect(described_class.call(new_issue_payload)).to eq(nil)
+    end
+  end
+
+  describe 'when new issues are created with an estimations' do
+    let(:new_issue_payload) { file_fixture('opened_issue_with_assignees_payload.json').read }
+    let(:parsed_new_issue) do
+      {
+        repository_name: 'krisquigley/commmit',
+        number: 2,
+        title: '[2] new issue',
+        state: 'open',
+        estimated_effort: 2.0,
+        github_user_ids: [4_486_874],
+        issue_id: 406_911_947,
+        assigned_at: '2019-02-05T18:17:56Z',
+        closed_at: nil,
+        url: 'https://github.com/krisquigley/commmit/issues/2',
+        source: Oj.dump(Oj.load(new_issue_payload)['issue'])
+      }
+    end
+
+    it 'should return nothing' do
+      expect(described_class.call(new_issue_payload)).to eq(parsed_new_issue)
+    end
+  end
+
+  describe 'when issues are edited' do
+    let(:edited_issue_payload) { file_fixture('edited_issue_payload.json').read }
+    let(:parsed_edited_issue) do
+      {
+        repository_name: 'krisquigley/commmit',
+        number: 2,
+        title: '[2] new issue',
+        state: 'open',
+        estimated_effort: 2.0,
+        github_user_ids: [],
+        assigned_at: nil,
+        issue_id: 406_911_947,
+        closed_at: nil,
+        url: 'https://github.com/krisquigley/commmit/issues/2',
+        source: Oj.dump(Oj.load(edited_issue_payload)['issue'])
+      }
+    end
+
+    it 'should parse the payload into a hash' do
+      expect(described_class.call(edited_issue_payload)).to eq(parsed_edited_issue)
+    end
+  end
+
+  describe 'when issues are closed' do
+    let(:closed_issue_payload) { file_fixture('closed_issue_payload.json').read }
+    let(:parsed_closed_issue) do
+      {
+        repository_name: 'krisquigley/commmit',
+        number: 2,
+        title: '[2] new issue',
+        state: 'closed',
+        estimated_effort: 2.0,
+        github_user_ids: [],
+        issue_id: 406_911_947,
+        closed_at: '2019-02-05T18:26:06Z',
+        assigned_at: nil,
+        url: 'https://github.com/krisquigley/commmit/issues/2',
+        source: Oj.dump(Oj.load(closed_issue_payload)['issue'])
+      }
+    end
+
+    it 'should parse the payload into a hash' do
+      expect(described_class.call(closed_issue_payload)).to eq(parsed_closed_issue)
+    end
+  end
+
+  describe 'when issues are reopened' do
+    let(:reopened_issue_payload) { file_fixture('reopened_issue_payload.json').read }
+    let(:parsed_reopened_issue) do
+      {
+        repository_name: 'krisquigley/commmit',
+        number: 2,
+        title: '[2] new issue',
+        state: 'open',
+        estimated_effort: 2.0,
+        github_user_ids: [],
+        issue_id: 406_911_947,
+        closed_at: nil,
+        assigned_at: nil,
+        url: 'https://github.com/krisquigley/commmit/issues/2',
+        source: Oj.dump(Oj.load(reopened_issue_payload)['issue'])
+      }
+    end
+
+    it 'should parse the payload into a hash' do
+      expect(described_class.call(reopened_issue_payload)).to eq(parsed_reopened_issue)
+    end
+  end
+
+  describe 'when issues are labelled' do
+    let(:labelled_issue_payload) { file_fixture('labelled_issue_payload.json').read }
+
+    it 'should not parse the payload' do
+      expect(described_class.call(labelled_issue_payload)).to eq(nil)
+    end
+  end
+end

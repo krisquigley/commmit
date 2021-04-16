@@ -1,0 +1,30 @@
+<div class="grid-content">
+  <% content_for :nav_header do %>
+    <%= t('sessions.new.header') %>
+  <% end %> 
+
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'flex-form', data: { turbo: false } }) do |f| %>
+    <div class="form-content">
+      <div class="form-group">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password %><br />
+        <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+        <div class="form-check">
+          <%= f.check_box :remember_me, class: "form-check-input" %>
+          <%= f.label :remember_me, class: "form-check-label" %>
+        </div>
+      <% end %>
+      <%= render "users/shared/links" %>
+    </div>
+    <div class="form-group form-actions">
+      <%= f.submit t('sessions.new.form.create'), class: 'btn btn-success btn-lg btn-block' %>
+    </div>
+  <% end %>
+</div>

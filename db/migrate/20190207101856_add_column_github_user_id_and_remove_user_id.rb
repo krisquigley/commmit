@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddColumnGithubUserIdAndRemoveUserId < ActiveRecord::Migration[5.2]
   def change
     add_column :tickets, :github_user_ids, :bigint
