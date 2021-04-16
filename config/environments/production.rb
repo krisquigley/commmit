@@ -46,7 +46,7 @@ Rails.application.configure do
 
   # Use a different cache store in production.
   config.cache_store = :mem_cache_store,
-                       (ENV.fetch('MEMCACHIER_SERVERS') || '').split(','),
+                       (ENV.fetch('MEMCACHEDCLOUD_SERVERS') || '').split(','),
                        {
                          username: ENV.fetch('MEMCACHEDCLOUD_USERNAME'),
                          password: ENV.fetch('MEMCACHEDCLOUD_PASSWORD'),
