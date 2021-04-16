@@ -70,7 +70,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address: 'smtp.postmarkapp.com',
     port: 587,
-    domain: 'example.com',
+    domain: 'commmit.app',
     user_name: ENV.fetch('MAILSERVER_USERNAME'),
     password: ENV.fetch('MAILSERVER_PASSWORD'),
     authentication: 'plain',
