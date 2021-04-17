@@ -26,7 +26,12 @@
           <%= link_to t('feedback'), 'https://forms.gle/pEE4SxD9JE2KJRU2A', target: '_about', class: "nav-link" %>
         </li>
         <li class="nav-item">
-          <%= link_to t('sessions.logout'), logout_path, class: "nav-link" %>
+          <%= button_to t('sessions.logout'), 
+                        logout_path, 
+                        form_class: "nav-link", 
+                        class: "btn nav-link w-100 text-right", 
+                        method: :delete, 
+                        data: { turbo: false } %>
         </li>
       <% end %>
     </ul>
