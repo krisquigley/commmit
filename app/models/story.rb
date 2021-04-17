@@ -39,7 +39,7 @@ class Story < ApplicationRecord
   private
 
   def broadcast_story
-    if self.repeatable?
+    if repeatable?
       broadcast_prepend_to action: 'repeatable_stories', target: 'repeatable_stories'
     else
       broadcast_prepend_to action: 'one_off_stories', target: 'one_off_stories'
