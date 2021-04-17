@@ -6,9 +6,8 @@ class CommmitsController < ApplicationController
     stories = PlannedStory.includes(story: [:values])
                           .where(commmit_id: params[:id])
                           .where('story.discarded_at': nil)
-                          .order(created_at: :asc)
-    @planned_stories = stories.todo
-    @completed_stories = stories.completed
+    @planned_stories = stories.todo.order(created_at: :asc)
+    @completed_stories = stories.completed.order(completed_at: :asc)
 
     # TODO: Only make these calls when loading the modal
     story_ids = @commmit.planned_stories.map(&:story_id)
