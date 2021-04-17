@@ -3,8 +3,8 @@ import { Controller } from 'stimulus';
 export default class extends Controller {
   static targets = ['autoAdd', 'repeatable', 'autoAddCheckbox'];
 
-  initialize() {
-    if (this.repeatableTarget.selected) {
+  connect() {
+    if (this.repeatableTarget.checked) {
       this.autoAddTarget.style.display = 'block';
     }
   }

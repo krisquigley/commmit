@@ -1,5 +1,6 @@
 <div class="grid-content">
-  <%= form_with model: @story, html: { class: 'flex-form' } do |f| %>
+  <%= render 'shared/errors', object: @story %>
+  <%= form_for @story, html: { class: 'flex-form', data: { turbo: false } } do |f| %>
     <div class="form-content" data-controller="stories">
       <%= render 'fields', f: f, story: @story %>
     </div>

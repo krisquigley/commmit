@@ -49,7 +49,7 @@
     </label>
 
     <label class="btn btn-secondary <%= 'active' if story&.repeatable %> w-50" for="story_repeatable_true">
-      <%= f.radio_button :repeatable, true, data: { stories_target: "repeatable", action: "stories#showAutoAdd" } %>
+      <%= f.radio_button :repeatable, true, data: { stories_target: "repeatable", action: "stories#showAutoAdd" }, checked: story&.repeatable %>
       <%= t('stories.form.repeatable.forever') %>
     </label>
   </div>

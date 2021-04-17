@@ -7,6 +7,7 @@ class Story < ApplicationRecord
 
   auto_strip_attributes :goal, :reason, :notes
   validates :goal, presence: true
+  validates :automatically_add, exclusion: [true], if: -> { repeatable == false }
 
   scope :most_recent_first, -> { order(created_at: :desc) }
   scope :completed_first, -> { order(completed_at: :desc, created_at: :desc) }

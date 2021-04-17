@@ -5,6 +5,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.0.0'
 gem 'rails', '~> 6.1'
+gem 'turbo-rails', '~> 0.5.9'
 
 # Database
 gem 'acts_as_tenant', '~> 0.5.0'

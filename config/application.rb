@@ -24,16 +24,9 @@ Bundler.require(*Rails.groups)
 module CommmitApp
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.0
+    config.load_defaults 6.1
     config.time_zone = 'Europe/London'
     config.active_job.queue_adapter = :sidekiq
-    config.action_mailer.deliver_later_queue_name = 'default' # defaults to "mailers"
-    config.active_storage.queues.analysis   = nil       # defaults to "active_storage_analysis"
-    config.active_storage.queues.purge      = nil       # defaults to "active_storage_purge"
-    config.active_storage.queues.mirror     = nil       # defaults to "active_storage_mirror"
-
-    # Disable for Turbo
-    config.action_view.form_with_generates_remote_forms = false
 
     config.autoload_paths << Rails.root.join('lib')
 
