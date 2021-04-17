@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 if Rails.env.production?
-  Rails.application.config.session_store :cache_store, key: '_commmit_session',
-                                                       domain: 'commmit.app'
+  Rails.application.config.session_store :cookie_store, key: '_commmit_session',
+                                                        domain: 'commmit.app'
 end
 if Rails.env.development?
   Rails.application.config.session_store :cookie_store, key: '_commmit_dev_session',
