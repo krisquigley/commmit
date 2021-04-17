@@ -72,8 +72,9 @@
                id="<%= t('stories.index.new_story').gsub(' ', '-') %>" 
                role="tabpanel" 
                aria-labelledby="<%= t('stories.index.new_story').gsub(' ', '-') %>-tab">
-            <%= form_with model: Story.new, html: { class: 'flex-form' } do |f| %>
+            <%= render 'shared/errors', object: @story ||= Story.new %>
 
+            <%= form_with model: @story, html: { class: 'flex-form', data: { turbo: false } } do |f| %>
               <%= hidden_field_tag :commmit_id, commmit.id %>
               <div class="form-content" data-controller="stories">
                 <%= render 'stories/fields', f: f, story: nil %>

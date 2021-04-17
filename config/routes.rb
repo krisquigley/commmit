@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     end
   end
   mount Sidekiq::Web, at: '/sidekiq'
+  mount ActionCable.server => '/cable'
 
   get '/',  to: 'commmits#current',
             constraints: {

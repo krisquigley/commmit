@@ -15,8 +15,8 @@ Rails.application.config.content_security_policy do |policy|
   #   policy.style_src   :self, :https
   #   # If you are using webpack-dev-server then specify webpack-dev-server host
   if Rails.env.development?
-    policy.connect_src :self, :https, 'http://commmit.com:3035',
-                       'ws://commmit.com:3035'
+    policy.connect_src :self, :https, 'http://default.commmitapp.com:3035',
+                       'ws://default.commmitapp.com:3035'
   end
 
   #   # Specify URI for violation reports
