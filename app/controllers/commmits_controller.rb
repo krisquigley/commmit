@@ -11,8 +11,8 @@ class CommmitsController < ApplicationController
 
     # TODO: Only make these calls when loading the modal
     story_ids = @commmit.planned_stories.map(&:story_id)
-    @repeatable_stories = Story.includes(:values).repeatable.kept.completed_first
     @one_off_stories = Story.includes(:values).incomplete.where.not(id: story_ids).one_off.kept.most_recent_first
+    @repeatable_stories = Story.includes(:values).repeatable.kept.completed_first
   end
 
   def index

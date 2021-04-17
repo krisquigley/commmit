@@ -1,7 +1,7 @@
 import { Controller } from 'stimulus';
 
 export default class extends Controller {
-  static targets = ['autoAdd', 'repeatable'];
+  static targets = ['autoAdd', 'repeatable', 'autoAddCheckbox'];
 
   initialize() {
     if (this.repeatableTarget.selected) {
@@ -14,6 +14,7 @@ export default class extends Controller {
   }
 
   hideAutoAdd() {
+    this.autoAddCheckboxTarget.checked = false;
     this.autoAddTarget.style.display = 'none';
   }
 }
