@@ -86,6 +86,8 @@ en:
   passwords:
     new:
       header: Forgot your password?
+    edit:
+      header: Change your password
   registrations:
     new:
       header: Sign up
