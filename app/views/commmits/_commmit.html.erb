@@ -1,6 +1,6 @@
 <%# TODO: If this is a one/two day commmit then show a progress bar, if it is more than two days, show a burndown chart %>
 <div class="card <%= commmit.finished? ? "card--finished" : "" %>" data-controller="navigate" data-action="click->navigate#navigate">
-  <%= render 'shared/progress', completed_count: commmit.planned_stories.filter { |ps| ps.completed_at !=  nil }.size, total_count: commmit.planned_stories.size %>
+  <%= render 'shared/progress', completed_count: completed_planned_stories(commmit), total_count: commmit.planned_stories.size %>
 
   <div class="card-body card__flex">
     <h5><%= link_to commmit.name, commmit_path(commmit), data: { navigate_target: :link }, class: 'font-weight-bold' %></h5>
@@ -10,8 +10,14 @@
   </div>
   <div class="card-footer">
     <div class="card-footer__left">
+      <small><%= completed_planned_stories(commmit) %></small>
+      <%= render 'shared/icons/done_done_icon', classes: 'ml-1' %> 
+      <span class="ml-1 mr-1">&middot;</span>
       <small><%= commmit.planned_stories.size %></small>
       <%= render 'shared/icons/story_icon', classes: 'ml-1' %> 
+      <span class="ml-1 mr-1">&middot;</span>
+      <small><%= commmit.planned_stories.filter{ |ps| ps.story.repeatable? }.size %></small>
+      <%= render 'shared/icons/repeat_icon', classes: 'ml-1' %> 
     </div>
     <div class="card-footer__right">
       <%= render 'status', commmit: commmit %>
