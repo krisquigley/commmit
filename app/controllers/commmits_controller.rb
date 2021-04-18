@@ -16,7 +16,8 @@ class CommmitsController < ApplicationController
   end
 
   def index
-    @commmits = Commmit.includes(:stories).kept.most_recent_first
+    @commmit = Commmit.includes(:planned_stories).kept.most_recent_first
+    set_page_and_extract_portion_from @commmit
   end
 
   def new

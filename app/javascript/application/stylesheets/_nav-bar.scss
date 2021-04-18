@@ -23,12 +23,17 @@
 }
 
 .section-heading {
-  text-align: center;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
+  display: inline-flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  & h6 {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-bottom: 0;
+  }
+
   width: 66%;
-  display: inline-block;
   color: white;
-  margin-bottom: 0;
 }

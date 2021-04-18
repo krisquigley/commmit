@@ -15,11 +15,11 @@
       </div>
     </div>
     <%= button_to story_path(story), method: :delete, 
-                                    class: 'link-button discard-link', 
-                                    data: { 
-                                      action: "click->navigate#stopPropagation" 
-                                    },
-                                    name: 'archive_story' do %>
+                                     class: 'link-button discard-link', 
+                                     data: { 
+                                       action: "click->navigate#stopPropagation" 
+                                     },
+                                     name: 'archive_story' do %>
       <%= render 'shared/icons/close_icon', classes: '' %> 
     <% end %>
   </div>

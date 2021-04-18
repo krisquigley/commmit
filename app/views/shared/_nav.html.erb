@@ -3,9 +3,18 @@
     <%= render 'shared/icons/logo_icon', classes: '' %>
   <% end %>
 
-  <h6 class="section-heading" title="<%= content_for :nav_header %>" data-toggle="sectionHeadingTooltip" data-placement="bottom" data-action="click->navigate#showSectionHeadingTooltip">
-    <%= content_for :nav_header %>
-  </h6>
+  <div class="section-heading">
+    <div>
+      <% if content_for :productivity %>
+        <%= render 'productivity_badge', productivity: content_for(:productivity) %> 
+      <% end %>
+    </div>
+    <div style="overflow: hidden">
+      <h6 class="ml-2" title="<%= content_for :nav_header %>" data-toggle="sectionHeadingTooltip" data-placement="bottom" data-action="click->navigate#showSectionHeadingTooltip">
+        <%= content_for :nav_header %>
+      </h6>
+    </div>
+  </div>
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>

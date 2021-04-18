@@ -11,6 +11,8 @@ class PlannedStory < ApplicationRecord
   scope :todo, -> { where(completed_at: nil) }
   scope :completed, -> { where.not(completed_at: nil) }
 
+  default_scope -> { includes(:story) }
+
   def completed?
     completed_at.present?
   end

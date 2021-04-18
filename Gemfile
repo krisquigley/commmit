@@ -11,6 +11,7 @@ gem 'turbo-rails', '~> 0.5.9'
 gem 'acts_as_tenant', '~> 0.5.0'
 gem 'auto_strip_attributes', '~> 2.6'
 gem 'discard', '~> 1.2'
+gem 'geared_pagination', '~> 1.1'
 gem 'pg', '>= 0.18', '< 2.0'
 
 # Servers
