@@ -68,7 +68,7 @@
           <% end %> 
         <% end %>
 
-        <%= turbo_frame_tag "one_off_stories-#{@repeatable_stories_page.next_param}" do %>
+        <%= turbo_frame_tag "repeatable_stories-#{@repeatable_stories_page.next_param}" do %>
           <% unless @repeatable_stories_page.last? %>
             <%= link_to "Load More", stories_path(page: @repeatable_stories_page.next_param), class: 'btn btn-lg btn-light btn-block mb-4' %>
           <% end %>

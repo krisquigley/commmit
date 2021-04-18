@@ -18,7 +18,9 @@
   <% end %>
 
   <div class="card-deck" data-container="planned_stories">
-    <%= render partial: 'planned_story', collection: @planned_stories, locals: { commmit: @commmit } %>
+    <% cache @planned_stories do %>
+      <%= render partial: 'planned_story', collection: @planned_stories, locals: { commmit: @commmit } %>
+    <% end %>
 
     <%= content_tag :div, class: "divider" do %>
       <div class="dropdown-divider"></div>
@@ -26,7 +28,9 @@
       <div class="dropdown-divider"></div>
     <% end if !@completed_stories.empty? %>
     
-    <%= render partial: 'planned_story', collection: @completed_stories, locals: { commmit: @commmit } %>
+    <% cache @completed_stories do %>
+      <%= render partial: 'planned_story', collection: @completed_stories, locals: { commmit: @commmit } %>
+    <% end %>
 
     <div class="page-actions">
       <%= link_to new_commmit_path, class: "btn btn-lg btn-primary btn-block" do %>
