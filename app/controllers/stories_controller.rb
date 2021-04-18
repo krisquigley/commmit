@@ -6,7 +6,9 @@ class StoriesController < ApplicationController
 
   def index
     @one_off_stories = Story.includes(:values).incomplete.one_off.kept.most_recent_first
+    @one_off_stories_page = current_page_from @one_off_stories
     @repeatable_stories = Story.includes(:values).repeatable.kept.completed_first
+    @repeatable_stories_page = current_page_from @repeatable_stories
   end
 
   def new
