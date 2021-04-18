@@ -8,7 +8,7 @@
   <% end %>
 
   <div class="card-deck">
-    <% cache [ @commmit, @page ] do %>
+    <% cache @page do %>
       <%= turbo_frame_tag "commmits-#{@page.number}" do %>
         <%= render partial: "commmit", collection: @page.records %>
       <% end %>
