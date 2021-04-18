@@ -38,8 +38,8 @@
           <p class="text-center mt-4"><%= t('stories.index.no_stories_yet') %></p>
         <% end %>
         <div class="card-deck">
-          <%= turbo_stream_from "one_off_stories" %>
-          <%= turbo_frame_tag "one_off_stories" do %>
+          <%= turbo_stream_from current_tenant.id, :one_off_stories %>
+          <%= turbo_frame_tag :one_off_stories do %>
             <%= render partial: "story", collection: @one_off_stories %>
           <% end %>
         </div>
@@ -54,8 +54,8 @@
           <p class="text-center mt-4"><%= t('stories.index.no_repeatable_stories_yet') %></p>
         <% end %>
         <div class="card-deck">
-          <%= turbo_stream_from "repeatable_stories" %>
-          <%= turbo_frame_tag "repeatable_stories" do %>
+          <%= turbo_stream_from current_tenant.id, :repeatable_stories %>
+          <%= turbo_frame_tag :repeatable_stories do %>
             <%= render partial: "story", collection: @repeatable_stories %>
           <% end %>
         </div>
