@@ -1,5 +1,5 @@
 <div class="btn-group btn-group-lg footer-navigation" role="group" aria-label="Footer Navigation">
-  <%= link_to stories_path, class: "btn btn-secondary disabled #{active("overview")} w-50", type: :button do %>
+  <%= link_to overview_path, class: "btn btn-secondary #{active("overview")} w-50", type: :button do %>
     <div class="footer-navigation__buttons">
       <%=  render 'shared/icons/overview_icon', classes: '' %>
       <small><%= t('footer_nav.overview_button') %></small>

@@ -6,7 +6,7 @@
   <div class="section-heading">
     <div>
       <% if content_for :productivity %>
-        <%= render 'productivity_badge', productivity: content_for(:productivity) %> 
+        <%= render 'shared/productivity_badge', productivity: content_for(:productivity) %> 
       <% end %>
     </div>
     <div style="overflow: hidden">

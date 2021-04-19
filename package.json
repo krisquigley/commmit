@@ -6,6 +6,7 @@
     "@rails/activestorage": "^6.1.1",
     "@rails/webpacker": "5.2.1",
     "@shopify/draggable": "^1.0.0-beta.8",
+    "apexcharts": "^3.26.1",
     "bootstrap": "^4.6.0",
     "bootswatch": "^4.6.0",
     "chart.js": "^2.9.4",
