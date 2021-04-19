@@ -1,0 +1,10 @@
+<%= form_with model: Story.new, html: { class: 'flex-form' } do |f| %>
+  <%= hidden_field_tag :commmit_id, commmit.id %>
+  <div class="form-content" data-controller="stories">
+    <%= render 'stories/fields', f: f, story: nil %>
+  </div>
+  
+  <div class="form-actions">
+    <%= f.submit t('stories.form.create'), class: "btn btn-lg btn-success btn-block" %>
+  </div>
+<% end %>

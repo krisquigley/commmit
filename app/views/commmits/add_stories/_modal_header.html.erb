@@ -1,0 +1,41 @@
+<div class="modal-header">
+  <ul class="nav nav-pills" id="storiesTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <a class="nav-link active" 
+          id="<%= t('stories.form.repeatable.once') %>-tab" 
+          data-toggle="tab" 
+          href="#<%= t('stories.form.repeatable.once') %>" 
+          role="tab" 
+          aria-controls="home" 
+          aria-selected="true">
+          <%= t('stories.form.repeatable.once') %>
+      </a>
+    </li>
+    <li class="nav-item" role="presentation">
+      <a class="nav-link" 
+          id="<%= t('stories.form.repeatable.forever').gsub(' ', '-') %>-tab" 
+          data-toggle="tab" 
+          href="#<%= t('stories.form.repeatable.forever').gsub(' ', '-') %>" 
+          role="tab" 
+          aria-controls="<%= t('stories.form.repeatable.forever') %>" 
+          aria-selected="false">
+        <%= render 'shared/icons/repeat_icon', classes: 'mr-2' %> 
+
+        <%= t('stories.form.repeatable.forever') %>
+      </a>
+    </li>
+    <li class="nav-item" role="presentation">
+      <a class="nav-link" 
+          id="<%= t('stories.index.new_story').gsub(' ', '-') %>-tab" 
+          data-toggle="tab" 
+          href="#<%= t('stories.index.new_story').gsub(' ', '-') %>" 
+          role="tab" 
+          aria-controls="<%= t('stories.index.new_story') %>" 
+          aria-selected="false">
+        <%= render 'shared/icons/story_icon', classes: 'mr-2' %> 
+
+        <%= t('stories.index.new_story') %>
+      </a>
+    </li>
+  </ul>
+</div>
