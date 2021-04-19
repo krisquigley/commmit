@@ -45,7 +45,7 @@ class CommmitsController < ApplicationController
   def current
     current = Commmit.kept.current
 
-    if current.present? && !current.is_a?(Array)
+    if current.present? && !current.is_a?(ActiveRecord::Relation)
       params[:id] = current.id
       show
 
