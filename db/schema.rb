@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_210_408_203_116) do
+ActiveRecord::Schema.define(version: 20_210_419_195_800) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'pgcrypto'
   enable_extension 'plpgsql'
@@ -45,9 +45,11 @@ ActiveRecord::Schema.define(version: 20_210_408_203_116) do
     t.datetime 'updated_at', precision: 6, null: false
     t.integer 'commmit_stories_count'
     t.datetime 'discarded_at'
+    t.date 'end_date'
     t.index ['account_id'], name: 'index_commmits_on_account_id'
     t.index ['created_at'], name: 'index_commmits_on_created_at'
     t.index ['discarded_at'], name: 'index_commmits_on_discarded_at'
+    t.index ['end_date'], name: 'index_commmits_on_end_date'
     t.index ['start_date'], name: 'index_commmits_on_start_date'
   end
 

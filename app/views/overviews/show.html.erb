@@ -11,7 +11,7 @@
         <div class="card-header">Productivity</div>
         <div data-overview-target="chart" style="height: 252.267px;"></div>
         <div class="card-footer">
-          Previous 7 Commmits: <%= render 'shared/productivity_badge', productivity: average_productivity %>
+          Previous <%= @seven_recent_commmits.size %> Commmits: <%= render 'shared/productivity_badge', productivity: average_productivity %>
         </div>
       </div>
     </div>

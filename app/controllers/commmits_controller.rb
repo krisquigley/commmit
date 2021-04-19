@@ -43,10 +43,9 @@ class CommmitsController < ApplicationController
   end
 
   def current
-    # TODO: Not quite current this should not include finished commmits
-    current = Commmit.kept.current_commmit
+    current = Commmit.kept.current
 
-    if current.present? && !current.finished?
+    if current.present? && !current.is_a?(Array)
       params[:id] = current.id
       show
 

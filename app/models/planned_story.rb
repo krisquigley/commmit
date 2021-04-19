@@ -5,7 +5,7 @@ class PlannedStory < ApplicationRecord
 
   after_update :complete_story
 
-  belongs_to :commmit
+  belongs_to :commmit, touch: true
   belongs_to :story
 
   scope :todo, -> { where(completed_at: nil) }
