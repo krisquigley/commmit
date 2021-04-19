@@ -38,10 +38,8 @@
         <p class="text-center mt-4"><%= t('stories.index.no_stories_yet') %></p>
       <% end %>
       <div class="card-deck">
-        <% cache @one_off_stories_page do %>
-          <%= turbo_frame_tag "one_off_stories-#{@one_off_stories_page.number}" do %>
-            <%= render partial: "story", collection: @one_off_stories_page.records %>
-          <% end %>
+        <%= turbo_frame_tag "one_off_stories-#{@one_off_stories_page.number}" do %>
+          <%= render partial: "story", collection: @one_off_stories_page.records %>
         <% end %>
 
         <%= turbo_frame_tag "one_off_stories-#{@one_off_stories_page.next_param}" do %>
@@ -62,11 +60,9 @@
       <% end %>
 
       <div class="card-deck">
-        <% cache @repeatable_stories_page do %>
-          <%= turbo_frame_tag "repeatable_stories-#{@repeatable_stories_page.number}" do %>
-            <%= render partial: "story", collection: @repeatable_stories_page.records %>
-          <% end %> 
-        <% end %>
+        <%= turbo_frame_tag "repeatable_stories-#{@repeatable_stories_page.number}" do %>
+          <%= render partial: "story", collection: @repeatable_stories_page.records %>
+        <% end %> 
 
         <%= turbo_frame_tag "repeatable_stories-#{@repeatable_stories_page.next_param}" do %>
           <% unless @repeatable_stories_page.last? %>

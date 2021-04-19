@@ -83,6 +83,9 @@ en:
   feedback: Request Feature?
   forms:
     errors: prohibited this form from being saved
+  overview:
+    show:
+      header: Overview
   passwords:
     new:
       header: Forgot your password?

@@ -24,7 +24,9 @@
 
     <%= content_tag :div, class: "divider" do %>
       <div class="dropdown-divider"></div>
+
       <small><%= t('commmits.show.done_divider') %></small>
+      
       <div class="dropdown-divider"></div>
     <% end if !@completed_stories.empty? %>
     
