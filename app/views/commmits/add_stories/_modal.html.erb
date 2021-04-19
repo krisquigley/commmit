@@ -15,11 +15,11 @@
                 </p>
               <% end %>
 
-              <%= turbo_frame_tag "one_off_stories-#{one_off_stories_page.number}" do %>
+              <%= turbo_frame_tag "add_one_off_stories-#{one_off_stories_page.number}" do %>
                 <%= render partial: "commmits/add_stories/story", collection: one_off_stories_page.records %>
               <% end %>
 
-              <%= turbo_frame_tag "one_off_stories-#{one_off_stories_page.next_param}" do %>
+              <%= turbo_frame_tag "add_one_off_stories-#{one_off_stories_page.next_param}" do %>
                 <% unless one_off_stories_page.last? %>
                   <%= link_to "Load More", stories_path(page: one_off_stories_page.next_param), class: 'btn btn-lg btn-light btn-block mb-4' %>
                 <% end %>
@@ -37,11 +37,11 @@
                 </p>
               <% end %>
 
-              <%= turbo_frame_tag "repeatable_stories-#{repeatable_stories_page.number}" do %>
+              <%= turbo_frame_tag "add_repeatable_stories-#{repeatable_stories_page.number}" do %>
                 <%= render partial: "commmits/add_stories/story", collection: repeatable_stories_page.records %>
               <% end %> 
 
-              <%= turbo_frame_tag "repeatable_stories-#{repeatable_stories_page.next_param}" do %>
+              <%= turbo_frame_tag "add_repeatable_stories-#{repeatable_stories_page.next_param}" do %>
                 <% unless repeatable_stories_page.last? %>
                   <%= link_to "Load More", stories_path(page: repeatable_stories_page.next_param), class: 'btn btn-lg btn-light btn-block mb-4' %>
                 <% end %>
