@@ -21,7 +21,7 @@
 
               <%= turbo_frame_tag "add_one_off_stories-#{one_off_stories_page.next_param}" do %>
                 <% unless one_off_stories_page.last? %>
-                  <%= link_to "Load More", commmit_path(commmit: commmit, page: one_off_stories_page.next_param), class: 'btn btn-lg btn-light btn-block mb-4' %>
+                  <%= link_to "Load More", commmit_path(commmit, page: one_off_stories_page.next_param), class: 'btn btn-lg btn-light btn-block mb-4' %>
                 <% end %>
               <% end %>
             </div>
@@ -43,7 +43,7 @@
 
               <%= turbo_frame_tag "add_repeatable_stories-#{repeatable_stories_page.next_param}" do %>
                 <% unless repeatable_stories_page.last? %>
-                  <%= link_to "Load More", commmit_path(commmit: commmit, page: repeatable_stories_page.next_param), class: 'btn btn-lg btn-light btn-block mb-4' %>
+                  <%= link_to "Load More", commmit_path(commmit, page: repeatable_stories_page.next_param), class: 'btn btn-lg btn-light btn-block mb-4' %>
                 <% end %>
               <% end %>
             </div>
