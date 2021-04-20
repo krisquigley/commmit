@@ -5,13 +5,6 @@
     </div>
 
     <div class="form-group form-actions">
-      <%= button_to t('values.form.archive'), 
-                    value_path(@value), 
-                    name: 'remove_value',
-                    method: :delete, 
-                    class: 'btn btn-lg btn-danger btn-block' %>
-      <div class="divider"></div>
-      <div class="divider"></div>
       <%= f.submit t('values.form.update'), class: "btn btn-lg btn-success btn-block" %>
       <%= link_to t('values.form.cancel'), values_path, class: "btn btn-lg btn-secondary btn-block" %>
     </div>
