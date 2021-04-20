@@ -12,6 +12,10 @@ class Value < ApplicationRecord
   has_and_belongs_to_many :commmits
   has_and_belongs_to_many :stories
 
+  after_save do
+    stories.update_all updated_at: Time.zone.now
+  end
+
   private
 
   def set_color

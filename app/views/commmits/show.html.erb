@@ -18,22 +18,19 @@
   <% end %>
 
   <div class="card-deck" data-container="planned_stories">
-    <%= turbo_frame_tag "planned_stories" do %>
-      <% cache [@commmit, @planned_stories] do %>
+    <% cache [@commmit, @completed_stories, @planned_stories] do %>
+      <%= turbo_frame_tag "planned_stories" do %>
         <%= render partial: 'planned_story', collection: @planned_stories, locals: { commmit: @commmit } %>
-      <% end %>
-    <% end %>
 
-    <%= content_tag :div, class: "divider" do %>
-      <div class="dropdown-divider"></div>
+        <%= content_tag :div, class: "divider" do %>
+          <div class="dropdown-divider"></div>
 
-      <small><%= t('commmits.show.done_divider') %></small>
+          <small><%= t('commmits.show.done_divider') %></small>
+          
+          <div class="dropdown-divider"></div>
+        <% end if !@completed_stories.empty? %>
       
-      <div class="dropdown-divider"></div>
-    <% end if !@completed_stories.empty? %>
-    
-    <%= turbo_frame_tag "completed_stories" do %>
-      <% cache [@commmit, @completed_stories] do %>
+      
         <%= render partial: 'planned_story', collection: @completed_stories, locals: { commmit: @commmit } %>
       <% end %>
     <% end %>

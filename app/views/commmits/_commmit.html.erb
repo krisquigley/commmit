@@ -1,5 +1,5 @@
 <%# TODO: If this is a one/two day commmit then show a progress bar, if it is more than two days, show a burndown chart %>
-<% cache commmit do %>
+<% cache [commmit.in_progress?, commmit] do %>
   <div class="card <%= commmit.finished? ? "card--finished" : "" %>" data-controller="navigate" data-action="click->navigate#navigate">
     <%= render 'shared/progress', completed_count: completed_planned_stories(commmit), total_count: commmit.planned_stories.size %>
 

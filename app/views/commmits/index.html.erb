@@ -8,13 +8,15 @@
   <% end %>
 
   <div class="card-deck">
-    <%= turbo_frame_tag "commmits-#{@page.number}" do %>
-      <%= render partial: "commmit", collection: @page.records %>
-    <% end %>
+    <% cache [Commmit.current, @page.records] do %>
+      <%= turbo_frame_tag "commmits-#{@page.number}" do %>
+        <%= render partial: "commmit", collection: @page.records %>
+      <% end %>
 
-    <%= turbo_frame_tag "commmits-#{@page.next_param}" do %>
-      <% unless @page.last? %>
-        <%= link_to "Load More", commmits_path(page: @page.next_param), class: 'btn btn-lg btn-light btn-block mb-4' %>
+      <%= turbo_frame_tag "commmits-#{@page.next_param}" do %>
+        <% unless @page.last? %>
+          <%= link_to "Load More", commmits_path(page: @page.next_param), class: 'btn btn-lg btn-light btn-block mb-4' %>
+        <% end %>
       <% end %>
     <% end %>
 
