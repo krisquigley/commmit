@@ -9,6 +9,7 @@ class Commmit < ApplicationRecord
   scope :most_recent_first, -> { order(start_date: :desc) }
   scope :current, lambda {
     where('start_date <= ? AND end_date >= ?', Time.current.to_date, Time.current.to_date)
+      .kept
       .limit(1)
       .first
   }

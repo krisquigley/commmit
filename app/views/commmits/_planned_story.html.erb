@@ -1,4 +1,4 @@
-<% cache planned_story do %>
+<% cache [commmit, planned_story, planned_story.story] do %>
   <div class="card <%= planned_story.completed? ? "card--finished" : "" %>">
     <div class="card-body card__flex">
       <div class="w-100">

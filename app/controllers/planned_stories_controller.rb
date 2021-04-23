@@ -2,22 +2,24 @@
 
 class PlannedStoriesController < ApplicationController
   def create
-    PlannedStory.create(story_id: params[:story_id], commmit_id: planned_story_params[:commmit_id])
-    redirect_back fallback_location: commmits_path, notice: t('stories.notice.added')
+    commmit = Commmit.find(planned_story_params[:commmit_id])
+    commmit.planned_stories.create(story_id: params[:story_id])
+
+    redirect_to commmit_path(commmit), notice: t('stories.notice.added')
   end
 
   def mark_as_done
     planned_story = PlannedStory.find(params[:planned_story_id])
     planned_story.update(completed_at: Time.now)
 
-    redirect_back fallback_location: commmits_path, notice: t('stories.notice.done')
+    redirect_to commmit_path(planned_story.commmit), notice: t('stories.notice.done')
   end
 
   def mark_as_not_done
     planned_story = PlannedStory.find(params[:planned_story_id])
     planned_story.update(completed_at: nil)
 
-    redirect_back fallback_location: commmits_path, notice: t('stories.notice.not_done')
+    redirect_to commmit_path(planned_story.commmit), notice: t('stories.notice.not_done')
   end
 
   def destroy

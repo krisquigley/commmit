@@ -3,11 +3,11 @@
 class CommmitsController < ApplicationController
   def show
     @commmit = Commmit.find(params[:id])
-    stories = PlannedStory.includes(story: [:values])
-                          .where(commmit_id: params[:id])
-                          .where('story.discarded_at': nil)
-    @planned_stories = stories.todo.order(created_at: :asc)
-    @completed_stories = stories.completed.order(completed_at: :asc)
+    all_planned_stories = PlannedStory.includes(story: [:values])
+                                      .where(commmit_id: params[:id])
+                                      .where('story.discarded_at': nil)
+    @planned_stories = all_planned_stories.todo.order(created_at: :asc)
+    @completed_stories = all_planned_stories.completed.order(completed_at: :asc)
 
     # TODO: Only make these calls when loading the modal
     story_ids = @commmit.planned_stories.map(&:story_id)
@@ -43,7 +43,7 @@ class CommmitsController < ApplicationController
   end
 
   def current
-    current = Commmit.kept.current
+    current = Commmit.current
 
     if current.present? && !current.is_a?(ActiveRecord::Relation)
       params[:id] = current.id

@@ -3,9 +3,7 @@
 <% end %> 
 <div class="grid-content">
   <div data-controller="overview">
-    <% cache @seven_recent_commmits do %>
-      <input type="hidden" data-overview-target="productivityData" value="<%= productivity %>" />
-    <% end %>
+    <input type="hidden" data-overview-target="productivityData" value="<%= productivity %>" />
     <div class="card-deck">
       <div class="card">
         <div class="card-header">Productivity</div>
