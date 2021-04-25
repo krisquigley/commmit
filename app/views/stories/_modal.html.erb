@@ -1,0 +1,9 @@
+<div class="modal fade story__modal" id="newStoryModal" tabindex="-1" aria-labelledby="newStoryModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content story__modal-content">
+      <%= turbo_frame_tag "story_form", class: 'h-100' do %>
+        <%= render 'stories/form', story: @story %>
+      <% end %>
+    </div>
+  </div>
+</div>

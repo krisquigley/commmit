@@ -9,6 +9,8 @@ class StoriesController < ApplicationController
     @one_off_stories_page = current_page_from @one_off_stories
     @repeatable_stories = Story.includes(:values).repeatable.kept.completed_first
     @repeatable_stories_page = current_page_from @repeatable_stories
+
+    @story = Story.new
   end
 
   def new
@@ -19,10 +21,13 @@ class StoriesController < ApplicationController
     @story = Story.new(story_params)
     @story.planned_stories.build(commmit_id: @commmit.id) if @commmit
 
-    if @story.save
-      redirect_back fallback_location: new_story_path, notice: t('stories.notice.created')
-    else
-      render :new
+    respond_to do |format|
+      if @story.save
+        format.html { redirect_to stories_path, notice: t('stories.notice.created') }
+      else
+        format.turbo_stream { render turbo_stream.replace(@story, partial: 'stories/form', locals: { story: @story }) }
+        format.html { render :new }
+      end
     end
   end
 
@@ -31,18 +36,22 @@ class StoriesController < ApplicationController
   def update
     story_params[:value_ids]&.reject!(&:empty?)
 
-    if @story.update(story_params)
-      redirect_to stories_path, notice: t('stories.notice.updated')
-    else
-      render :edit
+    respond_to do |format|
+      if @story.update(story_params)
+        format.html { redirect_to stories_path, notice: t('stories.notice.updated') }
+      else
+        format.html { render :edit }
+      end
     end
   end
 
   def destroy
     return unless @story.discard
 
-    redirect_back fallback_location: stories_path,
-                  notice: t('stories.notice.archived')
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to stories_path, notice: t('stories.notice.archived') }
+    end
   end
 
   private

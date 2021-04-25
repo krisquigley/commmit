@@ -46,7 +46,7 @@ class Story < ApplicationRecord
   def broadcast_prepend
     stream = repeatable ? 'repeatable_stories' : 'one_off_stories'
 
-    broadcast_prepend_to account_id, stream, target: stream
+    broadcast_prepend_to account_id, stream
   end
 
   def broadcast_replace
@@ -55,13 +55,13 @@ class Story < ApplicationRecord
     if discarded_at
       broadcast_remove
     else
-      broadcast_replace_to account_id, stream, target: stream
+      broadcast_replace_to account_id, stream
     end
   end
 
   def broadcast_remove
     stream = repeatable ? 'repeatable_stories' : 'one_off_stories'
 
-    broadcast_remove_to account_id, stream, target: stream
+    broadcast_remove_to account_id, stream
   end
 end

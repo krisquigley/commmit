@@ -6,19 +6,21 @@
 @import '~bootswatch/dist/darkly/variables';
 @import '~bootswatch/dist/darkly/bootswatch';
 
+@import './mixins';
+@import './variables';
+
+@import './alert';
+@import './card';
+@import './discard-link';
+@import './divider';
 @import './fonts';
-@import './_variables';
-@import './_mixins';
-@import './_nav-bar';
-@import './_footer-navigation';
-@import './_grid';
-@import './_forms';
-@import './_tabs';
-@import './_alert';
-@import './_modal';
-@import './_card';
-@import './_discard-link';
-@import './_divider';
+@import './forms';
+@import './footer-navigation';
+@import './grid';
+@import './modal';
+@import './nav-bar';
+@import './story';
+@import './tabs';
 
 html {
   @include enforce-mobile-viewport;

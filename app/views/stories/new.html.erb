@@ -1,18 +1,5 @@
 <div class="grid-content">
-  <%= render 'shared/errors', object: @story %>
-
-  <%= turbo_frame_tag dom_id(@story) do %>
-    <%= form_with model: @story, html: { class: 'flex-form', data: { turbo: false } } do |f| %>
-      <div class="form-content" data-controller="stories">
-        <%= render 'fields', f: f, story: @story %>
-      </div>
-      
-      <div class="form-group form-actions">
-        <%= f.submit t('stories.form.create'), class: "btn btn-lg btn-success btn-block" %>
-        <%= link_to t('stories.form.cancel'), stories_path, class: "btn btn-lg btn-secondary btn-block" %>
-      </div>
-    <% end %>
-  <% end %>
+  <%= render 'form', story: @story %>
 </div>
 
 <% content_for :hide_footer_nav? do %>
