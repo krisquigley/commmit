@@ -1,51 +1,53 @@
-<div class="card <%= planned_story.completed? ? "card--finished" : "" %>">
-  <div class="card-body card__flex">
-    <div class="w-100">
-      <h5 class="card--goal">
-        <%= t('stories.form.goal.label') %> <%= planned_story.story.goal %><% if planned_story.story.reason.present? %>,<% end %>
-      </h5>
+<% cache [commmit, planned_story, planned_story.story] do %>
+  <div class="card <%= planned_story.completed? ? "card--finished" : "" %>">
+    <div class="card-body card__flex">
+      <div class="w-100">
+        <h5 class="card--goal">
+          <%= t('stories.form.goal.label') %> <%= planned_story.story.goal %><% if planned_story.story.reason.present? %>,<% end %>
+        </h5>
 
-      <% if planned_story.story.reason.present? %>
-        <h6 class="card--reason">
-          <%= t('stories.form.reason.label') %> <%= planned_story.story.reason %>.
-        </h6>
-      <% end %>
-      <div class="mt-1">
-        <%= render partial: 'values/value', collection: planned_story.story.values.filter{|v| v.discarded_at.nil? } %>
+        <% if planned_story.story.reason.present? %>
+          <h6 class="card--reason">
+            <%= t('stories.form.reason.label') %> <%= planned_story.story.reason %>.
+          </h6>
+        <% end %>
+        <div class="mt-1">
+          <%= render partial: 'values/value', collection: planned_story.story.values.filter{|v| v.discarded_at.nil? } %>
+        </div>
+      </div>
+      <%= button_to planned_story_path(planned_story), 
+                    name: 'remove_story',
+                    method: :delete, 
+                    class: 'link-button discard-link', 
+                    data: { action: "click->navigate#stopPropagation" } do %>
+        <%= render 'shared/icons/close_icon', classes: '' %> 
+      <% end unless planned_story.completed? || commmit.reflected? %>
+    </div>
+    <div class="card-footer">
+      <div class="card-footer__left">
+        <%= render 'shared/icons/notes_icon', classes: 'ml-1' if planned_story.story.notes.present? %>
+        <%= render 'shared/icons/repeat_icon', classes: '' if planned_story.story.repeatable? %>
+      </div>
+      <div class="card-footer__right">
+        <% if planned_story.completed? %>
+          <%= button_to commmit_planned_story_mark_as_not_done_path(commmit.id, planned_story), 
+                        name: 'not_done',
+                        class: 'btn',
+                        style: 'padding: 0;',
+                        method: :patch, 
+                        disabled: commmit.reflected? do %>
+              <%= render 'shared/icons/done_done_icon', classes: 'text-success' %>
+          <% end %>
+        <% else %>
+          <%= button_to commmit_planned_story_mark_as_done_path(commmit.id, planned_story), 
+                        name: 'done',
+                        class: 'btn btn-link', 
+                        method: :patch, 
+                        disabled: commmit.reflected? do %>
+            <%= render 'shared/icons/done_icon', classes: 'text-success' %>
+          <% end %>
+        <% end %>  
       </div>
     </div>
-     <%= button_to planned_story_path(planned_story), 
-                  name: 'remove_story',
-                  method: :delete, 
-                  class: 'link-button discard-link', 
-                  data: { action: "click->navigate#stopPropagation" } do %>
-      <%= render 'shared/icons/close_icon', classes: '' %> 
-    <% end unless planned_story.completed? || commmit.reflected? %>
   </div>
-  <div class="card-footer">
-    <div class="card-footer__left">
-      <%= render 'shared/icons/notes_icon', classes: 'ml-1' if planned_story.story.notes.present? %>
-      <%= render 'shared/icons/repeat_icon', classes: '' if planned_story.story.repeatable? %>
-    </div>
-    <div class="card-footer__right">
-      <% if planned_story.completed? %>
-        <%= button_to commmit_planned_story_mark_as_not_done_path(commmit.id, planned_story), 
-                      name: 'not_done',
-                      class: 'btn',
-                      style: 'padding: 0;',
-                      method: :patch, 
-                      disabled: commmit.reflected? do %>
-            <%= render 'shared/icons/done_done_icon', classes: 'text-success' %>
-        <% end %>
-      <% else %>
-        <%= button_to commmit_planned_story_mark_as_done_path(commmit.id, planned_story), 
-                      name: 'done',
-                      class: 'btn btn-link', 
-                      method: :patch, 
-                      disabled: commmit.reflected? do %>
-          <%= render 'shared/icons/done_icon', classes: 'text-success' %>
-        <% end %>
-      <% end %>  
-    </div>
-  </div>
-</div>
+<% end %>

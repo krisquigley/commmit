@@ -45,6 +45,7 @@ Rails.application.routes.draw do
                 invitations: 'users/invitations'
               }
 
+  resource :overview, only: :show
   resources :commmits do
     resources :planned_stories do
       patch :mark_as_done

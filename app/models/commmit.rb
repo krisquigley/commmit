@@ -4,21 +4,28 @@ class Commmit < ApplicationRecord
   include Discard::Model
 
   acts_as_tenant :account
-
   auto_strip_attributes :name
+
   scope :most_recent_first, -> { order(start_date: :desc) }
+  scope :current, lambda {
+    where('start_date <= ? AND end_date >= ?', Time.current.to_date, Time.current.to_date)
+      .kept
+      .limit(1)
+      .first
+  }
+  scope :completed, lambda {
+    order(end_date: :desc)
+      .where('end_date < ?', Time.current.to_date)
+  }
 
-  scope :current_commmit, lambda {
-                            order(start_date: :desc, created_at: :desc).where('start_date <= ?', Time.current.to_date).limit(1).first
-                          }
-
-  validates :name, :length_in_days, presence: true
+  validates :name, :length_in_days, :end_date, :start_date, presence: true
   validates :length_in_days, numericality: { only_integer: true, greater_than: 0 }
 
   has_many :planned_stories, dependent: :destroy
   has_many :stories, through: :planned_stories
 
   after_create :automatically_add_repeatable_stories
+  before_validation :set_end_date
 
   def reflected?
     false
@@ -28,12 +35,8 @@ class Commmit < ApplicationRecord
     end_date < Time.current.to_date
   end
 
-  def end_date
-    start_date + (length_in_days - 1)
-  end
-
   def in_progress?
-    start_date <= Time.current.to_date && end_date <= Time.current.to_date + (length_in_days - 1)
+    start_date <= Time.current.to_date && end_date >= Time.current.to_date
   end
 
   def not_started?
@@ -41,8 +44,10 @@ class Commmit < ApplicationRecord
   end
 
   def no_active_commmits?
-    !Commmit.current_commmit.present?
+    !Commmit.current.present?
   end
+
+  private
 
   def automatically_add_repeatable_stories
     Story.automatic.in_batches do |batch|
@@ -50,5 +55,9 @@ class Commmit < ApplicationRecord
         planned_stories.create(story: story)
       end
     end
+  end
+
+  def set_end_date
+    self.end_date = start_date + (length_in_days - 1)
   end
 end

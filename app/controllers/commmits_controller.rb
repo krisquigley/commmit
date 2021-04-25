@@ -3,20 +3,20 @@
 class CommmitsController < ApplicationController
   def show
     @commmit = Commmit.find(params[:id])
-    stories = PlannedStory.includes(story: [:values])
-                          .where(commmit_id: params[:id])
-                          .where('story.discarded_at': nil)
-    @planned_stories = stories.todo.order(created_at: :asc)
-    @completed_stories = stories.completed.order(completed_at: :asc)
+    all_planned_stories = PlannedStory.includes(story: [:values])
+                                      .where(commmit_id: params[:id])
+                                      .where('story.discarded_at': nil)
+    @planned_stories = all_planned_stories.todo.order(created_at: :asc)
+    @completed_stories = all_planned_stories.completed.order(completed_at: :asc)
 
     # TODO: Only make these calls when loading the modal
     story_ids = @commmit.planned_stories.map(&:story_id)
-    @one_off_stories = Story.includes(:values).incomplete.where.not(id: story_ids).one_off.kept.most_recent_first
-    @repeatable_stories = Story.includes(:values).repeatable.kept.completed_first
+    @one_off_stories_page = current_page_from Story.includes(:values).incomplete.where.not(id: story_ids).one_off.kept.most_recent_first
+    @repeatable_stories_page = current_page_from Story.includes(:values).repeatable.kept.completed_first
   end
 
   def index
-    @commmits = Commmit.includes(:stories).kept.most_recent_first
+    set_page_and_extract_portion_from Commmit.includes(:planned_stories).kept.most_recent_first
   end
 
   def new
@@ -43,10 +43,9 @@ class CommmitsController < ApplicationController
   end
 
   def current
-    # TODO: Not quite current this should not include finished commmits
-    current = Commmit.kept.current_commmit
+    current = Commmit.current
 
-    if current.present? && !current.finished?
+    if current.present? && !current.is_a?(ActiveRecord::Relation)
       params[:id] = current.id
       show
 

@@ -29,36 +29,47 @@
     </li>
   </ul>
   <div class="tab-content" id="storiesTabContent">
-      <div class="tab-pane fade show active" 
-            id="<%= t('stories.form.repeatable.once') %>" 
-            role="tabpanel"
-            data-container="one_off_stories"
-            aria-labelledby="<%= t('stories.form.repeatable.once') %>-tab">
-        <% if @one_off_stories.empty? %>
-          <p class="text-center mt-4"><%= t('stories.index.no_stories_yet') %></p>
+    <div class="tab-pane fade show active" 
+          id="<%= t('stories.form.repeatable.once') %>" 
+          role="tabpanel"
+          data-container="one_off_stories"
+          aria-labelledby="<%= t('stories.form.repeatable.once') %>-tab">
+      <% if @one_off_stories_page.first? && @one_off_stories_page.records.empty? %>
+        <p class="text-center mt-4"><%= t('stories.index.no_stories_yet') %></p>
+      <% end %>
+      <div class="card-deck">
+        <%= turbo_stream_from current_tenant.id, "one_off_stories-#{@one_off_stories_page.number}" %>
+        <%= turbo_frame_tag "one_off_stories-#{@one_off_stories_page.number}" do %>
+          <%= render partial: "story", collection: @one_off_stories_page.records %>
         <% end %>
-        <div class="card-deck">
-          <%= turbo_stream_from current_tenant.id, :one_off_stories %>
-          <%= turbo_frame_tag :one_off_stories do %>
-            <%= render partial: "story", collection: @one_off_stories %>
+
+        <%= turbo_frame_tag "one_off_stories-#{@one_off_stories_page.next_param}" do %>
+          <% unless @one_off_stories_page.last? %>
+            <%= link_to "Load More", stories_path(page: @one_off_stories_page.next_param), class: 'btn btn-lg btn-light btn-block mb-4' %>
           <% end %>
-        </div>
+        <% end %>
       </div>
 
-      <div class="tab-pane fade" 
-          id="<%= t('stories.form.repeatable.forever').gsub(' ', '-') %>" 
-          role="tabpanel" 
-          data-container="repeatable_stories"
-          aria-labelledby="<%= t('stories.form.repeatable.forever').gsub(' ', '-') %>-tab">
-        <% if @repeatable_stories.empty? %>
-          <p class="text-center mt-4"><%= t('stories.index.no_repeatable_stories_yet') %></p>
-        <% end %>
-        <div class="card-deck">
-          <%= turbo_stream_from current_tenant.id, :repeatable_stories %>
-          <%= turbo_frame_tag :repeatable_stories do %>
-            <%= render partial: "story", collection: @repeatable_stories %>
+    <div class="tab-pane fade" 
+        id="<%= t('stories.form.repeatable.forever').gsub(' ', '-') %>" 
+        role="tabpanel" 
+        data-container="repeatable_stories"
+        aria-labelledby="<%= t('stories.form.repeatable.forever').gsub(' ', '-') %>-tab">
+      <% if @repeatable_stories_page.first? && @repeatable_stories_page.records.empty? %>
+        <p class="text-center mt-4"><%= t('stories.index.no_repeatable_stories_yet') %></p>
+      <% end %>
+
+      <div class="card-deck">
+        <%= turbo_stream_from current_tenant.id, "repeatable_stories-#{@repeatable_stories_page.number}" %>
+        <%= turbo_frame_tag "repeatable_stories-#{@repeatable_stories_page.number}" do %>
+          <%= render partial: "story", collection: @repeatable_stories_page.records %>
+        <% end %> 
+
+        <%= turbo_frame_tag "repeatable_stories-#{@repeatable_stories_page.next_param}" do %>
+          <% unless @repeatable_stories_page.last? %>
+            <%= link_to "Load More", stories_path(page: @repeatable_stories_page.next_param), class: 'btn btn-lg btn-light btn-block mb-4' %>
           <% end %>
-        </div>
+        <% end %>
       </div>
     <%= render "shared/actions", actions: [{ label: t('stories.index.new_story'), path: new_story_path }] %>
   </div>

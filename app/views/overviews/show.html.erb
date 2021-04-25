@@ -1,0 +1,17 @@
+<% content_for :nav_header do %>
+  <%= t('overview.show.header') %>
+<% end %> 
+<div class="grid-content">
+  <div data-controller="overview">
+    <input type="hidden" data-overview-target="productivityData" value="<%= productivity %>" />
+    <div class="card-deck">
+      <div class="card">
+        <div class="card-header">Productivity</div>
+        <div data-overview-target="chart" style="height: 252.267px;"></div>
+        <div class="card-footer">
+          Previous <%= @seven_recent_commmits.size %> Commmits: <%= render 'shared/productivity_badge', productivity: average_productivity %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

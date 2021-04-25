@@ -2,6 +2,10 @@
   <%= @commmit.name %>
 <% end %> 
 
+<% content_for :productivity do %>
+  <%= completed_planned_stories(@commmit) %> 
+<% end %>
+
 <div class="grid-topcontent">
   <%= render 'shared/progress', total_count: (@planned_stories.size + @completed_stories.size), completed_count: @completed_stories.size %>
 </div>
@@ -14,15 +18,19 @@
   <% end %>
 
   <div class="card-deck" data-container="planned_stories">
-    <%= render partial: 'planned_story', collection: @planned_stories, locals: { commmit: @commmit } %>
+    <%= turbo_frame_tag "planned_stories" do %>
+      <%= render partial: 'planned_story', collection: @planned_stories, locals: { commmit: @commmit } %>
 
-    <%= content_tag :div, class: "divider" do %>
-      <div class="dropdown-divider"></div>
-      <small><%= t('commmits.show.done_divider') %></small>
-      <div class="dropdown-divider"></div>
-    <% end if !@completed_stories.empty? %>
+      <%= content_tag :div, class: "divider" do %>
+        <div class="dropdown-divider"></div>
+
+        <small><%= t('commmits.show.done_divider') %></small>
+        
+        <div class="dropdown-divider"></div>
+      <% end if !@completed_stories.empty? %>
     
-    <%= render partial: 'planned_story', collection: @completed_stories, locals: { commmit: @commmit } %>
+      <%= render partial: 'planned_story', collection: @completed_stories, locals: { commmit: @commmit } %>
+    <% end %>
 
     <div class="page-actions">
       <%= link_to new_commmit_path, class: "btn btn-lg btn-primary btn-block" do %>
@@ -35,5 +43,4 @@
   </div>
 </div>
 
-<!-- Modal -->
-<%= render 'add_stories', one_off_stories: @one_off_stories, repeatable_stories: @repeatable_stories, commmit: @commmit %>
+<%= render 'commmits/add_stories/modal', one_off_stories_page: @one_off_stories_page, repeatable_stories_page: @repeatable_stories_page, commmit: @commmit %>

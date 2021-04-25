@@ -25,6 +25,10 @@ class Story < ApplicationRecord
   has_many :commmits, counter_cache: true, through: :planned_stories
   has_and_belongs_to_many :values
 
+  after_save do
+    planned_stories.update_all updated_at: Time.zone.now
+  end
+
   def completed?
     completed_at.present?
   end

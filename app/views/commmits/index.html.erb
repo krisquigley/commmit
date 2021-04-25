@@ -3,11 +3,23 @@
 <% end %> 
 
 <div class="grid-content">
-  <% if @commmits.empty? %>
+  <% if @page.first? && @page.records.empty? %>
     <p class="text-center text-secondary mt-2"><%= t('commmits.index.no_commmits_yet') %></p>
   <% end %>
+
   <div class="card-deck">
-    <%= render partial: "commmit", collection: @commmits %>
+    <% cache [Commmit.current, @page.records] do %>
+      <%= turbo_frame_tag "commmits-#{@page.number}" do %>
+        <%= render partial: "commmit", collection: @page.records %>
+      <% end %>
+
+      <%= turbo_frame_tag "commmits-#{@page.next_param}" do %>
+        <% unless @page.last? %>
+          <%= link_to "Load More", commmits_path(page: @page.next_param), class: 'btn btn-lg btn-light btn-block mb-4' %>
+        <% end %>
+      <% end %>
+    <% end %>
+
     <%= render "shared/actions", actions: [{ label: t('commmits.index.new_commmit'), path: new_commmit_path }] %>
   </div>
 </div>
