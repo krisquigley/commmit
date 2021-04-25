@@ -1,7 +1,9 @@
-<%= form_with model: Story.new, html: { class: 'flex-form' } do |f| %>
+<%= render 'shared/errors', object: story %>
+
+<%= form_with model: story, html: { class: 'flex-form' } do |f| %>
   <%= hidden_field_tag :commmit_id, commmit.id %>
   <div class="form-content" data-controller="stories">
-    <%= render 'stories/fields', f: f, story: nil %>
+    <%= render 'stories/fields', f: f, story: story %>
   </div>
   
   <div class="form-actions">

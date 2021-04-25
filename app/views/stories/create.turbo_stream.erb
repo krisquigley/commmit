@@ -1,0 +1,8 @@
+<% if @story.repeatable? %>
+  <%= turbo_stream.prepend "repeatable_stories-1", partial: 'stories/story', locals: { story: @story }%>
+<% else %>
+  <%= turbo_stream.prepend "one_off_stories-1", partial: 'stories/story', locals: { story: @story }%>
+<% end %>
+<%= turbo_stream.replace "story_form", partial: 'stories/form', locals: { story: Story.new } %>
+
+<%= turbo_stream.prepend "flash", partial: "shared/flash", locals: { msg_type: :notice, message: t('stories.notice.created') } %>

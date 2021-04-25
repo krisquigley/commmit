@@ -23,6 +23,7 @@ class StoriesController < ApplicationController
 
     respond_to do |format|
       if @story.save
+        format.turbo_stream
         format.html { redirect_to stories_path, notice: t('stories.notice.created') }
       else
         format.turbo_stream { render turbo_stream.replace(@story, partial: 'stories/form', locals: { story: @story }) }

@@ -37,6 +37,10 @@ class Story < ApplicationRecord
     repeatable
   end
 
+  def one_off?
+    !repeatable?
+  end
+
   def automatic?
     automatically_add
   end

@@ -16,7 +16,7 @@
               <% end %>
 
               <%= turbo_frame_tag "add_one_off_stories-#{one_off_stories_page.number}" do %>
-                <%= render partial: "commmits/add_stories/story", collection: one_off_stories_page.records %>
+                <%= render partial: "commmits/add_stories/story", collection: one_off_stories_page.records, locals: { commmit: commmit } %>
               <% end %>
 
               <%= turbo_frame_tag "add_one_off_stories-#{one_off_stories_page.next_param}" do %>
@@ -38,7 +38,7 @@
               <% end %>
 
               <%= turbo_frame_tag "add_repeatable_stories-#{repeatable_stories_page.number}" do %>
-                <%= render partial: "commmits/add_stories/story", collection: repeatable_stories_page.records %>
+                <%= render partial: "commmits/add_stories/story", collection: repeatable_stories_page.records, locals: { commmit: commmit } %>
               <% end %> 
 
               <%= turbo_frame_tag "add_repeatable_stories-#{repeatable_stories_page.next_param}" do %>
@@ -52,7 +52,9 @@
                id="<%= t('stories.index.new_story').gsub(' ', '-') %>" 
                role="tabpanel" 
                aria-labelledby="<%= t('stories.index.new_story').gsub(' ', '-') %>-tab">
-            <%= render 'commmits/add_stories/form', commmit: commmit %>
+            <%= turbo_frame_tag "commmit_story_form", class: 'h-100' do %>
+              <%= render 'commmits/add_stories/form', story: story, commmit: commmit %>
+            <% end %>
           </div>
         </div>
       </div>
