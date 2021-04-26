@@ -11,5 +11,10 @@ end
 
 When('I view the {string}') do |resource|
   record = instance_variable_get("@#{resource.downcase}")
-  visit path_for_resource(resource, record)
+
+  if resource.casecmp('commmit').zero?
+    visit commmit_planned_stories_path(record)
+  else
+    visit path_for_resource(resource, record)
+  end
 end

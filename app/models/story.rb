@@ -5,6 +5,9 @@ class Story < ApplicationRecord
 
   acts_as_tenant :account
 
+  after_create_commit :broadcast_prepend
+  after_update_commit :broadcast_replace
+
   auto_strip_attributes :goal, :reason, :notes
   validates :goal, presence: true
   validates :automatically_add, exclusion: [true], if: -> { repeatable == false }
@@ -34,7 +37,35 @@ class Story < ApplicationRecord
     repeatable
   end
 
+  def one_off?
+    !repeatable?
+  end
+
   def automatic?
     automatically_add
+  end
+
+  private
+
+  def broadcast_prepend
+    stream = repeatable ? 'repeatable_stories' : 'one_off_stories'
+
+    broadcast_prepend_to account_id, stream
+  end
+
+  def broadcast_replace
+    stream = repeatable ? 'repeatable_stories' : 'one_off_stories'
+
+    if discarded_at
+      broadcast_remove
+    else
+      broadcast_replace_to account_id, stream
+    end
+  end
+
+  def broadcast_remove
+    stream = repeatable ? 'repeatable_stories' : 'one_off_stories'
+
+    broadcast_remove_to account_id, stream
   end
 end

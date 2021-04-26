@@ -1,0 +1,11 @@
+<% if @planned_story.story.one_off? %>
+  <%= turbo_stream.remove "add_#{dom_id(@planned_story.story)}" %>
+<% end %>
+
+<%= turbo_stream.append "planned_stories", 
+                        partial: 'planned_stories/planned_story', 
+                        locals: { planned_story: @planned_story, commmit: @commmit }%>
+
+<%= turbo_stream.replace "commmit_story_form", partial: 'planned_stories/add_stories/form', locals: { story: Story.new, commmit: @commmit } %>
+
+<%= turbo_stream.prepend "flash", partial: "shared/flash", locals: { msg_type: :notice, message: t('stories.notice.added') } %>

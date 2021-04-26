@@ -1,0 +1,12 @@
+.story__modal {
+  background-color: black;
+
+  &-content {
+    border: 0;
+    background-color: black;
+
+    & * .form-actions {
+      margin-bottom: 0;
+    }
+  }
+}

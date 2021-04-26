@@ -15,6 +15,6 @@ module OverviewsHelper
   def average_productivity
     points = @seven_recent_commmits.map { |c| c.planned_stories.count(&:completed_at) }
 
-    points.sum / points.size
+    points.size.zero? ? 0 : points.sum / points.size
   end
 end

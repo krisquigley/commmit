@@ -5,7 +5,7 @@
       <small><%= t('footer_nav.overview_button') %></small>
     </div>
   <% end %>
-  <%= link_to current_commmits_path, class: "btn btn-secondary #{active("commmits/current")} w-50", type: :button do %>
+  <%= link_to commmit_planned_stories_path(commmit_id: 'current'), class: "btn btn-secondary #{active("commmits/current/planned_stories")} w-50", type: :button do %>
     <div class="footer-navigation__buttons">
       <%= render 'shared/icons/logo_icon', classes: '' %>
       <small><%= t('footer_nav.commmits_button') %></small>

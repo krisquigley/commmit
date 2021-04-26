@@ -1,7 +1,7 @@
 <div class="modal fade" id="addStoriesModal" tabindex="-1" aria-labelledby="addPlanModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <%= render 'commmits/add_stories/modal_header' %>
+      <%= render 'planned_stories/add_stories/modal_header' %>
       <div class="modal-body">
         <div class="tab-content modal-tab-content" id="storiesTabContent">
           <div class="tab-pane fade show active" 
@@ -16,12 +16,12 @@
               <% end %>
 
               <%= turbo_frame_tag "add_one_off_stories-#{one_off_stories_page.number}" do %>
-                <%= render partial: "commmits/add_stories/story", collection: one_off_stories_page.records %>
+                <%= render partial: "planned_stories/add_stories/story", collection: one_off_stories_page.records, locals: { commmit: commmit } %>
               <% end %>
 
               <%= turbo_frame_tag "add_one_off_stories-#{one_off_stories_page.next_param}" do %>
                 <% unless one_off_stories_page.last? %>
-                  <%= link_to "Load More", commmit_path(commmit, page: one_off_stories_page.next_param), class: 'btn btn-lg btn-light btn-block mb-4' %>
+                  <%= link_to "Load More", commmit_planned_stories_path(commmit, page: one_off_stories_page.next_param), class: 'btn btn-lg btn-light btn-block mb-4' %>
                 <% end %>
               <% end %>
             </div>
@@ -38,12 +38,12 @@
               <% end %>
 
               <%= turbo_frame_tag "add_repeatable_stories-#{repeatable_stories_page.number}" do %>
-                <%= render partial: "commmits/add_stories/story", collection: repeatable_stories_page.records %>
+                <%= render partial: "planned_stories/add_stories/story", collection: repeatable_stories_page.records, locals: { commmit: commmit } %>
               <% end %> 
 
               <%= turbo_frame_tag "add_repeatable_stories-#{repeatable_stories_page.next_param}" do %>
                 <% unless repeatable_stories_page.last? %>
-                  <%= link_to "Load More", commmit_path(commmit, page: repeatable_stories_page.next_param), class: 'btn btn-lg btn-light btn-block mb-4' %>
+                  <%= link_to "Load More", commmit_planned_stories_path(commmit, page: repeatable_stories_page.next_param), class: 'btn btn-lg btn-light btn-block mb-4' %>
                 <% end %>
               <% end %>
             </div>
@@ -52,12 +52,14 @@
                id="<%= t('stories.index.new_story').gsub(' ', '-') %>" 
                role="tabpanel" 
                aria-labelledby="<%= t('stories.index.new_story').gsub(' ', '-') %>-tab">
-            <%= render 'commmits/add_stories/form', commmit: commmit %>
+            <%= turbo_frame_tag "commmit_story_form", class: 'h-100' do %>
+              <%= render 'planned_stories/add_stories/form', story: story, commmit: commmit %>
+            <% end %>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t('commmits.show.close_modal') %></button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t('commmits.planned_stories.index.close_modal') %></button>
       </div>
     </div>
   </div>

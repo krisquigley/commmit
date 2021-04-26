@@ -16,7 +16,7 @@ Given('I have a finished Commmit with {int} planned stories') do |number|
 end
 
 Then('I should not be able to edit the Commmit') do
-  expect(page).to have_content t('commmits.show.finished')
+  expect(page).to have_content t('commmits.planned_stories.index.finished')
 end
 
 Given('I have an unfinished Commmit with {int} planned stories') do |number|
@@ -42,7 +42,7 @@ Given('I already have a Commmit with {int} planned stories') do |number|
 end
 
 Then('I should see the updated details') do
-  visit commmit_path(@commmit)
+  visit commmit_planned_stories_path(@commmit)
 
   expect(page).to have_content @commmit.name
 end
@@ -71,7 +71,7 @@ Then('I should be taken to my latest Commmit') do
 end
 
 Then('the Story with the goal {string} should appear in my Commmit') do |goal|
-  visit commmit_path(@commmit)
+  visit commmit_planned_stories_path(@commmit)
 
   within("div[data-container='planned_stories']") do
     expect(page).to have_content goal
@@ -85,8 +85,8 @@ Given('a Repeatable Story with {string}') do |goal|
 end
 
 When('I create a new story with {string} from my Commmit') do |goal|
-  visit commmit_path(@commmit)
-  click_on t('commmits.show.add_stories')
+  visit commmit_planned_stories_path(@commmit)
+  click_on t('commmits.planned_stories.index.add_stories')
   find('input[id=story_goal]').set(goal)
 
   submit_form
@@ -169,17 +169,17 @@ Then('I should see that it finished yesterday') do
 end
 
 When('I add a one-time Story') do
-  visit commmit_path(@commmit)
-  click_on t('commmits.show.add_stories')
+  visit commmit_planned_stories_path(@commmit)
+  click_on t('commmits.planned_stories.index.add_stories')
 
   first("button[name='add']").click
 end
 
 Then('I should not be able to add the Story again') do
-  visit commmit_path(@commmit)
-  click_on t('commmits.show.add_stories')
+  visit commmit_planned_stories_path(@commmit)
+  click_on t('commmits.planned_stories.index.add_stories')
 
-  expect(page).to have_content t('commmits.show.add_story')
+  expect(page).to have_content t('commmits.planned_stories.index.add_story')
 end
 
 Given('a Story') do
@@ -189,21 +189,21 @@ Given('a Story') do
 end
 
 When('I add a repeatable story') do
-  visit commmit_path(@commmit)
-  click_on t('commmits.show.add_stories')
+  visit commmit_planned_stories_path(@commmit)
+  click_on t('commmits.planned_stories.index.add_stories')
 
   first("button[name='add']").click
 end
 
 Then('I should be able to add the Story again') do
-  visit commmit_path(@commmit)
-  click_on t('commmits.show.add_stories')
+  visit commmit_planned_stories_path(@commmit)
+  click_on t('commmits.planned_stories.index.add_stories')
 
   first("button[name='add']").click
 end
 
 When('I remove a planned story') do
-  visit commmit_path(@commmit)
+  visit commmit_planned_stories_path(@commmit)
 
   first("button[name='remove_story']").click
 end
@@ -218,7 +218,7 @@ end
 
 When('I mark the planned story as done') do
   with_tenant do
-    visit commmit_path(@commmit)
+    visit commmit_planned_stories_path(@commmit)
     find('button[name=done]').click
   end
 end
@@ -245,7 +245,7 @@ end
 
 When('I mark the planned story as not done') do
   with_tenant do
-    visit commmit_path(@commmit)
+    visit commmit_planned_stories_path(@commmit)
     find('button[name=not_done]').click
   end
 end
@@ -264,8 +264,8 @@ Given('I already have a Commmit with {int} repeatable planned stories') do |numb
 end
 
 Then('I can still add the repeatable Story again') do
-  visit commmit_path(@commmit)
-  click_on t('commmits.show.add_stories')
+  visit commmit_planned_stories_path(@commmit)
+  click_on t('commmits.planned_stories.index.add_stories')
 
   first("button[name='add']").click
 end
@@ -278,7 +278,7 @@ end
 
 Then('see the repeatable stories in my list of planned stories') do
   with_tenant do
-    visit commmit_path(Commmit.first)
+    visit commmit_planned_stories_path(Commmit.first)
 
     @stories.each do |story|
       within("div[data-container='planned_stories']") do

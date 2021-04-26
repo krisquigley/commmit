@@ -4,7 +4,7 @@
     <%= render 'shared/progress', completed_count: completed_planned_stories(commmit), total_count: commmit.planned_stories.size %>
 
     <div class="card-body card__flex">
-      <h5><%= link_to commmit.name, commmit_path(commmit), data: { navigate_target: :link }, class: 'font-weight-bold' %></h5>
+      <h5><%= link_to commmit.name, commmit_planned_stories_path(commmit), data: { navigate_target: :link }, class: 'font-weight-bold' %></h5>
       <%= button_to commmit_path(commmit), method: :delete, class: 'link-button discard-link', data: { action: "click->navigate#stopPropagation" }, name: "archive_commmit" do %>
         <%= render 'shared/icons/close_icon', classes: '' %> 
       <% end %>

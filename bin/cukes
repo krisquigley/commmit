@@ -1,2 +1,2 @@
 #!/bin/bash
-bundle exec cucumber -f html -o reports/features.html --strict-flaky --no-strict-pending --no-strict-undefined $@
+bundle exec cucumber --strict-flaky --no-strict-pending --no-strict-undefined $@

@@ -29,6 +29,7 @@ Feature: Listing Commmits
     When I visit the "Commmits" page
     Then I should see that it finished yesterday
 
+  @javascript
   Scenario: No Commmits
     When I visit the "Commmits" page
     Then I should see a message to create a Commmit
