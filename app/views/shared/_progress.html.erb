@@ -1,5 +1,5 @@
 <div class="progress">
-  <div class="progress-bar" role="progressbar" 
+  <div class="progress-bar" role="progressbar" data-planned-stories-target="progressBar"
       aria-valuenow="<%= total_count - completed_count %>" 
       style="width: <%= percentage_left(total_count, completed_count) || 0 %>%"
       aria-valuemin="0" aria-valuemax="<%= total_count %>">

@@ -34,13 +34,14 @@ body {
   height: 100%;
 }
 
-.show {
+.show-divider {
   display: flex !important;
 }
 
 .page-actions {
   position: sticky;
   bottom: 0.5rem;
+  margin-top: auto;
 }
 
 .pill-actions {

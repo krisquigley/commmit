@@ -22,9 +22,7 @@ Rails.application.routes.draw do
   mount ActionCable.server => '/cable'
 
   get '/',  to: 'planned_stories#index',
-            params: {
-              commmit_id: 'current'
-            },
+            commmit_id: 'current',
             constraints: {
               subdomain: /.+/
             },

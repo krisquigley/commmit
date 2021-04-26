@@ -2,19 +2,18 @@
   <%= @commmit.name %>
 <% end %> 
 
-<% content_for :productivity do %>
-  <%= completed_planned_stories(@commmit) %> 
-<% end %>
-
 <div class="grid-topcontent">
   <%= render 'shared/progress', total_count: (@planned_stories.size + @completed_stories.size), completed_count: @completed_stories.size %>
 </div>
 
 <div class="grid-content">
-  <div class="card-deck" data-container="planned_stories" data-controller="planned-stories">
-    <p class="text-center text-secondary mt-2" style="display: none"></p>
+  <div class="card-deck" data-container="planned_stories">
+    <p class="text-center text-secondary mt-2" data-planned-stories-target="message"></p>
+
     <%= turbo_frame_tag "planned_stories", data: { 'planned-stories_target': 'plannedStories'} do %>
-      <%= render partial: 'planned_story', collection: @planned_stories, locals: { commmit: @commmit } %>
+      <%= render partial: 'planned_story', 
+                collection: @planned_stories, 
+                locals: { commmit: @commmit } %>
     <% end %>
 
     <%= content_tag :div, class: 'divider', data: { 'planned-stories_target': 'doneDivider' } do %>
@@ -25,14 +24,17 @@
       <div class="dropdown-divider"></div>
     <% end %>
 
-    <%= turbo_frame_tag "completed_planned_stories", data: { 'planned-stories_target': 'doneStories'} do %>
-      <%= render partial: 'planned_story', collection: @completed_stories, locals: { commmit: @commmit } %>
+    <%= turbo_frame_tag "completed_planned_stories", data: { 'planned-stories_target': 'completedStories'} do %>
+      <%= render partial: 'planned_story', 
+                collection: @completed_stories, 
+                locals: { commmit: @commmit } %>
     <% end %>
 
     <div class="page-actions">
       <%= link_to new_commmit_path, class: "btn btn-lg btn-primary btn-block" do %>
         <%= t('commmits.index.new_commmit') %> 
       <% end if @commmit.no_active_commmits? %>
+
       <%= button_tag class: "btn btn-lg btn-primary btn-block", disabled: @commmit.reflected?, data: { toggle: "modal", target: "#addStoriesModal" } do %>
         <%= @commmit.reflected? ? t('commmits.planned_stories.index.finished') : t('commmits.planned_stories.index.add_stories') %> 
       <% end %>

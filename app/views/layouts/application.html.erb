@@ -16,7 +16,8 @@
     <%= javascript_pack_tag 'application', data: { turbo_track: "reload" } %>
   </head>
 
-  <body>
+  <body data-controller="<%= controller.controller_name == 'planned_stories' && 
+                             controller.action_name == 'index' ? 'planned-stories' : '' %>">
     <%= render 'shared/alerts' %>
     <div data-controller="navigate">
       <%= render 'shared/nav' %>

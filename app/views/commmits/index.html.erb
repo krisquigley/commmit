@@ -3,8 +3,11 @@
 <% end %> 
 
 <div class="grid-content">
+  <% if @page.first? && @page.records.empty? %>
+    <p class="text-center text-secondary mt-2"><%= t('commmits.index.no_commmits_yet') %></p>
+  <% end %>
+
   <div class="card-deck">
-    <div class="messages"></div>
     <% cache [Commmit.current, @page.records] do %>
       <%= turbo_frame_tag "commmits-#{@page.number}" do %>
         <%= render partial: "commmit", collection: @page.records %>
