@@ -1,4 +1,4 @@
-<div id="flash">
+<div id="flash" class="flash-messages">
   <% flash.each do |msg_type, message| %>
     <%= render 'shared/flash', message: message, msg_type: msg_type %>
   <% end %>

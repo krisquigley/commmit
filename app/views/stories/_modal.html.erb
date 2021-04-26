@@ -1,9 +1,14 @@
-<div class="modal fade story__modal" id="newStoryModal" tabindex="-1" aria-labelledby="newStoryModalLabel" aria-hidden="true">
+<div class="modal fade" id="newStoryModal" tabindex="-1" aria-labelledby="newStoryModalLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content story__modal-content">
-      <%= turbo_frame_tag "story_form", class: 'h-100' do %>
-        <%= render 'stories/form', story: @story %>
-      <% end %>
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">New Story</div>
+      </div>
+      <div class="modal-body">
+        <%= turbo_frame_tag "story_form", class: 'h-100' do %>
+          <%= render 'stories/form', story: @story %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

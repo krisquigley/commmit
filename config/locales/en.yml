@@ -32,6 +32,14 @@
 en:
   commmits:
     planned_stories:
+      index:
+        done_divider: DONE
+        no_planned_stories_yet: You haven't added any stories yet.
+        all_completed: You have completed all of your planned Stories.
+        add_stories: Add Stories
+        close_modal: Close
+        add_story: Add
+        finished: Commmit Finished
       done: Done
     notice:
       created: Commmit Created
@@ -46,14 +54,6 @@ en:
         finished: Finished
         in_progress: Finishes
       new_commmit: New Commmit
-    show:
-      done_divider: DONE
-      no_stories_yet: You haven't added any stories yet.
-      no_stories_left: You don't have any planned stories left to do.
-      add_stories: Add Stories
-      close_modal: Close
-      add_story: Add
-      finished: Commmit Finished
     form:
       name:
         label_html: What do you want to <b>focus</b> on?

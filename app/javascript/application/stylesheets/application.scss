@@ -13,6 +13,7 @@
 @import './card';
 @import './discard-link';
 @import './divider';
+@import './flash-messages';
 @import './fonts';
 @import './forms';
 @import './footer-navigation';
@@ -31,6 +32,10 @@ html {
 body {
   padding-top: 57px;
   height: 100%;
+}
+
+.show {
+  display: flex !important;
 }
 
 .page-actions {

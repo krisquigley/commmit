@@ -11,24 +11,21 @@
 </div>
 
 <div class="grid-content">
-  <% if @planned_stories.empty? && @completed_stories.empty? %>
-    <p class="text-center text-secondary mt-2"><%= t('commmits.show.no_stories_yet') %></p>
-  <% elsif @planned_stories.empty? && !@completed_stories.empty? %>
-    <p class="text-center text-secondary mt-2"><%= t('commmits.show.no_stories_left') %></p>
-  <% end %>
-
-  <div class="card-deck" data-container="planned_stories">
-    <%= turbo_frame_tag "planned_stories" do %>
+  <div class="card-deck" data-container="planned_stories" data-controller="planned-stories">
+    <p class="text-center text-secondary mt-2" style="display: none"></p>
+    <%= turbo_frame_tag "planned_stories", data: { 'planned-stories_target': 'plannedStories'} do %>
       <%= render partial: 'planned_story', collection: @planned_stories, locals: { commmit: @commmit } %>
+    <% end %>
 
-      <%= content_tag :div, class: "divider" do %>
-        <div class="dropdown-divider"></div>
+    <%= content_tag :div, class: 'divider', data: { 'planned-stories_target': 'doneDivider' } do %>
+      <div class="dropdown-divider"></div>
 
-        <small><%= t('commmits.show.done_divider') %></small>
-        
-        <div class="dropdown-divider"></div>
-      <% end if !@completed_stories.empty? %>
-    
+      <small><%= t('commmits.planned_stories.index.done_divider') %></small>
+      
+      <div class="dropdown-divider"></div>
+    <% end %>
+
+    <%= turbo_frame_tag "completed_planned_stories", data: { 'planned-stories_target': 'doneStories'} do %>
       <%= render partial: 'planned_story', collection: @completed_stories, locals: { commmit: @commmit } %>
     <% end %>
 
@@ -37,10 +34,10 @@
         <%= t('commmits.index.new_commmit') %> 
       <% end if @commmit.no_active_commmits? %>
       <%= button_tag class: "btn btn-lg btn-primary btn-block", disabled: @commmit.reflected?, data: { toggle: "modal", target: "#addStoriesModal" } do %>
-        <%= @commmit.reflected? ? t('commmits.show.finished') : t('commmits.show.add_stories') %> 
+        <%= @commmit.reflected? ? t('commmits.planned_stories.index.finished') : t('commmits.planned_stories.index.add_stories') %> 
       <% end %>
     </div>
   </div>
 </div>
 
-<%= render 'commmits/add_stories/modal', one_off_stories_page: @one_off_stories_page, repeatable_stories_page: @repeatable_stories_page, story: @story, commmit: @commmit %>
+<%= render 'planned_stories/add_stories/modal', one_off_stories_page: @one_off_stories_page, repeatable_stories_page: @repeatable_stories_page, story: @story, commmit: @commmit %>

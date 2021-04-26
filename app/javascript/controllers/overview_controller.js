@@ -5,6 +5,7 @@ export default class extends Controller {
   static targets = ['productivityData', 'chart'];
 
   connect() {
+    console.log('here');
     const options = {
       theme: {
         mode: 'dark',

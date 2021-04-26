@@ -46,13 +46,10 @@ Rails.application.routes.draw do
               }
 
   resource :overview, only: :show
-  resources :commmits do
-    resources :planned_stories do
+  resources :commmits, except: :show do
+    resources :planned_stories, only: %i[index create destroy] do
       patch :mark_as_done
       patch :mark_as_not_done
-    end
-    collection do
-      get :current
     end
   end
 

@@ -1,2 +1,4 @@
-<%= turbo_stream.replace @planned_story, partial: "commmits/planned_story", locals: { commmit: @planned_story.commmit, planned_story: @planned_story  } %>
+<%= turbo_stream.remove @planned_story %>
+
+<%= turbo_stream.append "planned_stories", partial: "planned_stories/planned_story", locals: { commmit: @planned_story.commmit, planned_story: @planned_story  } %>
 <%= turbo_stream.prepend "flash", partial: "shared/flash", locals: { msg_type: :notice, message: t('stories.notice.not_done') } %>

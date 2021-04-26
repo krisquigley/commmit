@@ -16,7 +16,7 @@ Given('I have a finished Commmit with {int} planned stories') do |number|
 end
 
 Then('I should not be able to edit the Commmit') do
-  expect(page).to have_content t('commmits.show.finished')
+  expect(page).to have_content t('commmits.planned_stories.index.finished')
 end
 
 Given('I have an unfinished Commmit with {int} planned stories') do |number|
@@ -86,7 +86,7 @@ end
 
 When('I create a new story with {string} from my Commmit') do |goal|
   visit commmit_path(@commmit)
-  click_on t('commmits.show.add_stories')
+  click_on t('commmits.planned_stories.index.add_stories')
   find('input[id=story_goal]').set(goal)
 
   submit_form
@@ -170,16 +170,16 @@ end
 
 When('I add a one-time Story') do
   visit commmit_path(@commmit)
-  click_on t('commmits.show.add_stories')
+  click_on t('commmits.planned_stories.index.add_stories')
 
   first("button[name='add']").click
 end
 
 Then('I should not be able to add the Story again') do
   visit commmit_path(@commmit)
-  click_on t('commmits.show.add_stories')
+  click_on t('commmits.planned_stories.index.add_stories')
 
-  expect(page).to have_content t('commmits.show.add_story')
+  expect(page).to have_content t('commmits.planned_stories.index.add_story')
 end
 
 Given('a Story') do
@@ -190,14 +190,14 @@ end
 
 When('I add a repeatable story') do
   visit commmit_path(@commmit)
-  click_on t('commmits.show.add_stories')
+  click_on t('commmits.planned_stories.index.add_stories')
 
   first("button[name='add']").click
 end
 
 Then('I should be able to add the Story again') do
   visit commmit_path(@commmit)
-  click_on t('commmits.show.add_stories')
+  click_on t('commmits.planned_stories.index.add_stories')
 
   first("button[name='add']").click
 end
@@ -265,7 +265,7 @@ end
 
 Then('I can still add the repeatable Story again') do
   visit commmit_path(@commmit)
-  click_on t('commmits.show.add_stories')
+  click_on t('commmits.planned_stories.indexh.add_stories')
 
   first("button[name='add']").click
 end
