@@ -1,5 +1,4 @@
 <% if @planned_story.story.one_off? %>
-  <!-- TODO: When creating a new story, it should be appended to commmit_repeatable_stories if repeatable. -->
   <%= turbo_stream.remove "add_#{dom_id(@planned_story.story)}" %>
 <% end %>
 
