@@ -13,7 +13,7 @@ class CommmitsController < ApplicationController
     @commmit = Commmit.new(commmit_params)
 
     if @commmit.save
-      redirect_to @commmit, notice: t('commmits.notice.created')
+      redirect_to commmit_planned_stories_path(@commmit), notice: t('commmits.notice.created')
     else
       render :new
     end

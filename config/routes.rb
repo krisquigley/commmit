@@ -21,7 +21,10 @@ Rails.application.routes.draw do
   mount Sidekiq::Web, at: '/sidekiq'
   mount ActionCable.server => '/cable'
 
-  get '/',  to: 'commmits#current',
+  get '/',  to: 'planned_stories#index',
+            params: {
+              commmit_id: 'current'
+            },
             constraints: {
               subdomain: /.+/
             },

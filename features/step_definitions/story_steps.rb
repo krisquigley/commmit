@@ -15,21 +15,17 @@ end
 When('I create a Story with the goal of {string}') do |goal|
   visit stories_path
 
-  click_link t('stories.index.new_story')
+  click_button t('stories.index.new_story')
 
   find("input[name*='goal']").set(goal)
 
   submit_form
 end
 
-Then('stay on the form to add more Stories') do
-  expect(page).to have_current_path new_story_path
-end
-
 When('I create a new Story with invalid details') do
   visit stories_path
 
-  click_link t('stories.index.new_story')
+  click_button t('stories.index.new_story')
 
   submit_form
 end

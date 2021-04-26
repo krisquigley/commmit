@@ -2,15 +2,19 @@
 
 class PlannedStoriesController < ApplicationController
   before_action :set_commmit, except: :destroy
-  before_action :set_planned_stories, except: :destroy
-  before_action :set_completed_stories, except: :destroy
-  before_action :set_story, only: :index
-  before_action :set_stories, only: :index
+  before_action :set_planned_stories, except: %i[destroy index]
+  before_action :set_completed_stories, except: %i[destroy index]
 
   def index
     # Redirect to commmits#index if no currently active commmits
-    redirect_to commmits_path if params[:commmit_id] == 'current' &&
-                                 @commmit.is_a?(ActiveRecord::Relation)
+    if params[:commmit_id] == 'current' && @commmit.is_a?(ActiveRecord::Relation)
+      redirect_to commmits_path
+    else
+      set_stories
+      set_planned_stories
+      set_completed_stories
+      set_story
+    end
   end
 
   def create
@@ -19,7 +23,7 @@ class PlannedStoriesController < ApplicationController
     respond_to do |format|
       format.turbo_stream
       format.html do
-        redirect_to commmit_path(@commmit), notice: t('stories.notice.added')
+        redirect_to commmit_planned_stories_path(@commmit), notice: t('stories.notice.added')
       end
     end
   end
@@ -31,7 +35,7 @@ class PlannedStoriesController < ApplicationController
     respond_to do |format|
       format.turbo_stream
       format.html do
-        redirect_to commmit_path(@planned_story.commmit), notice: t('stories.notice.done')
+        redirect_to commmit_planned_stories_path(@planned_story.commmit), notice: t('stories.notice.done')
       end
     end
   end
@@ -43,14 +47,14 @@ class PlannedStoriesController < ApplicationController
     respond_to do |format|
       format.turbo_stream
       format.html do
-        redirect_to commmit_path(@planned_story.commmit), notice: t('stories.notice.not_done')
+        redirect_to commmit_planned_stories_path(@planned_story.commmit), notice: t('stories.notice.not_done')
       end
     end
   end
 
   def destroy
     @planned_story = PlannedStory.find(params[:id])
-    redirect = commmit_path(@planned_story.commmit)
+    redirect = commmit_planned_stories_path(@planned_story.commmit)
 
     return unless @planned_story.destroy
 
