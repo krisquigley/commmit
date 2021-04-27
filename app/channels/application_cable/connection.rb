@@ -5,8 +5,8 @@ module ApplicationCable
     identified_by :current_user
 
     def connect
-      set_current_tenant_by_subdomain(:account, :subdomain)
       self.current_user = find_verified_user
+      ActsAsTenant.current_tenant = current_user.personal_account
       logger.add_tags 'ActionCable', current_user.id
     end
 
@@ -14,7 +14,7 @@ module ApplicationCable
 
     def find_verified_user
       # this checks whether a user is authenticated with devise
-      if verified_user == env['warden'].user
+      if (verified_user = env['warden'].user)
         verified_user
       else
         reject_unauthorized_connection

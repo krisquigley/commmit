@@ -24,6 +24,7 @@ class User < ApplicationRecord
   end
 
   def personal_account
+    # TODO: update all references to find the account by subdomain instead
     accounts.find_by(account_type: 'personal')
   end
 
