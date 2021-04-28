@@ -52,7 +52,7 @@
                id="<%= t('stories.index.new_story').gsub(' ', '-') %>" 
                role="tabpanel" 
                aria-labelledby="<%= t('stories.index.new_story').gsub(' ', '-') %>-tab">
-            <%= turbo_frame_tag "commmit_story_form", class: 'h-100' do %>
+            <%= turbo_frame_tag "planned_stories_story_form", class: 'h-100' do %>
               <%= render 'planned_stories/add_stories/form', story: story, commmit: commmit %>
             <% end %>
           </div>

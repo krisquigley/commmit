@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class StoriesController < ApplicationController
-  before_action :find_story, only: %i[edit update mark_as_done destroy]
+  before_action :find_story, only: %i[show edit update mark_as_done destroy]
   before_action :find_commmit, if: -> { params[:commmit_id] }
 
   def index
@@ -12,6 +12,8 @@ class StoriesController < ApplicationController
 
     @story = Story.new
   end
+
+  def show; end
 
   def new
     @story = Story.new
@@ -24,9 +26,17 @@ class StoriesController < ApplicationController
     respond_to do |format|
       if @story.save
         format.turbo_stream
-        format.html { redirect_to stories_path, notice: t('stories.notice.created') }
+        if @commmit
+          format.html { redirect_to commmit_planned_stories_path(@commmit), notice: t('stories.notice.created') }
+        else
+          format.html { redirect_to stories_path, notice: t('stories.notice.created') }
+        end
       else
-        format.turbo_stream { render turbo_stream.replace(@story, partial: 'stories/form', locals: { story: @story }) }
+        if @commmit
+          format.turbo_stream { render turbo_stream.replace(@story, partial: 'planned_stories/add_stories/form', locals: { story: @story, commmit: @commmit }) }
+        else
+          format.turbo_stream { render turbo_stream.replace(@story, partial: 'stories/form', locals: { story: @story }) }
+        end
         format.html { render :new }
       end
     end

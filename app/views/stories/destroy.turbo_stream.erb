@@ -1,1 +1,2 @@
 <%= turbo_stream.prepend "flash", partial: "shared/flash", locals: { msg_type: :notice, message: t('stories.notice.archived') } %>
+<%= turbo_stream.remove dom_id(@story) %>

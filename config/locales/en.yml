@@ -130,6 +130,7 @@ en:
         label_html: What <b>value(s)</b> does this goal focus on?
         manage: Assign Values
       create: Create Story
+      create_and_add: Create and Add Story
       update: Save Changes
       cancel: Close
     index:

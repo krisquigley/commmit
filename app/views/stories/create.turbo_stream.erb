@@ -1,3 +1,10 @@
+<%= turbo_stream.update "planned_stories_story_form",
+                        partial: 'planned_stories/add_stories/form',
+                        locals: { story: Story.new, commmit: @commmit } if @commmit %>
+<%= turbo_stream.update "story_form", 
+                        partial: 'stories/form', 
+                        locals: { story: Story.new } %>
+
 <% if @story.repeatable? %>
   <%= turbo_stream.prepend "repeatable_stories-1", 
                            partial: 'stories/story', 
@@ -18,10 +25,6 @@
                           planned_story: @story.planned_stories.first, 
                           commmit: @commmit 
                         } if @commmit %>
-
-<%= turbo_stream.replace "story_form", 
-                         partial: 'stories/form', 
-                         locals: { story: Story.new } %>
 
 <%= turbo_stream.prepend "flash", 
                          partial: "shared/flash", 
