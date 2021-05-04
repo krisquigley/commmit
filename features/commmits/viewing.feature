@@ -14,6 +14,16 @@ Feature: Viewing a Commmit
     When I view the "Commmit"
     Then I can see my planned stories
 
+  Scenario: Viewing Todays Commmits with no active Commmits
+    Given that I have no Commmits in progress
+    When I click on Today
+    Then I should be notified that I have no Commmits today
+
+  Scenario: Viewing Todays Commmits with active Commmits
+    Given that I have a Commmit in progress
+    When I click on Today
+    Then I should be taken to the Commmit in progress
+
   Scenario: Viewing a Commmit that has finished
     # Given I have a finished Commmit with 5 planned stories
     # When I view the "Commmit"

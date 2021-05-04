@@ -45,6 +45,7 @@ en:
       created: Commmit Created
       archived: Commmit Archived
       unarchived: Commmit Unarchived
+    alert:
       no_commmits_today: You have no Commmits for today
     index:
       header: 'Commmits'

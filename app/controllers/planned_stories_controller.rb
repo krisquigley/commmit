@@ -8,7 +8,7 @@ class PlannedStoriesController < ApplicationController
   def index
     # Redirect to commmits#index if no currently active commmits
     if params[:commmit_id] == 'current' && @commmit.is_a?(ActiveRecord::Relation)
-      redirect_to commmits_path, alert: t('commmits.notice.no_commmits_today')
+      redirect_to commmits_path, alert: t('commmits.alert.no_commmits_today')
     else
       set_stories
       set_planned_stories

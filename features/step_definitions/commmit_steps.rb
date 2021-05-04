@@ -287,3 +287,23 @@ Then('see the repeatable stories in my list of planned stories') do
     end
   end
 end
+
+Given('that I have no Commmits in progress') do
+  with_tenant do
+    @commmit = create(:finished_commmit)
+  end
+end
+
+Then('I should be notified that I have no Commmits today') do
+  expect(page).to have_content t('commmits.alert.no_commmits_today')
+end
+
+Given('that I have a Commmit in progress') do
+  with_tenant do
+    @commmit = create(:commmit)
+  end
+end
+
+Then('I should be taken to the Commmit in progress') do
+  expect(page).to have_content @commmit.name
+end
