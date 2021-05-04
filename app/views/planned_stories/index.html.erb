@@ -35,8 +35,18 @@
         <%= t('commmits.index.new_commmit') %> 
       <% end if @commmit.no_active_commmits? %>
 
+      <% if !@commmit.in_progress? %>
+        <%= link_to commmit_reflection_path(@commmit), class: "btn btn-lg btn-success btn-block" do %>
+          <%= t('commmits.planned_stories.index.view_reflection')%> 
+        <% end if @commmit.reflected? %>
+
+        <%= link_to new_commmit_reflection_path(@commmit), class: "btn btn-lg btn-success btn-block" do %>
+          <%= t('commmits.planned_stories.index.reflect') %> 
+        <% end if !@commmit.reflected? %>
+      <% end %>
+
       <%= button_tag class: "btn btn-lg btn-primary btn-block", disabled: @commmit.reflected?, data: { toggle: "modal", target: "#addStoriesModal" } do %>
-        <%= @commmit.reflected? ? t('commmits.planned_stories.index.finished') : t('commmits.planned_stories.index.add_stories') %> 
+        <%=  @commmit.reflected? ? t('commmits.planned_stories.index.finished') : t('commmits.planned_stories.index.add_stories') %> 
       <% end %>
     </div>
   </div>

@@ -1,0 +1,15 @@
+<div class="grid-content">
+  <section id="completed_stories">
+    <%= render partial: 'planned_stories/planned_story', collection: @commmit.planned_stories.completed %>
+  </section>
+
+  <section id="incomplete_stories">
+    <%= render partial: 'planned_stories/planned_story', collection: @commmit.planned_stories.todo %>
+  </section>
+
+  <%= render 'form' %>
+</div>
+
+<% content_for(:hide_footer_nav?) do %>
+  true
+<% end %>

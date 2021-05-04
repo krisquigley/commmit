@@ -307,3 +307,23 @@ end
 Then('I should be taken to the Commmit in progress') do
   expect(page).to have_content @commmit.name
 end
+
+Given('I have an elapsed Commmit') do
+  with_tenant do
+    @commmit = create(:finished_commmit)
+  end
+end
+
+When('I view the Commmit') do
+  visit commmit_planned_stories_path(@commmit)
+end
+
+Then('I should be prompted to reflect') do
+  expect(page).to have_current_path(new_commmit_reflection_path(@commmit))
+end
+
+Given('I have a reflected Commmit') do
+  with_tenant do
+    @commmit = finished_commmit_with_completed_planned_stories_and_reflection
+  end
+end

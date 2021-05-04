@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_210_419_195_800) do
+ActiveRecord::Schema.define(version: 20_210_504_224_247) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'pgcrypto'
   enable_extension 'plpgsql'
@@ -64,6 +64,17 @@ ActiveRecord::Schema.define(version: 20_210_419_195_800) do
     t.index ['commmit_id'], name: 'index_planned_stories_on_commmit_id'
     t.index ['created_at'], name: 'index_planned_stories_on_created_at'
     t.index ['story_id'], name: 'index_planned_stories_on_story_id'
+  end
+
+  create_table 'reflections', force: :cascade do |t|
+    t.bigint 'account_id', null: false
+    t.bigint 'commmit_id', null: false
+    t.integer 'happiness', null: false
+    t.text 'notes'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['account_id'], name: 'index_reflections_on_account_id'
+    t.index ['commmit_id'], name: 'index_reflections_on_commmit_id'
   end
 
   create_table 'stories', force: :cascade do |t|

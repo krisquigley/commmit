@@ -48,6 +48,7 @@ Rails.application.routes.draw do
 
   resource :overview, only: :show
   resources :commmits, except: :show do
+    resource :reflection, shallow: true
     resources :planned_stories, only: %i[index create destroy] do
       patch :mark_as_done
       patch :mark_as_not_done

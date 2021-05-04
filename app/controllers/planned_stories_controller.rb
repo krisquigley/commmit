@@ -6,8 +6,7 @@ class PlannedStoriesController < ApplicationController
   before_action :set_completed_stories, except: %i[destroy index]
 
   def index
-    # Redirect to commmits#index if no currently active commmits
-    if params[:commmit_id] == 'current' && @commmit.is_a?(ActiveRecord::Relation)
+    if no_current_commmits?
       redirect_to commmits_path, alert: t('commmits.alert.no_commmits_today')
     else
       set_stories
@@ -65,6 +64,10 @@ class PlannedStoriesController < ApplicationController
   end
 
   private
+
+  def no_current_commmits?
+    params[:commmit_id] == 'current' && @commmit.is_a?(ActiveRecord::Relation)
+  end
 
   def planned_story_params
     params.require(:planned_story).permit(:commmit_id, :story_id, :completed_at, :planned_story_id)

@@ -1,0 +1,35 @@
+<%= form_with url: commmit_reflection_path(@commmit, @reflection), html: { class: 'flex-form' } do |f| %>
+  <div class="form-content">
+    <div class="form-group">
+      <%= f.label t('commmits.reflection.form.notes.label') %>
+      <%= f.text_area :notes, class: "form-control" %>
+    </div>
+
+    <%= f.label t('commmits.reflection.form.happiness.label') %>
+    <div class="form-check">
+      <%= f.radio_button :happiness, 1, class: "form-check-input" %>
+      <%= f.label '1', for: 'happiness_1', class: "form-check-label" %>
+    </div>
+    <div class="form-check">
+      <%= f.radio_button :happiness, 2, class: "form-check-input" %>
+      <%= f.label '2', for: 'happiness_2', class: "form-check-label" %>
+    </div>
+    <div class="form-check">
+      <%= f.radio_button :happiness, 3, class: "form-check-input" %>
+      <%= f.label '3', for: 'happiness_3', class: "form-check-label" %>
+    </div>
+    <div class="form-check">
+      <%= f.radio_button :happiness, 4, class: "form-check-input" %>
+      <%= f.label '4', for: 'happiness_4', class: "form-check-label" %>
+    </div>
+    <div class="form-check">
+      <%= f.radio_button :happiness, 5, class: "form-check-input" %>
+      <%= f.label '5', for: 'happiness_5', class: "form-check-label" %>
+    </div>
+  </div>
+
+  <div class="form-group form-actions">
+    <%= f.submit t('commmits.reflection.form.create'), class: "btn btn-lg btn-success btn-block" %>
+    <%= link_to t('commmits.reflection.form.cancel'), commmit_planned_stories_path(@commmit), class: "btn btn-lg btn-secondary btn-block" %>
+  </div>
+<% end %>

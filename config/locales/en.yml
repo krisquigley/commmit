@@ -40,7 +40,21 @@ en:
         close_modal: Close
         add_story: Add
         finished: Commmit Finished
+        reflect: Reflect
+        view_reflection: View Reflection
       done: Done
+    reflection:
+      notice:
+        created: Reflection Recorded
+      new:
+        header: 'Time to Reflect'
+      form:
+        notes:
+          label: Notes
+        happiness:
+          label: How did your Commmit go?
+        create: Record Reflection
+        cancel: Close
     notice:
       created: Commmit Created
       archived: Commmit Archived
