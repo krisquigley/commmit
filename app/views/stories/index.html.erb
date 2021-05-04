@@ -39,6 +39,7 @@
       <% end %>
       <div class="card-deck">
         <%= turbo_stream_from current_tenant.id, :one_off_stories %>
+        
         <%= turbo_frame_tag "one_off_stories-#{@one_off_stories_page.number}" do %>
           <%= render partial: "story", collection: @one_off_stories_page.records %>
         <% end %>
@@ -61,6 +62,7 @@
 
       <div class="card-deck">
         <%= turbo_stream_from current_tenant.id, :repeatable_stories %>
+        
         <%= turbo_frame_tag "repeatable_stories-#{@repeatable_stories_page.number}" do %>
           <%= render partial: "story", collection: @repeatable_stories_page.records %>
         <% end %>

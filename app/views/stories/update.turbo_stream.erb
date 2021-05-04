@@ -1,0 +1,7 @@
+<%= turbo_stream.replace @story, 
+                         partial: 'stories/story', 
+                         locals: { story: @story } %>
+  
+<%= turbo_stream.prepend "flash", 
+                         partial: "shared/flash", 
+                         locals: { msg_type: :notice, message: t('stories.notice.updated') } %>

@@ -14,6 +14,7 @@
                            partial: 'planned_stories/add_stories/story', 
                            locals: { story: @story, commmit: @commmit } if @commmit %>
 <% else %>
+  <!-- TODO: This isn't going to work for editing stories inline -->
   <%= turbo_stream.prepend "one_off_stories-1", 
                            partial: 'stories/story', 
                            locals: { story: @story }%>

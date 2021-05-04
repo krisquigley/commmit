@@ -23,6 +23,7 @@ class StoriesController < ApplicationController
     @story = Story.new(story_params)
     @story.planned_stories.build(commmit_id: @commmit.id) if @commmit
 
+    # TODO: Split @commmit out into the action `create_from_commmit`
     respond_to do |format|
       if @story.save
         format.turbo_stream
@@ -35,7 +36,7 @@ class StoriesController < ApplicationController
         if @commmit
           format.turbo_stream { render turbo_stream.replace(@story, partial: 'planned_stories/add_stories/form', locals: { story: @story, commmit: @commmit }) }
         else
-          format.turbo_stream { render turbo_stream.replace(@story, partial: 'stories/form', locals: { story: @story }) }
+          format.turbo_stream { render turbo_stream.replace('story_form', partial: 'stories/form', locals: { story: @story }) }
         end
         format.html { render :new }
       end
@@ -49,8 +50,10 @@ class StoriesController < ApplicationController
 
     respond_to do |format|
       if @story.update(story_params)
+        format.turbo_stream
         format.html { redirect_to stories_path, notice: t('stories.notice.updated') }
       else
+        format.turbo_stream { render turbo_stream.replace(@story, partial: 'stories/edit', locals: { story: @story }) }
         format.html { render :edit }
       end
     end
