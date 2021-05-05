@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class PlannedStoriesController < ApplicationController
-  before_action :set_commmit, except: :destroy
-  before_action :set_planned_stories, except: %i[destroy index]
-  before_action :set_completed_stories, except: %i[destroy index]
+  before_action :set_commmit, only: %i[index create mark_as_done mark_as_done mark]
+  before_action :set_planned_stories, only: %i[create mark_as_done mark_as_done mark]
+  before_action :set_completed_stories, only: %i[create mark_as_done mark_as_done mark]
 
   def index
     # Redirect to commmits#index if no currently active commmits
@@ -15,6 +15,10 @@ class PlannedStoriesController < ApplicationController
       set_completed_stories
       set_story
     end
+  end
+
+  def show
+    @planned_story = PlannedStory.find(params[:id])
   end
 
   def create

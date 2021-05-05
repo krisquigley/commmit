@@ -32,6 +32,8 @@
 en:
   commmits:
     planned_stories:
+      show:
+        header: Focus Mode
       index:
         done_divider: DONE
         no_planned_stories_yet: You haven't added any stories yet.
