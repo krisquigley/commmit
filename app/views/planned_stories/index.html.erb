@@ -33,7 +33,7 @@
     <div class="page-actions">
       <%= link_to new_commmit_path, class: "btn btn-lg btn-primary btn-block" do %>
         <%= t('commmits.index.new_commmit') %> 
-      <% end if @commmit.no_active_commmits? %>
+      <% end if !Commmit.active_commmits? %>
 
       <%= button_tag class: "btn btn-lg btn-primary btn-block", disabled: @commmit.reflected?, data: { toggle: "modal", target: "#addStoriesModal" } do %>
         <%= @commmit.reflected? ? t('commmits.planned_stories.index.finished') : t('commmits.planned_stories.index.add_stories') %> 

@@ -7,8 +7,8 @@ class PlannedStoriesController < ApplicationController
 
   def index
     # Redirect to commmits#index if no currently active commmits
-    if params[:commmit_id] == 'current' && @commmit.is_a?(ActiveRecord::Relation)
-      redirect_to commmits_path, alert: t('commmits.alert.no_commmits_today')
+    if params[:commmit_id] == 'current' && !@commmit
+      redirect_to commmits_path
     else
       set_stories
       set_planned_stories
@@ -84,8 +84,10 @@ class PlannedStoriesController < ApplicationController
   end
 
   def set_commmit
+    commmit = Commmit.current
+
     @commmit = if params[:commmit_id] == 'current'
-                 Commmit.current
+                 commmit.first if commmit.size.positive?
                else
                  Commmit.find(params[:commmit_id] || planned_story_params[:commmit_id])
                end
