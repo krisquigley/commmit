@@ -11,7 +11,6 @@ class Commmit < ApplicationRecord
     where('start_date <= ? AND end_date >= ?', Time.current.to_date, Time.current.to_date)
       .kept
       .limit(1)
-      .first
   }
   scope :completed, lambda {
     order(end_date: :desc)
@@ -44,8 +43,8 @@ class Commmit < ApplicationRecord
     start_date > Time.current.to_date
   end
 
-  def no_active_commmits?
-    !Commmit.current.present?
+  def self.active_commmits?
+    Commmit.current.size.positive?
   end
 
   private

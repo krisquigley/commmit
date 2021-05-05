@@ -60,7 +60,7 @@ en:
       archived: Commmit Archived
       unarchived: Commmit Unarchived
     alert:
-      no_commmits_today: You have no Commmits for today
+      no_commmits_today: You have no Commmits in progress.
     index:
       header: 'Commmits'
       no_commmits_yet: You haven't created any Commmits yet

@@ -5,6 +5,8 @@
 <div class="grid-content">
   <% if @page.first? && @page.records.empty? %>
     <p class="text-center text-secondary mt-2"><%= t('commmits.index.no_commmits_yet') %></p>
+  <% elsif !Commmit.active_commmits? %>
+    <p class="text-center text-warning mt-2"><%= t('commmits.alert.no_commmits_today') %></p>
   <% end %>
 
   <div class="card-deck">
