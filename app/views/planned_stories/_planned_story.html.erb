@@ -24,13 +24,13 @@
                       method: :delete, 
                       class: 'link-button discard-link', 
                       data: { action: "click->navigate#stopPropagation" } do %>
-          <%= render 'shared/icons/close_icon', classes: '' %> 
+          <%= image_tag '/images/icons/close_icon.svg' %> 
         <% end unless planned_story.completed? || commmit.reflected? %>
       </div>
       <div class="card-footer">
         <div class="card-footer__left">
-          <%= render 'shared/icons/notes_icon', classes: 'ml-1' if planned_story.story.notes.present? %>
-          <%= render 'shared/icons/repeat_icon', classes: '' if planned_story.story.repeatable? %>
+          <%= image_tag '/images/icons/notes_icon.svg', class: 'ml-1' if planned_story.story.notes.present? %>
+          <%= image_tag '/images/icons/repeat_icon.svg' if planned_story.story.repeatable? %>
         </div>
         <div class="card-footer__right">
           <% if planned_story.completed? %>
@@ -41,7 +41,7 @@
                           method: :patch, 
                           data: { action: "click->navigate#stopPropagation" },
                           disabled: commmit.reflected? do %>
-                <%= render 'shared/icons/done_done_icon', classes: 'text-success' %>
+                <%= image_tag '/images/icons/done_done_icon.svg', class: 'text-success' %>
             <% end %>
           <% else %>
             <%= button_to commmit_planned_story_mark_as_done_path(commmit.id, planned_story), 
@@ -50,7 +50,7 @@
                           method: :patch, 
                           data: { action: "click->navigate#stopPropagation" },
                           disabled: commmit.reflected? do %>
-              <%= render 'shared/icons/done_icon', classes: 'text-success' %>
+              <%= image_tag '/images/icons/done_icon.svg', class: 'text-success' %>
             <% end %>
           <% end %>  
         </div>

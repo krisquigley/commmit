@@ -81,7 +81,7 @@ Then('my Story should have a repeat icon') do
   visit stories_path
 
   within("div[data-container='story']") do
-    expect(page).to have_css("svg[name='repeat_icon']")
+    expect(page).to have_css("img[data-test-id='repeat_icon']")
   end
 end
 
@@ -130,6 +130,6 @@ Then('I should see a cog icon next to it') do
 
   find("a[id='#{t('stories.form.repeatable.forever').tr(' ', '-')}-tab']").click
   within("div[data-container='repeatable_stories']") do
-    expect(page).to have_css "svg[name='automatically_add']"
+    expect(page).to have_css "img[data-test-id='automatically_add']"
   end
 end

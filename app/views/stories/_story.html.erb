@@ -21,14 +21,14 @@
                                           action: "click->navigate#stopPropagation" 
                                         },
                                         name: 'archive_story' do %>
-        <%= render 'shared/icons/close_icon', classes: '' %> 
+        <%= image_tag '/images/icons/close_icon.svg' %> 
       <% end %>
     </div>
     <div class="card-footer">
       <div class="card-footer__left">
-        <%= render 'shared/icons/notes_icon', classes: 'mr-1 card-footer__icon' if story.notes.present? %>
-        <%= render 'shared/icons/repeat_icon', classes: 'mr-1 card-footer__icon' if story.repeatable? %>
-        <%= render 'shared/icons/cog_icon', classes: 'mr-1 card-footer__icon' if story.automatic? %>
+        <%= image_tag '/images/icons/notes_icon.svg', class: 'mr-1 card-footer__icon.svg' if story.notes.present? %>
+        <%= image_tag '/images/icons/repeat_icon.svg', data: { test_id: 'repeat_icon' }, class: 'mr-1 card-footer__icon.svg' if story.repeatable? %>
+        <%= image_tag '/images/icons/cog_icon.svg', data: { test_id: 'automatically_add' }, class: 'mr-1 card-footer__icon.svg' if story.automatic? %>
       </div>
       <div class="card-footer__right">
         <small><i><%= completed_or_added(story) %></i></small>
