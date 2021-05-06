@@ -39,6 +39,7 @@
                           class: 'btn',
                           style: 'padding: 0;',
                           method: :patch, 
+                          data: { action: "click->navigate#stopPropagation" },
                           disabled: commmit.reflected? do %>
                 <%= render 'shared/icons/done_done_icon', classes: 'text-success' %>
             <% end %>
@@ -47,6 +48,7 @@
                           name: 'done',
                           class: 'btn btn-link', 
                           method: :patch, 
+                          data: { action: "click->navigate#stopPropagation" },
                           disabled: commmit.reflected? do %>
               <%= render 'shared/icons/done_icon', classes: 'text-success' %>
             <% end %>

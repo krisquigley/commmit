@@ -20,7 +20,7 @@
                              controller.action_name == 'index' ? 'planned-stories' : '' %>">
     <%= render 'shared/alerts' %>
     <div data-controller="navigate">
-      <%= render 'shared/nav' %>
+      <%= render 'shared/nav' unless (content_for(:hide_nav?)) %>
     </div>
 
     <div class="grid-container">

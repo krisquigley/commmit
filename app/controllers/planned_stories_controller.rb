@@ -6,8 +6,8 @@ class PlannedStoriesController < ApplicationController
   before_action :set_completed_stories, only: %i[create mark_as_done mark_as_done mark]
 
   def index
-    # Redirect to commmits#index if no currently active commmits
     if params[:commmit_id] == 'current' && !@commmit
+      # Redirect to commmits#index if no currently active commmits
       redirect_to commmits_path
     else
       set_stories
@@ -18,7 +18,8 @@ class PlannedStoriesController < ApplicationController
   end
 
   def show
-    @planned_story = PlannedStory.find(params[:id])
+    flash.now.notice = t('commmits.planned_stories.notice.focus_mode')
+    @planned_story = PlannedStory.includes(:commmit, :story, story: :values).find(params[:id])
   end
 
   def create

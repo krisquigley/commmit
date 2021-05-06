@@ -32,8 +32,12 @@
 en:
   commmits:
     planned_stories:
+      notice:
+        focus_mode: You are now in Focus Mode!
       show:
-        header: Focus Mode
+        done: Done
+        cancel: Stop Focussing
+        header: Focus
       index:
         done_divider: DONE
         no_planned_stories_yet: You haven't added any stories yet.
@@ -103,6 +107,7 @@ en:
         create: Log in
       header: Log in
     logout: Log out
+  # TODO: Move some of these into planned_stories
   stories:
     notice:
       done: Marked Story as Done

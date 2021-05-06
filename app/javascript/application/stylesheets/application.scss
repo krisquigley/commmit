@@ -10,6 +10,8 @@
 @import './variables';
 
 @import './alert';
+@import './badge';
+@import './btn-link';
 @import './card';
 @import './discard-link';
 @import './divider';
@@ -18,10 +20,21 @@
 @import './forms';
 @import './footer-navigation';
 @import './grid';
+@import './link-button';
 @import './modal';
 @import './nav-bar';
+@import './nav-link';
+@import './nav-pills';
+@import './page-actions';
+@import './pill-actions';
 @import './story';
 @import './tabs';
+@import './text-secondary';
+@import './tooltip-inner';
+@import './values';
+
+// 3. Style the focus view
+// 4. Move the SVGs out of the partials
 
 html {
   @include enforce-mobile-viewport;
@@ -32,60 +45,4 @@ html {
 body {
   padding-top: 57px;
   height: 100%;
-}
-
-.show-divider {
-  display: flex !important;
-}
-
-.page-actions {
-  position: sticky;
-  bottom: 0.5rem;
-  margin-top: auto;
-}
-
-.pill-actions {
-  position: sticky;
-  top: 0;
-  z-index: 999;
-}
-
-.values {
-  display: inline-flex;
-  justify-content: space-around;
-  flex-flow: wrap;
-}
-
-.badge {
-  font-size: 80%;
-}
-
-.nav-pills {
-  width: 100%;
-  justify-content: space-between;
-}
-
-.nav-link {
-  padding: 0.5rem 1rem;
-}
-
-.close-button {
-  vertical-align: middle;
-  color: white;
-  padding: 0;
-  mix-blend-mode: hard-light;
-}
-
-.link-button {
-  border: 0;
-  background: none;
-}
-
-.tooltip-inner {
-  white-space: pre-wrap;
-}
-
-.btn-link {
-  padding: 0;
-  font-weight: normal;
 }

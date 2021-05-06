@@ -3,14 +3,16 @@
 <% end %> 
 
 <div class="grid-content">
-  <% if @page.first? && @page.records.empty? %>
-    <p class="text-center text-secondary mt-2"><%= t('commmits.index.no_commmits_yet') %></p>
-  <% elsif !Commmit.active_commmits? %>
-    <p class="text-center text-warning mt-2"><%= t('commmits.alert.no_commmits_today') %></p>
-  <% end %>
+  <p class="text-center text-secondary mt-2">
+    <% if @page.first? && @page.records.empty? %>
+      <%= t('commmits.index.no_commmits_yet') %>
+    <% elsif !Commmit.active_commmits? %>
+      <%= t('commmits.alert.no_commmits_today') %>
+    <% end %>
+  </p>
 
   <div class="card-deck">
-    <% cache [Commmit.current, @page.records] do %>
+    <% cache [Commmit.current.first, @page.records] do %>
       <%= turbo_frame_tag "commmits-#{@page.number}" do %>
         <%= render partial: "commmit", collection: @page.records %>
       <% end %>
