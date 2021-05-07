@@ -22,6 +22,12 @@
   padding-right: 15px;
 }
 
+.grid-content--focus-mode {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .grid-actions {
   grid-area: actions;
   padding-left: 15px;

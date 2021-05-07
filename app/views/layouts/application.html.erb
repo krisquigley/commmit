@@ -16,11 +16,13 @@
     <%= javascript_pack_tag 'application', data: { turbo_track: "reload" } %>
   </head>
 
-  <body data-controller="<%= controller.controller_name == 'planned_stories' && 
-                             controller.action_name == 'index' ? 'planned-stories' : '' %>">
+  <body class="<%= "body__logo" if controller.controller_name == 'planned_stories' && 
+                                  controller.action_name == 'show' %>" 
+        data-controller="<%= 'planned-stories' if controller.controller_name == 'planned_stories' && 
+                                                  controller.action_name == 'index' %>">
     <%= render 'shared/alerts' %>
     <div data-controller="navigate">
-      <%= render 'shared/nav' %>
+      <%= render 'shared/nav' unless (content_for(:hide_nav?)) %>
     </div>
 
     <div class="grid-container">

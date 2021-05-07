@@ -32,6 +32,12 @@
 en:
   commmits:
     planned_stories:
+      notice:
+        focus_mode: You are now in Focus Mode!
+      show:
+        done: Done
+        cancel: Stop Focussing
+        header: Focus
       index:
         done_divider: DONE
         no_planned_stories_yet: You haven't added any stories yet.
@@ -101,6 +107,7 @@ en:
         create: Log in
       header: Log in
     logout: Log out
+  # TODO: Move some of these into planned_stories
   stories:
     notice:
       done: Marked Story as Done
@@ -121,7 +128,7 @@ en:
         placeholder: some reason
       repeatable:
         label_html: <b>How many times</b> do you plan to do this?
-        once: Once
+        once: One-off
         forever: Repeatable
       automatically_add:
         label: Automatically add this Story to all future Commmits?
