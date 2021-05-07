@@ -11,8 +11,10 @@
 
 @import './alert';
 @import './badge';
+@import './btn';
 @import './btn-link';
 @import './card';
+@import './card-deck';
 @import './discard-link';
 @import './divider';
 @import './flash-messages';
@@ -33,8 +35,6 @@
 @import './tooltip-inner';
 @import './values';
 
-// 3. Style the focus view
-
 html {
   @include enforce-mobile-viewport;
 
@@ -44,4 +44,12 @@ html {
 body {
   padding-top: 57px;
   height: 100%;
+}
+
+.body__logo {
+  background-image: url(/images/logo.png);
+  background-repeat: no-repeat;
+  background-position-y: -5vh;
+  background-size: 120vw;
+  background-position-x: -10vw;
 }

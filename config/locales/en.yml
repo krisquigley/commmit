@@ -128,7 +128,7 @@ en:
         placeholder: some reason
       repeatable:
         label_html: <b>How many times</b> do you plan to do this?
-        once: Once
+        once: One-off
         forever: Repeatable
       automatically_add:
         label: Automatically add this Story to all future Commmits?

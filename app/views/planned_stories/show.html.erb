@@ -1,39 +1,64 @@
 <% content_for :hide_nav? do %>
   true
 <% end %>
-<h4 class="text-center"><%= t('commmits.planned_stories.show.header') %></h4>
 
-<div class="grid-content">
-  <div class="w-100 card-deck">
-    <h5 class="card--goal font-weight-bold">
-      <%= t('stories.form.goal.label') %> <%= @planned_story.story.goal %>
-      <% if @planned_story.story.reason.present? %>,<% end %>
-    </h5>
+<div class="grid-content grid-content--focus-mode">
+  <div class="w-100 card-deck card-deck--focus-mode">
+    <div class="card <%= "card--finished" if @planned_story.completed? %>"  data-controller="navigate" data-action="click->navigate#navigate">
+      <div class="card-body card__flex">
+        <div class="w-100">
+          <h5 class="card--goal font-weight-bold">
+            <%= t('stories.form.goal.label') %> <%= @planned_story.story.goal %>
+            <% if @planned_story.story.reason.present? %>,<% end %>
+          </h5>
 
-    <% if @planned_story.story.reason.present? %>
-      <h6 class="card--reason">
-        <%= t('stories.form.reason.label') %> <%= @planned_story.story.reason %>.
-      </h6>
-    <% end %>
-    <div class="mt-1">
-      <%= render partial: 'values/value', collection: @planned_story.story.values.filter{|v| v.discarded_at.nil? } %>
+          <% if @planned_story.story.reason.present? %>
+            <h6 class="card--reason">
+              <%= t('stories.form.reason.label') %> <%= @planned_story.story.reason %>.
+            </h6>
+          <% end %>
+          <div class="mt-1">
+            <%= render partial: 'values/value', collection: @planned_story.story.values.filter{|v| v.discarded_at.nil? } %>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="card-footer__left">
+          <%= image_tag '/images/icons/notes_icon.svg', class: 'ml-1' if @planned_story.story.notes.present? %>
+          <%= image_tag '/images/icons/repeat_icon.svg' if @planned_story.story.repeatable? %>
+        </div>
+        <div class="card-footer__right">
+          <small><i><%= completed_or_added(@planned_story.story) %></i></small>
+        </div>
+      </div>
     </div>
 
-    <% if @planned_story.story.notes %>
-      Notes:
+    <div class="story__notes--focus-mode">
       <%= @planned_story.story.notes %>
-    <% end %>
+    </div>
   </div>
 
   <div class="page-actions">
-    <%= button_to commmit_planned_story_mark_as_done_path(@planned_story.commmit, @planned_story), 
+    <% if @planned_story.completed? %>
+      <%= button_to commmit_planned_story_mark_as_not_done_path(@planned_story.commmit, @planned_story), 
+                    name: 'not_done',
+                    class: 'btn',
+                    style: 'padding: 0;',
+                    method: :patch, 
+                    data: { action: "click->navigate#stopPropagation" },
+                    disabled: @planned_story.commmit.reflected? do %>
+          <%= image_tag '/images/icons/done_done_icon.svg', class: 'text-success' %>
+      <% end %>
+    <% else %>
+      <%= button_to commmit_planned_story_mark_as_done_path(@planned_story.commmit, @planned_story), 
                             name: 'done',
-                            class: 'btn btn-lg btn-success btn-block mb-2', 
+                            class: 'btn btn-lg btn-success btn-block mb-2 btn--done', 
                             data: { turbo: false },
                             method: :patch do %>
-      <%= image_tag '/images/icons/done_icon.svg', class: '' %> 
-      <%= t('commmits.planned_stories.show.done') %> 
-    <% end %>
+        <%= image_tag '/images/icons/done_icon--white.svg', class: 'pr-1' %> 
+        <%= t('commmits.planned_stories.show.done') %> 
+      <% end %>
+    <% end %>  
 
     <%= link_to commmit_planned_stories_path(@planned_story.commmit), class: "btn btn-lg btn-danger btn-block" do %>
       <%= t('commmits.planned_stories.show.cancel') %> 

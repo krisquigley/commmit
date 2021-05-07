@@ -1,11 +1,15 @@
 <% cache [commmit, planned_story, planned_story.story] do %>
   <%= turbo_frame_tag dom_id(planned_story) do %>
-    <div class="card <%= planned_story.completed? ? "card--finished" : "" %>"  data-controller="navigate" data-action="click->navigate#navigate">
+    <div class="card <%= "card--finished" if planned_story.completed? %>"  data-controller="navigate" data-action="click->navigate#navigate">
       <div class="card-body card__flex">
         <div class="w-100">
           <h5 class="card--goal">
-            <%= link_to planned_story_path(planned_story), data: { navigate_target: :link }, class: 'font-weight-bold' do %>
+            <% if planned_story.completed? %>
               <%= t('stories.form.goal.label') %> <%= planned_story.story.goal %>
+            <% else %>
+              <%= link_to planned_story_path(planned_story), data: { navigate_target: :link }, class: 'font-weight-bold' do %>
+                <%= t('stories.form.goal.label') %> <%= planned_story.story.goal %>
+              <% end %>
             <% end %>
             <% if planned_story.story.reason.present? %>,<% end %>
           </h5>
