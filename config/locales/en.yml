@@ -78,7 +78,7 @@ en:
       header: Commmit
     form:
       name:
-        label_html: What <b>one</b> thing must you get done today?
+        label_html: What's the <b>focus</b> for the day?
       create: Create Commmit
       cancel: Close
   confirmations:
