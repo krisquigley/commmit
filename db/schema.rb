@@ -63,16 +63,6 @@ ActiveRecord::Schema.define(version: 20_210_508_220_537) do
     t.index ['story_id'], name: 'index_planned_stories_on_story_id'
   end
 
-  create_table 'reflections', force: :cascade do |t|
-    t.bigint 'account_id', null: false
-    t.bigint 'commmit_id', null: false
-    t.integer 'happiness', null: false
-    t.text 'notes'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.index ['account_id'], name: 'index_reflections_on_account_id'
-    t.index ['commmit_id'], name: 'index_reflections_on_commmit_id'
-  end
 
   create_table 'stories', force: :cascade do |t|
     t.string 'goal', null: false
