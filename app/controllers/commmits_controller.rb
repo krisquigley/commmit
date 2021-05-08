@@ -31,6 +31,6 @@ class CommmitsController < ApplicationController
   private
 
   def commmit_params
-    params.require(:commmit).permit(:name, :length_in_days, :start_date)
+    params.require(:commmit).permit(:name)
   end
 end

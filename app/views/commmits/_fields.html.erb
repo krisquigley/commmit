@@ -1,41 +1,11 @@
 <div class="form-content">
+  <%= render 'shared/errors', object: @commmit %>
+
   <div class="form-group">
     <%= f.label :name, t('commmits.form.name.label_html') %>
     <%= f.text_field :name, required: true, 
                             autocomplete: 'off', 
                             class: "form-control", 
                             autofocus: :autofocus %>
-  </div>
-
-  <div class="form-group" data-controller="startdate">
-    <%= f.label :start_date, t('commmits.form.start_date.label_html') %><br/>
-    <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
-      <label class="btn btn-secondary active w-50" for="today">
-        <input type="radio" name="day" id="today" checked data-action="startdate#today"> 
-        <%= t('commmits.form.start_date.today') %>
-      </label>
-      <label class="btn btn-secondary w-50" for="tomorrow">
-        <input type="radio" name="day" id="tomorrow" data-action="startdate#tomorrow"> 
-        <%= t('commmits.form.start_date.tomorrow') %>
-      </label>
-    </div>
-    <%= f.text_field :start_date, required: true, 
-                                  class: "form-control", 
-                                  type: :date, 
-                                  value: Time.current.to_date, 
-                                  data: { startdate_target: :date } %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :length_in_days, t('commmits.form.length_in_days.label_html') %><br/>
-    <%= f.select :length_in_days, options_for_select({ 
-      t('commmits.form.length_in_days.option1') => "1", 
-      t('commmits.form.length_in_days.option2') => "2", 
-      t('commmits.form.length_in_days.option3') => "3", 
-      t('commmits.form.length_in_days.option4') => "4", 
-      t('commmits.form.length_in_days.option5') => "5",
-      t('commmits.form.length_in_days.option6') => "6",
-      t('commmits.form.length_in_days.option7') => "7"
-    }, selected: t('commmits.form.length_in_days.option1')), {}, class: "form-control w-100" %> 
   </div>
 </div>

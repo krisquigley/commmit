@@ -1,5 +1,9 @@
+<% content_for :nav_header do %>
+  <%= t('commmits.new.header') %>
+<% end %> 
+
 <div class="grid-content">
-  <%= form_with model: @commmit, html: { class: 'flex-form' } do |f| %>
+  <%= form_with model: @commmit, html: { class: 'flex-form', data: { turbo: false } } do |f| %>
     <%= render 'fields', f: f %>
 
     <div class="form-group form-actions">
