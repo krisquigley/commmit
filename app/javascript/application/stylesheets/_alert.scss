@@ -1,10 +1,8 @@
 .alert {
-  @include enforce-mobile-viewport;
-
-  margin-left: 7px;
-  width: calc(#{$mobile-width} - 14px);
   opacity: 0.9;
   z-index: 9999;
-  top: 0;
+  width: fit-content;
   margin-bottom: 0;
+  margin-left: auto;
+  margin-right: auto;
 }

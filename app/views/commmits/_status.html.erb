@@ -18,14 +18,4 @@
       %>
     </i>
   </small>
-<% elsif commmit.not_started? %>
-  <small>
-    <i>
-      <%= t('commmits.index.statuses.not_started') %>
-      <%= distance_of_time_in_words(commmit.start_date, 
-                                    Time.current.to_date, 
-                                    scope: 'datetime.distance_in_words.days_and_months_future')
-      %>
-    </i>
-  </small>
 <% end %>

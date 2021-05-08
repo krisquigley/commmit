@@ -3,16 +3,14 @@
 FactoryBot.define do
   factory :commmit do
     name { Faker::Hipster.word }
-    start_date { Time.current.to_date }
-    length_in_days { 1 }
+    end_date { Time.current.to_date }
 
     trait :discarded do
       discarded_at { Time.now }
     end
 
     trait :finished do
-      start_date { Date.yesterday }
-      length_in_days { 1 }
+      end_date { Time.current.to_date.yesterday }
     end
 
     factory :discarded_commmit, traits: [:discarded]
