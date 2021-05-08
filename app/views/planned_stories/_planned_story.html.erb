@@ -3,31 +3,22 @@
     <div class="card <%= "card--finished" if planned_story.completed? %>"  data-controller="navigate" data-action="click->navigate#navigate">
       <div class="card-body card__flex">
         <div class="w-100">
-          <% if planned_story.completed? %>
-            <h5 class="card--goal">
+          <h5 class="card--goal">
+            <% if planned_story.completed? %>
               <%= t('stories.form.goal.label') %> <%= planned_story.story.goal %>
-              <% if planned_story.story.reason.present? %>,<% end %>
-            </h5>
-
-            <% if planned_story.story.reason.present? %>
-              <h6 class="card--reason">
-                <%= t('stories.form.reason.label') %> <%= planned_story.story.reason %>.
-              </h6>
-            <% end %>
-          <% else %>
-            <h5 class="card--goal">
-              <%= link_to planned_story_path(planned_story), data: { navigate_target: :link }, class: "font-weight-bold", style: commmit.finished? ? "text-decoration: line-through" : "" do %>
+            <% else %>
+              <%= link_to planned_story_path(planned_story), data: { navigate_target: :link }, class: 'font-weight-bold' do %>
                 <%= t('stories.form.goal.label') %> <%= planned_story.story.goal %>
               <% end %>
-            </h5>
-
-            <% if planned_story.story.reason.present? %>
-              <h6 class="card--reason" style="<%= commmit.finished? ? "text-decoration: line-through" : "" %>">
-                <%= t('stories.form.reason.label') %> <%= planned_story.story.reason %>.
-              </h6>
             <% end %>
-          <% end %>
+            <% if planned_story.story.reason.present? %>,<% end %>
+          </h5>
 
+          <% if planned_story.story.reason.present? %>
+            <h6 class="card--reason">
+              <%= t('stories.form.reason.label') %> <%= planned_story.story.reason %>.
+            </h6>
+          <% end %>
           <div class="mt-1">
             <%= render partial: 'values/value', collection: planned_story.story.values.filter{|v| v.discarded_at.nil? } %>
           </div>
