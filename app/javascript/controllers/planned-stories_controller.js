@@ -42,7 +42,7 @@ export default class extends Controller {
     const percentageComplete = (completedStoryCount / totalCount) * 100.0 || 0;
     // Show the divider if there are completed stories
     this.doneDividerTarget.classList.toggle(
-      'show-divider',
+      'divider--show',
       completedStoryCount !== 0,
     );
 

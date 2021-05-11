@@ -138,19 +138,9 @@ Then('I can view my Reflection') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Given('I already have a Commmit which starts tomorrow') do
-  with_tenant do
-    create(:commmit, start_date: Date.tomorrow)
-  end
-end
-
-Then('I should see that it starts tomorrow') do
-  expect(page).to have_content t('commmits.index.statuses.not_started')
-end
-
 Given('I already have a Commmit which is in progress') do
   with_tenant do
-    create(:commmit, start_date: Time.current.to_date, length_in_days: 3)
+    create(:commmit, end_date: Time.current.to_date)
   end
 end
 
@@ -160,7 +150,7 @@ end
 
 Given('I already have a Commmit which has finished') do
   with_tenant do
-    create(:commmit, start_date: Date.yesterday)
+    create(:commmit, end_date: Date.yesterday)
   end
 end
 
@@ -326,4 +316,20 @@ Given('I have a reflected Commmit') do
   with_tenant do
     @commmit = finished_commmit_with_completed_planned_stories_and_reflection
   end
+end
+
+Given('I have a finished Commmit') do
+  with_tenant do
+    create(:finished_commmit)
+  end
+end
+
+Given('I already have a Commmit for today') do
+  with_tenant do
+    create(:commmit)
+  end
+end
+
+Then('I should be notified that a Commmit already exists for today') do
+  expect(page).to have_content t('activerecord.errors.models.commmit.attributes.end_date.taken')
 end

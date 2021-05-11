@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_210_504_224_247) do
+ActiveRecord::Schema.define(version: 20_210_508_220_537) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'pgcrypto'
   enable_extension 'plpgsql'
@@ -38,19 +38,16 @@ ActiveRecord::Schema.define(version: 20_210_504_224_247) do
 
   create_table 'commmits', force: :cascade do |t|
     t.string 'name', null: false
-    t.integer 'length_in_days', default: 1, null: false
-    t.date 'start_date', default: -> { 'CURRENT_DATE' }, null: false
     t.bigint 'account_id', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.integer 'commmit_stories_count'
     t.datetime 'discarded_at'
-    t.date 'end_date'
+    t.date 'end_date', default: -> { 'CURRENT_DATE' }, null: false
     t.index ['account_id'], name: 'index_commmits_on_account_id'
     t.index ['created_at'], name: 'index_commmits_on_created_at'
     t.index ['discarded_at'], name: 'index_commmits_on_discarded_at'
     t.index ['end_date'], name: 'index_commmits_on_end_date'
-    t.index ['start_date'], name: 'index_commmits_on_start_date'
   end
 
   create_table 'planned_stories', force: :cascade do |t|

@@ -7,6 +7,10 @@
 </div>
 
 <div class="grid-content">
+  <% if !@commmit.in_progress? %>
+    <p class="text-center text-secondary mt-2"><%= t('commmits.planned_stories.index.finished') %></p>
+  <% end %>
+  
   <div class="card-deck" data-container="planned_stories">
     <p class="text-center text-secondary mt-2" data-planned-stories-target="message"></p>
 
@@ -45,8 +49,8 @@
         <% end if !@commmit.reflected? %>
       <% end %>
 
-      <%= button_tag class: "btn btn-lg btn-primary btn-block", disabled: @commmit.reflected?, data: { toggle: "modal", target: "#addStoriesModal" } do %>
-        <%=  @commmit.reflected? ? t('commmits.planned_stories.index.finished') : t('commmits.planned_stories.index.add_stories') %> 
+      <%= button_tag class: "btn btn-lg btn-#{@commmit.in_progress? ? 'primary' : 'secondary' } btn-block", disabled: @commmit.reflected?, data: { toggle: "modal", target: "#addStoriesModal" } do %>
+        <%= @commmit.reflected? ? t('commmits.planned_stories.index.finished') : t('commmits.planned_stories.index.add_stories') %> 
       <% end %>
     </div>
   </div>

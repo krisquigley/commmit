@@ -12,10 +12,10 @@ Rails.application.routes.draw do
       # - (see also ActiveSupport::SecurityUtils.variable_size_secure_compare)
       ActiveSupport::SecurityUtils
         .secure_compare(::Digest::SHA256.hexdigest(username),
-                        ::Digest::SHA256.hexdigest(ENV['SIDEKIQ_USERNAME'])) &
+                        ::Digest::SHA256.hexdigest(ENV.fetch('SIDEKIQ_USERNAME'))) &
         ActiveSupport::SecurityUtils
         .secure_compare(::Digest::SHA256.hexdigest(password),
-                        ::Digest::SHA256.hexdigest(ENV['SIDEKIQ_PASSWORD']))
+                        ::Digest::SHA256.hexdigest(ENV.fetch('SIDEKIQ_PASSWORD')))
     end
   end
   mount Sidekiq::Web, at: '/sidekiq'
@@ -49,7 +49,7 @@ Rails.application.routes.draw do
   resource :overview, only: :show
   resources :commmits, except: :show do
     resource :reflection, shallow: true
-    resources :planned_stories, only: %i[index create destroy] do
+    resources :planned_stories, only: %i[show index create destroy] do
       patch :mark_as_done
       patch :mark_as_not_done
     end

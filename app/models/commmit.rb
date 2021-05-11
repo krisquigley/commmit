@@ -6,26 +6,27 @@ class Commmit < ApplicationRecord
   acts_as_tenant :account
   auto_strip_attributes :name
 
-  scope :most_recent_first, -> { order(start_date: :desc) }
+  scope :most_recent_first, -> { order(end_date: :desc) }
   scope :current, lambda {
-    where('start_date <= ? AND end_date >= ?', Time.current.to_date, Time.current.to_date)
+    where(end_date: Time.current.to_date)
       .kept
-      .limit(1)
   }
   scope :completed, lambda {
     order(end_date: :desc)
       .where('end_date < ?', Time.current.to_date)
+      .kept
   }
 
-  validates :name, :length_in_days, :end_date, :start_date, presence: true
-  validates :length_in_days, numericality: { only_integer: true, greater_than: 0 }
+  before_validation :set_end_date
+
+  validates :name, :end_date, presence: true
+  validates_uniqueness_of :end_date, conditions: -> { where(discarded_at: nil) }
 
   has_many :planned_stories, dependent: :destroy
   has_many :stories, through: :planned_stories
   has_one :reflection, dependent: :destroy
 
   after_create :automatically_add_repeatable_stories
-  before_validation :set_end_date
 
   def reflected?
     reflection.present?
@@ -36,11 +37,7 @@ class Commmit < ApplicationRecord
   end
 
   def in_progress?
-    start_date <= Time.current.to_date && end_date >= Time.current.to_date
-  end
-
-  def not_started?
-    start_date > Time.current.to_date
+    end_date == Time.current.to_date
   end
 
   def self.active_commmits?
@@ -58,6 +55,6 @@ class Commmit < ApplicationRecord
   end
 
   def set_end_date
-    self.end_date = start_date + (length_in_days - 1)
+    self.end_date = Time.current.to_date unless end_date
   end
 end

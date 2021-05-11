@@ -1,25 +1,25 @@
 <div class="btn-group btn-group-lg footer-navigation" role="group" aria-label="Footer Navigation">
   <%= link_to overview_path, class: "btn btn-secondary #{active("overview")} w-50", type: :button do %>
     <div class="footer-navigation__buttons">
-      <%=  render 'shared/icons/overview_icon', classes: '' %>
+      <%= image_tag '/images/icons/overview_icon.svg' %>
       <small><%= t('footer_nav.overview_button') %></small>
     </div>
   <% end %>
   <%= link_to commmit_planned_stories_path(commmit_id: 'current'), class: "btn btn-secondary #{active("commmits/current/planned_stories")} w-50", type: :button do %>
     <div class="footer-navigation__buttons">
-      <%= render 'shared/icons/logo_icon', classes: '' %>
+      <%= image_tag '/images/icons/logo_icon.svg' %>
       <small><%= t('footer_nav.commmits_button') %></small>
     </div>
   <% end %>
     <%= link_to stories_path, class: "btn btn-secondary #{active("stories")} w-50", type: :button, disabled: true do %>
     <div class="footer-navigation__buttons">
-      <%=  render 'shared/icons/story_icon', classes: '' %>
+      <%= image_tag '/images/icons/story_icon.svg' %>
       <small><%= t('footer_nav.stories_button') %></small>
     </div>
   <% end %>
     <%= link_to stories_path, class: "btn btn-secondary disabled #{active("barriers")} w-50", type: :button, disabled: true do %>
     <div class="footer-navigation__buttons">
-      <%= render 'shared/icons/barrier_icon', classes: '' %>
+      <%= image_tag '/images/icons/barrier_icon.svg' %>
       <small><%= t('footer_nav.barriers_button') %></small>
     </div>
   <% end %>

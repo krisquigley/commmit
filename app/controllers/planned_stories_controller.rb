@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class PlannedStoriesController < ApplicationController
-  before_action :set_commmit, except: :destroy
-  before_action :set_planned_stories, except: %i[destroy index]
-  before_action :set_completed_stories, except: %i[destroy index]
+  before_action :set_commmit, only: %i[index create mark_as_done mark_as_done mark]
+  before_action :set_planned_stories, only: %i[create mark_as_done mark_as_done mark]
+  before_action :set_completed_stories, only: %i[create mark_as_done mark_as_done mark]
 
   def index
     if params[:commmit_id] == 'current' && !@commmit
@@ -15,6 +15,11 @@ class PlannedStoriesController < ApplicationController
       set_completed_stories
       set_story
     end
+  end
+
+  def show
+    flash.now.notice = t('commmits.planned_stories.notice.focus_mode')
+    @planned_story = PlannedStory.includes(:commmit, :story, story: :values).find(params[:id])
   end
 
   def create
@@ -30,7 +35,7 @@ class PlannedStoriesController < ApplicationController
 
   def mark_as_done
     @planned_story = PlannedStory.find(params[:planned_story_id])
-    @planned_story.update(completed_at: Time.now)
+    @planned_story.update(completed_at: Time.now) unless @planned_story.completed_at.present?
 
     respond_to do |format|
       format.turbo_stream

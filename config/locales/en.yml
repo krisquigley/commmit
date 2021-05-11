@@ -30,8 +30,27 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  activerecord:
+    attributes:
+      commmit:
+        end_date: ''
+
+    errors:
+      models:
+        commmit:
+          attributes:
+            end_date:
+              taken: 'Only one Commmit can be created per day'
   commmits:
+    validation:
+      already_exists: You already have a Commmit for today.
     planned_stories:
+      notice:
+        focus_mode: You are now in Focus Mode!
+      show:
+        done: Done
+        cancel: Stop Focussing
+        header: Focus
       index:
         done_divider: DONE
         no_planned_stories_yet: You haven't added any stories yet.
@@ -69,22 +88,11 @@ en:
         finished: Finished
         in_progress: Finishes
       new_commmit: New Commmit
+    new:
+      header: Commmit
     form:
       name:
-        label_html: What do you want to <b>focus</b> on?
-      start_date:
-        label_html: <b>When</b> do you want to start?
-        today: Today
-        tomorrow: Tomorrow
-      length_in_days:
-        label_html: <b>How many days</b> do you want to commit to?
-        option1: One Day
-        option2: Two Days
-        option3: Three Days
-        option4: Four Days
-        option5: Five Days
-        option6: Six Days
-        option7: Seven Days
+        label_html: Name <b>one</b> thing that you want to get done today.
       create: Create Commmit
       cancel: Close
   confirmations:
@@ -115,6 +123,7 @@ en:
         create: Log in
       header: Log in
     logout: Log out
+  # TODO: Move some of these into planned_stories
   stories:
     notice:
       done: Marked Story as Done
@@ -135,7 +144,7 @@ en:
         placeholder: some reason
       repeatable:
         label_html: <b>How many times</b> do you plan to do this?
-        once: Once
+        once: One-off
         forever: Repeatable
       automatically_add:
         label: Automatically add this Story to all future Commmits?

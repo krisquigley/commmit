@@ -12,4 +12,8 @@
     color: grey;
     margin: 0 1rem;
   }
+
+  &--show {
+    display: flex !important;
+  }
 }
