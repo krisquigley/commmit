@@ -4,12 +4,31 @@
 <div class="grid-content">
   <div data-controller="overview">
     <input type="hidden" data-overview-target="productivityData" value="<%= productivity %>" />
+    <input type="hidden" data-overview-target="happinessData" value="<%= happiness %>" />
     <div class="card-deck">
       <div class="card">
-        <div class="card-header">Productivity</div>
-        <div data-overview-target="chart" style="height: 252.267px;"></div>
+        <div class="card-header"><%= t('overview.productivity') %></div>
+        <div data-overview-target="productivityChart" style="height: 252.267px;"></div>
         <div class="card-footer">
-          Previous <%= @seven_recent_commmits.size %> Commmits: <%= render 'shared/productivity_badge', productivity: average_productivity %>
+          <div class="card-footer__left">
+            <%= image_tag '/images/icons/done_done_icon.svg', class: 'mr-1' %> 
+            Prev. 7 Commmits: 
+            <span class="text-light"><%= average_productivity %></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><%= t('overview.happiness') %></div>
+        <div data-overview-target="happinessChart" style="height: 252.267px;"></div>
+        <div class="card-footer">
+          <div class="card-footer__left">
+            <span class="mr-1">
+              <%= render 'happiness', average: average_happiness %>
+            </span>
+            Prev. 7 Commmits: 
+            <span class="text-light"><%= average_happiness %></span>
+          </div>
         </div>
       </div>
     </div>

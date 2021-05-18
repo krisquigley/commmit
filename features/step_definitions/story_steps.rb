@@ -120,7 +120,7 @@ end
 
 When('I choose to make the Story get automatically added') do
   find("label[for='story_repeatable_true']").click
-  find("input[name*='automatically_add']").check
+  find("label[for='story_automatically_add_true']").click
 
   submit_form
 end
