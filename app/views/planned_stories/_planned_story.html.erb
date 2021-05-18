@@ -1,10 +1,10 @@
-<% cache [commmit, planned_story, planned_story.story] do %>
+<% cache [commmit, planned_story, planned_story.story, reflecting] do %>
   <%= turbo_frame_tag dom_id(planned_story) do %>
-    <div class="card <%= "card--finished" if planned_story.completed? %>"  data-controller="navigate" data-action="click->navigate#navigate">
+    <div class="card <%= "card--finished" if planned_story.completed? && !reflecting %>"  data-controller="navigate" data-action="click->navigate#navigate">
       <div class="card-body card__flex">
         <div class="w-100">
           <h5 class="card--goal">
-            <% if planned_story.completed? %>
+            <% if planned_story.completed? || reflecting %>
               <%= t('stories.form.goal.label') %> <%= planned_story.story.goal %>
             <% else %>
               <%= link_to planned_story_path(planned_story), data: { navigate_target: :link }, class: 'font-weight-bold' do %>
@@ -29,7 +29,7 @@
                       class: 'link-button discard-link', 
                       data: { action: "click->navigate#stopPropagation" } do %>
           <%= image_tag '/images/icons/close_icon.svg' %> 
-        <% end unless planned_story.completed? || commmit.reflected? %>
+        <% end unless planned_story.completed? || reflecting || commmit.reflected? %>
       </div>
       <div class="card-footer">
         <div class="card-footer__left">
@@ -46,7 +46,7 @@
                           data: { action: "click->navigate#stopPropagation" },
                           disabled: commmit.reflected? do %>
                 <%= image_tag '/images/icons/done_done_icon.svg', class: 'text-success' %>
-            <% end %>
+            <% end unless reflecting %>
           <% else %>
             <%= button_to commmit_planned_story_mark_as_done_path(commmit.id, planned_story), 
                           name: 'done',
@@ -55,7 +55,7 @@
                           data: { action: "click->navigate#stopPropagation" },
                           disabled: commmit.reflected? do %>
               <%= image_tag '/images/icons/done_icon.svg', class: 'text-success' %>
-            <% end %>
+            <% end unless reflecting || commmit.reflected? %>
           <% end %>  
         </div>
       </div>

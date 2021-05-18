@@ -66,13 +66,17 @@ en:
       notice:
         created: Reflection Recorded
       new:
-        header: 'Time to Reflect'
+        no_results: None
+        header: Time to Reflect
+        completed_stories: Completed Stories
+        incomplete_stories: Incomplete Stories
       form:
         notes:
-          label: Notes
+          label: Reflection
+          placeholder: What would you do differently next time?
         happiness:
           label: How did your Commmit go?
-        create: Record Reflection
+        create: Save Reflection
         cancel: Close
     notice:
       created: Commmit Created
@@ -107,6 +111,8 @@ en:
   forms:
     errors: prohibited this form from being saved
   overview:
+    productivity: Productivity
+    happiness: Happiness
     show:
       header: Overview
   passwords:

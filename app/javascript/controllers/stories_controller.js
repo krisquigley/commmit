@@ -1,7 +1,7 @@
 import { Controller } from 'stimulus';
 
 export default class extends Controller {
-  static targets = ['autoAdd', 'repeatable', 'autoAddCheckbox'];
+  static targets = ['autoAdd', 'repeatable', 'autoAddRadio'];
 
   connect() {
     if (this.repeatableTarget.checked) {
@@ -14,7 +14,7 @@ export default class extends Controller {
   }
 
   hideAutoAdd() {
-    this.autoAddCheckboxTarget.checked = false;
+    this.autoAddRadioTarget.checked = false;
     this.autoAddTarget.style.display = 'none';
   }
 }

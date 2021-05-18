@@ -13,7 +13,7 @@ class Value < ApplicationRecord
   has_and_belongs_to_many :stories
 
   after_save do
-    stories.update_all updated_at: Time.zone.now
+    stories.update_all updated_at: Time.current
   end
 
   private

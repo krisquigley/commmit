@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(version: 20_210_508_220_537) do
     t.bigint 'account_id', null: false
     t.bigint 'commmit_id', null: false
     t.integer 'happiness', null: false
+    t.boolean 'goal_met', default: false, null: false
     t.text 'notes'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false

@@ -26,7 +26,7 @@ class Story < ApplicationRecord
   has_and_belongs_to_many :values
 
   after_save do
-    planned_stories.update_all updated_at: Time.zone.now
+    planned_stories.update_all updated_at: Time.current
   end
 
   def completed?

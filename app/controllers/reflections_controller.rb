@@ -19,6 +19,9 @@ class ReflectionsController < ApplicationController
 
   def show
     @commmit = Commmit.includes(:reflection).find(params[:commmit_id])
+    @reflection = @commmit.reflection
+
+    render file: "#{Rails.root}/public/404.html", layout: false, status: :not_found unless @reflection
   end
 
   private

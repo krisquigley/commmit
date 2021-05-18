@@ -8,7 +8,7 @@ Feature: Reflections
 
   Scenario: Prompting the user to reflection
     Given I have an elapsed Commmit
-    When I view the Commmit
+    When I try to create a new Commmit
     Then I should be prompted to reflect
 
   Scenario: Showing the user what they did and didn't achieve

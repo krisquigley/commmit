@@ -1,11 +1,9 @@
-<div class="grid-content">
-  <section id="completed_stories">
-    <%= render partial: 'planned_stories/planned_story', collection: @commmit.planned_stories.completed %>
-  </section>
+<% content_for :nav_header do %>
+  <%= t('commmits.reflection.new.header') %>
+<% end %> 
 
-  <section id="incomplete_stories">
-    <%= render partial: 'planned_stories/planned_story', collection: @commmit.planned_stories.todo %>
-  </section>
+<div class="grid-content">
+  <%= render 'results', commmit: @commmit %>
 
   <%= render 'form' %>
 </div>

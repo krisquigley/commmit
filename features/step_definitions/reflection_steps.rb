@@ -6,7 +6,6 @@ end
 
 Then("I should be shown what I have and haven't completed") do
   with_tenant do
-    print page.html
     within "section[id='completed_stories']" do
       @commmit.planned_stories.completed.each do |story|
         expect(page).to have_content story.goal
@@ -22,8 +21,11 @@ Then("I should be shown what I have and haven't completed") do
 end
 
 Then('I should be able to add notes') do
+  within "form[action='#{commmit_reflection_path(@commmit)}']" do
+    choose(option: '3')
+  end
+
   fill_in 'notes', with: 'my notes'
-  choose(option: '3')
 
   submit_form
 
@@ -33,13 +35,17 @@ Then('I should be able to add notes') do
 end
 
 Then('record my happiness') do
-  choose(option: '3')
+  within "form[action='#{commmit_reflection_path(@commmit)}']" do
+    choose(option: '3')
+  end
 
   submit_form
 
   visit commmit_reflection_path(@commmit)
 
-  expect(page).to have_content 3
+  with_tenant do
+    expect(@commmit.reflection.happiness).to eq 3
+  end
 end
 
 Then('I should be able to view the completed reflection') do

@@ -11,3 +11,9 @@ Feature: Overview
   #   When I click on the Overview button
   #   Then I should see my productivity for recent Commmits
   #   And an average for previous Commmits
+
+  Scenario: Viewing recent happiness
+  #   Given I have some completed Commmits
+  #   When I click on the Overview button
+  #   Then I should see my happiness for recent Commmits
+  #   And an average for previous Commmits

@@ -5,7 +5,7 @@ Feature: Creating Commmits
     And already logged in
 
   Scenario: Creating a Commmit with valid data
-    Given I have a finished Commmit
+    Given I have a reflected Commmit
     When I create a Commmit with the name test
     Then I should be notified that my "Commmit" was "created"
     And see "Test" in my list of "Commmits"

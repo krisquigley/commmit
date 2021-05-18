@@ -7,6 +7,7 @@ class CreateReflections < ActiveRecord::Migration[6.1]
       t.belongs_to :commmit, null: false
 
       t.integer :happiness, null: false
+      t.boolean :goal_met, default: false, null: false
 
       t.text :notes
 
