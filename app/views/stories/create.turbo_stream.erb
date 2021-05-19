@@ -24,7 +24,8 @@
                         partial: 'planned_stories/planned_story', 
                         locals: { 
                           planned_story: @story.planned_stories.first, 
-                          commmit: @commmit 
+                          commmit: @commmit,
+                          reflecting: false
                         } if @commmit %>
 
 <%= turbo_stream.prepend "flash", 
