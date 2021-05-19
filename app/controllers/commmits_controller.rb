@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class CommmitsController < ApplicationController
+  before_action :time_to_reflect?, only: :new
+
   def index
     set_page_and_extract_portion_from Commmit.includes(:planned_stories).kept.most_recent_first
   end
@@ -29,6 +31,15 @@ class CommmitsController < ApplicationController
   end
 
   private
+
+  def time_to_reflect?
+    completed_commmits = Commmit.completed.limit(1)
+
+    return unless completed_commmits.size.positive?
+
+    most_recent_commmit = completed_commmits.first
+    redirect_to new_commmit_reflection_path(most_recent_commmit) unless most_recent_commmit&.reflected?
+  end
 
   def commmit_params
     params.require(:commmit).permit(:name)

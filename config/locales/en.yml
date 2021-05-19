@@ -59,7 +59,25 @@ en:
         close_modal: Close
         add_story: Add
         finished: Commmit Finished
+        reflect: Reflect
+        view_reflection: View Reflection
       done: Done
+    reflection:
+      notice:
+        created: Reflection Recorded
+      new:
+        no_results: None
+        header: Time to Reflect
+        completed_stories: Completed Stories
+        incomplete_stories: Incomplete Stories
+      form:
+        notes:
+          label: Reflection
+          placeholder: What would you do differently next time?
+        happiness:
+          label: How did your Commmit go?
+        create: Save Reflection
+        cancel: Close
     notice:
       created: Commmit Created
       archived: Commmit Archived
@@ -93,6 +111,8 @@ en:
   forms:
     errors: prohibited this form from being saved
   overview:
+    productivity: Productivity
+    happiness: Happiness
     show:
       header: Overview
   passwords:

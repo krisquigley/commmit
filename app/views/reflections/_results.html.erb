@@ -1,0 +1,39 @@
+<section id="completed_stories" class="mb-3">
+  <h5 class="text-center mb-3 text-success"><%= t('commmits.reflection.new.completed_stories') %></h5>
+
+  <% if commmit.planned_stories.completed.size > 0 %>
+    <div class="card-deck">
+      <%= render partial: 'planned_stories/planned_story', 
+                  collection: commmit.planned_stories.completed,
+                  locals: { commmit: commmit, reflecting: true } %>
+    </div>
+  <% else %>
+    <%= content_tag :div, class: 'divider', style: 'display: flex' do %>
+      <div class="dropdown-divider"></div>
+
+      <small><%= t('commmits.reflection.new.no_results') %></small>
+      
+      <div class="dropdown-divider"></div>
+    <% end %>
+  <% end %>
+</section>
+
+<section id="incomplete_stories" class="mb-5">
+  <h5 class="text-center mb-3 text-warning"><%= t('commmits.reflection.new.incomplete_stories') %></h5>
+  
+  <% if commmit.planned_stories.todo.size > 0 %>
+    <div class="card-deck">
+      <%= render partial: 'planned_stories/planned_story', 
+                collection: commmit.planned_stories.todo,
+                locals: { commmit: commmit, reflecting: true } %>
+    </div>
+  <% else %>
+    <%= content_tag :div, class: 'divider mb-5', style: 'display: flex' do %>
+      <div class="dropdown-divider"></div>
+
+      <small><%= t('commmits.reflection.new.no_results') %></small>
+      
+      <div class="dropdown-divider"></div>
+    <% end %>
+  <% end %>
+</section>

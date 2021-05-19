@@ -1,0 +1,13 @@
+<% content_for :nav_header do %>
+  <%= t('commmits.reflection.new.header') %>
+<% end %> 
+
+<div class="grid-content">
+  <%= render 'results', commmit: @commmit %>
+
+  <%= render 'form' %>
+</div>
+
+<% content_for(:hide_footer_nav?) do %>
+  true
+<% end %>

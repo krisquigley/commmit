@@ -42,26 +42,34 @@
 <div class="form-group">
   <%= f.label :repeatable, t('stories.form.repeatable.label_html') %><br/>
 
-  <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
-    <label class="btn btn-secondary <%= 'active' if !story&.repeatable %> w-50" for="story_repeatable_false">
+  <div class="btn-group btn-group-toggle w-100" data-toggle="buttons" role="group" aria-label="Repeatable?">
+    <label class="btn btn-secondary btn-colored_toggle <%= 'active' if !story&.repeatable? %> w-50" for="story_repeatable_false">
       <%= f.radio_button :repeatable, false, data: { action: "stories#hideAutoAdd" } %>
       <%= t('stories.form.repeatable.once') %>
     </label>
 
-    <label class="btn btn-secondary <%= 'active' if story&.repeatable %> w-50" for="story_repeatable_true">
+    <label class="btn btn-secondary btn-colored_toggle <%= 'active' if story&.repeatable? %> w-50" for="story_repeatable_true">
       <%= f.radio_button :repeatable, true, data: { stories_target: "repeatable", action: "stories#showAutoAdd" }, checked: story&.repeatable %>
       <%= t('stories.form.repeatable.forever') %>
     </label>
   </div>
+</div>
 
-  <div class="mt-2" data-stories-target="autoAdd" style="display: none">
-    <div class="form-check">
-      <%= f.check_box :automatically_add, class: "form-check-input", data: { stories_target: 'autoAddCheckbox' } %>
+<div class="form-group mt-2" data-stories-target="autoAdd" style="display: none">
+  <%= f.label :automatically_add, class: "form-check-label" do %>
+    <%= t('stories.form.automatically_add.label') %>
+  <% end %>
 
-      <%= f.label :automatically_add, class: "form-check-label" do %>
-        <%= t('stories.form.automatically_add.label') %>
-      <% end %>
-    </div>
+  <div class="btn-group btn-group-toggle w-100" data-toggle="buttons" role="group" aria-label="Automatically add to every Commmit?">
+    <label class="btn btn-secondary btn-colored_toggle <%= 'active' if story&.automatic? %> w-50" for="story_automatically_add_true">
+      <%= f.radio_button :automatically_add, true, checked: story&.automatic?, data: { stories_target: 'autoAddRadio' } %>
+      Yes
+    </label>
+
+    <label class="btn btn-secondary btn-colored_toggle <%= 'active' if !story&.automatic? %> w-50" for="story_automatically_add_false">
+      <%= f.radio_button :automatically_add, false %>
+      No
+    </label>
   </div>
 </div>
 

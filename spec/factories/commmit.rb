@@ -62,3 +62,14 @@ def finished_commmit_with_completed_planned_stories(stories_count: 5)
     end
   end
 end
+
+def finished_commmit_with_completed_planned_stories_and_reflection(stories_count: 5)
+  FactoryBot.create(:finished_commmit) do |commmit|
+    FactoryBot.create_list(:completed_story, stories_count) do |story|
+      story.save
+      FactoryBot.create(:completed_planned_story, commmit: commmit, story: story)
+    end
+
+    FactoryBot.create(:completed_reflection, commmit: commmit)
+  end
+end

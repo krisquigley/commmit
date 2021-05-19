@@ -57,7 +57,7 @@
                             method: :patch do %>
         <%= image_tag '/images/icons/done_icon--white.svg', class: 'pr-1' %> 
         <%= t('commmits.planned_stories.show.done') %> 
-      <% end %>
+      <% end unless @planned_story.commmit.reflected? %>
     <% end %>  
 
     <%= link_to commmit_planned_stories_path(@planned_story.commmit), class: "btn btn-lg btn-danger btn-block" do %>
