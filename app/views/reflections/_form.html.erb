@@ -1,4 +1,4 @@
-<%= form_with url: commmit_reflection_path(@commmit, @reflection) do |f| %>
+<%= form_with url: commmit_reflection_path(@commmit, @reflection), data: { turbo: false } do |f| %>
   <div class="form-content">
     <div class="form-group mb-5">
       <h6 class="text-center mb-3"><%= t('commmits.reflection.form.goal_met.label') %></h6>
@@ -23,7 +23,7 @@
              width="16" 
              height="16" 
              fill="currentColor" 
-             class="bi bi-question-circle" 
+             class="ml-1 bi bi-question-circle" 
              viewBox="0 0 16 16" 
              data-toggle="tooltip" 
              data-placement="top"

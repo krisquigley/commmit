@@ -3,6 +3,8 @@
 <% end %> 
 
 <div class="grid-content">
+  <%= render 'shared/errors', object: @reflection %>
+
   <%= render 'results', commmit: @commmit %>
 
   <%= render 'form' %>
