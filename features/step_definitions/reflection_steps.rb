@@ -23,6 +23,7 @@ end
 Then('I should be able to add notes') do
   within "form[action='#{commmit_reflection_path(@commmit)}']" do
     choose(option: '3')
+    choose(option: 'true')
   end
 
   fill_in 'notes', with: 'my notes'
@@ -37,6 +38,7 @@ end
 Then('record my happiness') do
   within "form[action='#{commmit_reflection_path(@commmit)}']" do
     choose(option: '3')
+    choose(option: 'true')
   end
 
   submit_form
@@ -57,4 +59,8 @@ Then('I should be able to view the completed reflection') do
     expect(page).to have_current_path(commmit_reflection_path(@commmit))
     expect(page).to have_content(@commmit.reflection.notes)
   end
+end
+
+Then('I should be prompted to reflect') do
+  expect(page).to have_current_path(new_commmit_reflection_path(@commmit, redirect: true))
 end

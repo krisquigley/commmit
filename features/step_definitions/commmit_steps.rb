@@ -339,10 +339,6 @@ Then('I should be taken to the Commmit in progress') do
   expect(page).to have_content @commmit.name
 end
 
-Then('I should be prompted to reflect') do
-  expect(page).to have_current_path(new_commmit_reflection_path(@commmit))
-end
-
 Then('I should be notified that a Commmit already exists for today') do
   expect(page).to have_content t('activerecord.errors.models.commmit.attributes.end_date.taken')
 end

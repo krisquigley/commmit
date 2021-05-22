@@ -64,18 +64,20 @@ en:
       done: Done
     reflection:
       notice:
+        new: Time to Reflect
         created: Reflection Recorded
       new:
         no_results: None
-        header: Time to Reflect
         completed_stories: Completed Stories
         incomplete_stories: Incomplete Stories
       form:
+        goal_met:
+          label: Did you achieve your goal this Commmit?
         notes:
           label: Reflection
-          placeholder: What would you do differently next time?
+          placeholder: Notes
         happiness:
-          label: How did your Commmit go?
+          label: How happy are you with your progress, this Commmit?
         create: Save Reflection
         cancel: Close
     notice:
@@ -93,7 +95,7 @@ en:
         in_progress: Finishes
       new_commmit: New Commmit
     new:
-      header: Commmit
+      header: New Commmit
     form:
       name:
         label_html: Name <b>one</b> thing that you want to get done today.

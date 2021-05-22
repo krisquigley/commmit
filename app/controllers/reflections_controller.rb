@@ -11,7 +11,8 @@ class ReflectionsController < ApplicationController
     @reflection = @commmit.build_reflection(reflection_params)
 
     if @reflection.save
-      redirect_to commmits_path, notice: t('commmits.reflection.notice.created')
+      redirect_to new_commmit_path, notice: t('commmits.reflection.notice.created') if params[:redirect]
+      redirect_to commmits_path, notice: t('commmits.reflection.notice.created') unless params[:redirect]
     else
       render :new
     end
@@ -27,6 +28,6 @@ class ReflectionsController < ApplicationController
   private
 
   def reflection_params
-    params.permit(:notes, :happiness)
+    params.permit(:goal_met, :happiness, :notes)
   end
 end

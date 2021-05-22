@@ -5,5 +5,5 @@ class Reflection < ApplicationRecord
 
   belongs_to :commmit, touch: true
 
-  validates :happiness, presence: true
+  validates :happiness, :goal_met, presence: true
 end

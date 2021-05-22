@@ -38,7 +38,7 @@ class CommmitsController < ApplicationController
     return unless completed_commmits.size.positive?
 
     most_recent_commmit = completed_commmits.first
-    redirect_to new_commmit_reflection_path(most_recent_commmit) unless most_recent_commmit&.reflected?
+    redirect_to new_commmit_reflection_path(most_recent_commmit, redirect: true), notice: t('commmits.reflection.notice.new') unless most_recent_commmit&.reflected?
   end
 
   def commmit_params

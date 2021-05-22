@@ -1,5 +1,5 @@
 <section id="completed_stories" class="mb-3">
-  <h5 class="text-center mb-3 text-success"><%= t('commmits.reflection.new.completed_stories') %></h5>
+  <h6 class="text-center mb-3 text-success"><%= t('commmits.reflection.new.completed_stories') %></h6>
 
   <% if commmit.planned_stories.completed.size > 0 %>
     <div class="card-deck">
@@ -19,7 +19,7 @@
 </section>
 
 <section id="incomplete_stories" class="mb-5">
-  <h5 class="text-center mb-3 text-warning"><%= t('commmits.reflection.new.incomplete_stories') %></h5>
+  <h6 class="text-center mb-3 text-warning"><%= t('commmits.reflection.new.incomplete_stories') %></h6>
   
   <% if commmit.planned_stories.todo.size > 0 %>
     <div class="card-deck">
