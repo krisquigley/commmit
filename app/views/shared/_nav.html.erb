@@ -5,7 +5,7 @@
 
   <div class="section-heading">
     <div>
-      <% if controller.controller_name == 'planned_stories' && controller.action_name == 'index' %>
+      <% if show_productivity? %>
         <%= render 'shared/productivity_badge', productivity: content_for(:productivity) %> 
       <% end %>
     </div>

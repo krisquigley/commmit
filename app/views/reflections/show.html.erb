@@ -2,6 +2,10 @@
   <%= @commmit.name %>
 <% end %> 
 
+<% content_for :productivity do %>
+  <%= @commmit.planned_stories.completed.size %>
+<% end %> 
+
 <div class="grid-content">
   <%= render 'results', commmit: @commmit %>
 

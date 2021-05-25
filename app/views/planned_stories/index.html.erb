@@ -16,8 +16,8 @@
 
     <%= turbo_frame_tag "planned_stories", data: { 'planned-stories_target': 'plannedStories'} do %>
       <%= render partial: 'planned_story', 
-                collection: @planned_stories, 
-                locals: { commmit: @commmit, reflecting: false } %>
+                 collection: @planned_stories, 
+                 locals: { commmit: @commmit, reflecting: false } %>
     <% end %>
 
     <%= content_tag :div, class: 'divider', data: { 'planned-stories_target': 'doneDivider' } do %>
@@ -30,8 +30,8 @@
 
     <%= turbo_frame_tag "completed_planned_stories", data: { 'planned-stories_target': 'completedStories'} do %>
       <%= render partial: 'planned_story', 
-                collection: @completed_stories, 
-                locals: { commmit: @commmit, reflecting: false } %>
+                 collection: @completed_stories, 
+                 locals: { commmit: @commmit, reflecting: false } %>
     <% end %>
 
     <div class="page-actions">

@@ -9,4 +9,9 @@ module CommmitsHelper
   def completed_planned_stories(commmit)
     commmit.planned_stories.count(&:completed_at)
   end
+
+  def show_productivity?
+    controller.controller_name == 'planned_stories' && controller.action_name == 'index' ||
+      controller.controller_name == 'reflections'
+  end
 end
