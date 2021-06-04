@@ -55,7 +55,7 @@ When('I create a one-time Story') do
   visit new_story_path
 
   find("input[name*='goal']").set('Test')
-  find("input[value='false']").click
+  find("label[for='story_repeatable_false']").click
 
   submit_form
 end
@@ -72,13 +72,15 @@ When('I create a repeatable Story') do
   visit new_story_path
 
   find("input[name*='goal']").set('Test')
-  find("input[value='true']").click
+  find("label[for='story_repeatable_true']").click
 
   submit_form
 end
 
 Then('my Story should have a repeat icon') do
   visit stories_path
+
+  click_on t('stories.form.repeatable.forever')
 
   within("div[data-container='story']") do
     expect(page).to have_css("img[data-test-id='repeat_icon']")
@@ -105,7 +107,7 @@ end
 
 Then('I should see my repeatable Story under the Repeatable tab') do
   visit stories_path
-
+  click_on t('stories.form.repeatable.forever')
   within("div[data-container='repeatable_stories']") do
     expect(page).to have_content @story.goal
   end
@@ -116,6 +118,8 @@ Given('I am creating a repeatable Story') do
 
   find("input[name*='goal']").set('Test')
   find("label[for='story_repeatable_true']").click
+
+  click_on t('stories.form.cancel')
 end
 
 When('I choose to make the Story get automatically added') do

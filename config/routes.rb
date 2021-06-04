@@ -53,11 +53,16 @@ Rails.application.routes.draw do
       patch :mark_as_done
       patch :mark_as_not_done
     end
+
+    get :add_one_off_stories, to: 'planned_stories#add_one_off_stories'
+    get :add_repeatable_stories, to: 'planned_stories#add_repeatable_stories'
   end
 
   resources :stories do
     resources :planned_stories, shallow: true
   end
+  get :one_off_stories, to: 'stories#one_off'
+  get :repeatable_stories, to: 'stories#repeatable'
 
   resources :values
 end

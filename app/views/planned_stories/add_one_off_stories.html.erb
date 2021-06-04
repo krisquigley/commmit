@@ -1,0 +1,15 @@
+<%= turbo_frame_tag "add_one_off_stories" do %>
+  <% if @one_off_stories_page.first? && @one_off_stories_page.records.empty? %>
+    <p class="text-center text-secondary mt-2">
+      <%= link_to t('stories.index.no_stories_yet'), new_story_path %>
+    </p>
+  <% end %>
+
+  <%= render partial: "planned_stories/add_stories/story", collection: @one_off_stories_page.records, locals: { commmit: @commmit } %>
+
+  <%= turbo_frame_tag "add_one_off_stories" do %>
+    <% unless @one_off_stories_page.last? %>
+      <%= link_to "Load More", commmit_add_one_off_stories_path(@commmit, page: @one_off_stories_page.next_param), class: 'btn btn-lg btn-light btn-block mb-4' %>
+    <% end %>
+  <% end %>
+<% end %>

@@ -1,0 +1,12 @@
+<%= turbo_frame_tag "one_off_stories" do %>
+  <% if @one_off_stories_page.first? && @one_off_stories_page.records.empty? %>
+    <p class="text-center mt-4"><%= t('stories.index.no_stories_yet') %></p>
+  <% end %>
+  <%= render partial: "story", collection: @one_off_stories_page.records %>
+
+  <%= turbo_frame_tag "one_off_stories" do %>
+    <% unless @one_off_stories_page.last? %>
+      <%= link_to "Load More", one_off_stories_path(page: @one_off_stories_page.next_param), class: 'btn btn-lg btn-light btn-block mb-4' %>
+    <% end %>
+  <% end %>
+<% end %>

@@ -4,13 +4,16 @@ class StoriesController < ApplicationController
   before_action :find_story, only: %i[show edit update mark_as_done destroy]
   before_action :find_commmit, if: -> { params[:commmit_id] }
 
-  def index
+  def index; end
+
+  def one_off
     @one_off_stories = Story.includes(:values).incomplete.one_off.kept.most_recent_first
     @one_off_stories_page = current_page_from @one_off_stories
+  end
+
+  def repeatable
     @repeatable_stories = Story.includes(:values).repeatable.kept.completed_first
     @repeatable_stories_page = current_page_from @repeatable_stories
-
-    @story = Story.new
   end
 
   def show; end

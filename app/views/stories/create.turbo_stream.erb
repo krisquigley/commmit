@@ -6,18 +6,18 @@
                         locals: { story: Story.new } %>
 
 <% if @story.repeatable? %>
-  <%= turbo_stream.prepend "repeatable_stories-1", 
+  <%= turbo_stream.prepend "repeatable_stories", 
                            partial: 'stories/story', 
                            locals: { story: @story } %>
   
-  <%= turbo_stream.prepend "add_repeatable_stories-1", 
+  <%= turbo_stream.prepend "add_repeatable_stories", 
                            partial: 'planned_stories/add_stories/story', 
                            locals: { story: @story, commmit: @commmit } if @commmit %>
 <% else %>
   <!-- TODO: This isn't going to work for editing stories inline -->
-  <%= turbo_stream.prepend "one_off_stories-1", 
+  <%= turbo_stream.prepend "one_off_stories", 
                            partial: 'stories/story', 
-                           locals: { story: @story }%>
+                           locals: { story: @story } %>
 <% end %>
 
 <%= turbo_stream.append "planned_stories", 

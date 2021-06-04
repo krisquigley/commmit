@@ -1,3 +1,4 @@
+@javascript
 Feature: Listing Stories
 
   Background: 

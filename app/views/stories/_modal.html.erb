@@ -6,7 +6,7 @@
       </div>
       <div class="modal-body">
         <%= turbo_frame_tag "story_form", class: 'h-100' do %>
-          <%= render 'stories/form', story: @story %>
+          <%= render 'stories/form', story: @story || Story.new %>
         <% end %>
       </div>
     </div>

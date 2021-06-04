@@ -1,3 +1,4 @@
+@javascript
 Feature: Managing Stories In a Commmit
   A user can create a Commmit which is a predefined length of time in which to focus on a set of stories.
 

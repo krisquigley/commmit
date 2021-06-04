@@ -1,0 +1,12 @@
+<%= turbo_frame_tag "repeatable_stories" do %>
+  <% if @repeatable_stories_page.first? && @repeatable_stories_page.records.empty? %>
+    <p class="text-center mt-4"><%= t('stories.index.no_repeatable_stories_yet') %></p>
+  <% end %>
+  <%= render partial: "story", collection: @repeatable_stories_page.records %>
+
+  <%= turbo_frame_tag "repeatable_stories" do %>
+    <% unless @repeatable_stories_page.last? %>
+      <%= link_to "Load More", repeatable_stories_path(page: @repeatable_stories_page.next_param), class: 'btn btn-lg btn-light btn-block mb-4' %>
+    <% end %>
+  <% end %>
+<% end %>

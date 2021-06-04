@@ -1,20 +1,35 @@
 # frozen_string_literal: true
 
 class PlannedStoriesController < ApplicationController
-  before_action :set_commmit, only: %i[index create mark_as_done mark_as_done mark]
-  before_action :set_planned_stories, only: %i[create mark_as_done mark_as_done mark]
-  before_action :set_completed_stories, only: %i[create mark_as_done mark_as_done mark]
+  before_action :set_commmit, only: %i[index create mark_as_done mark_as_not_done add_one_off_stories add_repeatable_stories]
+  before_action :set_planned_stories, only: %i[create mark_as_done mark_as_not_done]
+  before_action :set_completed_stories, only: %i[create mark_as_done mark_as_not_done]
 
   def index
     if params[:commmit_id] == 'current' && !@commmit
       # Redirect to commmits#index if no currently active commmits
       redirect_to commmits_path
     else
-      set_stories
       set_planned_stories
       set_completed_stories
-      set_story
     end
+  end
+
+  def add_one_off_stories
+    story_ids = all_planned_stories.map(&:story_id)
+    @one_off_stories_page = current_page_from Story.includes(:values)
+                                                   .incomplete
+                                                   .where.not(id: story_ids)
+                                                   .one_off
+                                                   .kept
+                                                   .most_recent_first
+  end
+
+  def add_repeatable_stories
+    @repeatable_stories_page = current_page_from Story.includes(:values)
+                                                      .repeatable
+                                                      .kept
+                                                      .completed_first
   end
 
   def show
@@ -96,25 +111,5 @@ class PlannedStoriesController < ApplicationController
                else
                  Commmit.find(params[:commmit_id] || planned_story_params[:commmit_id])
                end
-  end
-
-  def set_story
-    @story = Story.new
-  end
-
-  def set_stories
-    # TODO: Only make these calls when loading the modal
-    story_ids = all_planned_stories.map(&:story_id)
-    @one_off_stories_page = current_page_from Story.includes(:values)
-                                                   .incomplete
-                                                   .where.not(id: story_ids)
-                                                   .one_off
-                                                   .kept
-                                                   .most_recent_first
-
-    @repeatable_stories_page = current_page_from Story.includes(:values)
-                                                      .repeatable
-                                                      .kept
-                                                      .completed_first
   end
 end
