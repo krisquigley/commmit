@@ -1,3 +1,4 @@
+@javascript
 Feature: Creating Stories
 
   A story is a paragraph of text which records a goal to be achieved and it's reason for achieving it.
@@ -30,7 +31,7 @@ Feature: Creating Stories
     Then my Story should have no repeat icon
 
   Scenario: Creating a repeatable Story
-    Repeatable Stories are be completed over and over again, and are typically used for chores or building habits.
+    Repeatable Stories can be completed over and over again, and are typically used for chores or building habits.
 
     When I create a repeatable Story
     Then my Story should have a repeat icon

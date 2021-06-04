@@ -1,3 +1,4 @@
+@javascript
 Feature: Archiving Stories
 
   Background: 

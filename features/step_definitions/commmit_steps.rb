@@ -126,6 +126,9 @@ end
 When('I create a new story with {string} from my Commmit') do |goal|
   visit commmit_planned_stories_path(@commmit)
   click_on t('commmits.planned_stories.index.add_stories')
+
+  click_on t('stories.index.new_story')
+
   find('input[id=story_goal]').set(goal)
 
   submit_form
@@ -159,6 +162,8 @@ end
 When('I add a repeatable story') do
   visit commmit_planned_stories_path(@commmit)
   click_on t('commmits.planned_stories.index.add_stories')
+
+  click_on t('stories.form.repeatable.forever')
 
   first("button[name='add']").click
 end
@@ -280,6 +285,8 @@ Then('I should be able to add the Story again') do
   visit commmit_planned_stories_path(@commmit)
   click_on t('commmits.planned_stories.index.add_stories')
 
+  click_on t('stories.form.repeatable.forever')
+
   first("button[name='add']").click
 end
 
@@ -315,6 +322,8 @@ end
 Then('I can still add the repeatable Story again') do
   visit commmit_planned_stories_path(@commmit)
   click_on t('commmits.planned_stories.index.add_stories')
+
+  click_on t('stories.form.repeatable.forever')
 
   first("button[name='add']").click
 end

@@ -1,3 +1,4 @@
+@javascript
 Feature: Editing Stories
 
   Background: 

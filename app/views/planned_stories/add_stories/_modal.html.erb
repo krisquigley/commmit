@@ -11,20 +11,8 @@
                role="tabpanel" 
                aria-labelledby="<%= t('stories.form.repeatable.once') %>-tab">
             <div class="card-deck">
-              <% if one_off_stories_page.first? && one_off_stories_page.records.empty? %>
-                <p class="text-center text-secondary mt-2">
-                  <%= link_to t('stories.index.no_stories_yet'), new_story_path %>
-                </p>
-              <% end %>
-
-              <%= turbo_frame_tag "add_one_off_stories-#{one_off_stories_page.number}" do %>
-                <%= render partial: "planned_stories/add_stories/story", collection: one_off_stories_page.records, locals: { commmit: commmit } %>
-              <% end %>
-
-              <%= turbo_frame_tag "add_one_off_stories-#{one_off_stories_page.next_param}" do %>
-                <% unless one_off_stories_page.last? %>
-                  <%= link_to "Load More", commmit_planned_stories_path(commmit, page: one_off_stories_page.next_param), class: 'btn btn-lg btn-light btn-block mb-4' %>
-                <% end %>
+              <%= turbo_frame_tag "add_one_off_stories", src: commmit_add_one_off_stories_path, loading: :lazy do %>
+                Loading...
               <% end %>
             </div>
           </div>
@@ -33,21 +21,9 @@
                role="tabpanel" 
                aria-labelledby="<%= t('stories.form.repeatable.forever').gsub(' ', '-') %>-tab">
             <div class="card-deck">
-              <% if repeatable_stories_page.first? && repeatable_stories_page.records.empty? %>
-                <p class="text-center text-secondary mt-2">
-                  <%= link_to t('stories.index.no_stories_yet'), new_story_path %>
-                </p>
-              <% end %>
-
-              <%= turbo_frame_tag "add_repeatable_stories-#{repeatable_stories_page.number}" do %>
-                <%= render partial: "planned_stories/add_stories/story", collection: repeatable_stories_page.records, locals: { commmit: commmit } %>
+              <%= turbo_frame_tag "add_repeatable_stories", src: commmit_add_repeatable_stories_path, loading: :lazy do %>
+                Loading...
               <% end %> 
-
-              <%= turbo_frame_tag "add_repeatable_stories-#{repeatable_stories_page.next_param}" do %>
-                <% unless repeatable_stories_page.last? %>
-                  <%= link_to "Load More", commmit_planned_stories_path(commmit, page: repeatable_stories_page.next_param), class: 'btn btn-lg btn-light btn-block mb-4' %>
-                <% end %>
-              <% end %>
             </div>
           </div>
           <div class="tab-pane fade" 
@@ -55,7 +31,7 @@
                role="tabpanel" 
                aria-labelledby="<%= t('stories.index.new_story').gsub(' ', '-') %>-tab">
             <%= turbo_frame_tag "planned_stories_story_form", class: 'h-100' do %>
-              <%= render 'planned_stories/add_stories/form', story: story, commmit: commmit %>
+              <%= render 'planned_stories/add_stories/form', story: Story.new, commmit: commmit %>
             <% end %>
           </div>
         </div>
