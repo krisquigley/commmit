@@ -2,12 +2,24 @@
   <%= @commmit.name %>
 <% end %> 
 
+<%= javascript_tag do %>
+  window.I18n = {};
+  window.I18n.no_planned_stories_yet = <%=  t("commmits.planned_stories.index.no_planned_stories_yet").to_json.html_safe %>
+  window.I18n.all_completed = <%= t("commmits.planned_stories.index.all_completed_html", 
+                    add_stories_href: link_to(t('footer_nav.stories_button'), 
+                                              '#', 
+                                              data: { toggle: "modal", target: "#addStoriesModal" }),
+                    reflect_href: link_to(t('commmits.planned_stories.index.reflect_message'),
+                                          new_commmit_reflection_path(@commmit, redirect: true))
+                    ).to_json.html_safe %>
+<% end unless @commmit.finished? %>
+
 <div class="grid-topcontent">
   <%= render 'shared/progress', total_count: (@planned_stories.size + @completed_stories.size), completed_count: @completed_stories.size %>
 </div>
 
 <div class="grid-content">
-  <% if !@commmit.in_progress? %>
+  <% if @commmit.finished? %>
     <p class="text-center text-secondary mt-2"><%= t('commmits.planned_stories.index.finished') %></p>
   <% end %>
   
@@ -35,7 +47,7 @@
     <% end %>
 
     <div class="page-actions">
-      <% if !@commmit.in_progress? %>
+      <% if @commmit.finished? %>
         <%= link_to commmit_reflection_path(@commmit), class: "btn btn-lg btn-success btn-block" do %>
           <%= t('commmits.planned_stories.index.view_reflection')%> 
         <% end if @commmit.reflected? %>
@@ -45,7 +57,7 @@
         <% end if !@commmit.reflected? %>
       <% end %>
 
-      <%= button_tag class: "btn btn-lg btn-#{@commmit.in_progress? ? 'primary' : 'secondary' } btn-block", disabled: @commmit.reflected?, data: { toggle: "modal", target: "#addStoriesModal" } do %>
+      <%= button_tag class: "btn btn-lg btn-#{@commmit.finished? ? 'secondary' : 'primary' } btn-block", disabled: @commmit.reflected?, data: { toggle: "modal", target: "#addStoriesModal" } do %>
         <%= @commmit.reflected? ? t('commmits.planned_stories.index.finished') : t('commmits.planned_stories.index.add_stories') %> 
       <% end %>
     </div>

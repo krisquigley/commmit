@@ -61,11 +61,10 @@ export default class extends Controller {
     // Update the messaging
     if (plannedStoryCount === 0 && completedStoryCount !== 0) {
       this.messageTarget.style.display = 'initial';
-      this.messageTarget.innerHTML =
-        'You have completed all of your planned Stories.';
+      this.messageTarget.innerHTML = window.I18n.all_completed;
     } else if (plannedStoryCount === 0 && completedStoryCount === 0) {
       this.messageTarget.style.display = 'initial';
-      this.messageTarget.innerHTML = "You haven't added any stories yet.";
+      this.messageTarget.innerHTML = window.I18n.no_planned_stories_yet;
     } else {
       this.messageTarget.style.display = 'none';
     }

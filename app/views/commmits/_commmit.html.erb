@@ -21,10 +21,8 @@
     </div>
     <div class="card-footer">
       <div class="card-footer__left">
-        <% if commmit.finished? %>
-          <%= render 'reflection_status', reflected: commmit.reflected?%>
-          <span class="ml-1 mr-1">&middot;</span>
-        <% end %>
+        <%= render 'reflection_status', reflected: commmit.reflected? %>
+        <span class="ml-1 mr-1">&middot;</span>
         <small><%= completed_planned_stories(commmit) %></small>
         <%= image_tag '/images/icons/done_done_icon.svg', class: 'ml-1' %> 
         <span class="ml-1 mr-1">&middot;</span>

@@ -2,17 +2,24 @@
 
 class ReflectionsController < ApplicationController
   def new
-    @commmit = Commmit.find(params[:commmit_id])
+    @commmit = Commmit.includes(:reflection).find(params[:commmit_id])
+
+    return redirect_to commmit_reflection_path(@commmit), alert: t('commmits.reflection.notice.already_exists') if @commmit.reflected?
+
     @reflection = @commmit.build_reflection
   end
 
   def create
-    @commmit = Commmit.find(params[:commmit_id])
+    @commmit = Commmit.includes(:reflection).find(params[:commmit_id])
+
+    return redirect_to commmit_reflection_path(@commmit), alert: t('commmits.reflection.notice.already_exists') if @commmit.reflected?
+
     @reflection = @commmit.build_reflection(reflection_params)
 
     if @reflection.save
-      redirect_to new_commmit_path, notice: t('commmits.reflection.notice.created') if params[:redirect]
-      redirect_to commmits_path, notice: t('commmits.reflection.notice.created') unless params[:redirect]
+      return redirect_to new_commmit_path, notice: t('commmits.reflection.notice.created') if params[:redirect].present?
+
+      redirect_to commmits_path, notice: t('commmits.reflection.notice.created')
     else
       render :new
     end

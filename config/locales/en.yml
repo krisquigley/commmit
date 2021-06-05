@@ -53,9 +53,10 @@ en:
         header: Focus
       index:
         done_divider: DONE
-        no_planned_stories_yet: You haven't added any stories yet.
-        all_completed: You have completed all of your planned Stories.
-        add_stories: Add Stories
+        no_planned_stories_yet: You haven't added any Goals yet.
+        all_completed_html: 'You have completed all of your %{add_stories_href}.<br/><br/> %{reflect_href}'
+        reflect_message: Reflect on how your Commmit went!
+        add_stories: Add Goals
         close_modal: Close
         add_story: Add
         finished: Commmit Finished
@@ -66,10 +67,11 @@ en:
       notice:
         new: Time to Reflect
         created: Reflection Recorded
+        already_exists: You have already Reflected on this Commmit
       new:
         no_results: None
-        completed_stories: Completed Stories
-        incomplete_stories: Incomplete Stories
+        completed_stories: Completed Goals
+        incomplete_stories: Incomplete Goals
       form:
         goal_met:
           label: Did you achieve your goal this Commmit?
@@ -98,7 +100,11 @@ en:
       header: New Commmit
     form:
       name:
-        label_html: Name <b>one</b> thing that you want to get done today.
+        label_html: Name <b>one</b> Goal you want to Commmit to getting done, today.
+      start_date:
+        label: When do you want to start your Commmit?
+        today: Today
+        tomorrow: Tomorrow
       create: Create Commmit
       cancel: Close
   confirmations:
@@ -107,7 +113,7 @@ en:
   footer_nav:
     overview_button: Overview
     commmits_button: Today
-    stories_button: Stories
+    stories_button: Goals
     barriers_button: Barriers
   feedback: Request Feature?
   forms:
@@ -170,8 +176,8 @@ en:
       last_completed: Last Completed
       ago: ago
       new_story: New Story
-      no_repeatable_stories_yet: You haven't created any repeatable stories yet
-      no_stories_yet: You haven't created any stories yet
+      no_repeatable_stories_yet: You haven't created any repeatable goals yet
+      no_stories_yet: You haven't created any goals yet
   values:
     notice:
       created: Created Value

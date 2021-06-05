@@ -14,12 +14,12 @@
     <p class="text-center">'<%= @commmit.name %>'</p>
 
     <div class="btn-group btn-group-toggle w-100" role="group" aria-label="Commmit Goal Met?">
-      <label class="btn btn-secondary <%= 'active' if @reflection.goal_met %> btn-colored_toggle w-50" for="goal_met_true">
-        Yes
-      </label>
-
       <label class="btn btn-secondary <%= 'active' unless @reflection.goal_met %> btn-colored_toggle w-50" for="goal_met_false">
         No
+      </label>
+
+      <label class="btn btn-secondary <%= 'active' if @reflection.goal_met %> btn-colored_toggle w-50" for="goal_met_true">
+        Yes
       </label>
     </div>
   </div>

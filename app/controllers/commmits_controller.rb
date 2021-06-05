@@ -2,9 +2,10 @@
 
 class CommmitsController < ApplicationController
   before_action :time_to_reflect?, only: :new
+  before_action :check_for_current_commmit, only: %w[new create]
 
   def index
-    set_page_and_extract_portion_from Commmit.includes(:planned_stories).kept.most_recent_first
+    set_page_and_extract_portion_from Commmit.includes(:planned_stories, :reflection).kept.most_recent_first
   end
 
   def new
@@ -41,7 +42,11 @@ class CommmitsController < ApplicationController
     redirect_to new_commmit_reflection_path(most_recent_commmit, redirect: true), notice: t('commmits.reflection.notice.new') unless most_recent_commmit&.reflected?
   end
 
+  def check_for_current_commmit
+    @current_commmit = Commmit.current.count
+  end
+
   def commmit_params
-    params.require(:commmit).permit(:name)
+    params.require(:commmit).permit(:name, :end_date)
   end
 end
