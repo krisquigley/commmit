@@ -4,9 +4,14 @@
 
 <div class="grid-content">
   <%= render 'create_value', story: @story %>
+  
   <% @values.each do |value| %>
-    <%= link_to edit_value_path(value), style: "font-size: 1.2rem; display: inline-flex; margin-bottom: 0.5rem" do %> 
-      <%= render 'value', value: value %>  
+    <%= link_to edit_value_path(value) do %> 
+      <span class="btn btn-block mb-2" style="background-color: <%= value.color %>">
+        <span style="color: <%= value.color %>; filter: invert(100%); font-weight: 400">
+          <%= value.name %>
+        </span>
+      </span>
     <% end %>
   <% end %>
 </div>
