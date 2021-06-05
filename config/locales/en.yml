@@ -119,10 +119,13 @@ en:
   forms:
     errors: prohibited this form from being saved
   overview:
-    productivity: Productivity
-    happiness: Happiness
     show:
+      happiness: Happiness
+      goals_met: Commmit Goals Achieved
+      productivity: Productivity
       header: Overview
+      data_range: Prev. 7 Commmits
+      not_enough_data: Data will be shown once you have completed at least two Commmits.
   passwords:
     new:
       header: Forgot your password?
@@ -140,13 +143,13 @@ en:
   # TODO: Move some of these into planned_stories
   stories:
     notice:
-      done: Marked Story as Done
-      not_done: Marked Story as Not Done
-      added: Added Story
-      created: Created Story
-      updated: Updated Story
-      removed: Removed Story from Commmit
-      archived: Archived Story
+      done: Marked Goal as Done
+      not_done: Marked Goal as Not Done
+      added: Added Goal
+      created: Created Goal
+      updated: Updated Goal
+      removed: Removed Goal from Commmit
+      archived: Archived Goal
     form:
       story:
         label_html: <b>What</b> do you want to achieve?
@@ -161,21 +164,21 @@ en:
         once: One-off
         forever: Repeatable
       automatically_add:
-        label: Automatically add this Story to all future Commmits?
+        label: Automatically add this Goal to all future Commmits?
       notes:
         label: Notes
       values:
         label_html: What <b>value(s)</b> does this goal focus on?
         manage: Assign Values
-      create: Create Story
-      create_and_add: Create and Add Story
+      create: Create Goal
+      create_and_add: Create and Add Goal
       update: Save Changes
       cancel: Close
     index:
       added: Added
       last_completed: Last Completed
       ago: ago
-      new_story: New Story
+      new_story: New Goal
       no_repeatable_stories_yet: You haven't created any repeatable goals yet
       no_stories_yet: You haven't created any goals yet
   values:

@@ -40,4 +40,15 @@ module OverviewsHelper
   def find_commmit_for_day(day)
     @seven_recent_commmits.find { |c| c.end_date == day }
   end
+
+  def average_goals_met
+    reflections = @seven_recent_commmits.map(&:reflection)
+    total_reflections = reflections.size
+
+    return 0 if total_reflections.size == 0
+
+    goals_met = reflections.select { |reflection| reflection.goal_met == true }.size
+
+    ((goals_met / (total_reflections * 1.0)) * 100).ceil(0)
+  end
 end

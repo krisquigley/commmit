@@ -2,35 +2,62 @@
   <%= t('overview.show.header') %>
 <% end %> 
 <div class="grid-content">
-  <div data-controller="overview">
-    <input type="hidden" data-overview-target="productivityData" value="<%= productivity %>" />
-    <input type="hidden" data-overview-target="happinessData" value="<%= happiness %>" />
-    <div class="card-deck">
-      <div class="card">
-        <div class="card-header"><%= t('overview.productivity') %></div>
-        <div data-overview-target="productivityChart" style="height: 252.267px;"></div>
-        <div class="card-footer">
-          <div class="card-footer__left">
-            <%= image_tag '/images/icons/done_done_icon.svg', class: 'mr-1' %> 
-            Prev. 7 Commmits: 
-            <span class="text-light"><%= average_productivity %></span>
+  <% if @seven_recent_commmits.size > 2 %>
+    <div data-controller="overview">
+      <input type="hidden" data-overview-target="productivityData" value="<%= productivity %>" />
+      <input type="hidden" data-overview-target="happinessData" value="<%= happiness %>" />
+      <div class="card-deck">
+        <div class="card">
+          <div class="card-header"><%= t('overview.show.goals_met') %></div>
+          <div class="card-body">
+            <div class="progress">
+              <div class="progress-bar bg-danger" role="progressbar"
+                  aria-valuenow="<%= 100 - average_goals_met %>" 
+                  style="width: <%= 100 - average_goals_met %>%"
+                  aria-valuemin="0" aria-valuemax="100">
+                <%= 100 - average_goals_met %>%
+              </div>
+              <div class="progress-bar bg-success" role="progressbar"
+                  aria-valuenow="<%= average_goals_met %>" 
+                  style="width: <%= average_goals_met %>%"
+                  aria-valuemin="0" aria-valuemax="100">
+                <%= average_goals_met %>%
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <%= t('overview.show.data_range') %>
           </div>
         </div>
-      </div>
 
-      <div class="card">
-        <div class="card-header"><%= t('overview.happiness') %></div>
-        <div data-overview-target="happinessChart" style="height: 252.267px;"></div>
-        <div class="card-footer">
-          <div class="card-footer__left">
-            <span class="mr-1">
-              <%= render 'happiness', average: average_happiness %>
-            </span>
-            Prev. 7 Commmits: 
-            <span class="text-light"><%= average_happiness %></span>
+        <div class="card">
+          <div class="card-header"><%= t('overview.show.productivity') %></div>
+          <div data-overview-target="productivityChart" style="height: 252.267px;"></div>
+          <div class="card-footer">
+            <div class="card-footer__left">
+              <%= image_tag '/images/icons/done_done_icon.svg', class: 'mr-1' %> 
+              <%= t('overview.show.data_range') %>:
+              <span class="text-light"><%= average_productivity %></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><%= t('overview.show.happiness') %></div>
+          <div data-overview-target="happinessChart" style="height: 252.267px;"></div>
+          <div class="card-footer">
+            <div class="card-footer__left">
+              <span class="mr-1">
+                <%= render 'happiness', average: average_happiness %>
+              </span>
+              <%= t('overview.show.data_range') %>:
+              <span class="text-light"><%= average_happiness %></span>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  <% else %>
+    <p class="text-center mt-2"><%= t('overview.show.not_enough_data') %></p>
+  <% end %>
 </div>
