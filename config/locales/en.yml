@@ -98,7 +98,7 @@ en:
       header: New Commmit
     form:
       name:
-        label_html: Name <b>one</b> thing that you want to get done today.
+        label_html: Name <b>one</b> thing that you want to Commmit to getting done, today.
       create: Create Commmit
       cancel: Close
   confirmations:
