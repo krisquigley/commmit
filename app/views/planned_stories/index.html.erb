@@ -48,7 +48,7 @@
 
     <div class="page-actions">
       <% if @commmit.finished? %>
-        <%= link_to commmit_reflection_path(@commmit), class: "btn btn-lg btn-success btn-block" do %>
+        <%= link_to commmit_reflection_path(@commmit), class: "btn btn-lg btn-primary btn-block" do %>
           <%= t('commmits.planned_stories.index.view_reflection')%> 
         <% end if @commmit.reflected? %>
 
