@@ -33,15 +33,15 @@ class Commmit < ApplicationRecord
   end
 
   def finished?
-    end_date < Time.current.to_date
+    end_date < Time.current.to_date || reflected?
   end
 
   def in_progress?
-    end_date == Time.current.to_date
+    !finished? && end_date == Time.current.to_date
   end
 
   def self.active_commmits?
-    Commmit.current.size.positive?
+    Commmit.current.count.positive?
   end
 
   private

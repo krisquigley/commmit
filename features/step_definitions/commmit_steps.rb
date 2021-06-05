@@ -196,6 +196,15 @@ When('I view the Commmit') do
   visit commmit_planned_stories_path(@commmit)
 end
 
+When('I create a Commmit with the name test and choose to start it today') do
+  visit new_commmit_path
+
+  find(:css, "input[name*='name']").set('Test')
+  find("label[for='today']").click
+
+  submit_form
+end
+
 ##
 # Then
 

@@ -8,4 +8,21 @@
                             class: "form-control", 
                             autofocus: :autofocus %>
   </div>
+
+  <div class="form-group" data-controller="startdate">
+    <%= f.label :start_date, t('commmits.form.start_date.label') %><br/>
+    <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
+      <label class="btn btn-secondary <%= 'active' unless @current_commmit %> w-50" for="today">
+        <input type="radio" name="day" id="today" <%= 'checked' unless @current_commmit %> data-action="startdate#today"> 
+        <%= t('commmits.form.start_date.today') %>
+      </label>
+      <label class="btn btn-secondary w-50  <%= 'active' if @current_commmit %> " for="tomorrow">
+        <input type="radio" name="day" id="tomorrow" <%= 'checked' if @current_commmit %> data-action="startdate#tomorrow"> 
+        <%= t('commmits.form.start_date.tomorrow') %>
+      </label>
+    </div>
+    <%= f.hidden_field :end_date, required: true, 
+                                  value: @current_commmit ? Time.current.tomorrow.to_date : Time.current.to_date, 
+                                  data: { startdate_target: :date } %>
+  </div>
 </div>
