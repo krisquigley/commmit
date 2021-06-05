@@ -1,7 +1,7 @@
 <%= form_with(model: [story, Value.new], html: { class: 'form-inline' }) do |f| %>
   <%= f.label :name, t('values.form.name.label'), class: 'sr-only' %>
   <div class="input-group mb-2 mr-sm-2">
-    <%= f.text_field :name, class: 'form-control', placeholder: t('values.form.name.label') %>
+    <%= f.text_field :name, class: 'form-control', placeholder: t('values.form.name.label'), style: 'border: 0' %>
     <div class="input-group-append">
       <%= f.submit t('values.form.create'), class: 'btn btn-success mb-2' %>
     </div>

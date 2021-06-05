@@ -185,7 +185,7 @@ en:
       updated: Updated Value
     form:
       name:
-        label: Name of your value
+        label: Name
       color:
         label: Colour
       create: Create Value
