@@ -132,7 +132,7 @@ end
 Then('I should see a cog icon next to it') do
   visit stories_path
 
-  find("a[id='#{t('stories.form.repeatable.forever').tr(' ', '-')}-tab']").click
+  find("a[id='2']").click
   within("div[data-container='repeatable_stories']") do
     expect(page).to have_css "img[data-test-id='automatically_add']"
   end
