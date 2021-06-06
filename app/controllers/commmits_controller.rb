@@ -43,7 +43,7 @@ class CommmitsController < ApplicationController
   end
 
   def check_for_current_commmit
-    @current_commmit = Commmit.current.count
+    @current_commmit = Commmit.current.count.positive?
   end
 
   def commmit_params
