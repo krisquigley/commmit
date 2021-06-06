@@ -2,52 +2,52 @@
   <%= t('footer_nav.stories_button') %>
 <% end %> 
 
-<div class="grid-content">
-  <ul class="nav nav-pills nav-fill mb-2" id="storiesTab" role="tablist">
+<div class="grid-content" data-controller="swipe-between-tabs">
+  <ul class="nav nav-pills nav-fill mb-2" id="storiesTabs" role="tablist">
     <li class="nav-item" role="presentation">
       <a class="nav-link active" 
-          id="<%= t('stories.form.repeatable.once') %>-tab" 
+          id="1" 
           data-toggle="tab" 
-          href="#<%= t('stories.form.repeatable.once') %>" 
+          href="#content-1" 
           role="tab" 
-          aria-controls="home" 
+          aria-controls="1" 
           aria-selected="true">
           <%= t('stories.form.repeatable.once') %>
       </a>
     </li>
     <li class="nav-item" role="presentation">
       <a class="nav-link" 
-          id="<%= t('stories.form.repeatable.forever').gsub(' ', '-') %>-tab" 
+          id="2" 
           data-toggle="tab" 
-          href="#<%= t('stories.form.repeatable.forever').gsub(' ', '-') %>" 
+          href="#content-2" 
           role="tab" 
-          aria-controls="<%= t('stories.form.repeatable.forever') %>" 
+          aria-controls="2" 
           aria-selected="false">
         <%= image_tag '/images/icons/repeat_icon.svg', class: 'mr-2' %> 
         <%= t('stories.form.repeatable.forever') %>
       </a>
     </li>
   </ul>
-  <div class="tab-content" id="storiesTabContent">
+  <div class="tab-content" id="tabContent">
     <div class="tab-pane fade show active" 
-          id="<%= t('stories.form.repeatable.once') %>" 
+          id="content-1" 
           role="tabpanel"
           data-container="one_off_stories"
-          aria-labelledby="<%= t('stories.form.repeatable.once') %>-tab">
+          aria-labelledby="1">
       
       <div class="card-deck">
         <%= turbo_stream_from current_tenant.id, :one_off_stories %>
         
-        <%= turbo_frame_tag "one_off_stories", src: one_off_stories_path, loading: :lazy do %>
+        <%= turbo_frame_tag "one_off_stories", src: one_off_stories_path do %>
           Loading...
         <% end %>
       </div>
     </div>
     <div class="tab-pane fade" 
-        id="<%= t('stories.form.repeatable.forever').gsub(' ', '-') %>" 
+        id="content-2" 
         role="tabpanel" 
         data-container="repeatable_stories"
-        aria-labelledby="<%= t('stories.form.repeatable.forever').gsub(' ', '-') %>-tab">
+        aria-labelledby="2">
 
       <div class="card-deck">
         <%= turbo_stream_from current_tenant.id, :repeatable_stories %>
