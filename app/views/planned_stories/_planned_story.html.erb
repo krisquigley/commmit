@@ -5,18 +5,16 @@
         <div class="w-100">
           <h5 class="card--goal">
             <% if planned_story.completed? || reflecting %>
-              <%= t('stories.form.goal.label') %> <%= planned_story.story.goal %>
+              <%= t('stories.form.goal.label') %> <%= "#{planned_story.story.goal}#{planned_story.story.reason.present? ? ',' : ''}" %>
             <% else %>
               <%= link_to planned_story_path(planned_story), data: { navigate_target: :link }, class: 'font-weight-bold' do %>
-                <%= t('stories.form.goal.label') %> <%= planned_story.story.goal %>
+                <%= t('stories.form.goal.label') %> <%= "#{planned_story.story.goal}#{planned_story.story.reason.present? ? ',' : ''}" %>
               <% end %>
             <% end %>
-            <% if planned_story.story.reason.present? %>,<% end %>
           </h5>
-
           <% if planned_story.story.reason.present? %>
             <h6 class="card--reason">
-              <%= t('stories.form.reason.label') %> <%= planned_story.story.reason %>.
+              <%= t('stories.form.reason.label') %><%= planned_story.story.reason %>.
             </h6>
           <% end %>
           <div class="mt-1">

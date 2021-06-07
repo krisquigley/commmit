@@ -2,8 +2,11 @@
 
 module CommmitsHelper
   def percentage_left(total_number, current_number)
-    percentage_done = current_number.positive? ? (current_number.to_f / total_number) * 100 : 0
-    100 - percentage_done
+    100 - percentage_done(total_number, current_number)
+  end
+
+  def percentage_done(total_number, current_number)
+    current_number.positive? ? (current_number.to_f / total_number) * 100 : 0
   end
 
   def completed_planned_stories(commmit)

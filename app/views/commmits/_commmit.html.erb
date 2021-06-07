@@ -1,4 +1,3 @@
-<%# TODO: If this is a one/two day commmit then show a progress bar, if it is more than two days, show a burndown chart %>
 <% cache [commmit.in_progress?, commmit] do %>
   <div class="card <%= commmit.finished? ? "card--finished" : "" %>" data-controller="navigate" data-action="click->navigate#navigate">
     <%= render 'shared/progress', 
@@ -22,9 +21,6 @@
     <div class="card-footer">
       <div class="card-footer__left">
         <%= render 'reflection_status', reflected: commmit.reflected? %>
-        <span class="ml-1 mr-1">&middot;</span>
-        <small><%= completed_planned_stories(commmit) %></small>
-        <%= image_tag '/images/icons/done_done_icon.svg', class: 'ml-1' %> 
         <span class="ml-1 mr-1">&middot;</span>
         <small><%= commmit.planned_stories.size %></small>
         <%= image_tag '/images/icons/story_icon.svg', class: 'ml-1' %> 

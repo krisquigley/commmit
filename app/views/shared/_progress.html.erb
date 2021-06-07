@@ -5,4 +5,10 @@
       aria-valuemin="0" aria-valuemax="<%= total_count %>">
       <%= total_count - completed_count %>
   </div>
+  <div class="progress-bar bg-success" role="progressbar"
+      aria-valuenow="<%= completed_count %>" 
+      style="width: <%= percentage_done(total_count, completed_count) || 0 %>%"
+      aria-valuemin="0" aria-valuemax="<%= total_count %>">
+    <%= completed_count %>
+  </div>
 </div>

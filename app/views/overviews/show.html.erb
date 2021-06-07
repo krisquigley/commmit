@@ -5,7 +5,10 @@
   <% if @seven_recent_commmits.size > 2 %>
     <div data-controller="overview">
       <input type="hidden" data-overview-target="productivityData" value="<%= productivity %>" />
+      <input type="hidden" data-overview-target="dateRangeData" value="<%= formatted_date_range %>" />
       <input type="hidden" data-overview-target="happinessData" value="<%= happiness %>" />
+      <input type="hidden" data-overview-target="valuesData" value="<%= values %>" />
+      <input type="hidden" data-overview-target="valuesColorData" value="<%= value_colors %>" />
       <div class="card-deck">
         <div class="card">
           <div class="card-header"><%= t('overview.show.goals_met') %></div>
@@ -15,18 +18,22 @@
                   aria-valuenow="<%= 100 - average_goals_met %>" 
                   style="width: <%= 100 - average_goals_met %>%"
                   aria-valuemin="0" aria-valuemax="100">
-                <%= 100 - average_goals_met %>%
+                No
               </div>
               <div class="progress-bar bg-success" role="progressbar"
                   aria-valuenow="<%= average_goals_met %>" 
                   style="width: <%= average_goals_met %>%"
                   aria-valuemin="0" aria-valuemax="100">
-                <%= average_goals_met %>%
+                Yes
               </div>
             </div>
           </div>
           <div class="card-footer">
-            <%= t('overview.show.data_range') %>
+            <div class="card-footer__left">
+              <span class="ml-1">'Yes'</span>
+              <%= t('overview.show.data_range') %>:
+              <span class="text-light"><%= average_goals_met %>%</span>
+            </div>
           </div>
         </div>
 
@@ -54,6 +61,11 @@
               <span class="text-light"><%= average_happiness %></span>
             </div>
           </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><%= t('overview.show.values') %></div>
+          <div data-overview-target="valuesChart" style="height: 252.267px;"></div>
         </div>
       </div>
     </div>
