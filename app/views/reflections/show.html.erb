@@ -23,9 +23,30 @@
       </label>
     </div>
   </div>
+
+  <div class="mb-5">
+    <h6 class="text-center mb-3" data-controller="reflection">
+      <%= t('commmits.reflection.form.notes.label') %>
+      <svg xmlns="http://www.w3.org/2000/svg" 
+            width="16" 
+            height="16" 
+            fill="currentColor" 
+            class="ml-1 bi bi-question-circle" 
+            viewBox="0 0 16 16" 
+            data-toggle="tooltip" 
+            data-placement="top"
+            data-html="true"
+            title="What went well?<br/>What could be better?<br/>What would you do differently next time?"
+            data-action="click->reflection#showReflectionTooltip">
+        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+        <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
+      </svg>
+    </h6>
+
+    <p><%= @reflection&.notes %></p>
+  </div>
   
-  <h6 class="text-center mb-3"> <%= label_tag t('commmits.reflection.form.happiness.label') %></h6>
-  
+  <h6 class="text-center mb-3"> <%= t('commmits.reflection.form.happiness.label') %></h6>
   <div class="reflection__happiness mb-5">
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#8d8d8d" class="bi bi-emoji-angry <%= 'active' if @reflection&.happiness == 1 %>" viewBox="0 0 16 16">
       <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
@@ -59,11 +80,5 @@
       <path d="M4.968 9.75a.5.5 0 1 0-.866.5A4.498 4.498 0 0 0 8 12.5a4.5 4.5 0 0 0 3.898-2.25.5.5 0 1 0-.866-.5A3.498 3.498 0 0 1 8 11.5a3.498 3.498 0 0 1-3.032-1.75zM7 5.116V5a1 1 0 0 0-1-1H3.28a1 1 0 0 0-.97 1.243l.311 1.242A2 2 0 0 0 4.561 8h6a2 2 0 0 0 1.994-1.839A2.99 2.99 0 0 1 8 6c.393 0 .74.064 1.006.161A2 2 0 0 0 11 8h.438a2 2 0 0 0 1.94-1.515l.311-1.242A1 1 0 0 0 12.72 4H10a1 1 0 0 0-1 1v.116A4.22 4.22 0 0 0 8 5c-.35 0-.69.04-1 .116z"/>
       <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-1 0A7 7 0 1 0 1 8a7 7 0 0 0 14 0z"/>
     </svg>
-  </div>
-
-  <div class="mb-5">
-    <h6 class="text-center mb-3"> <%= t('commmits.reflection.form.notes.label') %></h6>
-
-    <p><%= @reflection&.notes %></p>
   </div>
 </div>

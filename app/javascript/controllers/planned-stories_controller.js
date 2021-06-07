@@ -59,10 +59,18 @@ export default class extends Controller {
     this.progressBarTarget.style.width = `${100 - percentageComplete}%`;
 
     // Update the messaging
-    if (plannedStoryCount === 0 && completedStoryCount !== 0) {
+    if (
+      plannedStoryCount === 0 &&
+      completedStoryCount !== 0 &&
+      window.I18n.all_completed
+    ) {
       this.messageTarget.style.display = 'initial';
       this.messageTarget.innerHTML = window.I18n.all_completed;
-    } else if (plannedStoryCount === 0 && completedStoryCount === 0) {
+    } else if (
+      plannedStoryCount === 0 &&
+      completedStoryCount === 0 &&
+      window.I18n.no_planned_stories_yet
+    ) {
       this.messageTarget.style.display = 'initial';
       this.messageTarget.innerHTML = window.I18n.no_planned_stories_yet;
     } else {

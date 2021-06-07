@@ -123,6 +123,7 @@ en:
       happiness: Happiness
       goals_met: Commmit Goals Achieved
       productivity: Productivity
+      values: Value Distribution of Completed Goals
       header: Overview
       data_range: Prev. 7 Commmits
       not_enough_data: Data will be shown once you have completed at least two Commmits.
