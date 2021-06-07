@@ -4,15 +4,18 @@
 
 <%= javascript_tag do %>
   window.I18n = {};
-  window.I18n.no_planned_stories_yet = <%=  t("commmits.planned_stories.index.no_planned_stories_yet").to_json.html_safe %>
-  window.I18n.all_completed = <%= t("commmits.planned_stories.index.all_completed_html", 
-                    add_stories_href: link_to(t('footer_nav.stories_button'), 
-                                              '#', 
-                                              data: { toggle: "modal", target: "#addStoriesModal" }),
-                    reflect_href: link_to(t('commmits.planned_stories.index.reflect_message'),
-                                          new_commmit_reflection_path(@commmit, redirect: true))
-                    ).to_json.html_safe %>
-<% end unless @commmit.finished? %>
+
+  <% unless @commmit.finished? %>
+    window.I18n.no_planned_stories_yet = <%=  t("commmits.planned_stories.index.no_planned_stories_yet").to_json.html_safe %>
+    window.I18n.all_completed = <%= t("commmits.planned_stories.index.all_completed_html", 
+                      add_stories_href: link_to(t('footer_nav.stories_button'), 
+                                                '#', 
+                                                data: { toggle: "modal", target: "#addStoriesModal" }),
+                      reflect_href: link_to(t('commmits.planned_stories.index.reflect_message'),
+                                            new_commmit_reflection_path(@commmit, redirect: true))
+                      ).to_json.html_safe %>
+  <% end %>
+<% end %>
 
 <div class="grid-topcontent">
   <%= render 'shared/progress', total_count: (@planned_stories.size + @completed_stories.size), completed_count: @completed_stories.size %>
