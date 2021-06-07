@@ -9,7 +9,7 @@ require 'active_support/core_ext/integer/time'
 require_dependency 'acts_as_tenant/test_tenant_middleware'
 
 Rails.application.configure do
-  config.hosts << "[a-z0-9\-]+\.lvh.me"
+  config.hosts << /[a-z0-9\-]+\.lvh.me/
   config.hosts << 'lvh.me'
 
   config.middleware.use ActsAsTenant::TestTenantMiddleware

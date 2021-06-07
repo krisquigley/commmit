@@ -50,7 +50,7 @@ module OverviewsHelper
   end
 
   def average_happiness
-    values = @seven_recent_commmits.map { |c| c.reflection&.happiness }.compact
+    values = @seven_recent_commmits.filter_map { |c| c.reflection&.happiness }
     calculate_average(values)
   end
 

@@ -184,7 +184,7 @@ export default class extends Controller {
         },
       },
       legend: {
-        show: false,
+        show: true,
         position: 'top',
       },
     };

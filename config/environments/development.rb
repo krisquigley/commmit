@@ -3,7 +3,7 @@
 require 'active_support/core_ext/integer/time'
 
 Rails.application.configure do
-  config.hosts << "[a-z0-9]+\.commmitapp.com"
+  config.hosts << /[a-z0-9]+\.commmitapp.com/
   config.hosts << 'commmitapp.com'
   # Settings specified here will take precedence over those in config/application.rb.
 
