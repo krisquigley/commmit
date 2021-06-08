@@ -456,7 +456,7 @@ DEPENDENCIES
   turbo-rails (~> 0.5.9)
   tzinfo-data
   web-console (~> 4.1)
-  webdrivers (~> 4.5)
+  webdrivers (~> 4.6)
   webpacker (~> 5.2, >= 5.2.1)
 
 RUBY VERSION

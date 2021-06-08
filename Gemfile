@@ -78,7 +78,7 @@ group :test do
   gem 'rubocop-rspec', '~> 2.1'
   gem 'selenium-webdriver', '~> 4.0.0.beta4'
   gem 'simplecov', require: false
-  gem 'webdrivers', '~> 4.5'
+  gem 'webdrivers', '~> 4.6'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
