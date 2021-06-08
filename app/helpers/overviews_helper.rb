@@ -11,10 +11,7 @@ module OverviewsHelper
 
   def productivity
     Oj.dump(date_range.map do |day|
-      {
-        'x' => day.to_formatted_s(:long),
-        'y' => find_commmit_for_day(day)&.planned_stories&.count(&:completed_at) || 0
-      }
+      find_commmit_for_day(day)&.planned_stories&.count(&:completed_at) || 0
     end)
   end
 
@@ -33,6 +30,7 @@ module OverviewsHelper
     value_data = values.map do |value|
       {
         'name' => value[:name],
+        'type' => 'column',
         'data' => value_count_per_day(value[:id])
       }
     end

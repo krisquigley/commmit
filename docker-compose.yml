@@ -6,9 +6,9 @@ networks:
 services:
   postgres:
     container_name: commmit-postgres
-    image: postgres:10.5-alpine
+    image: postgres:10-alpine
     ports:
-      - '5432:5432'
+      - '9876:5432'
     volumes:
       - pgdata:/var/lib/postgresql/data
     networks:
@@ -20,7 +20,7 @@ services:
     volumes:
       - redisdata:/data
     ports:
-      - '6379:6379'
+      - '6789:6379'
     networks:
       - commmit
 

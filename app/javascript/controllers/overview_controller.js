@@ -10,56 +10,54 @@ export default class extends Controller {
     'happinessChart',
     'valuesData',
     'valuesColorData',
-    'valuesChart',
   ];
 
   connect() {
     this._generateProductivityChart();
     this._generateHappinessChart();
-    this._generateValuesChart();
   }
 
   _generateProductivityChart() {
     const options = {
-      theme: {
-        mode: 'dark',
-        palette: 'palette1',
-      },
+      series: JSON.parse(this.valuesDataTarget.value).concat([
+        {
+          name: 'Productivity',
+          type: 'line',
+          color: '#018ffa',
+          data: JSON.parse(this.productivityDataTarget.value),
+        },
+      ]),
       chart: {
         background: 'none',
         toolbar: {
           show: false,
         },
         type: 'line',
+        minHeight: 350,
+        stacked: true,
+        dropShadow: {
+          enables: false,
+        },
       },
-      stroke: {
-        curve: 'smooth',
+      plotOptions: {
+        bar: {
+          horizontal: false,
+        },
+      },
+      colors: JSON.parse(this.valuesColorDataTarget.value),
+      theme: {
+        mode: 'dark',
+        palette: 'palette1',
+      },
+      grid: {
+        show: false,
       },
       dataLabels: {
         enabled: true,
       },
-      series: [
-        {
-          name: 'Productivity',
-          data: JSON.parse(this.productivityDataTarget.value),
-        },
-      ],
-      grid: {
-        show: false,
-      },
-      yaxis: {
-        logarithmic: false,
-        axisTicks: {
-          show: false,
-        },
-        labels: {
-          show: false,
-        },
-      },
       xaxis: {
-        tooltip: {
-          enabled: false,
-        },
+        type: 'category',
+        categories: JSON.parse(this.dateRangeDataTarget.value),
         labels: {
           show: false,
         },
@@ -70,14 +68,29 @@ export default class extends Controller {
           show: false,
         },
       },
+      yaxis: {
+        logarithmic: false,
+        axisBorder: {
+          show: false,
+        },
+        axisTicks: {
+          show: false,
+        },
+        labels: {
+          show: false,
+          formatter: function (value) {
+            return Math.trunc(value);
+          },
+        },
+      },
+      legend: {
+        show: true,
+        position: 'top',
+      },
     };
+    const valuesChart = new ApexCharts(this.productivityChartTarget, options);
 
-    const productivityChart = new ApexCharts(
-      this.productivityChartTarget,
-      options,
-    );
-
-    productivityChart.render();
+    valuesChart.render();
   }
 
   _generateHappinessChart() {
@@ -136,60 +149,5 @@ export default class extends Controller {
     const happinessChart = new ApexCharts(this.happinessChartTarget, options);
 
     happinessChart.render();
-  }
-
-  _generateValuesChart() {
-    const options = {
-      series: JSON.parse(this.valuesDataTarget.value),
-      chart: {
-        background: 'none',
-        toolbar: {
-          show: false,
-        },
-        type: 'bar',
-        height: 350,
-        stacked: true,
-        stackType: '100%',
-      },
-      plotOptions: {
-        bar: {
-          horizontal: false,
-        },
-      },
-      colors: JSON.parse(this.valuesColorDataTarget.value),
-      theme: {
-        mode: 'dark',
-        palette: 'palette1',
-      },
-      grid: {
-        show: false,
-      },
-      xaxis: {
-        type: 'datetime',
-        categories: JSON.parse(this.dateRangeDataTarget.value),
-        axisBorder: {
-          show: true,
-        },
-        axisTicks: {
-          show: true,
-        },
-      },
-      yaxis: {
-        logarithmic: false,
-        axisTicks: {
-          show: false,
-        },
-        labels: {
-          show: true,
-        },
-      },
-      legend: {
-        show: true,
-        position: 'top',
-      },
-    };
-    const valuesChart = new ApexCharts(this.valuesChartTarget, options);
-
-    valuesChart.render();
   }
 }

@@ -15,7 +15,7 @@ gem 'geared_pagination', '~> 1.1'
 gem 'pg', '>= 0.18', '< 2.0'
 
 # Servers
-gem 'puma', '~> 5.2'
+gem 'puma', '~> 5.3.2'
 gem 'sidekiq', '~> 6.1', '>= 6.1.3'
 
 # Caching
