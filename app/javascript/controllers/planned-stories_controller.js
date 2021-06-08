@@ -4,7 +4,8 @@ export default class extends Controller {
   static targets = [
     'doneDivider',
     'productivityBadge',
-    'progressBar',
+    'progressBarLeft',
+    'progressBarDone',
     'plannedStories',
     'completedStories',
     'message',
@@ -49,14 +50,23 @@ export default class extends Controller {
     // Update the productivity badge
     this.productivityBadgeTarget.innerHTML = completedStoryCount;
 
-    // Update the progress bar
-    this.progressBarTarget.innerHTML = totalCount - completedStoryCount;
-    this.progressBarTarget.setAttribute(
+    // Update the progress bar with goals left
+    this.progressBarLeftTarget.innerHTML = totalCount - completedStoryCount;
+    this.progressBarLeftTarget.setAttribute(
       'aria-valuenow',
       totalCount - completedStoryCount,
     );
-    this.progressBarTarget.setAttribute('aria-valuemax', totalCount);
-    this.progressBarTarget.style.width = `${100 - percentageComplete}%`;
+    this.progressBarLeftTarget.setAttribute('aria-valuemax', totalCount);
+    this.progressBarLeftTarget.style.width = `${100 - percentageComplete}%`;
+
+    // Update the progress bar with goals done
+    this.progressBarDoneTarget.innerHTML = completedStoryCount;
+    this.progressBarDoneTarget.setAttribute(
+      'aria-valuenow',
+      completedStoryCount,
+    );
+    this.progressBarDoneTarget.setAttribute('aria-valuemax', totalCount);
+    this.progressBarDoneTarget.style.width = `${percentageComplete}%`;
 
     // Update the messaging
     if (
