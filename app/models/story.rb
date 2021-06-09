@@ -8,7 +8,8 @@ class Story < ApplicationRecord
   after_create_commit :broadcast_prepend
   after_update_commit :broadcast_replace
 
-  auto_strip_attributes :goal, :reason, :notes
+  auto_strip_attributes :goal, :reason, squish: true
+  auto_strip_attributes :notes
   validates :goal, presence: true
   validates :automatically_add, exclusion: [true], if: -> { repeatable == false }
 
