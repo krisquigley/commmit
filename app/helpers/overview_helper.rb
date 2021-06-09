@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module OverviewsHelper
+module OverviewHelper
   def date_range
     Range.new(Time.current.to_date - 7.days, Time.current.to_date - 1.day)
   end
@@ -11,7 +11,10 @@ module OverviewsHelper
 
   def productivity
     Oj.dump(date_range.map do |day|
-      find_commmit_for_day(day)&.planned_stories&.count(&:completed_at) || 0
+      {
+        'x' => day.to_formatted_s(:long),
+        'y' => find_commmit_for_day(day)&.planned_stories&.count(&:completed_at) || 0
+      }
     end)
   end
 

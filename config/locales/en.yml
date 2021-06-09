@@ -124,6 +124,7 @@ en:
       goals_met: Commmit Goals Achieved
       productivity: Productivity
       header: Overview
+      values: Completed Goals by Value
       data_range: Prev. 7 Commmits
       not_enough_data: Data will be shown once you have completed at least two Commmits.
   passwords:
