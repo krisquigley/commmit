@@ -13,17 +13,16 @@
 
   <div class="card-deck">
     <% cache [Commmit.current.first, @page, @page.records] do %>
-      <%= turbo_frame_tag "commmits-#{@page.number}" do %>
+      <%= turbo_frame_tag "commmits" do %>
         <%= render partial: "commmit", collection: @page.records %>
 
-        <%= turbo_frame_tag "commmits-#{@page.next_param}" do %>
+        <%= turbo_frame_tag "commmits" do %>
           <% unless @page.last? %>
             <%= link_to "Load More", commmits_path(page: @page.next_param), class: 'btn btn-lg btn-light btn-block mb-4' %>
           <% end %>
         <% end %>
       <% end %>
     <% end %>
-
     <%= render "shared/actions", actions: [{ label: t('commmits.index.new_commmit'), path: new_commmit_path }] %>
   </div>
 </div>

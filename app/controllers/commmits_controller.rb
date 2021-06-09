@@ -27,8 +27,10 @@ class CommmitsController < ApplicationController
 
     return unless @commmit.discard
 
-    redirect_back fallback_location: commmits_path,
-                  notice: t('commmits.notice.archived')
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to commmits_path, notice: t('commmits.notice.archived') }
+    end
   end
 
   private

@@ -1,37 +1,39 @@
 <% cache [commmit.in_progress?, commmit] do %>
-  <div class="card <%= commmit.finished? ? "card--finished" : "" %>" data-controller="navigate" data-action="click->navigate#navigate">
-    <%= render 'shared/progress', 
-               completed_count: completed_planned_stories(commmit), 
-               total_count: commmit.planned_stories.size %>
+  <%= turbo_frame_tag dom_id(commmit) do %>
+    <div class="card <%= commmit.finished? ? "card--finished" : "" %>" data-controller="navigate" data-action="click->navigate#navigate">
+      <%= render 'shared/progress', 
+                completed_count: completed_planned_stories(commmit), 
+                total_count: commmit.planned_stories.size %>
 
-    <div class="card-body card__flex">
-      <h5><%= link_to commmit.name, 
-                      commmit_planned_stories_path(commmit), 
-                      data: { navigate_target: :link }, 
-                      class: 'font-weight-bold' %></h5>
+      <div class="card-body card__flex">
+        <h5><%= link_to commmit.name, 
+                        commmit_planned_stories_path(commmit), 
+                        data: { navigate_target: :link }, 
+                        class: 'font-weight-bold' %></h5>
 
-      <%= button_to commmit_path(commmit), 
-                    method: :delete, 
-                    class: 'link-button discard-link', 
-                    data: { action: "click->navigate#stopPropagation" }, 
-                    name: "archive_commmit" do %>
-        <%= image_tag '/images/icons/close_icon.svg' %> 
-      <% end %>
-    </div>
-    <div class="card-footer">
-      <div class="card-footer__left">
-        <%= render 'reflection_status', reflected: commmit.reflected? %>
-        <span class="ml-1 mr-1">&middot;</span>
-        <small><%= commmit.planned_stories.size %></small>
-        <%= image_tag '/images/icons/story_icon.svg', class: 'ml-1' %> 
-        <span class="ml-1 mr-1">&middot;</span>
-        <small><%= commmit.planned_stories.filter{ |ps| ps.story.repeatable? }.size %></small>
-        <%= image_tag '/images/icons/repeat_icon.svg', class: 'ml-1' %> 
+        <%= button_to commmit_path(commmit), 
+                      method: :delete, 
+                      class: 'link-button discard-link', 
+                      data: { action: "click->navigate#stopPropagation" }, 
+                      name: "archive_commmit" do %>
+          <%= image_tag '/images/icons/close_icon.svg' %> 
+        <% end %>
       </div>
+      <div class="card-footer">
+        <div class="card-footer__left">
+          <%= render 'reflection_status', reflected: commmit.reflected? %>
+          <span class="ml-1 mr-1">&middot;</span>
+          <small><%= commmit.planned_stories.size %></small>
+          <%= image_tag '/images/icons/story_icon.svg', class: 'ml-1' %> 
+          <span class="ml-1 mr-1">&middot;</span>
+          <small><%= commmit.planned_stories.filter{ |ps| ps.story.repeatable? }.size %></small>
+          <%= image_tag '/images/icons/repeat_icon.svg', class: 'ml-1' %> 
+        </div>
 
-      <div class="card-footer__right">
-        <%= render 'status', commmit: commmit %>
+        <div class="card-footer__right">
+          <%= render 'status', commmit: commmit %>
+        </div>
       </div>
     </div>
-  </div>
+  <% end %>
 <% end %>
