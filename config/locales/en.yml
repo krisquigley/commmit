@@ -54,7 +54,7 @@ en:
       index:
         done_divider: DONE
         no_planned_stories_yet: You haven't added any Goals yet.
-        all_completed_html: 'You have completed all of your %{add_stories_href}.<br/><br/> %{reflect_href}'
+        all_completed_html: 'You have completed all of your Goals.<br/>You can %{add_stories_href}. Or...<br/><br/> %{reflect_href}'
         reflect_message: Reflect on how your Commmit went!
         add_stories: Add Goals
         close_modal: Close
@@ -62,6 +62,7 @@ en:
         finished: Commmit Finished
         reflect: Reflect
         view_reflection: View Reflection
+        add_more_goals: Add more
       done: Done
     reflection:
       notice:
@@ -171,6 +172,7 @@ en:
       values:
         label_html: What <b>value(s)</b> does this goal focus on?
         manage: Assign Values
+        none: You haven't added any Values yet.
       create: Create Goal
       create_and_add: Create and Add Goal
       update: Save Changes

@@ -1,7 +1,7 @@
 <%= turbo_frame_tag "add_repeatable_stories" do %>
   <% if @repeatable_stories_page.first? && @repeatable_stories_page.records.empty? %>
     <p class="text-center text-secondary mt-2">
-      <%= link_to t('stories.index.no_stories_yet'), new_story_path %>
+      <%= t('stories.index.no_repeatable_stories_yet') %>
     </p>
   <% end %>
 

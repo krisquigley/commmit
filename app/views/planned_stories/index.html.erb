@@ -8,7 +8,7 @@
   <% unless @commmit.finished? %>
     window.I18n.no_planned_stories_yet = <%=  t("commmits.planned_stories.index.no_planned_stories_yet").to_json.html_safe %>
     window.I18n.all_completed = <%= t("commmits.planned_stories.index.all_completed_html", 
-                      add_stories_href: link_to(t('footer_nav.stories_button'), 
+                      add_stories_href: link_to(t('commmits.planned_stories.index.add_more_goals'), 
                                                 '#', 
                                                 data: { toggle: "modal", target: "#addStoriesModal" }),
                       reflect_href: link_to(t('commmits.planned_stories.index.reflect_message'),

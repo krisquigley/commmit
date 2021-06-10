@@ -75,7 +75,14 @@
 
 
 <div class="form-group">
-  <%= t('stories.form.values.label_html') %> <br/>
+  <%= t('stories.form.values.label_html') %> <br />
+
+  <% if Value.kept.empty? %>
+    <p class="text-center mt-1">
+      <%= link_to t('stories.form.values.none'), values_path %>
+    </p>
+  <% end %>
+
   <div class="values">
     <%= f.collection_check_boxes(:value_ids, Value.kept, :id, :name) do |b| %>
       <div class="form-check form-check-inline">
