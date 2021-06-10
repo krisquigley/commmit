@@ -6,23 +6,23 @@ module OverviewHelper
   end
 
   def formatted_date_range
-    Oj.dump(date_range.map { |d| d.strftime('%a %e, %B') })
+    Oj.dump(date_range.map { |date| date.strftime("%a, %B #{date.day.ordinalize}") })
   end
 
   def productivity
-    Oj.dump(date_range.map do |day|
+    Oj.dump(date_range.map do |date|
       {
-        'x' => day.strftime('%a %e, %B'),
-        'y' => find_commmit_for_day(day)&.planned_stories&.count(&:completed_at) || 0
+        'x' => date.strftime("%a, %B #{date.day.ordinalize}"),
+        'y' => find_commmit_for_date(date)&.planned_stories&.count(&:completed_at) || 0
       }
     end)
   end
 
   def happiness
-    Oj.dump(date_range.map do |day|
+    Oj.dump(date_range.map do |date|
       {
-        'x' => day.strftime('%a %e, %B'),
-        'y' => find_commmit_for_day(day)&.reflection&.happiness || 0
+        'x' => date.strftime("%a, %B #{date.day.ordinalize}"),
+        'y' => find_commmit_for_date(date)&.reflection&.happiness || 0
       }
     end)
   end
@@ -72,13 +72,13 @@ module OverviewHelper
 
   private
 
-  def find_commmit_for_day(day)
-    @seven_recent_commmits.find { |c| c.end_date == day }
+  def find_commmit_for_date(date)
+    @seven_recent_commmits.find { |c| c.end_date == date }
   end
 
   def value_count_per_day(value_id)
-    date_range.map do |day|
-      find_commmit_for_day(day)&.planned_stories&.count do |ps|
+    date_range.map do |date|
+      find_commmit_for_date(date)&.planned_stories&.count do |ps|
         ps.story.values.find { |v| v.id == value_id } if ps.completed_at.present?
       end || 0
     end || 0
