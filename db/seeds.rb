@@ -9,15 +9,15 @@ ActiveRecord::Base.transaction do
     email: 'default@example.com',
     password: 'password',
     password_confirmation: 'password',
-    confirmed_at: Time.now,
+    confirmed_at: Time.now
   )
   printf('.')
 
   printf("\nCreating Account\n")
   default_account = Account.find_or_create_by!(name: default_user.username,
-                                              subdomain: default_user.username,
-                                              account_type: 'personal',
-                                              owner_user_id: default_user.id)
+                                               subdomain: default_user.username,
+                                               account_type: 'personal',
+                                               owner_user_id: default_user.id)
   printf('.')
 
   ActsAsTenant.current_tenant = default_account
