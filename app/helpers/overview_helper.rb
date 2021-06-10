@@ -6,13 +6,13 @@ module OverviewHelper
   end
 
   def formatted_date_range
-    Oj.dump(date_range.map { |d| d.to_formatted_s(:long) })
+    Oj.dump(date_range.map { |d| d.strftime('%a %e, %B') })
   end
 
   def productivity
     Oj.dump(date_range.map do |day|
       {
-        'x' => day.to_formatted_s(:long),
+        'x' => day.strftime('%a %e, %B'),
         'y' => find_commmit_for_day(day)&.planned_stories&.count(&:completed_at) || 0
       }
     end)
@@ -21,7 +21,7 @@ module OverviewHelper
   def happiness
     Oj.dump(date_range.map do |day|
       {
-        'x' => day.to_formatted_s(:long),
+        'x' => day.strftime('%a %e, %B'),
         'y' => find_commmit_for_day(day)&.reflection&.happiness || 0
       }
     end)
