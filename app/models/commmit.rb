@@ -47,7 +47,7 @@ class Commmit < ApplicationRecord
   private
 
   def automatically_add_repeatable_stories
-    Story.automatic.in_batches do |batch|
+    Story.automatic.kept.in_batches do |batch|
       batch.each do |story|
         planned_stories.create(story: story)
       end
