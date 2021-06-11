@@ -45,6 +45,7 @@ export default class extends Controller {
         show: false,
       },
       yaxis: {
+        min: 0,
         logarithmic: false,
         axisTicks: {
           show: false,
@@ -99,6 +100,7 @@ export default class extends Controller {
         show: false,
       },
       yaxis: {
+        min: 0,
         logarithmic: false,
         axisTicks: {
           show: false,
