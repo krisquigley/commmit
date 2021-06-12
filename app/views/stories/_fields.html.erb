@@ -79,7 +79,7 @@
 
   <% if Value.kept.empty? %>
     <p class="text-center mt-1">
-      <%= link_to t('stories.form.values.none'), values_path %>
+      <%= link_to t('stories.form.values.none'), values_path, data: { turbo: false } %>
     </p>
   <% end %>
 
