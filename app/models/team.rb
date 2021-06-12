@@ -1,20 +1,9 @@
 # frozen_string_literal: true
 
 class Team < ApplicationRecord
-  acts_as_tenant(:account)
+  acts_as_tenant :account
 
   validates :name, presence: true
 
-  has_many :sprints
   has_many :users
-
-  def yesterdays_weather
-    previous_sprints = sprints.where.not(final_velocity: nil)
-                              .order(created_at: :desc).limit(3).pluck(:final_velocity)
-    if !previous_sprints.empty?
-      previous_sprints.inject(:+) / previous_sprints.count
-    else
-      0
-    end
-  end
 end
