@@ -6,7 +6,7 @@ class Value < ApplicationRecord
   before_validation :set_color, only: :create
   acts_as_tenant :account
 
-  validates :name, presence: true, uniqueness: { scope: :account, case_sensitive: false }
+  validates :name, presence: true, uniqueness: { scope: :account_id, case_sensitive: false }
   validates :color, presence: true
 
   has_and_belongs_to_many :commmits
