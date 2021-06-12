@@ -20,7 +20,7 @@ class Commmit < ApplicationRecord
   before_validation :set_end_date
 
   validates :name, :end_date, presence: true
-  validates_uniqueness_of :end_date, conditions: -> { where(discarded_at: nil) }
+  validates_uniqueness_of :end_date, scope: :account_id, conditions: -> { where(discarded_at: nil) }
 
   has_many :planned_stories, dependent: :destroy
   has_many :stories, through: :planned_stories
