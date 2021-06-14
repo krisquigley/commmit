@@ -78,7 +78,7 @@ en:
           label: Did you achieve your goal this Commmit?
         notes:
           label: Reflection
-          placeholder: Notes
+          placeholder: Feedback
         happiness:
           label: How happy are you with your progress, this Commmit?
         create: Save Reflection
