@@ -43,7 +43,7 @@
       </svg>
     </h6>
 
-    <p><%= @reflection&.notes %></p>
+    <%= markdown(@reflection&.notes) %>
   </div>
   
   <h6 class="text-center mb-3"> <%= t('commmits.reflection.form.happiness.label') %></h6>
