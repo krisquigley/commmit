@@ -43,7 +43,7 @@
       </svg>
     </h6>
 
-    <%= markdown(@reflection&.notes) %>
+    <%= markdown(@reflection&.notes) if @reflection&.notes.present? %>
   </div>
   
   <h6 class="text-center mb-3"> <%= t('commmits.reflection.form.happiness.label') %></h6>

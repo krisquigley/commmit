@@ -34,7 +34,7 @@
     </div>
 
     <div class="story__notes--focus-mode">
-      <%= markdown(@planned_story.story.notes) %>
+      <%= markdown(@planned_story.story.notes) if @planned_story.story.notes.present? %>
     </div>
   </div>
 
