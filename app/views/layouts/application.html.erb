@@ -12,6 +12,10 @@
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#000000">
+    <%= preload_pack_asset 'media/application/fonts/lato-v17-latin-300.woff2' %>
+    <%= preload_pack_asset 'media/application/fonts/lato-v17-latin-regular.woff2' %>
+    <link rel="preload" href="/images/logo.png" as="image">
+    <%= preload_icons %>
     <%= stylesheet_pack_tag 'application', data: { turbo_track: "reload" } %>
     <%= javascript_pack_tag 'application', data: { turbo_track: "reload" } %>
   </head>

@@ -17,4 +17,16 @@ module ApplicationHelper
   def active(path)
     request.path == "/#{path}" ? 'active' : ''
   end
+
+  def preload_icons
+    ''.html_safe.tap do |content|
+      Dir.entries("#{Rails.root}/public/images/icons").map do |file|
+        ignored_files = %w[. ..]
+
+        next if ignored_files.include?(file)
+
+        content << content_tag(:link, '', { rel: :preload, href: "/images/icons/#{file}", as: :image })
+      end
+    end
+  end
 end
