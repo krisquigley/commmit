@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 When('I sign up with correct details') do
   user = build(:user)
   visit signup_path

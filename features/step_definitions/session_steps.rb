@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 When('I log in with correct details') do
   visit login_path
