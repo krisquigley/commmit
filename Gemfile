@@ -22,13 +22,10 @@ gem 'sidekiq', '~> 6.1', '>= 6.1.3'
 gem 'dalli', '~> 2.7', '>= 2.7.11'
 
 # Assets
-gem 'bootstrap4-kaminari-views', '~> 1.0', '>= 1.0.1'
-gem 'kaminari', '~> 1.2', '>= 1.2.1'
 gem 'webpacker', '~> 5.2', '>= 5.2.1'
 
 # APIs
 gem 'jbuilder', '~> 2.11', '>= 2.11.2'
-gem 'octokit', '~> 4.20'
 gem 'oj', '~> 3.11', '>= 3.11.2'
 
 # Markdown
@@ -72,6 +69,7 @@ end
 
 group :test do
   gem 'capybara', '~> 3.35', '>= 3.35.3'
+  gem 'capybara-screenshot', '~> 1.0', '>= 1.0.25'
   gem 'cucumber-rails', '~> 2.3', require: false
   gem 'database_cleaner-active_record', '~> 2.0'
   gem 'rspec-sidekiq', '~> 3.1'

@@ -2,6 +2,7 @@
 
 require 'capybara/rails'
 require 'selenium-webdriver'
+require 'capybara-screenshot/cucumber'
 
 Capybara.register_driver :chrome do |app|
   Capybara::Selenium::Driver.new(app, browser: :chrome)
@@ -20,6 +21,10 @@ Capybara.register_driver :headless_chrome do |app|
   Capybara::Selenium::Driver.new app,
                                  browser: :chrome,
                                  desired_capabilities: capabilities
+end
+
+Capybara::Screenshot.register_driver(:selenium_chrome_headless) do |driver, path|
+  driver.browser.save_screenshot(path)
 end
 
 Capybara.javascript_driver = :selenium_chrome_headless
