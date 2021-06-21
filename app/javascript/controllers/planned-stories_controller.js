@@ -3,7 +3,6 @@ import { Controller } from 'stimulus';
 export default class extends Controller {
   static targets = [
     'doneDivider',
-    'productivityBadge',
     'progressBarLeft',
     'progressBarDone',
     'plannedStories',
@@ -46,9 +45,6 @@ export default class extends Controller {
       'divider--show',
       completedStoryCount !== 0,
     );
-
-    // Update the productivity badge
-    this.productivityBadgeTarget.innerHTML = completedStoryCount;
 
     // Update the progress bar with goals left
     this.progressBarLeftTarget.innerHTML = totalCount - completedStoryCount;
