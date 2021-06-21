@@ -6,12 +6,22 @@ Feature: Creating Commmits
 
   Scenario: Creating a Commmit with valid data
     Given I have a reflected Commmit
-    When I create a Commmit with the name test
+    When I create a Commmit and choose a goal
     Then I should be notified that my "Commmit" was "created"
-    And see "Test" in my list of "Commmits"
+    And see the goal in my list of "Commmits"
+
+  Scenario: Creating a Commmit and Commmit goal on the fly
+    When I create a Commmit and create a new goal
+    Then I should be notified that my "Commmit" was "created"
+    And see the goal in my list of "Commmits"
+
+  Scenario: Creating a Commmit and changing the Commmit goal
+    When I create a Commmit and choose a goal
+    Then I should be able to change the goal before creating it
+    And see the goal in my list of "Commmits" once I have created it
 
   @javascript
-  Scenario: Creating a Commmit without a name
+  Scenario: Creating a Commmit without choosing a goal
     When I create a new Commmit with invalid details
     Then I should be alerted that something is wrong
 
