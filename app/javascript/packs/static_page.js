@@ -1,0 +1,1 @@
+import '../application/stylesheets/static_page.js';
