@@ -25,6 +25,7 @@ class Commmit < ApplicationRecord
   has_many :planned_stories, dependent: :destroy
   has_many :stories, through: :planned_stories
   has_one :reflection, dependent: :destroy
+  has_one :story
 
   after_create :automatically_add_repeatable_stories
 

@@ -2,7 +2,7 @@
 
 class ReflectionsController < ApplicationController
   def new
-    @commmit = Commmit.includes(:reflection).find(params[:commmit_id])
+    @commmit = Commmit.includes(:reflection, :story).find(params[:commmit_id])
 
     return redirect_to commmit_reflection_path(@commmit), alert: t('commmits.reflection.notice.already_exists') if @commmit.reflected?
 
@@ -26,7 +26,7 @@ class ReflectionsController < ApplicationController
   end
 
   def show
-    @commmit = Commmit.includes(:reflection).find(params[:commmit_id])
+    @commmit = Commmit.includes(:reflection, :story).find(params[:commmit_id])
     @reflection = @commmit.reflection
 
     render file: "#{Rails.root}/public/404.html", layout: false, status: :not_found unless @reflection

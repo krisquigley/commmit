@@ -25,6 +25,7 @@ class Story < ApplicationRecord
   has_many :planned_stories
   has_many :commmits, counter_cache: true, through: :planned_stories
   has_and_belongs_to_many :values
+  belongs_to :commmits, optional: true
 
   after_save do
     planned_stories.update_all updated_at: Time.current
