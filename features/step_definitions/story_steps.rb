@@ -1,5 +1,19 @@
 # frozen_string_literal: true
 
+Given('I have an archived Story') do
+  @story = create(:discarded_story)
+end
+
+When('I visit archived stories') do
+  find('button[data-toggle="collapse"]').click
+
+  click_on t('stories.archived.header')
+end
+
+When('I click unarchive') do
+  find('button[name="unarchive_story"]').click
+end
+
 When('I archive my Story') do
   visit stories_path
 
@@ -28,6 +42,12 @@ When('I create a new Story with invalid details') do
   click_button t('stories.index.new_story')
 
   submit_form
+end
+
+Then('I should see it in my list of stories') do
+  visit stories_path
+
+  expect(page).to have_content(@story.goal)
 end
 
 Then('I should be alerted that something is missing') do

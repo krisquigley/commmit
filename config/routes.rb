@@ -61,6 +61,9 @@ Rails.application.routes.draw do
   resources :stories do
     resources :planned_stories, shallow: true
   end
+
+  get :archived_stories, to: 'stories#archived'
+  patch 'unarchive_stories/:id', to: 'stories#unarchive', as: :unarchive_story
   get :one_off_stories, to: 'stories#one_off'
   get :repeatable_stories, to: 'stories#repeatable'
 
