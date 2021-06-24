@@ -152,6 +152,7 @@ en:
       updated: Updated Goal
       removed: Removed Goal from Commmit
       archived: Archived Goal
+      unarchived: Unarchived Goal
     form:
       story:
         label_html: <b>What</b> do you want to achieve?
@@ -184,6 +185,8 @@ en:
       new_story: New Goal
       no_repeatable_stories_yet: You haven't created any repeatable goals yet
       no_stories_yet: You haven't created any goals yet
+    archived:
+      header: Archived Goals
   values:
     notice:
       created: Created Value

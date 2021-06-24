@@ -12,3 +12,8 @@ Feature: Archiving Stories
     And I should no longer see my Story
 
   Scenario: Unarchiving a story
+    Given I have an archived Story
+    When I visit archived stories
+    And I click unarchive
+    Then I should be notified that my "Story" was "unarchived" 
+    And I should see it in my list of stories

@@ -1,0 +1,17 @@
+<% content_for :nav_header do %>
+  <%= t('stories.archived.header') %>
+<% end %> 
+
+<div class="grid-content">
+  <div class="card-deck">
+    <%= turbo_frame_tag "archived_stories" do %>
+      <%= render partial: "archived_story", collection: @stories_page.records %>
+
+      <%= turbo_frame_tag "archived_stories" do %>
+        <% unless @stories_page.last? %>
+          <%= link_to "Load More", archived_stories_path(page: @stories_page.next_param), class: 'btn btn-lg btn-light btn-block mb-4' %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
