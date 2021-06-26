@@ -1,21 +1,12 @@
-<% if commmit.finished? %>
-  <small>
-    <i>
+<small data-controller="relative-time">
+  <i>
+    <% if commmit.finished? %>
       <%= t('commmits.index.statuses.finished') %> 
-      <%= distance_of_time_in_words(commmit.end_date, 
-                                    Time.current.to_date, 
-                                    scope: 'datetime.distance_in_words.days_and_months')
-      %>
-    </i>
-  </small>
-<% else %>
-  <small>
-    <i>
+    <% elsif commmit.not_started? %>
+      <%= t('commmits.index.statuses.not_started') %> 
+    <% else %>
       <%= t('commmits.index.statuses.in_progress') %> 
-      <%= distance_of_time_in_words(commmit.end_date, 
-                                    Time.current.to_date, 
-                                    scope: 'datetime.distance_in_words.days_and_months_future')
-      %>
-    </i>
-  </small>
-<% end %>
+    <% end %>
+    <span data-relative-time-target="relativeTime commmit" title="<%= commmit.end_date %>"><%= commmit.end_date %></span>
+  </i>
+</small>
