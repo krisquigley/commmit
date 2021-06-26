@@ -40,6 +40,10 @@ class Commmit < ApplicationRecord
     !finished? && end_date == Time.current.to_date
   end
 
+  def not_started?
+    !finished? && end_date > Time.current.to_date
+  end
+
   def self.active_commmits?
     Commmit.current.count.positive?
   end

@@ -22,7 +22,9 @@
         <%= image_tag '/images/icons/cog_icon.svg', data: { test_id: 'automatically_add' }, class: 'mr-1 card-footer__icon.svg' if archived_story.automatic? %>
       </div>
       <div class="card-footer__right">
+        <%= render 'shared/story_status', story: archived_story %>
         <%= button_to unarchive_story_path(archived_story),  
+                      form_class: 'd-inline-block ml-1',
                       method: :patch,
                       class: 'link-button discard-link', 
                       name: 'unarchive_story' do %>

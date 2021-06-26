@@ -37,6 +37,7 @@
         <div class="card-footer__right">
           <% if planned_story.completed? %>
             <%= button_to commmit_planned_story_mark_as_not_done_path(commmit.id, planned_story), 
+                          form_class: 'd-inline-block ml-1',
                           name: 'not_done',
                           class: 'btn',
                           style: 'padding: 0;',
@@ -47,6 +48,7 @@
             <% end unless reflecting %>
           <% else %>
             <%= button_to commmit_planned_story_mark_as_done_path(commmit.id, planned_story), 
+                          form_class: 'd-inline-block ml-1',
                           name: 'done',
                           class: 'btn btn-link', 
                           method: :patch, 
