@@ -1,0 +1,17 @@
+<% content_for :nav_header do %>
+  <%= t('commmits.archived.header') %>
+<% end %> 
+
+<div class="grid-content">
+  <div class="card-deck">
+    <%= turbo_frame_tag "archived_commmits" do %>
+      <%= render partial: "archived_commmit", collection: @page.records %>
+
+      <%= turbo_frame_tag "archived_commmits" do %>
+        <% unless @page.last? %>
+          <%= link_to "Load More", commmits_path(page: @page.next_param), class: 'btn btn-lg btn-light btn-block mb-4' %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

@@ -87,6 +87,7 @@ en:
       created: Commmit Created
       archived: Commmit Archived
       unarchived: Commmit Unarchived
+      unable_to_unarchive: A Commmit already exists for this day.
     alert:
       no_commmits_today: You have no Commmits in progress.
     index:
@@ -99,6 +100,8 @@ en:
       new_commmit: New Commmit
     new:
       header: New Commmit
+    archived:
+      header: Archived Commmits
     form:
       name:
         label_html: Name <b>one</b> Goal you want to Commmit to getting done, today.

@@ -15,6 +15,18 @@ Given('I have a finished Commmit with {int} planned stories') do |number|
   end
 end
 
+Given('I already have an Archived Commmit') do
+  with_tenant do
+    @commmit = create(:discarded_commmit)
+  end
+end
+
+Given('a Commmit on that day') do
+  with_tenant do
+    create(:commmit, end_date: @commmit.end_date)
+  end
+end
+
 Given('I have an unfinished Commmit with {int} planned stories') do |number|
   with_tenant do
     @commmit = commmit_with_planned_stories(stories_count: number)
@@ -118,6 +130,16 @@ When('I archive my Commmit') do
   click_archive_button('commmit')
 end
 
+When('I unarchive the Commmit') do
+  find('button[name="unarchive_commmit"]').click
+end
+
+When('I visit archived Commmits') do
+  find('button[data-toggle="collapse"]').click
+
+  click_on t('commmits.archived.header')
+end
+
 When('I click on Today') do
   visit commmits_path
   click_on 'Today'
@@ -207,6 +229,16 @@ end
 
 ##
 # Then
+
+Then('I should be able to see the Commmit again') do
+  visit commmits_path
+
+  expect(page).to have_content @commmit.name
+end
+
+Then('my Commmit should still be listed') do
+  expect(page).to have_content @commmit.name
+end
 
 Then('I should be alerted that something is wrong') do
   message = page.find('#commmit_name').native.attribute('validationMessage')

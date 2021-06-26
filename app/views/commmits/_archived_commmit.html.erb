@@ -1,0 +1,39 @@
+<%= turbo_frame_tag dom_id(archived_commmit) do %>
+  <div class="card <%= archived_commmit.finished? ? "card--finished" : "" %>" data-controller="navigate" data-action="click->navigate#navigate">
+    <%= render 'shared/progress', 
+              completed_count: completed_planned_stories(archived_commmit), 
+              total_count: archived_commmit.planned_stories.size %>
+
+    <div class="card-body card__flex">
+      <h5><%= link_to archived_commmit.name, 
+                      commmit_planned_stories_path(archived_commmit), 
+                      data: { navigate_target: :link }, 
+                      class: 'font-weight-bold' %></h5>
+    </div>
+    <div class="card-footer">
+      <div class="card-footer__left">
+        <%= render 'reflection_status', reflected: archived_commmit.reflected? %>
+        <span class="ml-1 mr-1">&middot;</span>
+        <small><%= archived_commmit.planned_stories.size %></small>
+        <%= image_tag '/images/icons/story_icon.svg', class: 'ml-1' %> 
+        <span class="ml-1 mr-1">&middot;</span>
+        <small><%= archived_commmit.planned_stories.filter{ |ps| ps.story.repeatable? }.size %></small>
+        <%= image_tag '/images/icons/repeat_icon.svg', class: 'ml-1' %> 
+      </div>
+
+      <div class="card-footer__right">
+        <%= render 'status', commmit: archived_commmit %>
+        <%= button_to unarchive_commmit_path(archived_commmit),  
+                      form_class: 'd-inline-block ml-1',
+                      method: :patch,
+                      class: 'link-button discard-link', 
+                      data: { 
+                        action: "click->navigate#stopPropagation" 
+                      },
+                      name: 'unarchive_commmit' do %>
+          <%= image_tag '/images/icons/unarchive_icon.svg' %> 
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
