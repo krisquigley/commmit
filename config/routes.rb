@@ -58,6 +58,9 @@ Rails.application.routes.draw do
     get :add_repeatable_stories, to: 'planned_stories#add_repeatable_stories'
   end
 
+  get :archived_commmits, to: 'commmits#archived'
+  patch 'unarchive_commmits/:id', to: 'commmits#unarchive', as: :unarchive_commmit
+
   resources :stories do
     resources :planned_stories, shallow: true
   end
