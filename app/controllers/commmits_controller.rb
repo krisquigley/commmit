@@ -8,6 +8,10 @@ class CommmitsController < ApplicationController
     set_page_and_extract_portion_from Commmit.includes(:planned_stories, :reflection).kept.most_recent_first
   end
 
+  def archived
+    set_page_and_extract_portion_from Commmit.includes(:planned_stories, :reflection).discarded.most_recent_first
+  end
+
   def new
     @commmit = Commmit.new
   end
@@ -19,6 +23,24 @@ class CommmitsController < ApplicationController
       redirect_to commmit_planned_stories_path(@commmit), notice: t('commmits.notice.created')
     else
       render :new
+    end
+  end
+
+  def unarchive
+    @commmit = Commmit.find(params[:id])
+
+    if Commmit.kept.where(end_date: @commmit.end_date).count.positive?
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to archived_commmits_path, alert: t('commmits.notice.unable_to_unarchive') }
+      end
+    else
+      return unless @commmit.undiscard
+
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to archived_commmits_path, notice: t('commmits.notice.unarchived') }
+      end
     end
   end
 

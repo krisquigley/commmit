@@ -16,7 +16,16 @@ Feature: Archiving Commmits
     And I should no longer see my Commmit
 
   Scenario: Unarchiving a Commmit
-  #   Given I already have an Archived Commmit
-  #   When I unarchive the Commmit
-  #   Then I should be notified that my "Commmit" was "unarchived"
-  #   And I should be able to see the Commmit again
+    Given I already have an Archived Commmit
+    When I visit archived Commmits
+    And I unarchive the Commmit
+    Then I should be notified that my "Commmit" was "unarchived"
+    And I should be able to see the Commmit again
+
+  Scenario: Unarchiving a Commmit when one exists for that day
+    Given I already have an Archived Commmit
+    And a Commmit on that day
+    When I visit archived Commmits
+    And I unarchive the Commmit
+    Then I should be notified that my "Commmit" was "unable_to_unarchive"
+    And my Commmit should still be listed

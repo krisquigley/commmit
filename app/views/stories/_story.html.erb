@@ -31,7 +31,7 @@
         <%= image_tag '/images/icons/cog_icon.svg', data: { test_id: 'automatically_add' }, class: 'mr-1 card-footer__icon.svg' if story.automatic? %>
       </div>
       <div class="card-footer__right">
-        <small><i><%= completed_or_added(story) %></i></small>
+        <%= render 'shared/story_status', story: story %>
       </div>
     </div>
   </div>

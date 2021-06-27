@@ -16,7 +16,7 @@
       </div>
       <div class="card-footer">
         <div class="card-footer__left">
-          <small><i><%= completed_or_added(story) %></i></small>
+          <%= render 'shared/story_status', story: story %>
         </div>
         <div class="card-footer__right">
           <%= form_with model: [story, PlannedStory.new] do |f| %>

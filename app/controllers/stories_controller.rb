@@ -1,10 +1,15 @@
 # frozen_string_literal: true
 
 class StoriesController < ApplicationController
-  before_action :find_story, only: %i[show edit update mark_as_done destroy]
+  before_action :find_story, only: %i[show edit update mark_as_done destroy unarchive]
   before_action :find_commmit, if: -> { params[:commmit_id] }
 
   def index; end
+
+  def archived
+    @stories = Story.includes(:values).discarded.most_recent_first
+    @stories_page = current_page_from @stories
+  end
 
   def one_off
     @one_off_stories = Story.includes(:values).incomplete.one_off.kept.most_recent_first
@@ -59,6 +64,15 @@ class StoriesController < ApplicationController
         format.turbo_stream { render turbo_stream.replace(@story, partial: 'stories/edit', locals: { story: @story }) }
         format.html { render :edit }
       end
+    end
+  end
+
+  def unarchive
+    return unless @story.undiscard
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to archived_stories_path, notice: t('stories.notice.unarchived') }
     end
   end
 

@@ -87,6 +87,7 @@ en:
       created: Commmit Created
       archived: Commmit Archived
       unarchived: Commmit Unarchived
+      unable_to_unarchive: A Commmit already exists for this day.
     alert:
       no_commmits_today: You have no Commmits in progress.
     index:
@@ -99,6 +100,8 @@ en:
       new_commmit: New Commmit
     new:
       header: New Commmit
+    archived:
+      header: Archived Commmits
     form:
       name:
         label_html: Name <b>one</b> Goal you want to Commmit to getting done, today.
@@ -122,7 +125,7 @@ en:
   overview:
     show:
       happiness: Happiness
-      goals_met: Commmit Goals Achieved
+      goals_met: Commmit Goal Achieved
       productivity: Productivity
       header: Overview
       values: Completed Goals by Value
@@ -152,6 +155,7 @@ en:
       updated: Updated Goal
       removed: Removed Goal from Commmit
       archived: Archived Goal
+      unarchived: Unarchived Goal
     form:
       story:
         label_html: <b>What</b> do you want to achieve?
@@ -180,10 +184,11 @@ en:
     index:
       added: Added
       last_completed: Last Completed
-      ago: ago
       new_story: New Goal
       no_repeatable_stories_yet: You haven't created any repeatable goals yet
       no_stories_yet: You haven't created any goals yet
+    archived:
+      header: Archived Goals
   values:
     notice:
       created: Created Value
@@ -216,81 +221,3 @@ en:
       create: Sign up
     validation:
       username: Username must only contain letters a-z, numbers 0-9 and the character -
-  datetime:
-    distance_in_words:
-      days_and_months:
-        about_x_hours:
-          one: today
-          other: today
-        about_x_months:
-          one: about 1 month ago
-          other: about %{count} months ago
-        about_x_years:
-          one: about 1 year ago
-          other: about %{count} years ago
-        almost_x_years:
-          one: almost 1 year ago
-          other: almost %{count} years ago
-        half_a_minute: today
-        less_than_x_seconds:
-          one: today
-          other: today
-        less_than_x_minutes:
-          one: today
-          other: today
-        over_x_years:
-          one: over 1 year ago
-          other: over %{count} years ago
-        x_seconds:
-          one: today
-          other: today
-        x_minutes:
-          one: today
-          other: today
-        x_days:
-          one: yesterday
-          other: '%{count} days ago'
-        x_months:
-          one: 1 month ago
-          other: '%{count} months ago'
-        x_years:
-          one: 1 year ago
-          other: '%{count} years ago'
-      days_and_months_future:
-        about_x_hours:
-          one: today
-          other: today
-        about_x_months:
-          one: in about 1 month
-          other: in about %{count} months
-        about_x_years:
-          one: in about 1 year
-          other: in about %{count} years
-        almost_x_years:
-          one: in almost 1 year
-          other: in almost %{count} years
-        half_a_minute: today
-        less_than_x_seconds:
-          one: today
-          other: today
-        less_than_x_minutes:
-          one: today
-          other: today
-        over_x_years:
-          one: in over 1 year
-          other: in over %{count} years
-        x_seconds:
-          one: today
-          other: today
-        x_minutes:
-          one: today
-          other: today
-        x_days:
-          one: tomorrow
-          other: 'in %{count} days'
-        x_months:
-          one: in 1 month
-          other: 'in %{count} months'
-        x_years:
-          one: in 1 year
-          other: 'in %{count} years'
