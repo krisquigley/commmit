@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_21_114325) do
+ActiveRecord::Schema.define(version: 2021_06_27_130330) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -58,7 +58,9 @@ ActiveRecord::Schema.define(version: 2021_06_21_114325) do
     t.datetime "completed_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "commmit_goal"
     t.index ["account_id"], name: "index_planned_stories_on_account_id"
+    t.index ["commmit_goal"], name: "index_planned_stories_on_commmit_goal"
     t.index ["commmit_id"], name: "index_planned_stories_on_commmit_id"
     t.index ["created_at"], name: "index_planned_stories_on_created_at"
     t.index ["story_id"], name: "index_planned_stories_on_story_id"
