@@ -1,6 +1,6 @@
 <small data-controller="relative-time" class="align-bottom">
   <i>
     <%= completed_or_added(story) %> 
-    <span data-relative-time-target="relativeTime" title="<%= story.completed_at || story.created_at %>"><%= story.completed_at || story.created_at %></span>
+    <span data-relative-time-target="relativeTime" title="<%= story&.completed_at&.iso8601 || story.created_at.iso8601 %>"><%= story.completed_at || story.created_at %></span>
   </i>
 </small>
