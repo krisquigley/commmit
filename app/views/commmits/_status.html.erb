@@ -7,6 +7,6 @@
     <% else %>
       <%= t('commmits.index.statuses.in_progress') %> 
     <% end %>
-    <span data-relative-time-target="relativeTime commmit" title="<%= commmit.end_date %>"><%= commmit.end_date %></span>
+    <span data-relative-time-target="relativeTime commmit" title="<%= commmit.end_date.iso8601 %>"><%= commmit.end_date %></span>
   </i>
 </small>
