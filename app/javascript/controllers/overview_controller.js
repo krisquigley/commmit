@@ -14,6 +14,8 @@ export default class extends Controller {
   ];
 
   connect() {
+    this.noDataText = 'You have no Commmits for the previous 7 days.';
+
     this._generateProductivityChart();
     this._generateHappinessChart();
     this._generateValuesChart();
@@ -21,6 +23,9 @@ export default class extends Controller {
 
   _generateProductivityChart() {
     const options = {
+      noData: {
+        text: this.noDataText,
+      },
       theme: {
         mode: 'dark',
         palette: 'palette1',
@@ -76,6 +81,9 @@ export default class extends Controller {
 
   _generateHappinessChart() {
     const options = {
+      noData: {
+        text: this.noDataText,
+      },
       theme: {
         mode: 'dark',
         palette: 'palette1',
@@ -132,6 +140,9 @@ export default class extends Controller {
 
   _generateValuesChart() {
     const options = {
+      noData: {
+        text: this.noDataText,
+      },
       series: JSON.parse(this.valuesDataTarget.value),
       chart: {
         background: 'none',
@@ -183,7 +194,7 @@ export default class extends Controller {
       },
     };
     const valuesChart = new ApexCharts(this.valuesChartTarget, options);
-
+    console.log(JSON.parse(this.valuesDataTarget.value));
     valuesChart.render();
   }
 }
