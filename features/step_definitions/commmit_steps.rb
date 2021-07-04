@@ -258,7 +258,7 @@ Then('I should be able to change the goal before creating it') do
   submit_form
 end
 
-Then('see the goal in my list of Commmits once I have created it') do 
+Then('see the goal in my list of Commmits once I have created it') do
   expect(page).to have_content(@stories.last.goal)
 end
 
