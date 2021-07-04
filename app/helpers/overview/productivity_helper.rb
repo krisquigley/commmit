@@ -1,0 +1,23 @@
+# frozen_string_literal: true
+
+module Overview::ProductivityHelper
+  include Overview::BaseHelper
+
+  def productivity
+    data = date_range.map do |date|
+      {
+        'x' => date.strftime("%a, %B #{date.day.ordinalize}"),
+        'y' => find_commmit_for_date(date)&.planned_stories&.count(&:completed_at)
+      }
+    end
+
+    return Oj.dump([]) if data.count { |date_range_date| date_range_date['y'].nil? } > 2
+
+    Oj.dump(data)
+  end
+
+  def average_productivity
+    points = @seven_recent_commmits.map { |c| c.planned_stories.count(&:completed_at) }
+    calculate_average(points)
+  end
+end
