@@ -1,7 +1,15 @@
 # frozen_string_literal: true
 
 Given('I have an archived Story') do
-  @story = create(:discarded_story)
+  with_tenant do
+    @story = create(:discarded_story)
+  end
+end
+
+Given('I have some stories') do
+  with_tenant do
+    @stories = create_list(:story, 5)
+  end
 end
 
 Given('I am creating a repeatable Story') do

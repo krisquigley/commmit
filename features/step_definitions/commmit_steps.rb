@@ -124,6 +124,26 @@ end
 ##
 # When
 
+When('I create a Commmit and choose a goal') do
+  visit new_commmit_path
+
+  find('button[name="choose_goal"]').click
+
+  find_all('button[name="add"]').first.click
+end
+
+When('I create a Commmit and create a new goal') do
+  visit new_commmit_path
+
+  find('button[name="choose_goal"]').click
+
+  click_on t('stories.index.new_story')
+
+  find('input[id=story_goal]').set('new goal')
+
+  submit_form
+end
+
 When('I archive my Commmit') do
   visit commmits_path
 
@@ -229,6 +249,18 @@ end
 
 ##
 # Then
+
+Then('I should be able to change the goal before creating it') do
+  find('button[name="choose_goal"]').click
+
+  find_all('button[name="add"]').last.click
+
+  submit_form
+end
+
+Then('see the goal in my list of Commmits once I have created it') do 
+  expect(page).to have_content(@stories.last.goal)
+end
 
 Then('I should be able to see the Commmit again') do
   visit commmits_path

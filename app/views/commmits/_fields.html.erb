@@ -9,6 +9,11 @@
                             autofocus: :autofocus %>
   </div>
 
+  <%= button_tag class: "btn btn-lg btn-primary btn-block", name: 'choose_goal', 
+                 data: { toggle: "modal", target: "#addStoriesModal" } do %>
+    <%= t('commmits.new.choose_goal') %> 
+  <% end %>
+
   <div class="form-group" data-controller="startdate">
     <%= f.label :start_date, t('commmits.form.start_date.label') %><br/>
     <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
@@ -26,3 +31,5 @@
                                   data: { startdate_target: :date } %>
   </div>
 </div>
+
+<%#= render 'planned_stories/add_stories/modal', commmit: @commmit %>

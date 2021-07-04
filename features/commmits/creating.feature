@@ -8,17 +8,18 @@ Feature: Creating Commmits
     Given I have a reflected Commmit
     When I create a Commmit and choose a goal
     Then I should be notified that my "Commmit" was "created"
-    And see the goal in my list of "Commmits"
+    And see the goal in my list of Commmits once I have created it
 
   Scenario: Creating a Commmit and Commmit goal on the fly
     When I create a Commmit and create a new goal
     Then I should be notified that my "Commmit" was "created"
-    And see the goal in my list of "Commmits"
+    And see the goal in my list of Commmits once I have created it
 
   Scenario: Creating a Commmit and changing the Commmit goal
+    Given I have some stories
     When I create a Commmit and choose a goal
     Then I should be able to change the goal before creating it
-    And see the goal in my list of "Commmits" once I have created it
+    And see the goal in my list of Commmits once I have created it
 
   @javascript
   Scenario: Creating a Commmit without choosing a goal
