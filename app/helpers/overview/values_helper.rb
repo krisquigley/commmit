@@ -15,7 +15,7 @@ module Overview
         }
       end
 
-      return Oj.dump([]) if (value_data.count { |date_range_date| date_range_date['data'].count(nil) > 5 }) > 5
+      return Oj.dump([]) if value_data.count { |date_range_date| date_range_date['data'].count(nil) > max_rest_days } > max_rest_days
 
       Oj.dump(value_data)
     end

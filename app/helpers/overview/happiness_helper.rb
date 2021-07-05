@@ -12,7 +12,7 @@ module Overview
         }
       end
 
-      return Oj.dump([]) if data.count { |date_range_date| date_range_date['y'].nil? } > 2
+      return Oj.dump([]) if data.count { |date_range_date| date_range_date['y'].nil? } > max_rest_days
 
       Oj.dump(data)
     end
