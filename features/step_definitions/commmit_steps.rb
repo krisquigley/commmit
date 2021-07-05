@@ -3,6 +3,24 @@
 ##
 # Given
 
+Given('I have an elapsed Commmit with a user entered goal') do
+  with_tenant do
+    @commmit = create(:finished_commmit, { name: 'user entered goal' })
+  end
+end
+
+Given('I have an elapsed Commmit with the Commmit goal completed') do
+  with_tenant do
+    @commmit = finished_commmit_with_completed_commmit_goal
+  end
+end
+
+Given('I have an elapsed Commmit with the Commmit goal not completed') do
+  with_tenant do
+    @commmit = finished_commmit_with_incomplete_commmit_goal
+  end
+end
+
 Given('that I have no Commmits in progress') do
   with_tenant do
     @commmit = create(:finished_commmit)
@@ -53,13 +71,13 @@ end
 
 Given('I have a finished Commmit') do
   with_tenant do
-    create(:finished_commmit)
+    @commmit = create(:finished_commmit)
   end
 end
 
 Given('I already have a Commmit for today') do
   with_tenant do
-    create(:commmit)
+    @commmit = create(:commmit)
   end
 end
 

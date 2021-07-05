@@ -19,14 +19,14 @@ class Commmit < ApplicationRecord
 
   before_validation :set_end_date
 
-  validates :name, :end_date, presence: true
+  validates :end_date, presence: true
   validates_uniqueness_of :end_date, scope: :account_id, conditions: -> { where(discarded_at: nil) }
 
   has_many :planned_stories, dependent: :destroy
   has_many :stories, through: :planned_stories
   has_one :reflection, dependent: :destroy
-  has_one :story
 
+  after_create :create_commmit_goal
   after_create :automatically_add_repeatable_stories
 
   def reflected?
@@ -49,7 +49,15 @@ class Commmit < ApplicationRecord
     Commmit.current.count.positive?
   end
 
+  def commmit_goal
+    @commmit_goal ||= planned_stories.where(commmit_goal: true).first
+  end
+
   private
+
+  def create_commmit_goal
+    planned_stories.create(story_id: goal_id, commmit_goal: true)
+  end
 
   def automatically_add_repeatable_stories
     Story.automatic.kept.in_batches do |batch|

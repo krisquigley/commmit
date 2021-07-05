@@ -1,19 +1,25 @@
 <%= form_with url: commmit_reflection_path(@commmit, @reflection), data: { turbo: false } do |f| %>
   <div class="form-content">
     <div class="form-group mb-5">
-      <h6 class="text-center mb-3"><%= t('commmits.reflection.form.goal_met.label') %></h6>
-      <p class="text-center">'<%= @commmit.name %>'</p>
-      <div class="btn-group btn-group-toggle w-100" data-toggle="buttons" role="group" aria-label="Commmit Goal Met?">
-        <label class="btn btn-secondary btn-colored_toggle w-50" for="goal_met_false">
-          <%= f.radio_button :goal_met, false %>
-          No
-        </label>
+      <% if @commmit.name.blank? %>
+        <%= render 'commmit_goal', commmit: @commmit %>
+      <% else %>
+        <h6 class="text-center mb-3"><%= t('commmits.reflection.form.goal_met.label') %></h6>
 
-        <label class="btn btn-secondary btn-colored_toggle w-50" for="goal_met_true">
-          <%= f.radio_button :goal_met, true, required: true %>
-          Yes
-        </label>
-      </div>
+        <p class="text-center">'<%= @commmit.name %>'</p>
+
+        <div class="btn-group btn-group-toggle w-100" data-toggle="buttons" role="group" aria-label="Commmit Goal Met?">
+          <label class="btn btn-secondary btn-colored_toggle w-50" for="goal_met_false">
+            <%= f.radio_button :goal_met, false %>
+            No
+          </label>
+
+          <label class="btn btn-secondary btn-colored_toggle w-50" for="goal_met_true">
+            <%= f.radio_button :goal_met, true, required: true %>
+            Yes
+          </label>
+        </div>
+      <% end %>
     </div>
 
     <div class="form-group mb-5">

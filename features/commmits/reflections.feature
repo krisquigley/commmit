@@ -26,16 +26,17 @@ Feature: Reflections
 
     Users will be displayed 3 of the most common barriers faced during the commmit and will be encouraged to create stories to work towards removing them.
 
-  Scenario: Marking a Commmit as meeting the goal
+  Scenario: Manually marking a Commmit as meeting the goal
     Given I have an elapsed Commmit with a user entered goal
     And I reflect on the Commmit
     When I mark my goal as being completed
-    Then I should be able to see that the goal was met
+    And I record my happiness
+    Then I should be able to see that the goal was manually met
 
-  Scenario: Automatically meeting my Commmit goal
+  Scenario: Meeting my Commmit goal
     Given I have an elapsed Commmit with the Commmit goal completed
     And I reflect on the Commmit
-    Then I should be able to see that the goal was automatically met
+    Then I should be able to see that the goal was met
 
   Scenario: Not meeting my Commmit goal
     Given I have an elapsed Commmit with the Commmit goal not completed
@@ -46,12 +47,14 @@ Feature: Reflections
     Given I have an elapsed Commmit
     And I reflect on the Commmit
     When I add notes to my Reflection
+    And I record my happiness
     Then I should be able to see my notes
 
   Scenario: Recording the user's happiness
     Given I have an elapsed Commmit
     And I reflect on the Commmit
     When I record my happiness
+    And I add notes to my Reflection
     Then I should see my happiness recorded
 
   Scenario: Viewing previous reflections

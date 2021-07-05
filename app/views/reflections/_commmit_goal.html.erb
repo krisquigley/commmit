@@ -1,0 +1,16 @@
+<h6 class="text-center mb-3">
+  <% if @commmit.commmit_goal.completed? %>
+    <%= t('commmits.reflection.goal_met_msg') %>
+  <% else %>
+    <%= t('commmits.reflection.goal_not_met_msg') %>
+  <% end %>
+</h6>
+
+<div class="card-deck">
+  <%= render partial: 'planned_stories/planned_story', 
+             locals: { 
+               commmit: commmit, 
+               reflecting: true, 
+               planned_story: commmit.commmit_goal
+             } %>
+</div>

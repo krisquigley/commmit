@@ -10,18 +10,23 @@
   <%= render 'results', commmit: @commmit %>
 
   <div class="mb-5">
-    <h6 class="text-center mb-3"><%= t('commmits.reflection.form.goal_met.label') %></h6>
-    <p class="text-center">'<%= @commmit.name %>'</p>
+    <% if @commmit.name.blank? %>
+      <%= render 'commmit_goal', commmit: @commmit %>
+    <% else %>
+      <h6 class="text-center mb-3"><%= t('commmits.reflection.form.goal_met.label') %></h6>
 
-    <div class="btn-group btn-group-toggle w-100" role="group" aria-label="Commmit Goal Met?">
-      <label class="btn btn-secondary <%= 'active' unless @reflection.goal_met %> btn-colored_toggle w-50" for="goal_met_false">
-        No
-      </label>
+      <p class="text-center">'<%= @commmit.name %>'</p>
 
-      <label class="btn btn-secondary <%= 'active' if @reflection.goal_met %> btn-colored_toggle w-50" for="goal_met_true">
-        Yes
-      </label>
-    </div>
+      <div class="btn-group btn-group-toggle w-100" role="group" aria-label="Commmit Goal Met?">
+        <label class="btn btn-secondary <%= 'active' if !@reflection.goal_met %> btn-colored_toggle w-50" for="goal_met_false">
+          No
+        </label>
+
+        <label class="btn btn-secondary <%= 'active' if @reflection.goal_met %> btn-colored_toggle w-50" for="goal_met_true">
+          Yes
+        </label>
+      </div>
+    <% end %>
   </div>
 
   <div class="mb-5">

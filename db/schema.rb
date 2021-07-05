@@ -36,19 +36,19 @@ ActiveRecord::Schema.define(version: 2021_06_27_130330) do
   end
 
   create_table "commmits", force: :cascade do |t|
-    t.string "name", null: false
+    t.string "name"
     t.bigint "account_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "commmit_stories_count"
     t.datetime "discarded_at"
     t.date "end_date", default: -> { "CURRENT_DATE" }, null: false
-    t.bigint "story_id"
+    t.bigint "goal_id"
     t.index ["account_id"], name: "index_commmits_on_account_id"
     t.index ["created_at"], name: "index_commmits_on_created_at"
     t.index ["discarded_at"], name: "index_commmits_on_discarded_at"
     t.index ["end_date"], name: "index_commmits_on_end_date"
-    t.index ["story_id"], name: "index_commmits_on_story_id"
+    t.index ["goal_id"], name: "index_commmits_on_goal_id"
   end
 
   create_table "planned_stories", force: :cascade do |t|
