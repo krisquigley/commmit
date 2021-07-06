@@ -9,19 +9,19 @@ module Overview
 
       value_data = values.map do |value|
         {
-          'name' => value[:name],
-          'type' => 'column',
-          'data' => value_count_per_day(value[:id])
+          'label' => value[:name],
+          'data' => value_count_per_day(value[:id]),
+          'backgroundColor' => value[:color],
+          'datalabels' => {
+            'align' => 'center',
+            'anchor' => 'center'
+          }
         }
       end
 
       return Oj.dump([]) if value_data.count { |date_range_date| date_range_date['data'].count(nil) > max_rest_days } > max_rest_days
 
       Oj.dump(value_data)
-    end
-
-    def value_colors
-      @values.map(&:color)
     end
 
     def value_count_per_day(value_id)
