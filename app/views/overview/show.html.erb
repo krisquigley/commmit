@@ -8,7 +8,6 @@
       <input type="hidden" data-overview-target="dateRangeData" value="<%= formatted_date_range %>" />
       <input type="hidden" data-overview-target="happinessData" value="<%= happiness %>" />
       <input type="hidden" data-overview-target="valuesData" value="<%= values %>" />
-      <input type="hidden" data-overview-target="valuesColorData" value="<%= value_colors %>" />
       <div class="card-deck">
         <div class="card">
           <div class="card-header"><%= t('overview.show.goals_met') %></div>
@@ -39,7 +38,9 @@
 
         <div class="card">
           <div class="card-header"><%= t('overview.show.productivity') %></div>
-          <div data-overview-target="productivityChart"></div>
+          <div class="card-body">
+            <canvas data-overview-target="productivityChart"></canvas>
+          </div>
           <div class="card-footer">
             <div class="card-footer__left">
               <%= image_tag '/images/icons/done_done_icon.svg', class: 'mr-1' %> 
@@ -51,7 +52,9 @@
 
         <div class="card">
           <div class="card-header"><%= t('overview.show.happiness') %></div>
-          <div data-overview-target="happinessChart"></div>
+          <div class="card-body">
+            <canvas data-overview-target="happinessChart"></canvas>
+          </div>
           <div class="card-footer">
             <div class="card-footer__left">
               <span class="mr-1">
@@ -65,7 +68,9 @@
 
         <div class="card">
           <div class="card-header"><%= t('overview.show.values') %></div>
-          <div data-overview-target="valuesChart"></div>
+          <div class="card-body">
+            <canvas data-overview-target="valuesChart" height="300"></canvas>
+          </div>
         </div>
       </div>
     </div>
