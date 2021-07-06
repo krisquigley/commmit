@@ -16,10 +16,6 @@ module Overview
 
     private
 
-    def max_rest_days
-      5
-    end
-
     def find_commmit_for_date(date)
       @seven_recent_commmits.find { |c| c.end_date == date }
     end
