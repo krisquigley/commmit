@@ -68,7 +68,7 @@ export default class extends Controller {
             borderColor: 'rgb(75, 192, 192)',
             segment: {
               borderColor: (ctx) =>
-                this.skipped(ctx, 'rgb(0,0,0,0.2)') ||
+                this.skipped(ctx, '#8d8d8d') ||
                 this.down(ctx, 'rgb(192,75,75)'),
               borderDash: (ctx) => this.skipped(ctx, [6, 6]),
             },
@@ -93,7 +93,7 @@ export default class extends Controller {
             borderColor: 'rgb(75, 192, 192)',
             segment: {
               borderColor: (ctx) =>
-                this.skipped(ctx, 'rgb(0,0,0,0.2)') ||
+                this.skipped(ctx, '#8d8d8d') ||
                 this.down(ctx, 'rgb(192,75,75)'),
               borderDash: (ctx) => this.skipped(ctx, [6, 6]),
             },
