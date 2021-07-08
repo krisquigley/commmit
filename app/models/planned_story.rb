@@ -17,6 +17,10 @@ class PlannedStory < ApplicationRecord
     completed_at.present?
   end
 
+  def commmit_goal?
+    commmit_goal
+  end
+
   protected
 
   def complete_story

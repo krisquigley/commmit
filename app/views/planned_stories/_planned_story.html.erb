@@ -1,6 +1,6 @@
 <% cache [commmit, planned_story, planned_story.story, reflecting] do %>
   <%= turbo_frame_tag dom_id(planned_story) do %>
-    <div class="card <%= "card--finished" if planned_story.completed? && !reflecting %>"  data-controller="navigate" data-action="click->navigate#navigate">
+    <div class="card <%= "card--finished" if planned_story.completed? && !reflecting %>" data-controller="navigate" data-action="click->navigate#navigate" data-element="planned_story">
       <div class="card-body card__flex">
         <div class="w-100">
           <h5 class="card--goal">
@@ -27,7 +27,7 @@
                       class: 'link-button discard-link', 
                       data: { action: "click->navigate#stopPropagation" } do %>
           <%= image_tag '/images/icons/close_icon.svg' %> 
-        <% end unless planned_story.completed? || reflecting || commmit.reflected? %>
+        <% end unless planned_story.completed? || reflecting || commmit.reflected? || planned_story.commmit_goal? %>
       </div>
       <div class="card-footer">
         <div class="card-footer__left">

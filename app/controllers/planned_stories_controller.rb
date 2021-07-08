@@ -96,7 +96,7 @@ class PlannedStoriesController < ApplicationController
   end
 
   def set_planned_stories
-    @planned_stories = all_planned_stories.todo.order(created_at: :asc)
+    @planned_stories = all_planned_stories.todo.order(commmit_goal: :asc, created_at: :asc)
   end
 
   def set_completed_stories

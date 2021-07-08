@@ -3,6 +3,12 @@
 ##
 # Given
 
+Given('I have a Commmit with a Commmit Goal and {int} planned stories') do |_int|
+  with_tenant do
+    @commmit = commmit_with_a_commmit_goal
+  end
+end
+
 Given('I have an elapsed Commmit with a user entered goal') do
   with_tenant do
     @commmit = create(:finished_commmit, { name: 'user entered goal' })
@@ -87,19 +93,19 @@ end
 
 Given('a Story with {string}') do |goal|
   with_tenant do
-    create(:story, goal: goal)
+    @story = create(:story, goal: goal)
   end
 end
 
 Given('I already have a Commmit which is in progress') do
   with_tenant do
-    create(:commmit, end_date: Time.current.to_date)
+    @commmit = create(:commmit, end_date: Time.current.to_date)
   end
 end
 
 Given('a Story') do
   with_tenant do
-    create(:story)
+    @story = create(:story)
   end
 end
 
@@ -353,10 +359,6 @@ Then('I should see a message to create a Commmit') do
   expect(page).to have_content t('commmits.index.no_commmits_yet')
 end
 
-Then('I can view my Reflection') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
 Then('I should see that it finishes today') do
   expect(page).to have_content t('commmits.index.statuses.in_progress')
 end
@@ -441,4 +443,21 @@ end
 
 Then('I should be notified that a Commmit already exists for today') do
   expect(page).to have_content t('activerecord.errors.models.commmit.attributes.end_date.taken')
+end
+
+Then('I should see my Commmit Goal at the top of the list') do
+  first_planned_story = find("[data-element='planned_story']", match: :first)
+  with_tenant do
+    commmit_goal = @commmit.commmit_goal.story
+
+    expect(first_planned_story).to have_content commmit_goal.goal
+  end
+end
+
+Then('I cannot remove it') do
+  first_planned_story = find("[data-element='planned_story']", match: :first)
+
+  expect do
+    first_planned_story.find("button[name='remove_story']")
+  end.to raise_error Capybara::ElementNotFound
 end

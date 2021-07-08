@@ -4,6 +4,7 @@ FactoryBot.define do
   factory :commmit do
     end_date { Time.current.to_date }
     goal_id { FactoryBot.create(:story).id }
+    name { Faker::Fantasy::Tolkien.poem }
 
     trait :discarded do
       discarded_at { Time.now }
@@ -15,6 +16,17 @@ FactoryBot.define do
 
     factory :discarded_commmit, traits: [:discarded]
     factory :finished_commmit, traits: [:finished]
+  end
+end
+
+def commmit_with_a_commmit_goal(stories_count: 5)
+  commmit_goal = FactoryBot.create(:story)
+
+  FactoryBot.create(:commmit, goal_id: commmit_goal.id, name: nil) do |commmit|
+    FactoryBot.create_list(:story, stories_count) do |story|
+      story.save
+      FactoryBot.create(:planned_story, commmit: commmit, story: story)
+    end
   end
 end
 
@@ -66,7 +78,7 @@ end
 def finished_commmit_with_completed_commmit_goal(stories_count: 5)
   commmit_goal = FactoryBot.create(:completed_story)
 
-  finished_commmit = FactoryBot.create(:finished_commmit, goal_id: commmit_goal.id) do |commmit|
+  finished_commmit = FactoryBot.create(:finished_commmit, goal_id: commmit_goal.id, name: nil) do |commmit|
     FactoryBot.create_list(:completed_story, stories_count) do |story|
       story.save
       FactoryBot.create(:completed_planned_story, commmit: commmit, story: story)
@@ -81,7 +93,7 @@ end
 def finished_commmit_with_incomplete_commmit_goal(stories_count: 5)
   commmit_goal = FactoryBot.create(:story)
 
-  FactoryBot.create(:finished_commmit, goal_id: commmit_goal.id) do |commmit|
+  FactoryBot.create(:finished_commmit, goal_id: commmit_goal.id, name: nil) do |commmit|
     FactoryBot.create_list(:completed_story, stories_count) do |story|
       story.save
       FactoryBot.create(:completed_planned_story, commmit: commmit, story: story)
