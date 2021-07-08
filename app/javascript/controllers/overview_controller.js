@@ -1,5 +1,6 @@
 import { Controller } from 'stimulus';
-import ApexCharts from 'apexcharts';
+import Chart from 'chart.js/auto';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 export default class extends Controller {
   static targets = [
@@ -9,9 +10,44 @@ export default class extends Controller {
     'happinessData',
     'happinessChart',
     'valuesData',
-    'valuesColorData',
     'valuesChart',
   ];
+
+  constructor(...args) {
+    super(...args);
+
+    this.skipped = (ctx, value) =>
+      ctx.p0.skip || ctx.p1.skip ? value : undefined;
+    this.down = (ctx, value) =>
+      ctx.p0.parsed.y > ctx.p1.parsed.y ? value : undefined;
+    this.genericOptions = {
+      plugins: {
+        legend: {
+          display: false,
+        },
+      },
+      fill: false,
+      interaction: {
+        intersect: false,
+      },
+      radius: 0,
+      scales: {
+        x: {
+          display: false,
+        },
+        y: {
+          min: 0,
+          display: true,
+          ticks: {
+            color: '#8d8d8d',
+          },
+          grid: {
+            display: false,
+          },
+        },
+      },
+    };
+  }
 
   connect() {
     this.noDataText = 'You have no Commmits for the previous 7 days.';
@@ -22,179 +58,111 @@ export default class extends Controller {
   }
 
   _generateProductivityChart() {
-    const options = {
-      noData: {
-        text: this.noDataText,
+    const config = {
+      type: 'line',
+      data: {
+        datasets: [
+          {
+            label: 'Productivity',
+            data: JSON.parse(this.productivityDataTarget.value),
+            borderColor: 'rgb(75, 192, 192)',
+            segment: {
+              borderColor: (ctx) =>
+                this.skipped(ctx, '#8d8d8d') ||
+                this.down(ctx, 'rgb(192,75,75)'),
+              borderDash: (ctx) => this.skipped(ctx, [6, 6]),
+            },
+            tension: 0.3,
+          },
+        ],
       },
-      theme: {
-        mode: 'dark',
-        palette: 'palette1',
-      },
-      chart: {
-        background: 'none',
-        toolbar: {
-          show: false,
-        },
-        type: 'line',
-      },
-      stroke: {
-        curve: 'smooth',
-      },
-      series: [
-        {
-          name: 'Productivity',
-          data: JSON.parse(this.productivityDataTarget.value),
-        },
-      ],
-      grid: {
-        show: false,
-      },
-      yaxis: {
-        min: 0,
-        logarithmic: false,
-        axisTicks: {
-          show: false,
-        },
-        labels: {
-          show: false,
-        },
-      },
-      xaxis: {
-        tooltip: {
-          enabled: false,
-        },
-        labels: {
-          show: false,
-        },
-        axisBorder: {
-          show: false,
-        },
-        axisTicks: {
-          show: false,
-        },
-      },
+      options: this.genericOptions,
     };
-    const valuesChart = new ApexCharts(this.productivityChartTarget, options);
 
-    valuesChart.render();
+    new Chart(this.productivityChartTarget, config);
   }
 
   _generateHappinessChart() {
-    const options = {
-      noData: {
-        text: this.noDataText,
+    const config = {
+      type: 'line',
+      data: {
+        datasets: [
+          {
+            label: 'Happiness',
+            data: JSON.parse(this.happinessDataTarget.value),
+            borderColor: 'rgb(75, 192, 192)',
+            segment: {
+              borderColor: (ctx) =>
+                this.skipped(ctx, '#8d8d8d') ||
+                this.down(ctx, 'rgb(192,75,75)'),
+              borderDash: (ctx) => this.skipped(ctx, [6, 6]),
+            },
+            tension: 0.3,
+          },
+        ],
       },
-      theme: {
-        mode: 'dark',
-        palette: 'palette1',
-      },
-      chart: {
-        background: 'none',
-        toolbar: {
-          show: false,
-        },
-        type: 'line',
-      },
-      stroke: {
-        curve: 'smooth',
-      },
-      series: [
-        {
-          name: 'Happiness',
-          data: JSON.parse(this.happinessDataTarget.value),
-        },
-      ],
-      grid: {
-        show: false,
-      },
-      yaxis: {
-        min: 0,
-        logarithmic: false,
-        axisTicks: {
-          show: false,
-        },
-        labels: {
-          show: false,
-        },
-      },
-      xaxis: {
-        tooltip: {
-          enabled: false,
-        },
-        labels: {
-          show: false,
-        },
-        axisBorder: {
-          show: false,
-        },
-        axisTicks: {
-          show: false,
+      options: {
+        ...this.genericOptions,
+        scales: {
+          ...this.genericOptions.scales,
+          y: {
+            ...this.genericOptions.scales.y,
+            min: 1,
+            ticks: {
+              ...this.genericOptions.scales.y.ticks,
+              precision: 0,
+            },
+          },
         },
       },
     };
 
-    const happinessChart = new ApexCharts(this.happinessChartTarget, options);
-
-    happinessChart.render();
+    new Chart(this.happinessChartTarget, config);
   }
 
   _generateValuesChart() {
-    const options = {
-      noData: {
-        text: this.noDataText,
+    const config = {
+      type: 'bar',
+      plugins: [ChartDataLabels],
+      data: {
+        labels: JSON.parse(this.dateRangeDataTarget.value),
+        datasets: JSON.parse(this.valuesDataTarget.value),
       },
-      series: JSON.parse(this.valuesDataTarget.value),
-      chart: {
-        background: 'none',
-        toolbar: {
-          show: false,
+      options: {
+        plugins: {
+          legend: {
+            labels: {
+              color: '#8d8d8d',
+            },
+          },
+          datalabels: {
+            color: 'white',
+            display: function (context) {
+              return context.dataset.data[context.dataIndex] > 0;
+            },
+            font: {
+              weight: 'bold',
+            },
+          },
+          title: {
+            display: false,
+          },
         },
-        type: 'bar',
-        height: 350,
-        stacked: true,
-      },
-      plotOptions: {
-        bar: {
-          horizontal: false,
+        responsive: true,
+
+        scales: {
+          x: {
+            display: false,
+            stacked: true,
+          },
+          y: {
+            display: false,
+            stacked: true,
+          },
         },
-      },
-      colors: JSON.parse(this.valuesColorDataTarget.value),
-      theme: {
-        mode: 'dark',
-        palette: 'palette1',
-      },
-      grid: {
-        show: false,
-      },
-      xaxis: {
-        type: 'category',
-        categories: JSON.parse(this.dateRangeDataTarget.value),
-        axisBorder: {
-          show: false,
-        },
-        axisTicks: {
-          show: false,
-        },
-        labels: {
-          show: false,
-        },
-      },
-      yaxis: {
-        logarithmic: false,
-        axisTicks: {
-          show: false,
-        },
-        labels: {
-          show: false,
-        },
-      },
-      legend: {
-        show: true,
-        position: 'top',
       },
     };
-    const valuesChart = new ApexCharts(this.valuesChartTarget, options);
-    console.log(JSON.parse(this.valuesDataTarget.value));
-    valuesChart.render();
+
+    new Chart(this.valuesChartTarget, config);
   }
 }
