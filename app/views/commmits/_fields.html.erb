@@ -1,19 +1,6 @@
 <div class="form-content">
   <%= render 'shared/errors', object: @commmit %>
 
-  <div class="form-group">
-    <%= f.label :name, t('commmits.form.name.label_html') %>
-    <%= f.text_field :name, required: true, 
-                            autocomplete: 'off', 
-                            class: "form-control", 
-                            autofocus: :autofocus %>
-  </div>
-
-  <%= button_tag class: "btn btn-lg btn-primary btn-block", name: 'choose_goal', 
-                 data: { toggle: "modal", target: "#addStoriesModal" } do %>
-    <%= t('commmits.new.choose_goal') %> 
-  <% end %>
-
   <div class="form-group" data-controller="startdate">
     <%= f.label :start_date, t('commmits.form.start_date.label') %><br/>
     <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
@@ -30,6 +17,14 @@
                                   value: @current_commmit ? Time.current.tomorrow.to_date : Time.current.to_date, 
                                   data: { startdate_target: :date } %>
   </div>
-</div>
 
-<%#= render 'planned_stories/add_stories/modal', commmit: @commmit %>
+  <div class="form-group">
+    <%= f.label :name, t('commmits.form.name.label_html') %>
+  
+    <%= button_tag class: "btn btn-lg btn-primary btn-block", name: 'choose_goal', 
+                   type: 'button',
+                   data: { toggle: "modal", target: "#chooseGoalModal" } do %>
+      <%= t('commmits.new.choose_goal') %> 
+    <% end %>
+  </div>
+</div>

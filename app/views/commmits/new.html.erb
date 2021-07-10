@@ -2,7 +2,7 @@
   <%= t('commmits.new.header') %>
 <% end %> 
 
-<div class="grid-content">
+<div class="grid-content" data-controller="commmit">
   <%= form_with model: @commmit, html: { class: 'flex-form', data: { turbo: false } } do |f| %>
     <%= render 'fields', f: f %>
 
@@ -12,6 +12,8 @@
     </div>
   <% end %>
 </div>
+
+<%= render 'stories/choose_commmit_goal/modal' %>
 
 <% content_for(:hide_footer_nav?) do %>
   true

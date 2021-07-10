@@ -1,0 +1,15 @@
+<%= turbo_frame_tag "one_off_commmit_goal" do %>
+  <% if @one_off_commmit_goal_page.first? && @one_off_commmit_goal_page.records.empty? %>
+    <p class="text-center text-secondary mt-2">
+      <%= t('stories.index.no_stories_yet') %>
+    </p>
+  <% end %>
+
+  <%= render partial: "stories/choose_commmit_goal/story", collection: @one_off_commmit_goal_page.records %>
+
+  <%= turbo_frame_tag "one_off_commmit_goal" do %>
+    <% unless @one_off_commmit_goal_page.last? %>
+      <%= link_to "Load More", one_off_commmit_goal_path(page: @one_off_commmit_goal_page.next_param), class: 'btn btn-lg btn-light btn-block mb-4' %>
+    <% end %>
+  <% end %>
+<% end %>

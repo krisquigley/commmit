@@ -1,0 +1,44 @@
+<div class="modal fade" id="chooseGoalModal" tabindex="-1" aria-labelledby="chooseGoalModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" data-controller="swipe-between-tabs">
+    
+      <%= render 'planned_stories/add_stories/modal_header' %>
+
+      <div class="modal-body">
+        <div class="tab-content modal-tab-content" id="tabContent">
+          <div class="tab-pane fade show active" 
+               id="content-1" 
+               role="tabpanel" 
+               aria-labelledby="1">
+            <div class="card-deck">
+              <%= turbo_frame_tag "one_off_commmit_goal", src: one_off_commmit_goal_path, loading: :lazy do %>
+                Loading...
+              <% end %>
+            </div>
+          </div>
+          <div class="tab-pane fade" 
+               id="content-2" 
+               role="tabpanel" 
+               aria-labelledby="2">
+            <div class="card-deck">
+              <%= turbo_frame_tag "repeatable_commmit_goal", src: repeatable_commmit_goal_path, loading: :lazy do %>
+                Loading...
+              <% end %> 
+            </div>
+          </div>
+          <div class="tab-pane fade" 
+               id="content-3" 
+               role="tabpanel" 
+               aria-labelledby="3">
+            <%= turbo_frame_tag "planned_stories_story_form", class: 'h-100' do %>
+              <%= render 'planned_stories/add_stories/form', story: Story.new, commmit: @commmit %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t('commmits.planned_stories.index.close_modal') %></button>
+      </div>
+    </div>
+  </div>
+</div>

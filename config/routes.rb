@@ -69,6 +69,8 @@ Rails.application.routes.draw do
   patch 'unarchive_stories/:id', to: 'stories#unarchive', as: :unarchive_story
   get :one_off_stories, to: 'stories#one_off'
   get :repeatable_stories, to: 'stories#repeatable'
-
+  get :one_off_commmit_goal, to: 'stories#one_off_commmit_goal'
+  get :repeatable_commmit_goal, to: 'stories#repeatable_commmit_goal'
+  
   resources :values
 end

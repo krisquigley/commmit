@@ -153,7 +153,11 @@ When('I create a Commmit and choose a goal') do
 
   find('button[name="choose_goal"]').click
 
-  find_all('button[name="add"]').first.click
+  find_all('button[name="choose"]').first.click
+
+  with_tenant do
+    expect(page).to have_content Story.incomplete.one_off.kept.most_recent_first.first.goal
+  end
 end
 
 When('I create a Commmit and create a new goal') do

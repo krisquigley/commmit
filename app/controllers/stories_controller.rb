@@ -7,18 +7,23 @@ class StoriesController < ApplicationController
   def index; end
 
   def archived
-    @stories = Story.includes(:values).discarded.most_recent_first
-    @stories_page = current_page_from @stories
+    @archived_stories_page = current_page_from archived_stories
   end
 
   def one_off
-    @one_off_stories = Story.includes(:values).incomplete.one_off.kept.most_recent_first
-    @one_off_stories_page = current_page_from @one_off_stories
+    @one_off_stories_page = current_page_from one_off_stories
   end
 
   def repeatable
-    @repeatable_stories = Story.includes(:values).repeatable.kept.completed_first
-    @repeatable_stories_page = current_page_from @repeatable_stories
+    @repeatable_stories_page = current_page_from repeatable_stories
+  end
+
+  def one_off_commmit_goal
+    @one_off_commmit_goal_page = current_page_from one_off_stories
+  end
+
+  def repeatable_commmit_goal
+    @repeatable_commmit_goal_page = current_page_from repeatable_stories
   end
 
   def show; end
@@ -86,6 +91,18 @@ class StoriesController < ApplicationController
   end
 
   private
+
+  def one_off_stories
+    @one_off_stories ||= Story.includes(:values).incomplete.one_off.kept.most_recent_first
+  end
+
+  def repeatable_stories
+    @repeatable_stories ||= Story.includes(:values).repeatable.kept.completed_first
+  end
+
+  def archived_stories
+    @archived_stories ||= Story.includes(:values).discarded.most_recent_first
+  end
 
   def find_commmit
     @commmit = Commmit.find(params[:commmit_id])

@@ -107,7 +107,7 @@ en:
       header: Archived Commmits
     form:
       name:
-        label_html: Name <b>one</b> Goal you want to Commmit to getting done, today.
+        label_html: Choose a Goal you want to Commmit to getting done.
       start_date:
         label: When do you want to start your Commmit?
         today: Today
