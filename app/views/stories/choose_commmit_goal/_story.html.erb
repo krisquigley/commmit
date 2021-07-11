@@ -19,7 +19,12 @@
           <%= render 'shared/story_status', story: story %>
         </div>
         <div class="card-footer__right">
-          <%= button_tag class: 'btn btn-link d-inline-flex align-middle', style: 'align-items: center', name: 'choose', type: 'button' do %>
+          <%= button_tag class: 'btn btn-link d-inline-flex align-middle', 
+                         style: 'align-items: center', 
+                         name: 'choose',
+                         data: { action: 'click->commmit#chooseGoal' },
+                         id: story.id,
+                         type: 'button' do %>
             <%= image_tag '/images/icons/add_icon.svg', class: 'mr-2 text-success' %> Choose
           <% end %>
         </div>

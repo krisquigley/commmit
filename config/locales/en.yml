@@ -108,6 +108,7 @@ en:
     form:
       name:
         label_html: Choose a Goal you want to Commmit to getting done.
+        presence_msg: Please choose a Commmit Goal
       start_date:
         label: When do you want to start your Commmit?
         today: Today

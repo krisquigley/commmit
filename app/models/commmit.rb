@@ -18,9 +18,11 @@ class Commmit < ApplicationRecord
   }
 
   before_validation :set_end_date
+  before_validation :set_name, only: :create
 
-  validates :end_date, :name, presence: true
+  validates :end_date, presence: true
   validates_uniqueness_of :end_date, scope: :account_id, conditions: -> { where(discarded_at: nil) }
+  validate :name, :name_cant_be_blank
 
   has_many :planned_stories, dependent: :destroy
   has_many :stories, through: :planned_stories
@@ -55,12 +57,16 @@ class Commmit < ApplicationRecord
 
   private
 
+  def set_name
+    self.name = Story.find(goal_id).goal
+  end
+
   def create_commmit_goal
     planned_stories.create(story_id: goal_id, commmit_goal: true)
   end
 
   def automatically_add_repeatable_stories
-    Story.automatic.kept.in_batches do |batch|
+    Story.automatic.kept.where.not(id: goal_id).in_batches do |batch|
       batch.each do |story|
         planned_stories.create(story: story)
       end
@@ -69,5 +75,9 @@ class Commmit < ApplicationRecord
 
   def set_end_date
     self.end_date = Time.current.to_date unless end_date
+  end
+
+  def name_cant_be_blank
+    errors.add('Commmit Goal:', I18n.t('commmits.form.name.presence_msg')) unless name.present?
   end
 end

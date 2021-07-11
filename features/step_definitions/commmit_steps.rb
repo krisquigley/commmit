@@ -158,6 +158,10 @@ When('I create a Commmit and choose a goal') do
   with_tenant do
     expect(page).to have_content Story.incomplete.one_off.kept.most_recent_first.first.goal
   end
+
+  sleep 0.5
+
+  submit_form
 end
 
 When('I create a Commmit and create a new goal') do
@@ -287,7 +291,10 @@ Then('I should be able to change the goal before creating it') do
 end
 
 Then('see the goal in my list of Commmits once I have created it') do
-  expect(page).to have_content(@stories.last.goal)
+  with_tenant do
+    expect(@commmit.reload.goal_id).to be_present
+    expect(page).to have_content(Story.find(@commmit.goal_id).goal)
+  end
 end
 
 Then('I should be able to see the Commmit again') do

@@ -12,6 +12,11 @@ class CommmitsController < ApplicationController
     set_page_and_extract_portion_from Commmit.includes(:planned_stories, :reflection).discarded.most_recent_first
   end
 
+  def commmit_goal
+    @commmit_goal = Story.includes(:values).find(params[:goal_id])
+    # Implement route to render commmit goal into the 'commmit_goal' turbo_frame
+  end
+
   def new
     @commmit = Commmit.new
   end
@@ -71,6 +76,6 @@ class CommmitsController < ApplicationController
   end
 
   def commmit_params
-    params.require(:commmit).permit(:name, :end_date)
+    params.require(:commmit).permit(:name, :end_date, :goal_id)
   end
 end

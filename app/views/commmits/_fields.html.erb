@@ -13,9 +13,16 @@
         <%= t('commmits.form.start_date.tomorrow') %>
       </label>
     </div>
+    <%= f.hidden_field :goal_id, required: true, 
+                                 data: { commmit_target: 'goalId' } %>
+
     <%= f.hidden_field :end_date, required: true, 
                                   value: @current_commmit ? Time.current.tomorrow.to_date : Time.current.to_date, 
                                   data: { startdate_target: :date } %>
+  </div>
+
+  <div class="form-group">
+    <%= turbo_frame_tag 'commmit_goal', data: { commmit_target: 'commmitGoal' } %>
   </div>
 
   <div class="form-group">
