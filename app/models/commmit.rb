@@ -58,7 +58,7 @@ class Commmit < ApplicationRecord
   private
 
   def set_name
-    self.name = Story.find(goal_id).goal
+    self.name = Story.find(goal_id).goal if goal_id
   end
 
   def create_commmit_goal

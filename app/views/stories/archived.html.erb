@@ -8,7 +8,7 @@
       <%= render partial: "archived_story", collection: @archived_stories_page.records %>
 
       <%= turbo_frame_tag "archived_stories" do %>
-        <% unless @stories_page.last? %>
+        <% unless @archived_stories_page.last? %>
           <%= link_to "Load More", archived_stories_path(page: @archived_stories_page.next_param), class: 'btn btn-lg btn-light btn-block mb-4' %>
         <% end %>
       <% end %>

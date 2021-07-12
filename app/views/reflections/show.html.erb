@@ -7,10 +7,8 @@
 <% end %> 
 
 <div class="grid-content">
-  <%= render 'results', commmit: @commmit %>
-
   <div class="mb-5">
-    <% if @commmit.name.blank? %>
+    <% unless @commmit.goal_id.blank? %>
       <%= render 'commmit_goal', commmit: @commmit %>
     <% else %>
       <h6 class="text-center mb-3"><%= t('commmits.reflection.form.goal_met.label') %></h6>
@@ -28,6 +26,8 @@
       </div>
     <% end %>
   </div>
+
+  <%= render 'results', commmit: @commmit %>
 
   <div class="mb-5">
     <h6 class="text-center mb-3" data-controller="reflection">

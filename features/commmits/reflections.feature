@@ -61,4 +61,3 @@ Feature: Reflections
     Given I have a reflected Commmit
     When I view the Commmit
     Then I should be able to view the completed reflection
-

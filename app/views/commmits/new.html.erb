@@ -6,7 +6,7 @@
   <%= form_with model: @commmit, html: { class: 'flex-form', data: { turbo: false } } do |f| %>
     <%= render 'fields', f: f %>
 
-    <div class="form-group form-actions">
+    <div class="form-group form-actions"> 
       <%= f.submit t('commmits.form.create'), class: "btn btn-lg btn-success btn-block" %>
       <%= link_to t('commmits.form.cancel'), commmits_path, class: "btn btn-lg btn-secondary btn-block" %>
     </div>

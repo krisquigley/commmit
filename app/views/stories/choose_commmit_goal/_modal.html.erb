@@ -30,8 +30,8 @@
                id="content-3" 
                role="tabpanel" 
                aria-labelledby="3">
-            <%= turbo_frame_tag "planned_stories_story_form", class: 'h-100' do %>
-              <%= render 'planned_stories/add_stories/form', story: Story.new, commmit: @commmit %>
+            <%= turbo_frame_tag "story_form", class: 'h-100' do %>
+              <%= render 'stories/form', story: Story.new, close_on_success: true  %>
             <% end %>
           </div>
         </div>

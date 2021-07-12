@@ -66,6 +66,8 @@ Rails.application.routes.draw do
     resources :planned_stories, shallow: true
   end
 
+  post :create_commmit_goal, to: 'stories#create_commmit_goal'
+  post :create_from_commmit, to: 'stories#create_from_commmit'
   get :archived_stories, to: 'stories#archived'
   patch 'unarchive_stories/:id', to: 'stories#unarchive', as: :unarchive_story
   get :one_off_stories, to: 'stories#one_off'

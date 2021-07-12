@@ -14,7 +14,6 @@ class CommmitsController < ApplicationController
 
   def commmit_goal
     @commmit_goal = Story.includes(:values).find(params[:goal_id])
-    # Implement route to render commmit goal into the 'commmit_goal' turbo_frame
   end
 
   def new

@@ -1,0 +1,21 @@
+<%= turbo_stream.replace "commmit_goal",
+                        partial: 'commmits/commmit_goal',
+                        locals: { commmit_goal: @story } %>
+
+<%= turbo_stream.update "story_form", 
+                        partial: 'stories/form', 
+                        locals: { story: Story.new, close_on_success: true } %>
+
+<% if @story.repeatable? %>
+  <%= turbo_stream.prepend "repeatable_commmit_goal", 
+                          partial: 'stories/choose_commmit_goal/story', 
+                          locals: { story: @story } %>
+<% else %>
+  <%= turbo_stream.prepend "one_off_commmit_goal", 
+                          partial: 'stories/choose_commmit_goal/story', 
+                          locals: { story: @story } %>
+<% end %>
+
+<%= turbo_stream.prepend "flash", 
+                          partial: "shared/flash", 
+                          locals: { msg_type: :notice, message: t('stories.notice.created') } %>

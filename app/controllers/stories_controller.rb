@@ -34,24 +34,41 @@ class StoriesController < ApplicationController
 
   def create
     @story = Story.new(story_params)
-    @story.planned_stories.build(commmit_id: @commmit.id) if @commmit
 
-    # TODO: Split @commmit out into the action `create_from_commmit`
     respond_to do |format|
       if @story.save
         format.turbo_stream
-        if @commmit
-          format.html { redirect_to commmit_planned_stories_path(@commmit), notice: t('stories.notice.created') }
-        else
-          format.html { redirect_to stories_path, notice: t('stories.notice.created') }
-        end
+        format.html { redirect_to stories_path, notice: t('stories.notice.created') }
       else
-        if @commmit
-          format.turbo_stream { render turbo_stream.replace(@story, partial: 'planned_stories/add_stories/form', locals: { story: @story, commmit: @commmit }) }
-        else
-          format.turbo_stream { render turbo_stream.replace('story_form', partial: 'stories/form', locals: { story: @story }) }
-        end
+        format.turbo_stream { render turbo_stream.replace('story_form', partial: 'stories/form', locals: { story: @story, close_on_success: false }) }
         format.html { render :new }
+      end
+    end
+  end
+
+  def create_from_commmit
+    @story = Story.new(story_params)
+    @story.planned_stories.build(commmit_id: @commmit.id)
+
+    respond_to do |format|
+      if @story.save
+        format.turbo_stream
+        format.html { redirect_to commmit_planned_stories_path(@commmit), notice: t('stories.notice.created') }
+      else
+        format.turbo_stream { render turbo_stream.replace(@story, partial: 'planned_stories/add_stories/form', locals: { story: @story, commmit: @commmit }) }
+        format.html { render :new }
+      end
+    end
+  end
+
+  def create_commmit_goal
+    @story = Story.new(story_params)
+
+    respond_to do |format|
+      if @story.save
+        format.turbo_stream
+      else
+        format.turbo_stream { render turbo_stream.replace(@story, partial: 'stories/form', locals: { story: @story, close_on_success: true }) }
       end
     end
   end

@@ -1,9 +1,7 @@
 <%= form_with url: commmit_reflection_path(@commmit, @reflection), data: { turbo: false } do |f| %>
   <div class="form-content">
     <div class="form-group mb-5">
-      <% if @commmit.name.blank? %>
-        <%= render 'commmit_goal', commmit: @commmit %>
-      <% else %>
+      <% if @commmit.goal_id.blank? %>
         <h6 class="text-center mb-3"><%= t('commmits.reflection.form.goal_met.label') %></h6>
 
         <p class="text-center">'<%= @commmit.name %>'</p>

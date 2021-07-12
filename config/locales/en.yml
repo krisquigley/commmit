@@ -65,8 +65,8 @@ en:
         add_more_goals: Add more
       done: Done
     reflection:
-      goal_met_msg: <p>Congrats! You completed your Commmit Goal!.</p>
-      goal_not_met_msg: <p>Break your goal down into smaller goals and try again.</p>
+      goal_met_msg_html: <p>Congrats! You completed your Commmit Goal!.</p>
+      goal_not_met_msg_html: <p>Oops, you didn't complete your Commmit Goal. Try Breaking your goals down smaller.</p>
       notice:
         new: Time to Reflect
         created: Reflection Recorded

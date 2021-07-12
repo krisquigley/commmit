@@ -52,7 +52,7 @@ Feature: Managing Stories In a Commmit
   #   And notify me
 
   Scenario: Marking a story as done
-    Given I already have a Commmit with 1 planned stories
+    Given I already have a "Commmit"
     When I mark the planned story as done
     Then I should be notified that my "Story" was "done"
     And the planned story and story should be marked as done 

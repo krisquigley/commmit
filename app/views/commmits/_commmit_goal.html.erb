@@ -1,0 +1,30 @@
+<%= turbo_frame_tag 'commmit_goal' do %>
+  <div class="card" id="<%= commmit_goal.id %>" data-commmit-target="chosenCommmitGoalId">
+    <div class="card-body">
+      <h5 class="card--goal">
+        <%= t('stories.form.goal.label') %> <%= commmit_goal.goal %><% if commmit_goal.reason.present? %>,<% end %>
+      </h5>
+      <% if commmit_goal.reason.present? %>
+        <h6 class="card--reason">
+          <%= t('stories.form.reason.label') %> <%= commmit_goal.reason %>.
+        </h6>
+      <% end %>
+      <div class="mt-1">
+        <%= render partial: 'values/value', collection: commmit_goal.values.filter{|v| v.discarded_at.nil? } %>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="card-footer__left">
+        <%= render 'shared/story_status', story: commmit_goal %>
+      </div>
+      <div class="card-footer__right">
+        <%= button_tag class: "btn btn-link d-inline-flex align-middle", name: 'choose_goal', 
+                      style: 'align-items: center', 
+                      type: 'button',
+                      data: { toggle: "modal", target: "#chooseGoalModal", commmit_target: 'chooseButton' } do %>
+          <%= image_tag '/images/icons/swap_icon.svg', class: 'mr-2 text-success' %> Change
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -11,7 +11,7 @@ end
 
 Given('I have an elapsed Commmit with a user entered goal') do
   with_tenant do
-    @commmit = create(:finished_commmit, { name: 'user entered goal' })
+    @commmit = create(:finished_commmit, { name: 'user entered goal', goal_id: nil })
   end
 end
 
@@ -158,10 +158,20 @@ When('I create a Commmit and choose a goal') do
   with_tenant do
     expect(page).to have_content Story.incomplete.one_off.kept.most_recent_first.first.goal
   end
+end
 
-  sleep 0.5
+When('I create a Commmit and choose a repeatable goal') do
+  visit new_commmit_path
 
-  submit_form
+  find('button[name="choose_goal"]').click
+
+  find_link(t('stories.form.repeatable.forever')).click
+
+  find_all('button[name="choose"]').first.click
+
+  with_tenant do
+    expect(page).to have_content Story.incomplete.repeatable.kept.most_recent_first.first.goal
+  end
 end
 
 When('I create a Commmit and create a new goal') do
@@ -172,6 +182,8 @@ When('I create a Commmit and create a new goal') do
   click_on t('stories.index.new_story')
 
   find('input[id=story_goal]').set('new goal')
+
+  find("input[value='#{t('stories.form.create')}']").click
 
   submit_form
 end
@@ -251,7 +263,7 @@ end
 When('I mark the planned story as done') do
   with_tenant do
     visit commmit_planned_stories_path(@commmit)
-    find('button[name=done]').click
+    find_all('button[name=done]').last.click
   end
 end
 
@@ -273,7 +285,10 @@ end
 When('I create a Commmit with the name test and choose to start it today') do
   visit new_commmit_path
 
-  find(:css, "input[name*='name']").set('Test')
+  find('button[name="choose_goal"]').click
+
+  find_all('button[name="choose"]').first.click
+
   find("label[for='today']").click
 
   submit_form
@@ -285,15 +300,17 @@ end
 Then('I should be able to change the goal before creating it') do
   find('button[name="choose_goal"]').click
 
-  find_all('button[name="add"]').last.click
+  find_all('button[name="choose"]')[1].click
 
   submit_form
 end
 
 Then('see the goal in my list of Commmits once I have created it') do
   with_tenant do
-    expect(@commmit.reload.goal_id).to be_present
-    expect(page).to have_content(Story.find(@commmit.goal_id).goal)
+    commmit = Commmit.first
+    expect(commmit.goal_id).to be_present
+    expect(commmit.commmit_goal).to be_present
+    expect(page).to have_content(Story.find(commmit.goal_id).goal)
   end
 end
 
@@ -308,12 +325,11 @@ Then('my Commmit should still be listed') do
 end
 
 Then('I should be alerted that something is wrong') do
-  message = page.find('#commmit_name').native.attribute('validationMessage')
-  expect(message).to eq 'Please fill out this field.'
+  expect(page).to have_content t('commmits.form.name.presence_msg')
 end
 
 Then('I should see my most recent Commmits') do
-  expect(page).to have_content @commmits.last.name
+  expect(page).to have_content @commmits.first.name
 end
 
 Then('I should not be able to edit the Commmit') do
@@ -397,7 +413,7 @@ end
 Then('it should not be listed under my commmit anymore') do
   with_tenant do
     within('div[data-container="planned_stories"]') do
-      expect(page).to_not have_content Story.first.goal
+      expect(page).to_not have_content Story.where.not(id: @commmit.goal_id).first.goal
     end
   end
 end
@@ -411,8 +427,8 @@ end
 
 Then('the planned story should be marked as done') do
   with_tenant do
-    expect(@commmit.planned_stories.first.completed?).to be_truthy
-    expect(@commmit.planned_stories.first.story.completed?).to be_truthy
+    expect(@commmit.planned_stories.last.completed?).to be_truthy
+    expect(@commmit.planned_stories.last.story.completed?).to be_truthy
   end
 end
 
@@ -435,6 +451,11 @@ end
 Then('see the repeatable stories in my list of planned stories') do
   with_tenant do
     visit commmit_planned_stories_path(Commmit.first)
+
+    planned_stories = find_all("div[data-element='planned_story']")
+
+    # INFO: Chosen Commmit goal is an auto added story
+    expect(planned_stories.length).to eq 3
 
     @stories.each do |story|
       within("div[data-container='planned_stories']") do
