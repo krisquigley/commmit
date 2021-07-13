@@ -3,6 +3,30 @@
 ##
 # Given
 
+Given('I have a Commmit with a Commmit Goal and {int} planned stories') do |_int|
+  with_tenant do
+    @commmit = commmit_with_a_commmit_goal
+  end
+end
+
+Given('I have an elapsed Commmit with a user entered goal') do
+  with_tenant do
+    @commmit = create(:finished_commmit, { name: 'user entered goal', goal_id: nil })
+  end
+end
+
+Given('I have an elapsed Commmit with the Commmit goal completed') do
+  with_tenant do
+    @commmit = finished_commmit_with_completed_commmit_goal
+  end
+end
+
+Given('I have an elapsed Commmit with the Commmit goal not completed') do
+  with_tenant do
+    @commmit = finished_commmit_with_incomplete_commmit_goal
+  end
+end
+
 Given('that I have no Commmits in progress') do
   with_tenant do
     @commmit = create(:finished_commmit)
@@ -23,7 +47,7 @@ end
 
 Given('a Commmit on that day') do
   with_tenant do
-    create(:commmit, end_date: @commmit.end_date)
+    @existing_commmit = create(:commmit, end_date: @commmit.end_date)
   end
 end
 
@@ -53,13 +77,13 @@ end
 
 Given('I have a finished Commmit') do
   with_tenant do
-    create(:finished_commmit)
+    @commmit = create(:finished_commmit)
   end
 end
 
 Given('I already have a Commmit for today') do
   with_tenant do
-    create(:commmit)
+    @commmit = create(:commmit)
   end
 end
 
@@ -69,19 +93,19 @@ end
 
 Given('a Story with {string}') do |goal|
   with_tenant do
-    create(:story, goal: goal)
+    @story = create(:story, goal: goal)
   end
 end
 
 Given('I already have a Commmit which is in progress') do
   with_tenant do
-    create(:commmit, end_date: Time.current.to_date)
+    @commmit = create(:commmit, end_date: Time.current.to_date)
   end
 end
 
 Given('a Story') do
   with_tenant do
-    create(:story)
+    @story = create(:story)
   end
 end
 
@@ -105,7 +129,7 @@ end
 
 Given('I already have a Commmit which has finished') do
   with_tenant do
-    create(:commmit, end_date: Date.yesterday)
+    @commmit = create(:commmit, end_date: Date.yesterday)
   end
 end
 
@@ -123,6 +147,46 @@ end
 
 ##
 # When
+
+When('I create a Commmit and choose a goal') do
+  visit new_commmit_path
+
+  find('button[name="choose_goal"]').click
+
+  find_all('button[name="choose"]').first.click
+
+  with_tenant do
+    expect(page).to have_content Story.incomplete.one_off.kept.most_recent_first.first.goal
+  end
+end
+
+When('I create a Commmit and choose a repeatable goal') do
+  visit new_commmit_path
+
+  find('button[name="choose_goal"]').click
+
+  find_link(t('stories.form.repeatable.forever')).click
+
+  find_all('button[name="choose"]').first.click
+
+  with_tenant do
+    expect(page).to have_content Story.incomplete.repeatable.kept.most_recent_first.first.goal
+  end
+end
+
+When('I create a Commmit and create a new goal') do
+  visit new_commmit_path
+
+  find('button[name="choose_goal"]').click
+
+  click_on t('stories.index.new_story')
+
+  find('input[id=story_goal]').set('new goal')
+
+  find("input[value='#{t('stories.form.create')}']").click
+
+  submit_form
+end
 
 When('I archive my Commmit') do
   visit commmits_path
@@ -199,7 +263,7 @@ end
 When('I mark the planned story as done') do
   with_tenant do
     visit commmit_planned_stories_path(@commmit)
-    find('button[name=done]').click
+    find_all('button[name=done]').last.click
   end
 end
 
@@ -221,7 +285,10 @@ end
 When('I create a Commmit with the name test and choose to start it today') do
   visit new_commmit_path
 
-  find(:css, "input[name*='name']").set('Test')
+  find('button[name="choose_goal"]').click
+
+  find_all('button[name="choose"]').first.click
+
   find("label[for='today']").click
 
   submit_form
@@ -229,6 +296,23 @@ end
 
 ##
 # Then
+
+Then('I should be able to change the goal before creating it') do
+  find('button[name="choose_goal"]').click
+
+  find_all('button[name="choose"]')[1].click
+
+  submit_form
+end
+
+Then('see the goal in my list of Commmits once I have created it') do
+  with_tenant do
+    commmit = Commmit.first
+    expect(commmit.goal_id).to be_present
+    expect(commmit.commmit_goal).to be_present
+    expect(page).to have_content(Story.find(commmit.goal_id).goal)
+  end
+end
 
 Then('I should be able to see the Commmit again') do
   visit commmits_path
@@ -241,12 +325,11 @@ Then('my Commmit should still be listed') do
 end
 
 Then('I should be alerted that something is wrong') do
-  message = page.find('#commmit_name').native.attribute('validationMessage')
-  expect(message).to eq 'Please fill out this field.'
+  expect(page).to have_content t('commmits.form.name.presence_msg')
 end
 
 Then('I should see my most recent Commmits') do
-  expect(page).to have_content @commmits.last.name
+  expect(page).to have_content @commmits.first.name
 end
 
 Then('I should not be able to edit the Commmit') do
@@ -303,10 +386,6 @@ Then('I should see a message to create a Commmit') do
   expect(page).to have_content t('commmits.index.no_commmits_yet')
 end
 
-Then('I can view my Reflection') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
 Then('I should see that it finishes today') do
   expect(page).to have_content t('commmits.index.statuses.in_progress')
 end
@@ -334,7 +413,7 @@ end
 Then('it should not be listed under my commmit anymore') do
   with_tenant do
     within('div[data-container="planned_stories"]') do
-      expect(page).to_not have_content Story.first.goal
+      expect(page).to_not have_content Story.where.not(id: @commmit.goal_id).first.goal
     end
   end
 end
@@ -348,8 +427,8 @@ end
 
 Then('the planned story should be marked as done') do
   with_tenant do
-    expect(@commmit.planned_stories.first.completed?).to be_truthy
-    expect(@commmit.planned_stories.first.story.completed?).to be_truthy
+    expect(@commmit.planned_stories.last.completed?).to be_truthy
+    expect(@commmit.planned_stories.last.story.completed?).to be_truthy
   end
 end
 
@@ -373,6 +452,11 @@ Then('see the repeatable stories in my list of planned stories') do
   with_tenant do
     visit commmit_planned_stories_path(Commmit.first)
 
+    planned_stories = find_all("div[data-element='planned_story']")
+
+    # INFO: Chosen Commmit goal is an auto added story
+    expect(planned_stories.length).to eq 3
+
     @stories.each do |story|
       within("div[data-container='planned_stories']") do
         expect(page).to have_content story.goal
@@ -391,4 +475,21 @@ end
 
 Then('I should be notified that a Commmit already exists for today') do
   expect(page).to have_content t('activerecord.errors.models.commmit.attributes.end_date.taken')
+end
+
+Then('I should see my Commmit Goal at the top of the list') do
+  first_planned_story = find("[data-element='planned_story']", match: :first)
+  with_tenant do
+    commmit_goal = @commmit.commmit_goal.story
+
+    expect(first_planned_story).to have_content commmit_goal.goal
+  end
+end
+
+Then('I cannot remove it') do
+  first_planned_story = find("[data-element='planned_story']", match: :first)
+
+  expect do
+    first_planned_story.find("button[name='remove_story']")
+  end.to raise_error Capybara::ElementNotFound
 end

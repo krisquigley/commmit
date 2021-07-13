@@ -65,6 +65,8 @@ en:
         add_more_goals: Add more
       done: Done
     reflection:
+      goal_met_msg_html: <p>Congrats! You completed your Commmit Goal!.</p>
+      goal_not_met_msg_html: <p>Oops, you didn't complete your Commmit Goal. Try breaking it down into a smaller Goal.</p>
       notice:
         new: Time to Reflect
         created: Reflection Recorded
@@ -100,11 +102,13 @@ en:
       new_commmit: New Commmit
     new:
       header: New Commmit
+      choose_goal: Choose Goal
     archived:
       header: Archived Commmits
     form:
       name:
-        label_html: Name <b>one</b> Goal you want to Commmit to getting done, today.
+        label_html: Choose a Goal you want to Commmit to getting done.
+        presence_msg: Please choose a Commmit Goal
       start_date:
         label: When do you want to start your Commmit?
         today: Today

@@ -7,18 +7,23 @@ class StoriesController < ApplicationController
   def index; end
 
   def archived
-    @stories = Story.includes(:values).discarded.most_recent_first
-    @stories_page = current_page_from @stories
+    @archived_stories_page = current_page_from archived_stories
   end
 
   def one_off
-    @one_off_stories = Story.includes(:values).incomplete.one_off.kept.most_recent_first
-    @one_off_stories_page = current_page_from @one_off_stories
+    @one_off_stories_page = current_page_from one_off_stories
   end
 
   def repeatable
-    @repeatable_stories = Story.includes(:values).repeatable.kept.completed_first
-    @repeatable_stories_page = current_page_from @repeatable_stories
+    @repeatable_stories_page = current_page_from repeatable_stories
+  end
+
+  def one_off_commmit_goal
+    @one_off_commmit_goal_page = current_page_from one_off_stories
+  end
+
+  def repeatable_commmit_goal
+    @repeatable_commmit_goal_page = current_page_from repeatable_stories
   end
 
   def show; end
@@ -29,24 +34,41 @@ class StoriesController < ApplicationController
 
   def create
     @story = Story.new(story_params)
-    @story.planned_stories.build(commmit_id: @commmit.id) if @commmit
 
-    # TODO: Split @commmit out into the action `create_from_commmit`
     respond_to do |format|
       if @story.save
         format.turbo_stream
-        if @commmit
-          format.html { redirect_to commmit_planned_stories_path(@commmit), notice: t('stories.notice.created') }
-        else
-          format.html { redirect_to stories_path, notice: t('stories.notice.created') }
-        end
+        format.html { redirect_to stories_path, notice: t('stories.notice.created') }
       else
-        if @commmit
-          format.turbo_stream { render turbo_stream.replace(@story, partial: 'planned_stories/add_stories/form', locals: { story: @story, commmit: @commmit }) }
-        else
-          format.turbo_stream { render turbo_stream.replace('story_form', partial: 'stories/form', locals: { story: @story }) }
-        end
+        format.turbo_stream { render turbo_stream.replace('story_form', partial: 'stories/form', locals: { story: @story, close_on_success: false }) }
         format.html { render :new }
+      end
+    end
+  end
+
+  def create_from_commmit
+    @story = Story.new(story_params)
+    @story.planned_stories.build(commmit_id: @commmit.id)
+
+    respond_to do |format|
+      if @story.save
+        format.turbo_stream
+        format.html { redirect_to commmit_planned_stories_path(@commmit), notice: t('stories.notice.created') }
+      else
+        format.turbo_stream { render turbo_stream.replace(@story, partial: 'planned_stories/add_stories/form', locals: { story: @story, commmit: @commmit }) }
+        format.html { render :new }
+      end
+    end
+  end
+
+  def create_commmit_goal
+    @story = Story.new(story_params)
+
+    respond_to do |format|
+      if @story.save
+        format.turbo_stream
+      else
+        format.turbo_stream { render turbo_stream.replace(@story, partial: 'stories/form', locals: { story: @story, close_on_success: true }) }
       end
     end
   end
@@ -86,6 +108,18 @@ class StoriesController < ApplicationController
   end
 
   private
+
+  def one_off_stories
+    @one_off_stories ||= Story.includes(:values).incomplete.one_off.kept.most_recent_first
+  end
+
+  def repeatable_stories
+    @repeatable_stories ||= Story.includes(:values).repeatable.kept.completed_first
+  end
+
+  def archived_stories
+    @archived_stories ||= Story.includes(:values).discarded.most_recent_first
+  end
 
   def find_commmit
     @commmit = Commmit.find(params[:commmit_id])

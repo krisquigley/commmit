@@ -14,12 +14,18 @@ Feature: Viewing a Commmit
     When I view the "Commmit"
     Then I can see my planned stories
 
-  Scenario: Viewing Todays Commmits with no active Commmits
+  Scenario: Viewing a Commmit with a Commmit Goal
+    Given I have a Commmit with a Commmit Goal and 5 planned stories
+    When I view the "Commmit"
+    Then I should see my Commmit Goal at the top of the list
+    And I cannot remove it
+
+  Scenario: Viewing Todays Commmit with no active Commmit
     Given that I have no Commmits in progress
     When I click on Today
     Then I should be notified that I have no Commmits today
 
-  Scenario: Viewing Todays Commmits with active Commmits
+  Scenario: Viewing Todays Commmit with an active Commmit
     Given that I have a Commmit in progress
     When I click on Today
     Then I should be taken to the Commmit in progress

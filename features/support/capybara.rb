@@ -12,7 +12,7 @@ Capybara.register_driver :headless_chrome do |app|
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
     chromeOptions: { args: %w[headless
                               --disable-gpu
-                              window-size=1280,2000
+                              window-size=375,812
                               --no-sandbox
                               --disable-dev-shm-usage
                               --enable-features=NetworkService,NetworkServiceInProcess] }
@@ -29,3 +29,4 @@ end
 
 Capybara.javascript_driver = :selenium_chrome_headless
 Capybara.default_max_wait_time = 5
+Capybara.disable_animation = true

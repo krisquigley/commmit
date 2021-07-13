@@ -9,6 +9,8 @@
 <div class="grid-content">
   <%= render 'shared/errors', object: @reflection %>
 
+  <%= render 'commmit_goal', commmit: @commmit unless @commmit.goal_id.blank? %>
+
   <%= render 'results', commmit: @commmit %>
 
   <%= render 'form' %>

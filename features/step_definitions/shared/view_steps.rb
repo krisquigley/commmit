@@ -5,6 +5,10 @@ Then('see {string} in my list of {string}') do |text, resource|
   expect(page).to have_content text
 end
 
+Then('submit the form') do
+  submit_form
+end
+
 When('I visit the {string} page') do |resource|
   visit path_for_resource(resource)
 end

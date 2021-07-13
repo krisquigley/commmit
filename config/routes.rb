@@ -60,15 +60,20 @@ Rails.application.routes.draw do
 
   get :archived_commmits, to: 'commmits#archived'
   patch 'unarchive_commmits/:id', to: 'commmits#unarchive', as: :unarchive_commmit
+  get 'commmit_goal/:goal_id', to: 'commmits#commmit_goal'
 
   resources :stories do
     resources :planned_stories, shallow: true
   end
 
+  post :create_commmit_goal, to: 'stories#create_commmit_goal'
+  post :create_from_commmit, to: 'stories#create_from_commmit'
   get :archived_stories, to: 'stories#archived'
   patch 'unarchive_stories/:id', to: 'stories#unarchive', as: :unarchive_story
   get :one_off_stories, to: 'stories#one_off'
   get :repeatable_stories, to: 'stories#repeatable'
+  get :one_off_commmit_goal, to: 'stories#one_off_commmit_goal'
+  get :repeatable_commmit_goal, to: 'stories#repeatable_commmit_goal'
 
   resources :values
 end

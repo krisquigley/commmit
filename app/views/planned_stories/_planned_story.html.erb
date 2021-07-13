@@ -1,6 +1,6 @@
 <% cache [commmit, planned_story, planned_story.story, reflecting] do %>
   <%= turbo_frame_tag dom_id(planned_story) do %>
-    <div class="card <%= "card--finished" if planned_story.completed? && !reflecting %>"  data-controller="navigate" data-action="click->navigate#navigate">
+    <div class="card <%= "card--finished" if planned_story.completed? && !reflecting %>" data-controller="navigate" data-action="click->navigate#navigate" data-element="planned_story">
       <div class="card-body card__flex">
         <div class="w-100">
           <h5 class="card--goal">
@@ -12,28 +12,33 @@
               <% end %>
             <% end %>
           </h5>
+
           <% if planned_story.story.reason.present? %>
             <h6 class="card--reason">
               <%= t('stories.form.reason.label') %> <%= planned_story.story.reason %>.
             </h6>
           <% end %>
+
           <div class="mt-1">
             <%= render partial: 'values/value', collection: planned_story.story.values.filter{|v| v.discarded_at.nil? } %>
           </div>
         </div>
+
         <%= button_to planned_story_path(planned_story), 
                       name: 'remove_story',
                       method: :delete, 
                       class: 'link-button discard-link', 
                       data: { action: "click->navigate#stopPropagation" } do %>
           <%= image_tag '/images/icons/close_icon.svg' %> 
-        <% end unless planned_story.completed? || reflecting || commmit.reflected? %>
+        <% end unless planned_story.completed? || reflecting || commmit.reflected? || planned_story.commmit_goal? %>
       </div>
+
       <div class="card-footer">
         <div class="card-footer__left">
           <%= image_tag '/images/icons/notes_icon.svg', class: 'ml-1' if planned_story.story.notes.present? %>
           <%= image_tag '/images/icons/repeat_icon.svg' if planned_story.story.repeatable? %>
         </div>
+        
         <div class="card-footer__right">
           <% if planned_story.completed? %>
             <%= button_to commmit_planned_story_mark_as_not_done_path(commmit.id, planned_story), 

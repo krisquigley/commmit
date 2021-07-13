@@ -1,0 +1,15 @@
+<%= turbo_frame_tag "repeatable_commmit_goal" do %>
+  <% if @repeatable_commmit_goal_page.first? && @repeatable_commmit_goal_page.records.empty? %>
+    <p class="text-center text-secondary mt-2">
+      <%= t('stories.index.no_stories_yet') %>
+    </p>
+  <% end %>
+
+  <%= render partial: "stories/choose_commmit_goal/story", collection: @repeatable_commmit_goal_page.records %>
+
+  <%= turbo_frame_tag "repeatable_commmit_goal" do %>
+    <% unless @repeatable_commmit_goal_page.last? %>
+      <%= link_to "Load More", repeatable_commmit_goal_path(page: @repeatable_commmit_goal_page.next_param), class: 'btn btn-lg btn-light btn-block mb-4' %>
+    <% end %>
+  <% end %>
+<% end %>

@@ -1,7 +1,6 @@
 .modal {
   @include enforce-mobile-viewport;
   max-height: 100vh;
-  left: auto;
   padding: 0.5rem;
 }
 
