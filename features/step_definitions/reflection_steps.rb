@@ -13,11 +13,11 @@ Then('I should be able to see that the goal was manually met') do
 end
 
 Then('I should be able to see that the goal was met') do
-  expect(page).to have_content t('commmits.reflection.goal_met_msg')
+  expect(page).to have_content ActionController::Base.helpers.strip_tags(t('commmits.reflection.goal_met_msg_html'))
 end
 
 Then('I should be able to see that the goal was not met') do
-  expect(page).to have_content t('commmits.reflection.goal_not_met_msg')
+  expect(page).to have_content ActionController::Base.helpers.strip_tags(t('commmits.reflection.goal_not_met_msg_html'))
 end
 
 When('I reflect on the Commmit') do
