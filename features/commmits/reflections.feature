@@ -36,11 +36,13 @@ Feature: Reflections
   Scenario: Meeting my Commmit goal
     Given I have an elapsed Commmit with the Commmit goal completed
     And I reflect on the Commmit
+    And I record my happiness
     Then I should be able to see that the goal was met
 
   Scenario: Not meeting my Commmit goal
     Given I have an elapsed Commmit with the Commmit goal not completed
     And I reflect on the Commmit
+    And I record my happiness
     Then I should be able to see that the goal was not met
 
   Scenario: Recording notes

@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 2021_06_27_130330) do
     t.datetime "completed_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "commmit_goal"
+    t.boolean "commmit_goal", default: false, null: false
     t.index ["account_id"], name: "index_planned_stories_on_account_id"
     t.index ["commmit_goal"], name: "index_planned_stories_on_commmit_goal"
     t.index ["commmit_id"], name: "index_planned_stories_on_commmit_id"

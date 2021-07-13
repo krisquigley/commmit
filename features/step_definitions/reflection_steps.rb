@@ -8,16 +8,34 @@ Then('I should be able to see that the goal was manually met') do
   submit_form
 
   visit commmit_reflection_path(@commmit)
+
   expect(page.find('label[for="goal_met_true"]')[:class].include?('active')).to be_truthy
   expect(page.find('label[for="goal_met_false"]')[:class].include?('active')).to be_falsy
+  with_tenant do
+    expect(@commmit.reflection.goal_met).to be_truthy
+  end
 end
 
 Then('I should be able to see that the goal was met') do
+  submit_form
+
+  visit commmit_reflection_path(@commmit)
+
   expect(page).to have_content ActionController::Base.helpers.strip_tags(t('commmits.reflection.goal_met_msg_html'))
+  with_tenant do
+    expect(@commmit.reflection.goal_met).to be_truthy
+  end
 end
 
 Then('I should be able to see that the goal was not met') do
+  submit_form
+
+  visit commmit_reflection_path(@commmit)
+
   expect(page).to have_content ActionController::Base.helpers.strip_tags(t('commmits.reflection.goal_not_met_msg_html'))
+  with_tenant do
+    expect(@commmit.reflection.goal_met).to be_falsy
+  end
 end
 
 When('I reflect on the Commmit') do

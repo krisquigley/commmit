@@ -1,5 +1,5 @@
 <h6 class="text-center mb-3">
-  <% if @commmit.commmit_goal.completed? %>
+  <% if @reflection&.goal_met || @commmit.commmit_goal.completed? %>
     <%= t('commmits.reflection.goal_met_msg_html') %>
   <% else %>
     <%= t('commmits.reflection.goal_not_met_msg_html') %>

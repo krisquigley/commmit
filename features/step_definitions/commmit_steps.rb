@@ -47,7 +47,7 @@ end
 
 Given('a Commmit on that day') do
   with_tenant do
-    create(:commmit, end_date: @commmit.end_date)
+    @existing_commmit = create(:commmit, end_date: @commmit.end_date)
   end
 end
 
@@ -129,7 +129,7 @@ end
 
 Given('I already have a Commmit which has finished') do
   with_tenant do
-    create(:commmit, end_date: Date.yesterday)
+    @commmit = create(:commmit, end_date: Date.yesterday)
   end
 end
 
