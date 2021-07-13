@@ -4,7 +4,7 @@ When('I click on the planned story') do
   visit commmit_planned_stories_path(@commmit)
 
   with_tenant do
-    click_on @commmit.planned_stories.first.story.goal
+    find_all(@commmit.planned_stories.first.story.goal).first.click
   end
 end
 
