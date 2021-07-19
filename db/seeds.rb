@@ -67,7 +67,7 @@ class SeedDatabase
       reason: "I can #{Faker::Verb.base}",
       repeatable: repeatable,
       automatically_add: repeatable ? booleans.sample : false,
-      notes: Faker::Lorem.paragraphs,
+      notes: Faker::Lorem.paragraphs.join(' '),
       values: values.sample(Array(0..5).sample)
     )
     printf('.')
@@ -92,7 +92,7 @@ class SeedDatabase
 
     commmit.reflection = Reflection.new(
       happiness: Array(0..5).sample,
-      notes: Faker::Lorem.paragraphs
+      notes: Faker::Lorem.paragraphs.join(' ')
     )
 
     commmit.save!
