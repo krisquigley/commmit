@@ -66,7 +66,7 @@ en:
       done: Done
     reflection:
       goal_met_msg_html: <p>Congrats! You completed your Commmit Goal!.</p>
-      goal_not_met_msg_html: <p>Oops, you didn't complete your Commmit Goal. Try breaking it down into a smaller Goal.</p>
+      goal_not_met_msg_html: <p>Oops, you didn't complete your Commmit Goal. Try breaking it down into smaller Goals.</p>
       notice:
         new: Time to Reflect
         created: Reflection Recorded
