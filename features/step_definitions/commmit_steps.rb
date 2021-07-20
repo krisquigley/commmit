@@ -191,7 +191,9 @@ end
 When('I archive my Commmit') do
   visit commmits_path
 
-  click_archive_button('commmit')
+  accept_alert do
+    click_archive_button('commmit')
+  end
 end
 
 When('I unarchive the Commmit') do

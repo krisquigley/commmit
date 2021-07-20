@@ -9,6 +9,7 @@ Feature: Archiving Commmits
     Given a "default" user
     And already logged in
 
+  @javascript
   Scenario: Archiving a Commmit
     Given I already have a "Commmit"
     When I archive my Commmit

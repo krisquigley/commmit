@@ -53,7 +53,9 @@ end
 When('I archive my Story') do
   visit stories_path
 
-  click_archive_button('story')
+  accept_alert do
+    click_archive_button('story')
+  end
 end
 
 When('I create a Story with the goal of {string}') do |goal|
