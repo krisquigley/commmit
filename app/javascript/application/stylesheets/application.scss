@@ -36,6 +36,8 @@
 @import './tooltip-inner';
 @import './values';
 
+@import './utilities/u-default-touch-area';
+
 html {
   @include enforce-mobile-viewport;
 

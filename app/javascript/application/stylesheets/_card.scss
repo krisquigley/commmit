@@ -32,6 +32,10 @@
 
   &__left {
     justify-content: left;
+
+    & > * {
+      margin-right: 0.2rem;
+    }
   }
 
   &__right {

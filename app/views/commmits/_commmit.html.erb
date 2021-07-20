@@ -12,8 +12,9 @@
                         class: 'font-weight-bold' %></h5>
 
         <%= button_to commmit_path(commmit), 
-                      method: :delete, 
-                      class: 'link-button discard-link', 
+                      method: :delete,
+                      onclick: 'alert("Archived items are not included in your charts")',
+                      class: 'link-button discard-link u-default-touch-area', 
                       data: { action: "click->navigate#stopPropagation" }, 
                       name: "archive_commmit" do %>
           <%= image_tag '/images/icons/close_icon.svg' %> 
