@@ -50,7 +50,7 @@ class PlannedStoriesController < ApplicationController
 
   def mark_as_done
     @planned_story = PlannedStory.find(params[:planned_story_id])
-    @planned_story.update(completed_at: Time.now) unless @planned_story.completed_at.present?
+    @planned_story.update(completed_at: Time.zone.now) unless @planned_story.completed_at.present?
 
     respond_to do |format|
       format.turbo_stream
