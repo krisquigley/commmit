@@ -80,9 +80,10 @@ en:
           label: Did you achieve your goal this Commmit?
         notes:
           label: Reflection
-          placeholder: Feedback
+          description_html: Thinking back through this Commmit,<br/>What went well?<br/>What could be better?<br/>What would you do differently next time?
         happiness:
-          label: How happy are you with your progress, this Commmit?
+          label: Happiness
+          description: How happy are you with your progress, this Commmit?
         create: Save Reflection
         cancel: Close
     notice:

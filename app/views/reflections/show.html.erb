@@ -55,6 +55,13 @@
     </h6>
 
     <%= markdown(@reflection&.notes) if @reflection&.notes.present? %>
+    <%= content_tag :div, class: 'divider mb-5', style: 'display: flex' do %>
+      <div class="dropdown-divider"></div>
+  
+      <small><%= t('commmits.reflection.new.no_results') %></small>
+      
+      <div class="dropdown-divider"></div>
+    <% end unless @reflection&.notes.present? %>
   </div>
   
   <h6 class="text-center mb-3"> <%= t('commmits.reflection.form.happiness.label') %></h6>
