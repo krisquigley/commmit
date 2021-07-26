@@ -10,12 +10,22 @@ Feature: Listing Stories
     When I visit the "Stories" page
     Then I should see my one-off Story under the Once tab
 
+  Scenario: Loading more stories
+    Given I already have 50 stories
+    When I visit the "Stories" page
+    Then I should see my one-off Story under the Once tab
+    And I should be able to load more stories
+
   Scenario: Listing repeatable stories
     Given I already have a repeatable story
     When I visit the "Stories" page
     Then I should see my repeatable Story under the Repeatable tab
 
-  Scenario: Loading more stories
+  Scenario: Loading more repeatable stories
+    Given I already have 50 repeatable stories
+    When I visit the "Stories" page
+    Then I should see my repeatable Story under the Repeatable tab
+    And I should be able to load more stories
 
   Scenario: Searching for stories
 

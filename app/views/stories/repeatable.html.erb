@@ -6,7 +6,10 @@
 
   <%= turbo_frame_tag "repeatable_stories" do %>
     <% unless @repeatable_stories_page.last? %>
-      <%= link_to "Load More", repeatable_stories_path(page: @repeatable_stories_page.next_param), class: 'btn btn-lg btn-light btn-block mb-4' %>
+      <%= link_to "Load More", 
+                  repeatable_stories_path(page: @repeatable_stories_page.next_param), 
+                  class: 'btn btn-lg btn-light btn-block mb-4',
+                  data: { test: 'load-more' } %>
     <% end %>
   <% end %>
 <% end %>

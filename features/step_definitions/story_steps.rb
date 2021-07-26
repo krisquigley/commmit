@@ -33,6 +33,16 @@ Given('I already have a repeatable story') do
   end
 end
 
+Given('I already have {int} stories') do |int|
+  @stories = create_list(:story, int)
+  @story = @stories.last
+end
+
+Given('I already have {int} repeatable stories') do |int|
+  @stories = create_list(:story, int, repeatable: true)
+  @story = @stories.last
+end
+
 When('I choose to make the Story get automatically added') do
   find("label[for='story_repeatable_true']").click
   find("label[for='story_automatically_add_true']").click
@@ -167,4 +177,12 @@ Then('I should see a cog icon next to it') do
   within("div[data-container='repeatable_stories']") do
     expect(page).to have_css "img[data-test-id='automatically_add']"
   end
+end
+
+Then('I should be able to load more stories') do
+  container = find('div[data-test="stories-container"]')
+  container.scroll_to(:bottom)
+  find('a[data-test="load-more"]').click
+
+  expect(page).to have_content @stories.first.goal
 end
