@@ -184,7 +184,7 @@ Then('I should be able to load more stories') do
   container.scroll_to(:bottom)
   find('a[data-test="load-more"]').click
 
-  expect(page).to have_content @stories.first.goal
+  expect(page).to have_content @stories.last.goal
 end
 
 When('I have completed some stories') do
