@@ -192,7 +192,7 @@ When('I have completed some stories') do
   @incomplete_stories = @stories[4..9]
 
   @completed_stories.each_with_index do |story, index|
-    story.update(completed_at: Time.zone.now + index.hours)
+    story.update(completed_at: Time.current + index.hours)
   end
 end
 

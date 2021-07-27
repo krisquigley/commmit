@@ -85,7 +85,7 @@ def finished_commmit_with_completed_commmit_goal(stories_count: 5)
     end
   end
 
-  finished_commmit.reload.commmit_goal.update(completed_at: Time.zone.now)
+  finished_commmit.reload.commmit_goal.update(completed_at: Time.current)
 
   finished_commmit
 end
