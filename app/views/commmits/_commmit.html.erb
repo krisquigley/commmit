@@ -13,7 +13,7 @@
 
         <%= button_to commmit_path(commmit), 
                       method: :delete,
-                      onclick: 'alert("Archived items are not included in your charts")',
+                      onclick: 'return confirm("Archived Commmits are not included in your charts")',
                       class: 'link-button discard-link u-default-touch-area', 
                       data: { action: "click->navigate#stopPropagation" }, 
                       name: "archive_commmit" do %>

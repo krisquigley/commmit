@@ -16,7 +16,7 @@
         </div>
       </div>
       <%= button_to story_path(story),  method: :delete, 
-                                        onclick: 'alert("Archived items are not included in your charts")',
+                                        onclick: 'return confirm("Archive this Goal?")',
                                         class: 'link-button discard-link u-default-touch-area', 
                                         data: { 
                                           action: "click->navigate#stopPropagation" 
