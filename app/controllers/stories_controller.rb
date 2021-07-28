@@ -40,7 +40,7 @@ class StoriesController < ApplicationController
         format.turbo_stream
         format.html { redirect_to stories_path, notice: t('stories.notice.created') }
       else
-        format.turbo_stream { render turbo_stream.replace('story_form', partial: 'stories/form', locals: { story: @story, close_on_success: false }) }
+        format.turbo_stream { render turbo_stream.replace('story_form', partial: 'stories/form', locals: { story: @story }) }
         format.html { render :new }
       end
     end
@@ -68,7 +68,7 @@ class StoriesController < ApplicationController
       if @story.save
         format.turbo_stream
       else
-        format.turbo_stream { render turbo_stream.replace(@story, partial: 'stories/form', locals: { story: @story, close_on_success: true }) }
+        format.turbo_stream { render turbo_stream.replace(@story, partial: 'stories/choose_commmit_goal/form', locals: { story: @story }) }
       end
     end
   end
@@ -83,7 +83,7 @@ class StoriesController < ApplicationController
         format.turbo_stream
         format.html { redirect_to stories_path, notice: t('stories.notice.updated') }
       else
-        format.turbo_stream { render turbo_stream.replace(@story, partial: 'stories/edit', locals: { story: @story }) }
+        format.turbo_stream { render :edit }
         format.html { render :edit }
       end
     end

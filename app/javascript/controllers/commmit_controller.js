@@ -51,6 +51,4 @@ export default class extends Controller {
       this.commmitGoalTarget.innerHTML = await response.text();
     }
   }
-
-  // Submit the form, pull the id and place it in the DOM
 }

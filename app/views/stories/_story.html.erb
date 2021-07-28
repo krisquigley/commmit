@@ -1,10 +1,15 @@
 <%= turbo_frame_tag dom_id(story) do %>
-  <div class="card" data-controller="navigate" data-action="click->navigate#navigate" data-container="story">
+  <div class="card" 
+       data-controller="navigate"
+       data-container="story"
+       data-name="storyCard"
+       data-action="click->edit-story#editStory" 
+       id="<%= story.id %>">
     <div class="card-body card__flex">
       <div class="w-100">
         <h5 class="card--goal">
           <%= link_to "#{t('stories.form.goal.label')} #{story.goal}#{story.reason.present? ? ',' : ''}", 
-                        edit_story_path(story), data: { navigate_target: :link } %>
+                        edit_story_path(story) %>
         </h5>
         <% if story.reason.present? %>
           <h6 class="card--reason">
