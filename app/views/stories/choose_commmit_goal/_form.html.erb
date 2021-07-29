@@ -1,7 +1,7 @@
 <%= render 'shared/errors', object: story %>
 
 <%= form_with model: story, url: create_commmit_goal_path, html: { class: 'flex-form' } do |f| %>
-  <div class="form-content" data-controller="stories">
+  <div class="form-content" data-controller="auto-add-story">
     <%= render 'stories/fields', f: f, story: story %>
   </div>
   

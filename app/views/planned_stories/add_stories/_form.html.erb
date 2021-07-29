@@ -2,7 +2,7 @@
 
 <%= form_with model: story, url: create_from_commmit_path, html: { class: 'flex-form' } do |f| %>
   <%= hidden_field_tag :commmit_id, commmit.id %>
-  <div class="form-content" data-controller="stories">
+  <div class="form-content" data-controller="auto-add-story">
     <%= render 'stories/fields', f: f, story: story %>
   </div>
   
