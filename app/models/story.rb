@@ -2,6 +2,7 @@
 
 class Story < ApplicationRecord
   include Discard::Model
+  include MeiliSearch
 
   acts_as_tenant :account
 
@@ -25,6 +26,10 @@ class Story < ApplicationRecord
   has_many :planned_stories
   has_many :commmits, counter_cache: true, through: :planned_stories
   has_and_belongs_to_many :values
+
+  meilisearch unless: :completed? && :one_off? || :discarded? do
+    attribute :goal, :reason
+  end
 
   def completed?
     completed_at.present?

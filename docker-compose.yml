@@ -24,6 +24,19 @@ services:
     networks:
       - commmit
 
+  meilisearch:
+    container_name: commmit-meilisearch
+    image: getmeili/meilisearch:v0.20.0
+    volumes:
+      - meilidata:/data.ms
+    ports:
+      - '7700:7700'
+    networks:
+      - commmit
+    environment:
+      - MEILI_MASTER_KEY=0a62e145-b3ec-4a64-b3f5-54c5adf7dbac
+
 volumes:
   pgdata:
   redisdata:
+  meilidata:
