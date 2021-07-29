@@ -83,7 +83,7 @@ class StoriesController < ApplicationController
         format.turbo_stream
         format.html { redirect_to stories_path, notice: t('stories.notice.updated') }
       else
-        format.turbo_stream { render :edit }
+        format.turbo_stream { render turbo_stream.replace(@story, partial: 'stories/edit', locals: { story: @story }) }
         format.html { render :edit }
       end
     end
