@@ -44,25 +44,25 @@
 
   <div class="btn-group btn-group-toggle w-100" data-toggle="buttons" role="group" aria-label="Repeatable?">
     <label class="btn btn-secondary btn-colored_toggle <%= 'active' if !story&.repeatable? %> w-50" for="story_repeatable_false">
-      <%= f.radio_button :repeatable, false, data: { action: "stories#hideAutoAdd" } %>
+      <%= f.radio_button :repeatable, false, data: { action: "auto-add-story#hideAutoAdd" } %>
       <%= t('stories.form.repeatable.once') %>
     </label>
 
     <label class="btn btn-secondary btn-colored_toggle <%= 'active' if story&.repeatable? %> w-50" for="story_repeatable_true">
-      <%= f.radio_button :repeatable, true, data: { stories_target: "repeatable", action: "stories#showAutoAdd" }, checked: story&.repeatable %>
+      <%= f.radio_button :repeatable, true, data: { 'auto-add-story_target': "repeatable", action: "auto-add-story#showAutoAdd" }, checked: story&.repeatable %>
       <%= t('stories.form.repeatable.forever') %>
     </label>
   </div>
 </div>
 
-<div class="form-group mt-2" data-stories-target="autoAdd" style="display: none">
+<div class="form-group mt-2" data-auto-add-story-target="autoAdd" style="display: none">
   <%= f.label :automatically_add, class: "form-check-label" do %>
     <%= t('stories.form.automatically_add.label') %>
   <% end %>
 
   <div class="btn-group btn-group-toggle w-100" data-toggle="buttons" role="group" aria-label="Automatically add to every Commmit?">
     <label class="btn btn-secondary btn-colored_toggle <%= 'active' if story&.automatic? %> w-50" for="story_automatically_add_true">
-      <%= f.radio_button :automatically_add, true, checked: story&.automatic?, data: { stories_target: 'autoAddRadio' } %>
+      <%= f.radio_button :automatically_add, true, checked: story&.automatic?, data: { 'auto-add-story_target': 'autoAddRadio' } %>
       Yes
     </label>
 

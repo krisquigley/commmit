@@ -1,6 +1,6 @@
 <%= turbo_stream.update "story_form", 
                         partial: 'stories/form', 
-                        locals: { story: Story.new, close_on_success: false } %>
+                        locals: { story: Story.new } %>
 
 <% if @story.repeatable? %>
   <%= turbo_stream.prepend "repeatable_stories", 

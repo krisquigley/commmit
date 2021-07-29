@@ -1,16 +1,19 @@
 <%= render 'shared/errors', object: story %>
 
-<%= form_with model: story, url: close_on_success.present? ? create_commmit_goal_path : stories_path, html: { class: 'flex-form' } do |f| %>
-  <div class="form-content" data-controller="stories">
+<%= form_with model: story, html: { 
+      class: 'flex-form', 
+      data: { 
+        action: story.id.nil? ? '' : 'submit->edit-story#closeModal', 
+        'edit-story-target': 'resetForm' 
+      } 
+    } do |f| %>
+  <div class="form-content" data-controller="auto-add-story">
     <%= render 'stories/fields', f: f, story: story %>
   </div>
   
   <div class="form-group form-actions">
-    <%= f.submit t('stories.form.create'), 
-                 class: "btn btn-lg btn-success btn-block", 
-                 onsuccess: close_on_success.present? ? "$('#chooseGoalModal').modal('hide');" : '' %>
-    <% unless close_on_success %>
-      <button type="button" class="btn btn-lg btn-secondary btn-block" data-dismiss="modal"><%= t('stories.form.cancel') %></button>
-    <% end %>
+    <%= f.submit story.id.nil? ? t('stories.form.create') : t('stories.form.update'), 
+        class: "btn btn-lg btn-success btn-block" %>
+    <button type="button" class="btn btn-lg btn-secondary btn-block" data-dismiss="modal"><%= t('stories.form.cancel') %></button>
   </div>
 <% end %>

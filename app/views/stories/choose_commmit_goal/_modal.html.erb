@@ -31,7 +31,7 @@
                role="tabpanel" 
                aria-labelledby="3">
             <%= turbo_frame_tag "story_form", class: 'h-100' do %>
-              <%= render 'stories/form', story: Story.new, close_on_success: true  %>
+              <%= render 'stories/choose_commmit_goal/form', story: Story.new  %>
             <% end %>
           </div>
         </div>

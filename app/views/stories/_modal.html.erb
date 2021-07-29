@@ -1,12 +1,9 @@
 <div class="modal fade" id="newStoryModal" tabindex="-1" aria-labelledby="newStoryModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <div class="modal-title"><%= t('stories.index.new_story') %></div>
-      </div>
-      <div class="modal-body">
+      <div class="modal-body" data-edit-story-target="storyForm">
         <%= turbo_frame_tag "story_form", class: 'h-100' do %>
-          <%= render partial: 'stories/form', locals: { story: @story || Story.new, close_on_success: false } %>
+          <%= render partial: 'stories/form', locals: { story: @story || Story.new } %>
         <% end %>
       </div>
     </div>

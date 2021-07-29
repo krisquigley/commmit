@@ -28,7 +28,7 @@
       </a>
     </li>
   </ul>
-  <div class="tab-content" id="tabContent">
+  <div class="tab-content" id="tabContent" data-controller="edit-story">
     <div  class="tab-pane fade show active" 
           id="content-1" 
           role="tabpanel"
@@ -60,11 +60,17 @@
       </div>
     </div>
     <div class="page-actions">
-      <%= button_tag class: "btn btn-lg btn-primary btn-block", data: { toggle: "modal", target: "#newStoryModal" } do %>
+      <%= button_tag class: "btn btn-lg btn-primary btn-block", 
+                     data: { 
+                       toggle: "modal", 
+                       target: "#newStoryModal", 
+                       action: 'click->edit-story#resetForm' 
+                     } do %>
         <%= t('stories.index.new_story') %> 
       <% end %>
     </div>
+
+    <%= render 'stories/modal' %>
   </div>
 </div>
 
-<%= render 'stories/modal' %>
