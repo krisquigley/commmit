@@ -18,6 +18,7 @@ Feature: Creating Stories
     
     When I create a Story with the goal of "to tame my inner b*tch"
     Then I should be notified that my "Story" was "created"
+    And I should be able presented with an empty Story form
 
   @javascript
   Scenario: Creating a story without a goal
