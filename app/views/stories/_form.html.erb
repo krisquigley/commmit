@@ -3,7 +3,7 @@
 <%= form_with model: story, html: { 
       class: 'flex-form', 
       data: { 
-        action: story.id.nil? ? '' : 'submit->edit-story#closeModal', 
+        action: story.id.nil? ? 'submit->edit-story#resetForm' : 'submit->edit-story#closeModal', 
         'edit-story-target': 'resetForm' 
       } 
     } do |f| %>

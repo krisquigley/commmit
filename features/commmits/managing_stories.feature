@@ -30,6 +30,7 @@ Feature: Managing Stories In a Commmit
     Given I already have a "Commmit"
     When I create a new story with "My Goal" from my Commmit
     Then I should be notified that my "Story" was "created"
+    And I should be able presented with an empty Story form
     And the Story with the goal "My Goal" should appear in my Commmit
 
   Scenario: Removing a planned story

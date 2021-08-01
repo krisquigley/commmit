@@ -114,6 +114,12 @@ When('I create a one-time Story') do
   submit_form
 end
 
+Then('I should be able presented with an empty Story form') do
+  goal_input = find("input[name*='goal']")
+
+  expect(goal_input.value).to be_empty
+end
+
 Then('I should no longer see my Story') do
   visit stories_path
 
