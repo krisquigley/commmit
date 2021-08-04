@@ -28,7 +28,11 @@ class User < ApplicationRecord
     accounts.find_by(account_type: 'personal')
   end
 
-  protected
+  private
+
+  def send_devise_notification(notification, *args)
+    devise_mailer.send(notification, self, *args).deliver_later
+  end
 
   def downcase_username
     self.username = username.downcase
