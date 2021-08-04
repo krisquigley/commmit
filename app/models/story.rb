@@ -27,7 +27,7 @@ class Story < ApplicationRecord
   has_many :commmits, counter_cache: true, through: :planned_stories
   has_and_belongs_to_many :values
 
-  meilisearch unless: :completed? && :one_off? || :discarded? do
+  meilisearch enqueue: true, unless: :completed? && :one_off? || :discarded? do
     attribute :goal, :reason
   end
 
