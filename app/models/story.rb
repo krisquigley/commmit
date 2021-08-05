@@ -32,9 +32,7 @@ class Story < ApplicationRecord
     attribute :goal, :reason
 
     attribute :values do
-      values.map do |value|
-        value.name
-      end
+      values.map(&:name)
     end
   end
 
