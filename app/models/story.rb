@@ -25,10 +25,17 @@ class Story < ApplicationRecord
 
   has_many :planned_stories
   has_many :commmits, counter_cache: true, through: :planned_stories
-  has_and_belongs_to_many :values
+  has_and_belongs_to_many :values, touch: true
+  after_touch :index!
 
   meilisearch enqueue: true, unless: :completed? && :one_off? || :discarded? do
     attribute :goal, :reason
+
+    attribute :values do
+      values.map do |value|
+        value.name
+      end
+    end
   end
 
   def completed?

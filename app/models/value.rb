@@ -10,7 +10,7 @@ class Value < ApplicationRecord
   validates :color, presence: true
 
   has_and_belongs_to_many :commmits
-  has_and_belongs_to_many :stories
+  has_and_belongs_to_many :stories, touch: true
 
   after_save do
     stories.update_all updated_at: Time.current
