@@ -35,13 +35,15 @@
           style="min-height: 75vh"
           data-container="one_off_stories"
           aria-labelledby="1">
-      
+      <%= render 'shared/search_bar' %>
       <div class="card-deck">
         <%= turbo_stream_from current_tenant.id, :one_off_stories %>
         
-        <%= turbo_frame_tag "one_off_stories", src: one_off_stories_path do %>
-          Loading...
-        <% end %>
+        <div data-attributes="one_off_stories">
+          <%= turbo_frame_tag "one_off_stories", src: one_off_stories_path do %>
+            Loading...
+          <% end %>
+        </div>
       </div>
     </div>
     <div class="tab-pane fade" 

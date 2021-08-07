@@ -11,7 +11,11 @@ class StoriesController < ApplicationController
   end
 
   def one_off
-    @one_off_stories_page = current_page_from one_off_stories
+    @one_off_stories_page = if params[:search].present?
+                              OpenStruct.new(records: Story.search(params[:search]), first?: true, last?: true)
+                            else
+                              current_page_from one_off_stories
+                            end
   end
 
   def repeatable

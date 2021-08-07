@@ -1,0 +1,15 @@
+<div class="input-group mb-3" data-controller="search">
+  <div class="input-group-prepend">
+    <span class="input-group-text" style="background-color: #dedede; border-right: 0;">
+      <%= image_tag '/images/icons/search_icon.svg' %>
+    </span>
+  </div>
+  <%= text_field_tag :search,
+                    nil,
+                    autocomplete: 'off', 
+                    autocapitalize: "none",
+                    placeholder: t('stories.search.placeholder'), 
+                    class: "form-control",
+                    style: 'border-left: 0;',
+                    data: { action: 'input->search#stories' } %>
+</div>
