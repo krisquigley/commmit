@@ -28,7 +28,9 @@ class Story < ApplicationRecord
   has_and_belongs_to_many :values, touch: true
   after_touch :index!
 
-  meilisearch enqueue: true, unless: :completed_and_one_off? || :discarded? do
+  meilisearch index_uid: "Stories_#{ActsAsTenant.current_tenant.id}",
+              enqueue: true,
+              unless: :completed_and_one_off? || :discarded? do
     attribute :goal, :reason
 
     attribute :values do
