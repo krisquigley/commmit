@@ -11,5 +11,10 @@
                     placeholder: t('stories.search.placeholder'), 
                     class: "form-control",
                     style: 'border-left: 0;',
-                    data: { action: 'input->search#stories' } %>
+                    data: { action: "input->search##{path}", search_target: 'input' } %>
+  <div class="input-group-append">
+    <span class="input-group-text">
+      <%= image_tag '/images/icons/close_icon.svg', data: { action: 'click->search#reset', path: path } %>
+    </span>
+  </div>
 </div>

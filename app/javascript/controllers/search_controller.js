@@ -2,22 +2,37 @@ import { Controller } from 'stimulus';
 import db from 'just-debounce';
 
 export default class extends Controller {
+  static targets = ['input'];
+
   connect() {
-    this.debounce = db((query) => this._search(query), 200);
+    this.debounce = db((query, path) => this.search(query, path), 200);
   }
 
-  stories(event) {
-    this.debounce(event.target.value);
+  one_off_stories(event) {
+    this.debounce(event.target.value, 'one_off_stories');
   }
 
-  async _search(query) {
-    const response = await fetch(`/one_off_stories?search=${query}`, {
+  repeatable_stories(event) {
+    this.debounce(event.target.value, 'repeatable_stories');
+  }
+
+  reset(event) {
+    const { path } = event.target.dataset;
+    this.search(false, path);
+
+    this.inputTarget.value = '';
+  }
+
+  async search(query, path) {
+    const fullPath = query ? `/${path}?search=${query}` : `/${path}`;
+
+    const response = await fetch(fullPath, {
       headers: {
         'Turbo-Frame': 'true',
       },
     });
 
-    document.querySelector('div[data-attributes="one_off_stories"]').innerHTML =
+    document.querySelector(`div[data-attributes="${path}"]`).innerHTML =
       await response.text();
   }
 }

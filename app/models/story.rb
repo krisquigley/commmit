@@ -31,7 +31,7 @@ class Story < ApplicationRecord
   meilisearch index_uid: "Stories_#{ActsAsTenant.current_tenant.id}",
               enqueue: true,
               unless: :completed_and_one_off? || :discarded? do
-    attribute :goal, :reason
+    attribute :goal, :reason, :repeatable
 
     attribute :values do
       values.map(&:name)
