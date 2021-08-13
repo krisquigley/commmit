@@ -35,11 +35,11 @@
           style="min-height: 75vh"
           data-container="one_off_stories"
           aria-labelledby="1">
-      <%= render partial: 'shared/search_bar', locals: { path: 'one_off_stories' } %>
+      <%= render partial: 'shared/search_bar', locals: { path: one_off_stories_path } %>
       <div class="card-deck">
         <%= turbo_stream_from current_tenant.id, :one_off_stories %>
         
-        <div data-attributes="one_off_stories">
+        <div data-attributes="<%= one_off_stories_path %>">
           <%= turbo_frame_tag "one_off_stories", src: one_off_stories_path do %>
             Loading...
           <% end %>
@@ -52,11 +52,11 @@
         style="min-height: 75vh"
         data-container="repeatable_stories"
         aria-labelledby="2">
-      <%= render partial: 'shared/search_bar', locals: { path: 'repeatable_stories' } %>
+      <%= render partial: 'shared/search_bar', locals: { path: repeatable_stories_path } %>
       <div class="card-deck">
         <%= turbo_stream_from current_tenant.id, :repeatable_stories %>
         
-        <div data-attributes="repeatable_stories">
+        <div data-attributes="<%= repeatable_stories_path %>">
           <%= turbo_frame_tag "repeatable_stories", src: repeatable_stories_path, loading: :lazy do %>
             Loading...
           <% end %>

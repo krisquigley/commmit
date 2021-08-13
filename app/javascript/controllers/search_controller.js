@@ -8,12 +8,9 @@ export default class extends Controller {
     this.debounce = db((query, path) => this.search(query, path), 200);
   }
 
-  one_off_stories(event) {
-    this.debounce(event.target.value, 'one_off_stories');
-  }
-
-  repeatable_stories(event) {
-    this.debounce(event.target.value, 'repeatable_stories');
+  searchStories(event) {
+    const { path } = event.target.dataset;
+    this.debounce(event.target.value, path);
   }
 
   reset(event) {
@@ -24,15 +21,21 @@ export default class extends Controller {
   }
 
   async search(query, path) {
-    const fullPath = query ? `/${path}?search=${query}` : `/${path}`;
+    const fullPath = query ? `${path}?search=${query}` : path;
 
     const response = await fetch(fullPath, {
       headers: {
         'Turbo-Frame': 'true',
       },
     });
+    const responseContent = await response.text();
 
-    document.querySelector(`div[data-attributes="${path}"]`).innerHTML =
-      await response.text();
+    const storiesContainer = document.querySelector(
+      `div[data-attributes="${path}"]`,
+    );
+
+    if (response.status === 200) {
+      storiesContainer.innerHTML = responseContent;
+    }
   }
 }

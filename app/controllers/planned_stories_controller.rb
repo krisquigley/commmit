@@ -17,19 +17,37 @@ class PlannedStoriesController < ApplicationController
 
   def add_one_off_stories
     story_ids = all_planned_stories.map(&:story_id)
-    @one_off_stories_page = current_page_from Story.includes(:values)
-                                                   .incomplete
-                                                   .where.not(id: story_ids)
-                                                   .one_off
-                                                   .kept
-                                                   .most_recent_first
+
+    @one_off_stories_page = if params[:search].present?
+                              filter = "repeatable = false AND (#{story_ids.map { |id| "id != #{id}" }.join(' OR ').concat(')')}"
+                              OpenStruct.new(records: Story.search(params[:search],
+                                                                   filters: filter,
+                                                                   limit: 50),
+                                             first?: true,
+                                             last?: true)
+                            else
+                              current_page_from Story.includes(:values)
+                                                     .incomplete
+                                                     .where.not(id: story_ids)
+                                                     .one_off
+                                                     .kept
+                                                     .most_recent_first
+                            end
   end
 
   def add_repeatable_stories
-    @repeatable_stories_page = current_page_from Story.includes(:values)
-                                                      .repeatable
-                                                      .kept
-                                                      .completed_first
+    @repeatable_stories_page = if params[:search].present?
+                                 OpenStruct.new(records: Story.search(params[:search],
+                                                                      filters: 'repeatable = true',
+                                                                      limit: 50),
+                                                first?: true,
+                                                last?: true)
+                               else
+                                 current_page_from Story.includes(:values)
+                                                        .repeatable
+                                                        .kept
+                                                        .completed_first
+                               end
   end
 
   def show
@@ -91,8 +109,8 @@ class PlannedStoriesController < ApplicationController
   end
 
   def all_planned_stories
-    @all_planned_stories ||= PlannedStory.includes(story: [:values])
-                                         .where(commmit_id: @commmit.id)
+    @all_planned_stories = PlannedStory.includes(story: [:values])
+                                       .where(commmit_id: @commmit.id)
   end
 
   def set_planned_stories

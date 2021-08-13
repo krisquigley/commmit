@@ -10,20 +10,26 @@
                id="content-1" 
                role="tabpanel" 
                aria-labelledby="1">
+            <%= render partial: 'shared/search_bar', locals: { path: commmit_add_one_off_stories_path(commmit) } %>
             <div class="card-deck">
-              <%= turbo_frame_tag "add_one_off_stories", src: commmit_add_one_off_stories_path, loading: :lazy do %>
-                Loading...
-              <% end %>
+              <div data-attributes="<%= commmit_add_one_off_stories_path(commmit) %>">
+                <%= turbo_frame_tag "add_one_off_stories", src: commmit_add_one_off_stories_path, loading: :lazy do %>
+                  Loading...
+                <% end %>
+              </div>
             </div>
           </div>
           <div class="tab-pane fade" 
                id="content-2" 
                role="tabpanel" 
                aria-labelledby="2">
+            <%= render partial: 'shared/search_bar', locals: { path: commmit_add_repeatable_stories_path(commmit) } %>
             <div class="card-deck">
-              <%= turbo_frame_tag "add_repeatable_stories", src: commmit_add_repeatable_stories_path, loading: :lazy do %>
-                Loading...
-              <% end %> 
+              <div data-attributes="<%= commmit_add_repeatable_stories_path(commmit) %>">
+                <%= turbo_frame_tag "add_repeatable_stories", src: commmit_add_repeatable_stories_path, loading: :lazy do %>
+                  Loading...
+                <% end %> 
+              </div>
             </div>
           </div>
           <div class="tab-pane fade" 

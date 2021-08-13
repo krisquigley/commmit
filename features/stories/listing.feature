@@ -33,6 +33,26 @@ Feature: Listing Stories
     Then I should see the non-completed newest stories first
     And I should see the most recent completed stories afterwards
 
-  Scenario: Searching for stories
+  Scenario: Searching one-off stories by goal
+    Given I already have 10 repeatable stories
+    And 10 one-off stories
+    When I search for one-off stories by goal
+    Then I should only see one-off stories in my results
 
-    A user can search for a story by goal, reason, value, or notes.
+  Scenario: Searching one-off stories by reason
+    Given I already have 10 repeatable stories
+    And 10 one-off stories
+    When I search for one-off stories by reason
+    Then I should only see one-off stories in my results
+
+  Scenario: Searching one-off stories by value
+    Given I already have 10 repeatable stories
+    And 10 one-off stories
+    When I search for one-off stories by value
+    Then I should only see one-off stories in my results
+
+  Scenario: Searching repeatable stories by goal
+    Given I already have 10 repeatable stories
+    And 10 one-off stories
+    When I search for repeatable stories by goal
+    Then I should only see repeatable stories in my results

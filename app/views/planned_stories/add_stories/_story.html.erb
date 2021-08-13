@@ -20,7 +20,7 @@
         </div>
         <div class="card-footer__right">
           <%= form_with model: [story, PlannedStory.new] do |f| %>
-            <%= f.hidden_field :commmit_id, value: commmit.id %>
+            <%= f.hidden_field :commmit_id, value: commmit.id, id: "planned_story_commmit_id_#{story.id}" %>
             <%= button_tag class: 'btn btn-link d-inline-flex align-middle u-default-touch-area', style: 'align-items: center', name: 'add', type: 'submit' do %>
               <%= image_tag '/images/icons/add_icon.svg', class: 'mr-2 text-success' %> Add
             <% end %>

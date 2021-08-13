@@ -31,17 +31,28 @@ Feature: Viewing a Commmit
     Then I should be taken to the Commmit in progress
 
   Scenario: Viewing a Commmit that has finished
-    # Given I have a finished Commmit with 5 planned stories
-    # When I view the "Commmit"
-    # Then I should not be able to edit the Commmit
-    # But I can view my Reflection
+    Given I have a finished Commmit with 5 planned stories
+    When I view the "Commmit"
+    Then I should not be able to edit the Commmit
+    But I can view my Reflection
 
   Scenario: Accessing the currently active Commmit
     Given I already have a Commmit with 1 planned stories
     When I click on Today
     Then I should be taken to my latest Commmit
 
-  Scenario: Accessing someone elses Commmit
-  #   Given there are additional users
-  #   When I visit another user's Commmits
-  #   Then I should get a 404
+  Scenario: Searching one-off stories by goal to add to my Commmit
+    Given that I have a Commmit in progress
+    And I already have 10 repeatable stories
+    And 10 one-off stories
+    When I choose a Commmit Goal
+    And I search for one-off stories by goal
+    Then I should only see one-off stories in my results
+
+  Scenario: Searching repeatable stories by goal to add to my Commmit
+    Given that I have a Commmit in progress
+    And I already have 10 repeatable stories
+    And 10 one-off stories
+    When I choose a Commmit Goal
+    And I search for repeatable stories by goal
+    Then I should only see repeatable stories in my results
