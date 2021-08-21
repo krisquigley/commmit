@@ -2,7 +2,7 @@ import { Controller } from 'stimulus';
 import db from 'just-debounce';
 
 export default class extends Controller {
-  static targets = ['input'];
+  static targets = ['input', 'clear'];
 
   connect() {
     this.debounce = db((query, path) => this.search(query, path), 200);
@@ -10,6 +10,7 @@ export default class extends Controller {
 
   searchStories(event) {
     const { path } = event.target.dataset;
+    this.hideShowClearButton();
     this.debounce(event.target.value, path);
   }
 
@@ -18,6 +19,15 @@ export default class extends Controller {
     this.search(false, path);
 
     this.inputTarget.value = '';
+    this.hideShowClearButton();
+  }
+
+  hideShowClearButton() {
+    if (this.inputTarget.value.length > 0) {
+      this.clearTarget.style.visibility = 'visible';
+    } else {
+      this.clearTarget.style.visibility = 'hidden';
+    }
   }
 
   async search(query, path) {
