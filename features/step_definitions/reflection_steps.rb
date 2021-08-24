@@ -102,3 +102,9 @@ end
 Then('I should be prompted to reflect') do
   expect(page).to have_current_path(new_commmit_reflection_path(@commmit, redirect: true))
 end
+
+Then('I can view my Reflection') do
+  click_on t('commmits.planned_stories.index.view_reflection')
+
+  expect(page).to have_content t('commmits.reflection.new.completed_stories')
+end

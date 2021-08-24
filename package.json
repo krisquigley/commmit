@@ -11,6 +11,7 @@
     "chartjs-plugin-datalabels": "^2.0.0",
     "dayjs": "^1.10.4",
     "jquery": "^3.5.1",
+    "just-debounce": "^1.1.0",
     "popper.js": "^1.14.7",
     "stimulus": "^2.0.0",
     "tinygesture": "^1.1.4",

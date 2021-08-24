@@ -2,9 +2,9 @@
 
 FactoryBot.define do
   factory :story do
-    goal { Faker::GreekPhilosophers.quote }
+    goal { Faker::Lorem.unique.sentence }
     reason { Faker::Lorem.sentence }
-    notes { Faker::Lorem.sentences }
+    notes { Faker::Lorem.sentences.join('. ') }
     repeatable { false }
 
     trait :repeatable do
@@ -23,9 +23,14 @@ FactoryBot.define do
       automatically_add { true }
     end
 
+    trait :with_values do
+      values { create_list(:value, 1) }
+    end
+
     factory :discarded_story, traits: [:discarded]
     factory :repeatable_story, traits: [:repeatable]
     factory :completed_story, traits: [:completed]
+    factory :story_with_values, traits: [:with_values]
     factory :automatic_repeatable_story, traits: %i[automatic repeatable]
   end
 end

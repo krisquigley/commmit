@@ -1,0 +1,23 @@
+<div class="input-group mb-3" data-controller="search">
+  <div class="input-group-prepend">
+    <span class="input-group-text search-bar__search-icon">
+      <%= image_tag '/images/icons/search_icon.svg' %>
+    </span>
+  </div>
+  <%= text_field_tag :search,
+                    nil,
+                    autocomplete: 'off', 
+                    autocapitalize: "none",
+                    placeholder: t('stories.search.placeholder'), 
+                    class: "form-control search-bar__input",
+                    style: '',
+                    id: path,
+                    data: { action: "input->search#searchStories", 
+                            search_target: 'input',
+                            path: path } %>
+  <div class="input-group-append">
+    <span class="input-group-text search-bar__clear">
+      <%= image_tag '/images/icons/close_fill_icon.svg', data: { action: 'click->search#reset', path: path, search_target: 'clear'  }, class: 'search-bar__clear-icon' %>
+    </span>
+  </div>
+</div>

@@ -194,6 +194,8 @@ en:
       no_stories_yet: You haven't created any goals yet
     archived:
       header: Archived Goals
+    search:
+      placeholder: Search
   values:
     notice:
       created: Created Value

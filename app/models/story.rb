@@ -2,6 +2,7 @@
 
 class Story < ApplicationRecord
   include Discard::Model
+  include MeiliSearch
 
   acts_as_tenant :account
 
@@ -24,10 +25,28 @@ class Story < ApplicationRecord
 
   has_many :planned_stories
   has_many :commmits, counter_cache: true, through: :planned_stories
-  has_and_belongs_to_many :values
+  has_and_belongs_to_many :values, touch: true
+  after_touch :index!
+
+  meilisearch index_uid: "Story_#{ActsAsTenant.current_tenant.name}_#{Rails.env}",
+              synchronous: Rails.env.test?,
+              enqueue: !Rails.env.test?,
+              unless: :completed_and_one_off? || :discarded? do
+    attribute :goal, :reason, :repeatable, :id
+
+    attribute :values do
+      values.map(&:name)
+    end
+
+    searchable_attributes %i[goal reason values]
+  end
 
   def completed?
     completed_at.present?
+  end
+
+  def completed_and_one_off?
+    completed? && one_off?
   end
 
   def repeatable?

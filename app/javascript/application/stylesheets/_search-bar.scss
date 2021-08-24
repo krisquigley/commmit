@@ -1,0 +1,26 @@
+.search-bar {
+  &__search-icon {
+    background-color: #dedede;
+    border-right: 0;
+  }
+
+  &__input {
+    &:focus {
+      outline: none;
+      box-shadow: none;
+      border-color: initial;
+    }
+    padding-left: 0;
+    border-left: 0;
+    border-right: 0;
+  }
+
+  &__clear {
+    background-color: #dedede;
+    border-left: 0;
+  }
+
+  &__clear-icon {
+    visibility: hidden;
+  }
+}

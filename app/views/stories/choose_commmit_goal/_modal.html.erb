@@ -10,20 +10,26 @@
                id="content-1" 
                role="tabpanel" 
                aria-labelledby="1">
+            <%= render partial: 'shared/search_bar', locals: { path: one_off_commmit_goal_path } %>
             <div class="card-deck">
-              <%= turbo_frame_tag "one_off_commmit_goal", src: one_off_commmit_goal_path, loading: :lazy do %>
-                Loading...
-              <% end %>
+              <div data-attributes="<%= one_off_commmit_goal_path %>">
+                <%= turbo_frame_tag "one_off_commmit_goal", src: one_off_commmit_goal_path, loading: :lazy do %>
+                  Loading...
+                <% end %>
+              </div>
             </div>
           </div>
           <div class="tab-pane fade" 
                id="content-2" 
                role="tabpanel" 
                aria-labelledby="2">
+            <%= render partial: 'shared/search_bar', locals: { path: repeatable_commmit_goal_path } %>
             <div class="card-deck">
-              <%= turbo_frame_tag "repeatable_commmit_goal", src: repeatable_commmit_goal_path, loading: :lazy do %>
-                Loading...
-              <% end %> 
+              <div data-attributes="<%= repeatable_commmit_goal_path %>">
+                <%= turbo_frame_tag "repeatable_commmit_goal", src: repeatable_commmit_goal_path, loading: :lazy do %>
+                  Loading...
+                <% end %> 
+              </div>
             </div>
           </div>
           <div class="tab-pane fade" 
