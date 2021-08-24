@@ -28,19 +28,17 @@ class Story < ApplicationRecord
   has_and_belongs_to_many :values, touch: true
   after_touch :index!
 
-  if ActsAsTenant.current_tenant&.name
-    meilisearch index_uid: "Story_#{ActsAsTenant.current_tenant.name}_#{Rails.env}",
-                synchronous: Rails.env.test?,
-                enqueue: !Rails.env.test?,
-                unless: :completed_and_one_off? || :discarded? do
-      attribute :goal, :reason, :repeatable, :id
+  meilisearch index_uid: "Story_#{ActsAsTenant.current_tenant&.name}_#{Rails.env}",
+              synchronous: Rails.env.test?,
+              enqueue: !Rails.env.test?,
+              unless: :completed_and_one_off? || :discarded? do
+    attribute :goal, :reason, :repeatable, :id
 
-      attribute :values do
-        values.map(&:name)
-      end
-
-      searchable_attributes %i[goal reason values]
+    attribute :values do
+      values.map(&:name)
     end
+
+    searchable_attributes %i[goal reason values]
   end
 
   def completed?
