@@ -17,6 +17,7 @@ jobs:
           PASSWORD: 'password'
           SELENIUM_URL: 127.0.0.1:4444/wd/hub
           MEILI_HTTP_ADDR: 'http://0.0.0.0:7700'
+          MEILI_MASTER_KEY: '1234'
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
