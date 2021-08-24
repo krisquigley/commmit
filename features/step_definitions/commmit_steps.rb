@@ -39,6 +39,12 @@ Given('I have a finished Commmit with {int} planned stories') do |number|
   end
 end
 
+Given('I have a reflected Commmit with {int} planned stories') do |number|
+  with_tenant do
+    @commmit = finished_commmit_with_completed_planned_stories_and_reflection(stories_count: number)
+  end
+end
+
 Given('I already have an Archived Commmit') do
   with_tenant do
     @commmit = create(:discarded_commmit)
@@ -158,6 +164,12 @@ When('I create a Commmit and choose a goal') do
   with_tenant do
     expect(page).to have_content Story.incomplete.one_off.kept.most_recent_first.first.goal
   end
+end
+
+When('I choose a Commmit Goal') do
+  visit new_commmit_path
+
+  find('button[name="choose_goal"]').click
 end
 
 When('I create a Commmit and choose a repeatable goal') do

@@ -16,6 +16,7 @@ jobs:
           USERNAME: 'username'
           PASSWORD: 'password'
           SELENIUM_URL: 127.0.0.1:4444/wd/hub
+          MEILI_HTTP_ADDR: 'http://0.0.0.0:7700'
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -28,6 +29,7 @@ jobs:
       - image: circleci/redis:5-alpine3.10
         name: 'redis'
       - image: selenium/standalone-chrome
+      - image: getmeili/meilisearch:v0.20.0
 
     working_directory: ~/repo
 

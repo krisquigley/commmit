@@ -28,8 +28,9 @@ class Story < ApplicationRecord
   has_and_belongs_to_many :values, touch: true
   after_touch :index!
 
-  meilisearch index_uid: "Stories_#{ActsAsTenant.current_tenant.id}",
-              enqueue: true,
+  meilisearch index_uid: "Story_#{ActsAsTenant.current_tenant.name}_#{Rails.env}",
+              synchronous: Rails.env.test?,
+              enqueue: !Rails.env.test?,
               unless: :completed_and_one_off? || :discarded? do
     attribute :goal, :reason, :repeatable, :id
 

@@ -30,8 +30,8 @@ Feature: Viewing a Commmit
     When I click on Today
     Then I should be taken to the Commmit in progress
 
-  Scenario: Viewing a Commmit that has finished
-    Given I have a finished Commmit with 5 planned stories
+  Scenario: Viewing a Commmit that has been reflected
+    Given I have a reflected Commmit with 5 planned stories
     When I view the "Commmit"
     Then I should not be able to edit the Commmit
     But I can view my Reflection
@@ -41,18 +41,18 @@ Feature: Viewing a Commmit
     When I click on Today
     Then I should be taken to my latest Commmit
 
+  @javascript
   Scenario: Searching one-off stories by goal to add to my Commmit
     Given that I have a Commmit in progress
     And I already have 10 repeatable stories
     And 10 one-off stories
-    When I choose a Commmit Goal
-    And I search for one-off stories by goal
+    When I search for one-off stories by goal for my Commmit
     Then I should only see one-off stories in my results
 
+  @javascript
   Scenario: Searching repeatable stories by goal to add to my Commmit
     Given that I have a Commmit in progress
     And I already have 10 repeatable stories
     And 10 one-off stories
-    When I choose a Commmit Goal
-    And I search for repeatable stories by goal
+    When I search for repeatable stories by goal for my Commmit
     Then I should only see repeatable stories in my results

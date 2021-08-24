@@ -21,6 +21,9 @@ RSpec.configure do |config|
   end
 
   config.after(:each) do |_example|
+    ActsAsTenant.with_tenant User.first.personal_account do
+      Story.clear_index!
+    end
     # Clear any tenancy that might have been set
     ActsAsTenant.current_tenant = nil
     ActsAsTenant.test_tenant = nil

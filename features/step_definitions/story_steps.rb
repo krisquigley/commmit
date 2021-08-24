@@ -34,13 +34,26 @@ Given('I already have a repeatable story') do
 end
 
 Given('I already have {int} stories') do |int|
-  @stories = create_list(:story, int)
-  @story = @stories.last
+  with_tenant do
+    @stories = create_list(:story, int)
+    @story = @stories.last
+  end
 end
 
 Given('I already have {int} repeatable stories') do |int|
-  @stories = create_list(:story, int, repeatable: true)
-  @story = @stories.last
+  with_tenant do
+    @repeatable_stories = create_list(:repeatable_story, int)
+    @stories = @repeatable_stories
+    @story = @repeatable_stories.last
+  end
+end
+
+Given('{int} one-off stories') do |int|
+  with_tenant do
+    @one_off_stories = create_list(:story, int)
+    additional_story = create(:story_with_values)
+    @one_off_stories.unshift(additional_story)
+  end
 end
 
 When('I choose to make the Story get automatically added') do
@@ -48,6 +61,56 @@ When('I choose to make the Story get automatically added') do
   find("label[for='story_automatically_add_true']").click
 
   submit_form
+end
+
+When('I search for one-off stories by goal') do
+  visit stories_path
+
+  find("input[name*='search']").set(@one_off_stories.first.goal)
+end
+
+When('I search for one-off stories by reason') do
+  visit stories_path
+
+  find("input[name*='search']").set(@one_off_stories.first.reason)
+end
+
+When('I search for one-off stories by value') do
+  visit stories_path
+
+  find("input[name*='search']").set(@one_off_stories.first.values.first.name)
+end
+
+When('I search for repeatable stories by goal') do
+  visit stories_path
+  click_on t('stories.form.repeatable.forever')
+
+  find("input[name*='search']").set(@repeatable_stories.first.goal)
+end
+
+When('I search for one-off stories by goal for my commmit goal') do
+  find("input[name*='search']").set(@one_off_stories.first.goal)
+end
+
+When('I search for repeatable stories by goal for my commmit goal') do
+  click_on t('stories.form.repeatable.forever')
+
+  find("input[name*='search']").set(@repeatable_stories.first.goal)
+end
+
+When('I search for one-off stories by goal for my Commmit') do
+  visit commmit_planned_stories_path(@commmit)
+  click_on t('commmits.planned_stories.index.add_stories')
+
+  find("input[name*='search']").set(@one_off_stories.first.goal)
+end
+
+When('I search for repeatable stories by goal for my Commmit') do
+  visit commmit_planned_stories_path(@commmit)
+  click_on t('commmits.planned_stories.index.add_stories')
+  click_on t('stories.form.repeatable.forever')
+
+  find("input[name*='search']").set(@repeatable_stories.first.goal)
 end
 
 When('I visit archived stories') do
@@ -130,6 +193,22 @@ Then('will see the changes to my Story') do
   visit stories_path
 
   expect(page).to have_content 'My new goal'
+end
+
+Then('I should only see one-off stories in my results') do
+  sleep 0.5
+
+  expect(page).to have_content @one_off_stories.first.goal
+  expect(page).to_not have_content @one_off_stories.second.goal
+  expect(page).to_not have_content @repeatable_stories.first.goal
+end
+
+Then('I should only see repeatable stories in my results') do
+  sleep 0.5
+
+  expect(page).to have_content @repeatable_stories.first.goal
+  expect(page).to_not have_content @repeatable_stories.second.goal
+  expect(page).to_not have_content @one_off_stories.first.goal
 end
 
 Then('I should see it in my list of stories') do
