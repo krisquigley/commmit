@@ -427,6 +427,7 @@ end
 Then('it should not be listed under my commmit anymore') do
   with_tenant do
     within('div[data-container="planned_stories"]') do
+      sleep 0.5
       expect(page).to_not have_content Story.where.not(id: @commmit.goal_id).first.goal
     end
   end
