@@ -273,8 +273,8 @@ Then('I should be able to load more stories') do
 end
 
 When('I have completed some stories') do
-  @completed_stories = @stories[0..3]
-  @incomplete_stories = @stories[4..9]
+  @completed_stories = @stories[0..2]
+  @incomplete_stories = @stories[3..4]
 
   @completed_stories.each_with_index do |story, index|
     story.update(completed_at: Time.current + index.hours)
@@ -287,11 +287,11 @@ Then('I should see the non-completed newest stories first') do
 
   within 'div[data-container="repeatable_stories"]' do
     stories = find_all('div[data-container="story"]')
-    expect(stories.count).to eq 10
+    expect(stories.count).to eq @stories.length
 
     incomplete_stories = Story.incomplete.order(created_at: :desc)
 
-    stories[0..5].each_with_index do |story, index|
+    stories[0..1].each_with_index do |story, index|
       expect(story).to have_content incomplete_stories[index].goal
     end
   end
@@ -303,11 +303,11 @@ Then('I should see the most recent completed stories afterwards') do
 
   within 'div[data-container="repeatable_stories"]' do
     stories = find_all('div[data-container="story"]')
-    expect(stories.count).to eq 10
+    expect(stories.count).to eq @stories.length
 
     completed_stories = Story.complete.order(completed_at: :desc)
 
-    stories[6..9].each_with_index do |story, index|
+    stories[2..4].each_with_index do |story, index|
       expect(story).to have_content completed_stories[index].goal
     end
   end

@@ -49,14 +49,14 @@ Feature: Creating Commmits
     And see the repeatable stories in my list of planned stories
 
   Scenario: Searching one-off stories by goal for my Commmit Goal
-    Given I already have 10 repeatable stories
+    Given I already have 5 repeatable stories
     And 10 one-off stories
     When I choose a Commmit Goal
     And I search for one-off stories by goal for my commmit goal
     Then I should only see one-off stories in my results
 
   Scenario: Searching repeatable stories by goal for my Commmit Goal
-    Given I already have 10 repeatable stories
+    Given I already have 5 repeatable stories
     And 10 one-off stories
     When I choose a Commmit Goal
     And I search for repeatable stories by goal for my commmit goal

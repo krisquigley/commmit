@@ -44,7 +44,7 @@ Feature: Viewing a Commmit
   @javascript
   Scenario: Searching one-off stories by goal to add to my Commmit
     Given that I have a Commmit in progress
-    And I already have 10 repeatable stories
+    And I already have 5 repeatable stories
     And 10 one-off stories
     When I search for one-off stories by goal for my Commmit
     Then I should only see one-off stories in my results
@@ -52,7 +52,7 @@ Feature: Viewing a Commmit
   @javascript
   Scenario: Searching repeatable stories by goal to add to my Commmit
     Given that I have a Commmit in progress
-    And I already have 10 repeatable stories
+    And I already have 5 repeatable stories
     And 10 one-off stories
     When I search for repeatable stories by goal for my Commmit
     Then I should only see repeatable stories in my results

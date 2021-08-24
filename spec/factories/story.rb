@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :story do
-    goal { Faker::GreekPhilosophers.quote }
+    goal { Faker::Lorem.unique.sentence }
     reason { Faker::Lorem.sentence }
     notes { Faker::Lorem.sentences.join('. ') }
     repeatable { false }
