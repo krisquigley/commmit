@@ -13,7 +13,7 @@ class StoriesController < ApplicationController
   def one_off
     @one_off_stories_page = if params[:search].present?
                               OpenStruct.new(records: Story.search(params[:search],
-                                                                   filters: 'repeatable = false',
+                                                                   filters: "#{Story.default_search_filter} AND repeatable = false",
                                                                    limit: 50),
                                              first?: true,
                                              last?: true)
@@ -25,7 +25,7 @@ class StoriesController < ApplicationController
   def repeatable
     @repeatable_stories_page = if params[:search].present?
                                  OpenStruct.new(records: Story.search(params[:search],
-                                                                      filters: 'repeatable = true',
+                                                                      filters: "#{Story.default_search_filter} AND repeatable = true",
                                                                       limit: 50),
                                                 first?: true,
                                                 last?: true)
@@ -37,7 +37,7 @@ class StoriesController < ApplicationController
   def one_off_commmit_goal
     @one_off_commmit_goal_page = if params[:search].present?
                                    OpenStruct.new(records: Story.search(params[:search],
-                                                                        filters: 'repeatable = false',
+                                                                        filters: "#{Story.default_search_filter} AND repeatable = false",
                                                                         limit: 50),
                                                   first?: true,
                                                   last?: true)
@@ -49,7 +49,7 @@ class StoriesController < ApplicationController
   def repeatable_commmit_goal
     @repeatable_commmit_goal_page = if params[:search].present?
                                       OpenStruct.new(records: Story.search(params[:search],
-                                                                           filters: 'repeatable = true',
+                                                                           filters: "#{Story.default_search_filter} AND repeatable = true",
                                                                            limit: 50),
                                                      first?: true,
                                                      last?: true)

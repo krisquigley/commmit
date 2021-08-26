@@ -21,7 +21,7 @@ class PlannedStoriesController < ApplicationController
     @one_off_stories_page = if params[:search].present?
                               filter = "repeatable = false AND (#{story_ids.map { |id| "id != #{id}" }.join(' OR ').concat(')')}"
                               OpenStruct.new(records: Story.search(params[:search],
-                                                                   filters: filter,
+                                                                   filters: "#{Story.default_search_filter} AND #{filter}",
                                                                    limit: 50),
                                              first?: true,
                                              last?: true)
@@ -38,7 +38,7 @@ class PlannedStoriesController < ApplicationController
   def add_repeatable_stories
     @repeatable_stories_page = if params[:search].present?
                                  OpenStruct.new(records: Story.search(params[:search],
-                                                                      filters: 'repeatable = true',
+                                                                      filters: "#{Story.default_search_filter} AND repeatable = true",
                                                                       limit: 50),
                                                 first?: true,
                                                 last?: true)
