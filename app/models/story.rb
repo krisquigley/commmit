@@ -31,7 +31,7 @@ class Story < ApplicationRecord
   meilisearch per_environment: true,
               synchronous: Rails.env.test?,
               enqueue: !Rails.env.test?,
-              unless: :completed_and_one_off? || :discarded? do
+              unless: :completed_and_one_off_or_discarded? do
     attribute :goal, :reason, :repeatable, :id, :account_id
 
     attribute :values do
@@ -51,6 +51,10 @@ class Story < ApplicationRecord
 
   def completed_and_one_off?
     completed? && one_off?
+  end
+
+  def completed_and_one_off_or_discarded?
+    completed? && one_off? || discarded?
   end
 
   def repeatable?
