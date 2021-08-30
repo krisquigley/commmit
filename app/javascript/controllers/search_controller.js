@@ -20,6 +20,7 @@ export default class extends Controller {
 
     this.inputTarget.value = '';
     this.hideShowClearButton();
+    this.inputTarget.focus();
   }
 
   hideShowClearButton() {
